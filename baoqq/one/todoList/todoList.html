@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="jquery.js"></script>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css"
+        integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        user-select: none;
+    }
+
+    .fl {
+        float: left;
+    }
+
+    .fr {
+        float: right;
+    }
+
+    .content {
+        width: 500px;
+        height: auto;
+        box-shadow: 10px 10px 10px 10px #ccc;
+        background: lightcyan;
+        padding: 20px;
+        font-size: 30px;
+        border-radius: 20px;
+        margin: 100px auto;
+    }
+
+    .additem input {
+        width: 460px;
+        height: 40px;
+        outline: none;
+        font-size: 20px;
+        border-radius: 20px;
+        border: 1px solid #ccc;
+        text-indent: 2rem;
+    }
+
+    .middle {
+        width: 100%;
+        height: auto;
+        border: 1px solid #ccc;
+        font-size: 16px;
+    }
+
+    .bottom {
+        width: 100%;
+        height: auto;
+        border: 1px solid #ccc;
+        font-size: 16px;
+    }
+
+    #ulMiddle li {
+        line-height: 50px;
+    }
+
+    #ulMiddle li p {
+        line-height: 50px;
+        float: left;
+    }
+
+    #ulMiddle li button {
+        float: right;
+        line-height: 40px;
+    }
+
+    #ulBottom li {
+        line-height: 50px;
+    }
+
+    #ulBottom li p {
+        line-height: 50px;
+        float: left;
+    }
+
+    #ulBottom li button {
+        float: right;
+        line-height: 40px;
+    }
+
+    .addDiv {
+        width: 100%;
+        height: 40px;
+        line-height: 40px;
+        background: cyan;
+        padding-left: 20px;
+        box-sizing: border-box;
+
+    }
+
+
+    .show-enter-active,
+    .show-leave-active {
+        transition: all 2s;
+    }
+
+    .show-enter,
+    .show-leave-to {
+        margin-left: 100px;
+    }
+
+    .show-enter-to,
+    .show-leave {
+        margin-left: 0px;
+    }
+</style>
+
+<body>
+    <transition enter-active-class="animated fadeInRight" leave-active-class="animated fadeOutRight">
+        <div class="content" id="app">
+            <div class="additem">
+                <input v-model="something" type="text" placeholder="请输入添加的事件" id="ipt">
+                <button
+                    style="width:100%;height: 60px;margin-top: 20px;margin-bottom: 20px;border-radius: 20px;outline: none;font-size: 20px;background: rgb(255, 192, 241);"
+                    id="addObject" v-on:click='add' @click="toggle" class="glyphicon glyphicon-tag">添加事项</button>
+            </div>
+            --待办事件--
+            <div class="middle" id="middles">
+                <ul id="ulMiddle" style="line-height:50px;">
+                    <li v-if="!list.length">还未添加事项</li>
+                    <li v-else v-for="(item,index) in list">
+                        {{item}}
+                        <span v-show="isshow" v-on:click="done(item,index)" class="glyphicon glyphicon-ok show fr"
+                            style="vertical-align: middle;padding-right: 20px;padding-top: 10px;"></span>
+                    </li>
+                </ul>
+            </div>
+            --完成事件--
+            <div class="bottom">
+                <ul id="ulBottom">
+                    <li v-for="(item,index) in doneList" style="vertical-align: middle;">
+                        {{item}}
+                        <!-- 删除、未完成 -->
+                        <span v-show="isshow" v-on:click="del(index)" class="fr glyphicon glyphicon-remove show"
+                            style="line-height:30px;padding-right: 20px;vertical-align: middle;"></span>
+                        <span v-show="isshow" v-on:click="back(item,index)"
+                            class="fr glyphicon glyphicon-triangle-top show"
+                            style="line-height:30px;padding-right: 20px;vertical-align: middle;"></span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </transition>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+<script>
+
+
+
+
+
+    var vm = new Vue({
+        el: '#app',
+        data() {
+            return {
+                something: '',
+                list: [],
+                doneList: [],
+                // 数据 （MVVM中的Model）
+                isshow: false
+            }
+        },
+        methods: {
+            add() {
+                this.list.push(this.something);
+                // this.something = '';
+            },
+            done(item, index) {
+                this.list.splice(index, 1);
+                this.doneList.push(item);
+            },
+            del(index) {
+                this.doneList.splice(index, 1);
+            },
+            back(item, index) {
+                this.doneList.splice(index, 1);
+                this.list.push(item);
+            },
+            toggle: function () {
+                this.isshow = !this.isshow;
+            }
+        },
+    })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // // 实例化vue对象（MVVM中的View Model）
+    // var hh = new Vue({
+    //     // vm控制的区块为id为app的div，此div中的所有vue指令均可以被vm解析
+    //     el: '#app',
+    //     data: {
+    //         // 数据 （MVVM中的Model）
+    //         isshow: false
+    //     },
+    //     methods: {
+    //         toggle: function () {
+    //             this.isshow = !this.isshow;
+    //         }
+    //     }
+    // })
+
+</script>
+
+</html>

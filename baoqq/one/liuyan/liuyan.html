@@ -119,25 +119,34 @@
             //     'line-height': '40px'
             // });
             oLi.html(`<p>${ipt}</p><button>完成</button>`);
-
-
-            $('#ulMiddle').append(oLi);
+            
+            $('#ulMiddle').prepend(oLi);
 
         })
 
 
-        // 代办事件
+        // 待办事件
         $('#ulMiddle').on('click', 'button', function () {
+            // if($('#ulMiddle').html('')){
+            //     addDiv.show();
+            // }else{
+            //     addDiv.hide();
+            // }
             $(this).parent().hide();
             var op = $(this).parent().find('p').text();
             var bottomli = $('<li></li>').html(`<p>${op}</p><button class="deleteBtn">删除</button><button class="nochange">未完成</button>`);
             console.log(op);
-            $('#ulBottom').append(bottomli);
+            $('#ulBottom').prepend(bottomli);
 
         })
 
         // 完成事件
         $('#ulBottom').on('click', '.nochange', function () {
+            // if($('#ulMiddle').html('')){
+            //     addDiv.show();
+            // }else{
+            //     addDiv.hide();
+            // }
             $(this).parent().hide();
             var op = $(this).parent().find('p').text();
             var bottomli = $('<li></li>').html(`<p>${op}</p><button>完成</button>`);
