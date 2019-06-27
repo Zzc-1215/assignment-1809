@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+	*{
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		text-decoration: none;
+		box-sizing: border-box;	
+	}
+	.box{
+		width: 300px;
+		height: 300px;
+		margin: 0 auto; 
+	}
+	#int{
+		width: 100%;
+	}
+	#add{
+		width: 100%;
+	}
+	/*未完成盒子样式*/
+	#incomplete_box{
+		width: 100%;
+		min-height: 100px;
+	}
+	#incomplete_box li{
+		position: relative;
+		width: 100%;
+		height:30px;
+		line-height: 30px;
+		background-color: red;
+	}
+	#complete_btn{
+		position: absolute;
+		right: 10px;
+		top: 4px;
+	}
+	/*完成盒子样式*/
+	#complete_box{
+		width: 100%;
+		min-height: 100px;
+	}
+	#complete_box li{
+		position: relative;
+		width: 100%;
+		height:30px;
+		line-height: 30px;
+		background-color: red;
+	}
+	#incomplete_btn{
+		position: absolute;
+		right:60px;
+		top: 4px;
+	}
+	#delete_btn{
+		position: absolute;
+		right:10px;
+		top: 4px;
+	}
+	#out,#out2{
+		font-size: 12px;
+		color:#ccc;
+	}
+</style>
+</head>
+<body>
+	<div class="box">
+		<div>
+			<input type="text" id="int"><br>
+			<button id="add">添加项目</button>
+		</div>
+		<div>未完成</div>
+		<div id="out">还未添加待完成事件</div>
+		<div id="incomplete_box">
+			<!-- <li id="incomplete_box_list"><span>8520</span><input type="button" value="完成" id="complete_btn"></li> -->
+		</div>
+		<div>完成</div>
+		<div id="out2">还未有事件完成</div>
+		<div id="complete_box">
+			<!-- <li id="complete_box_list"><span>31323</span><input type="button" value="未完成" id="incomplete_btn"><input type="button" value="删除" id="delete_btn"></li> -->
+		</div>
+	</div>
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<script>
+		$('#add').on('click',function(){
+			$('#out').html('')
+			var intVal=$('#int').val()
+			$(`<li id="incomplete_box_list"><span>${intVal}</span><input type="button" value="完成" id="complete_btn"></li>`).appendTo($('#incomplete_box'))
+			$('#int').val('')
+		})
+		// 改为完成
+		$('#incomplete_box').on('click','#complete_btn',function(){
+			$('#out2').html('')
+			$(this).parent().remove()
+			var span1=$(this).siblings('span').html()
+			$(`<li id="complete_box_list"><span>${span1}</span><input type="button" value="未完成" id="incomplete_btn"><input type="button" value="删除" id="delete_btn"></li>`).appendTo($('#complete_box'))
+		})
+		// 改为未完成
+		$('#complete_box').on('click','#incomplete_btn',function(){
+			$(this).parent().remove()
+			var span2=$(this).siblings('span').html()
+			$(`<li id="complete_box_list"><span>${span2}</span><input type="button" value="完成" id="complete_btn"></li>`).appendTo($('#incomplete_box'))
+		})
+		// 删除
+		$('#complete_box').on('click','#delete_btn',function(){
+			$(this).parent().remove()
+		})
+	</script>
+</body>
+</html>

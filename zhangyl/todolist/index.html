@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='jquery.js'></script>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        #box{
+            width: 500px;
+            min-height: 500px;
+            border:1px solid;
+            margin: 0 auto;
+        }
+        #text{
+            width: 495px;
+            height: 60px;
+        }
+        #btn{
+            width: 500px;
+            height: 60px;
+        }
+        #list{
+            min-height: 100px;
+        }
+        #list li{
+            width: 500px;
+            height: 50px;
+            line-height: 50px;
+            border:1px solid;
+        }
+        .wancheng{
+            float: right;
+            width: 100px;
+            height: 50px;
+            line-height: 50px;
+        }
+        #finish{
+            min-height: 100px;
+        }
+        #finish li{
+            width: 500px;
+            height: 50px;
+            line-height: 50px;
+            border:1px solid;
+        }
+        #no{
+            float: right;
+            width: 100px;
+            height: 50px;
+            line-height: 50px;
+        }
+        #delete{
+            float: right;
+            width: 100px;
+            height: 50px;
+            line-height: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div id='box'>
+        <input type="text" id='text' placeholder="请输入添加的事项">
+        <button id='btn'>添加事项</button>
+        --待办事项--
+        <ul id='list'>
+            <!-- <li>11111<button class='wancheng'>完成</button></li> -->
+        </ul>
+        --完成事项--
+        <ul id='finish'>
+            <!-- <li>111</li> -->
+        </ul>
+    </div>
+    <script>
+        $('#btn').click(function(){
+            var input=$('#text').val();
+            var li=$(`<li><span>${input}</span><button class='wancheng'>完成</button></li>`)
+            $('#list').append(li);
+        })
+        $('#list').on('click','.wancheng',function(){
+            $('#finish').append(`<li><span>${$(this).parent().find('span').text()}</span><button id="delete">删除</button><button id="no">未完成</button></li>`)
+            $(this).parent().remove();
+        })
+        $('#finish').on('click','#delete',function(){
+            $(this).parent().remove();
+        })
+        $('#finish').on('click','#no',function(){
+            $('#list').append(`<li><span>${$(this).parent().find('span').text()}</span><button class='wancheng'>完成</button></li>`)
+            $(this).parent().remove();
+        })
+        
+
+    </script>
+</body>
+</html>

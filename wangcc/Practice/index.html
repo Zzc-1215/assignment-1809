@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>练习</title>
+	<link rel="stylesheet" href="css.css">
+</head>
+<body>
+	<div id="box">
+		<div class="text"><input type="text" id="text"></div>
+		<div class="btn"><button id="btn">上传事项</button></div>
+		<!-- 未完成事项 -->
+		<div id="up">
+			<h4>未完成事项：</h4>
+			<ul id="up_a">
+				<!-- <li><span>${vle}</span><button id="to">以完成</button></li> -->
+			</ul>
+		</div>
+		<!-- 以完成事项 -->
+		<div id="in">
+			<h4>以完成事项：</h4>
+			<ul id="in_a">
+				<!-- <li><button id="delete">删除</button><button id="Hang">未完成</button></li> -->
+			</ul>
+		</div>
+	</div>
+</body>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script>
+	btn.onclick=function(){
+		if(text.value==''){
+			alert('内容不能为空')
+		}else{
+			var vle=text.value;
+			var oli=document.createElement('li');
+			oli.innerHTML=`
+				<span>${vle}</span><button>以完成</button>
+			`
+			up_a.append(oli);
+			text.value='';
+			$('#up_a li').on('click','button',function(){
+				var s=$(this).siblings('span').html()
+				$(`<li><span>${s}</span><button id="delete">删除</button><button id="Hang">未完成</button></li>`).appendTo($('#in_a'))
+				$(this).parent().remove()
+				clicked()
+			})
+		}
+	}
+	
+	function clicked(){
+		event.stopPropagation();
+	}
+</script>
+</html>

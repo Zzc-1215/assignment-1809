@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript" src="jquery.js"></script>
+	<style type="text/css">
+		*{
+			list-style: none;
+		}
+		#text{
+			width: 196px;
+			height:50px;
+		}
+		.wait ul{
+			width: 400px;
+			min-height:200px;
+			border: 1px solid;
+		}
+		.wc ul{
+			width: 400px;
+			min-height:200px;
+			border: 1px solid;
+		}
+	</style>
+</head>
+<body>
+	<div class="box">
+		<input type="text" name="" id="text" placeholder="请输入添加的事项">
+		<input type="button" name="" id="btn" value="添加事项">
+	</div>
+	<div class="wait">
+		待办事项
+		<ul id="u1">
+			<!-- <li><button>完成</button></li> -->
+		</ul>
+	</div>
+	<div class="wc">
+		完成事项
+		<ul id="u2"></ul>
+	</div>
+	<script type="text/javascript">
+		$('#btn').click(function () {
+			var t_value = $('#text').val()
+			var li = $(`<li><span>${t_value}</span><button id='wc'>完成</button></li>`)
+			$('#u1').append(li)
+		})
+		//完成
+		$('#u1').on('click','#wc',function(){
+            $('#u2').append(`<li><span>${$(this).parent().find('span').text()}</span><button id="del">删除</button><button id="wwc">未完成</button></li>`)
+            $(this).parent().remove();
+            
+        })
+        //未完成
+        $('#u2').on('click','#wwc',function(){
+            $('#u1').append(`<li><span>${$(this).parent().find('span').text()}</span><button id="wc">完成</button></li>`)
+            $(this).parent().remove();
+        })
+        //完成删除
+        $('#u2').on('click','#del',function(){
+            $(this).parent().remove();
+        })
+	</script>
+</body>
+</html>
