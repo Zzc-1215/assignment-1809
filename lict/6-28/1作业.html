@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<style type="text/css">
+			* {
+				padding: 0;
+				margin: 0;
+				list-style: none;
+			}
+			.box{
+				width: 292px;
+				height: 500px;
+				margin: 20px auto;
+				border-radius: 5px;
+				padding-left: 8px;
+				border: 1px solid #333;
+				overflow: auto;
+			}
+			p{font-size: 18px; margin-left: 5px;}
+			li{margin-left: 15px; margin-top: 3px;}
+			li:nth-child(2){margin-top: 8px;}
+			li:last-child{margin-bottom: 8px;}
+			.box-top{
+				width: 275px;
+				height: 130px;
+			}
+			.box-cove{
+				width: 275px;
+				min-height: 130px;
+			}
+			.box-bott{
+				width: 275px;
+				min-height: 130px;
+			}
+			
+			.textInput{
+				width: 215px;
+				height: 20px;
+				margin-top: 12px;
+			}
+			.btnInput{
+				width: 40px;
+				height: 23px;
+				margin-left: 6px;
+			}
+			
+			.btn_del,.btn_done{
+				position: absolute;
+				right: 20px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="box" id="app"> 
+			<div class="box-top">
+				<input type="text" class="textInput" v-model="val"  ref='focus'/>
+				<button class="btnInput" @click="apend">添加</button>
+			</div>
+			
+			
+			<div class="box-cove" style="position: relative;">
+				<p>代办事项</p>
+				<li v-if="list1.length == 0">还未添加代办事项</li>
+				<li v-else v-for="item,index in list1"> 
+					<span>{{(index + 1 + ".")}}</span> 	{{item}} <button  class="btn_done" @click="done(index)">完成</button>
+				</li>
+			</div>
+			
+			
+			<div class="box-bott" style="position: relative;">
+				<p>完成事项</p>
+				<li v-if="list2.length == 0">还未添加完成事项</li>
+				<li v-else v-for="item,index in list2">
+					<span>{{(index + 1 + ".")}}</span>	{{item}} <button class="btn_del" @click="del(index)" >删除</button>
+				</li>
+				
+			</div>
+			
+		</div>
+	<script src="js/vue(2).js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			new Vue({
+				el: '#app',
+				data: {
+					val: '',
+					list1: [],
+					list2:[],
+				},
+				methods:{
+					apend(){
+						//console.log()
+						if(this.val == "" ){
+							alert("请输入内容");
+							this.$refs.focus.focus();
+						}else{
+							this.list1.push(this.val);
+							this.val = "";
+							this.$refs.focus.focus();
+						}
+					},
+					done(index){
+						var ov = this.list1.splice(index,1);
+						this.list2.push(ov[0]);
+					},
+					del(index){
+						this.list2.splice(index,1);
+					}
+				}
+			})
+			
+		</script>
+	</body>
+
+</html>
