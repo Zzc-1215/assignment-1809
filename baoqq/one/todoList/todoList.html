@@ -127,41 +127,40 @@
 </style>
 
 <body>
-    <transition enter-active-class="animated fadeInRight" leave-active-class="animated fadeOutRight">
-        <div class="content" id="app">
-            <div class="additem">
-                <input v-model="something" type="text" placeholder="请输入添加的事件" id="ipt">
-                <button
-                    style="width:100%;height: 60px;margin-top: 20px;margin-bottom: 20px;border-radius: 20px;outline: none;font-size: 20px;background: rgb(255, 192, 241);"
-                    id="addObject" v-on:click='add' @click="toggle" class="glyphicon glyphicon-tag">添加事项</button>
-            </div>
-            --待办事件--
-            <div class="middle" id="middles">
-                <ul id="ulMiddle" style="line-height:50px;">
+    <div class="content" id="app">
+        <div class="additem">
+            <input v-model="something" type="text" placeholder="请输入添加的事件" id="ipt">
+            <button
+                style="width:100%;height: 60px;margin-top: 20px;margin-bottom: 20px;border-radius: 20px;outline: none;font-size: 20px;background: rgb(255, 192, 241);"
+                id="addObject" v-on:click='add' @click="toggle" class="glyphicon glyphicon-tag">添加事项</button>
+        </div>
+        --待办事件--
+        <div class="middle" id="middles">
+            <ul id="ulMiddle" style="line-height:50px;">
+                <transition  v-for="(item,index) in list" enter-active-class="animated fadeInRight" leave-active-class="animated fadeOutRight">
                     <li v-if="!list.length">还未添加事项</li>
-                    <li v-else v-for="(item,index) in list">
+                    <li v-else>
                         {{item}}
                         <span v-show="isshow" v-on:click="done(item,index)" class="glyphicon glyphicon-ok show fr"
                             style="vertical-align: middle;padding-right: 20px;padding-top: 10px;"></span>
                     </li>
-                </ul>
-            </div>
-            --完成事件--
-            <div class="bottom">
-                <ul id="ulBottom">
-                    <li v-for="(item,index) in doneList" style="vertical-align: middle;">
-                        {{item}}
-                        <!-- 删除、未完成 -->
-                        <span v-show="isshow" v-on:click="del(index)" class="fr glyphicon glyphicon-remove show"
-                            style="line-height:30px;padding-right: 20px;vertical-align: middle;"></span>
-                        <span v-show="isshow" v-on:click="back(item,index)"
-                            class="fr glyphicon glyphicon-triangle-top show"
-                            style="line-height:30px;padding-right: 20px;vertical-align: middle;"></span>
-                    </li>
-                </ul>
-            </div>
+                </transition>
+            </ul>
         </div>
-    </transition>
+        --完成事件--
+        <div class="bottom">
+            <ul id="ulBottom">
+                <li v-for="(item,index) in doneList" style="vertical-align: middle;">
+                    {{item}}
+                    <!-- 删除、未完成 -->
+                    <span v-show="isshow" v-on:click="del(index)" class="fr glyphicon glyphicon-remove show"
+                        style="line-height:30px;padding-right: 20px;vertical-align: middle;"></span>
+                    <span v-show="isshow" v-on:click="back(item,index)" class="fr glyphicon glyphicon-triangle-top show"
+                        style="line-height:30px;padding-right: 20px;vertical-align: middle;"></span>
+                </li>
+            </ul>
+        </div>
+    </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
 <script>
@@ -180,7 +179,7 @@
         methods: {
             add() {
                 this.list.push(this.something);
-                // this.something = '';
+                this.something = '';
             },
             done(item, index) {
                 this.list.splice(index, 1);
@@ -194,7 +193,9 @@
                 this.list.push(item);
             },
             toggle: function () {
-                this.isshow = !this.isshow;
+                // this.isshow = !this.isshow;
+                this.opacity = 0.5;
+                this.transition = '2s';
             }
         },
     })
