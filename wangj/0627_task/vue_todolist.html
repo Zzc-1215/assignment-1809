@@ -77,7 +77,7 @@
             margin: 20px 0 20px;
         }
 
-        #add_btn{
+        #add_btn {
             background-color: #F6F6F6;
             color: #333;
         }
@@ -95,13 +95,13 @@
             right: -75px;
         }
 
-        .done_btn{
+        .done_btn {
             background-color: #7EE735;
             color: #fff;
         }
 
-        .delete_btn{
-            
+        .delete_btn {
+
             background-color: #272636;
             color: #F6F6F4;
         }
@@ -164,8 +164,13 @@
         },
         methods: {
             add() {
-                this.list.push(this.addthings)
-                this.addthings = ''
+                if (this.addthings == '') {
+                    alert('请输入添加事项')
+                } else {
+                    this.list.push(this.addthings)
+                    this.addthings = ''
+
+                }
             },
             finish(item, index) {
                 this.list.splice(index, 1)
