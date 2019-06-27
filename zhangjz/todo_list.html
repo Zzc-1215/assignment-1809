@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <style>
+        *{margin: 0;padding: 0;list-style: none;}
+        .box{width: 400px;margin: 50px auto;}
+        /* li{}
+        li:hover{color: white;background: rgba(225, 0, 225, .5);transition: .5s}
+        button{margin: 0 10px;} */
+    </style>
+</head> 
+<body>
+    <div class="box">
+        <input id="input" type="text" />
+        <button id="btn">添加事件</button>
+        <br>
+        待办事项....
+        <ul id="list" style="min-height:200px;background: palegreen;"></ul>
+        完成事项....
+        <ul id="list1" style="min-height:200px;background:paleturquoise;"></ul>
+    </div>
+</body>
+    <script>
+        // if($('#list1').text('')){
+        //     $('#list1').html('<li>没有东西</li>')
+        // }
+        $('#btn').click(function(){
+            var inputVal=$('#input').val()
+            $('#input').val('')
+            $('#list').append('<li><span>'+inputVal+'</span><button id="wc">完成</button></li>');
+        })
+        //完成
+        $('#list').on('click','#wc',function(){
+            var li=$(this).parent().find('span').text()
+            $('#list1').append('<li><span>'+li+'</span><button id="del">删除</button><button id="no_wc">未完成</button></li>')
+            $(this).parent().remove();
+            
+        })
+        //完成删除
+        $('#list1').on('click','#del',function(){
+            $(this).parent().remove();
+        })
+        //未完成
+        $('#list1').on('click','#no_wc',function(){
+            var li=$(this).parent().find('span').text()
+            $('#list').append('<li><span>'+li+'</span><button id="wc">完成</button></li>')
+            $(this).parent().remove();
+        })
+
+        
+    </script>
+</html>

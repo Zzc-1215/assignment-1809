@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<title>Document</title>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+			list-style: none;
+		}
+		.g-box{
+			width: 400px;
+			height: 700px;
+			margin: auto;
+			background: blueviolet;
+			color: white;
+		}
+		ul li span,i{
+			float: right;
+			font-style: normal;
+			margin: 0 5px;
+		}
+		#list{
+			min-height: 200px;
+		}
+		#list1{
+			min-height: 200px;
+		}
+	</style>
+</head>
+<body>
+	<div class="g-box">
+		<div class="g-title">
+			<h3>holle</h3>
+		</div>
+		<div class="g-search">
+			<input type="text" placeholder="添加待办事项" id="m-searchinp"/>
+			<button id="m-searchbtn">添加待办事项</button>
+		</div>
+		<div class="g-unfinished">
+			<p>未完成</p>
+			<ul id="list">
+				<!--<li>sdjafhkj<span>完成</span></li>-->
+			</ul>
+		</div>
+		<div class="g-accomplish">
+			<p>完成</p>
+			<ul id="list1">
+				<!--<li>sdjafhkj<i>删除</i><span>未完成</span></li>-->
+			</ul>
+		</div>
+	</div>
+	<script type="text/javascript" src="jquery.js"></script>
+	<script type="text/javascript">
+		var str=''
+		$('#m-searchinp').on('change',function(){
+			str=$(this).val()
+//			console.log(str)
+			$(this).val('')
+		})
+		$('#m-searchbtn').on('click',function(){
+			if (str!='') {
+				var oLi=$('<li>'+str+'<span>完成</span></li>')
+				$('#list').prepend(oLi)
+			}
+		})
+		$('#list').on('click','span',function(){
+			var newstr=$(this).parent().html().split('<')[0]
+			$(this).parent().remove()
+			var oLi=$('<li>'+newstr+'<i>删除</i><span>未完成</span></li>')
+			$('#list1').prepend(oLi)
+//			console.log(newstr)
+		})
+		$('#list1').on('click','span',function(){
+			var newstr=$(this).parent().html().split('<')[0]
+			$(this).parent().remove()
+			var oLi=$('<li>'+newstr+'<span>完成</span></li>')
+			$('#list').prepend(oLi)
+//			console.log(newstr)
+		})
+		$('#list1').on('click','i',function(){
+			$(this).parent().remove()
+		})
+	</script>
+</body>
+</html>

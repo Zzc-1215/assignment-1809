@@ -39,7 +39,7 @@
 	<div style="width: 500px;min-height: 30px;background-color: red;margin:0 auto">
 		<input type="text"  style="width: 100%;height: 50px;" placeholder="请输入添加事项"  id="put">
 		<button style="width: 100%;height: 50px;" id="add">添加事项</button>
-		--待办事项--
+		--待办事项--<br>
 		<ul id="ul" style="min-height: 50px;">
 			
 		</ul>
@@ -51,18 +51,39 @@
 </body>
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script type="text/javascript">
+	abc()
+	function abc(){
+		if($('#ul').html('')){
+		// alert(123)
+			var odiv = $("<div class='od'>").text('还未添加事项')
+			$('#ul').before(odiv)
+		}
+	}
+	
+	// var odiv = $("<div id='od'>").text('还未添加事项')
+	// $('#ul').before(odiv)
 	$('#add').on('click',function(){
+		// abc()
+		$('.od').hide()
+		// $('#ul').before(' ')
 		var put = $('#put').val()
 		var li = $("<li>").html(`<p class='fl '>${put}</p><button class='fr'>完成</button>`)
 		$('#ul').append(li)
+		// abc()
 	})
 	$('#ul').on('click','button',function(){
+		if($('#ul').html('')){
+			abc()
+		}else{
+			$('.od').hide()
+		}
 		$(this).parent().hide()
 		var p = $(this).parent().find("p").text()
 		var li = $("<li>").html(`<p class='fl'>${p}</p><button class='fr del'>删除</button><button class='fr wei'>未完成</button>`)
 		$('#ol').append(li)
 	})
 	$('#ol').on('click','.wei',function(){
+		$('.od').hide()
 		$(this).parent().hide()		
 		var p = $(this).parent().find("p").text()
 		var li = $("<li>").html(`<p class='fl ' >${p}</p><button class='fr'>完成</button>`)

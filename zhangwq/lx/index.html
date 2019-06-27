@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #box {
+            width: 400px;
+            min-height: 400px;
+            margin: 0 auto;
+            border: 1px solid red;
+        }
+
+        #text {
+            width: 396px;
+            height: 30px;
+            line-height: 30px;
+        }
+
+        #btn {
+            width: 400px;
+            height: 30px;
+            line-height: 30px;
+        }
+
+        #hang,
+        #ul {
+            width: 300px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            margin: 50px 0 50px 50px;
+        }
+
+        li {
+            width: 300px;
+            height: 30px;
+            list-style: none;
+            border: 1px solid #ccc;
+        }
+
+        #complete,
+        #no,
+        #del {
+            float: right;
+            line-height: 30px;
+            border-style: none;
+            margin-left: 10px;
+            padding: 0 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <input type='text' placeholder="请输入添加的事项" id="text"><br>
+        <button id="btn">添加事项</button>
+        <br>
+        --待办事项--
+        <ul id="hang">
+        </ul>
+        --完成事项--
+        <ul id="ul">
+        </ul>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+        $('#btn').on('click', function () {
+            if ($('#text').val() == '') {
+                alert('不能为空');
+            } else {
+                $('#hang').append(`<li><span>${$('#text').val()}</span><button id="complete">完成</button></li>`);
+                // $('#text').val('')
+            }
+        })
+        $('#hang').on('click', '#complete', function () {
+            $('#ul').append(`<li><span>${$('#text').val()}</span><button id="del">删除</button><button id="no">未完成</button></li>`)
+            $(this).parent().remove();
+        })
+        $('#ul').on('click', '#del', function () {
+            $(this).parent().remove();
+        })
+        $('#ul').on('click', '#no', function () {
+            $('#hang').append(`<li><span>${$('#text').val()}</span><button id="complete">完成</button></li>`);
+            $(this).parent().remove();
+        })
+
+    </script>
+</body>
+
+</html>
