@@ -7,48 +7,93 @@
 </head>
 <body>
 	<div id="box">
-		<div class="text"><input type="text" id="text"></div>
-		<div class="btn"><button id="btn">上传事项</button></div>
+		<div class="text"><input type="text" id="text" v-model="text" placeholder="输入事项名"></div>
+		<div class="btn"><button id="btn" v-on:click="opush">上传事项</button></div>
 		<!-- 未完成事项 -->
 		<div id="up">
 			<h4>未完成事项：</h4>
 			<ul id="up_a">
 				<!-- <li><span>${vle}</span><button id="to">以完成</button></li> -->
+				<li v-if="!list.length" style="text-align: center; color:#ccc;">没有事项</li>
+				<li v-else v-for="(item,index) in list"><span>{{item}}</span><button id="to" v-on:click="wan(item,index)">已完成</button></li>
 			</ul>
 		</div>
-		<!-- 以完成事项 -->
+		<!-- 已完成事项 -->
 		<div id="in">
 			<h4>以完成事项：</h4>
 			<ul id="in_a">
 				<!-- <li><button id="delete">删除</button><button id="Hang">未完成</button></li> -->
+				<li v-if="!lista.length" style="text-align: center; color:#ccc;">没有事项</li>
+				<li v-else v-for="(item,index) in lista">
+					<span>{{item}}</span>
+					<button id="delete" v-on:click="dete(item,index)">删除</button>
+					<button id="Hang" v-on:click="wei(item,index)">未完成</button></li>
 			</ul>
 		</div>
 	</div>
 </body>
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>-->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script>
-	btn.onclick=function(){
-		if(text.value==''){
-			alert('内容不能为空')
-		}else{
-			var vle=text.value;
-			var oli=document.createElement('li');
-			oli.innerHTML=`
-				<span>${vle}</span><button>以完成</button>
-			`
-			up_a.append(oli);
-			text.value='';
-			$('#up_a li').on('click','button',function(){
-				var s=$(this).siblings('span').html()
-				$(`<li><span>${s}</span><button id="delete">删除</button><button id="Hang">未完成</button></li>`).appendTo($('#in_a'))
-				$(this).parent().remove()
-				clicked()
-			})
-		}
-	}
-	
-	function clicked(){
-		event.stopPropagation();
-	}
+
+		var vue=new Vue({
+			el:'#box',
+			data(){
+				return{
+					text:'',//获取input的内容
+					list:[],
+					lista:[],
+				}
+			},
+			methods:{
+				opush(){
+					if(this.text==''){
+						alert('内容不能为空')
+						return;
+					}else{
+						this.list.push(this.text);//把input的内容push到li的span里
+						this.text='';//在让input的内容为空
+					}
+					
+				},
+				wan(item,index){
+					this.list.splice(index,1);
+					this.lista.push(item)
+				},
+				wei(item,index){
+					this.lista.splice(index,1)
+					this.list.push(item)
+				},
+				dete(item,index){
+					this.lista.splice(index,1)
+				}
+			}
+		})
+
+	// btn.onclick=function(){
+	// 	if(text.value==''){
+	// 		alert('内容不能为空')
+	// 	}else{
+	// 		var vle=text.value;
+	// 		var oli=document.createElement('li');
+	// 		oli.innerHTML=`
+	// 			<span>${vle}</span><button>以完成</button>
+	// 		`
+	// 		up_a.append(oli);
+	// 		text.value='';
+	// 		$('#up_a li').on('click','button',function(){
+	// 			var s=$(this).siblings('span').html()
+	// 			$(`<li><span>${s}</span><button id="delete">删除</button><button id="Hang">未完成</button></li>`).appendTo($('#in_a'))
+	// 			$(this).parent().remove()
+	// 			clicked()
+	// 		})
+	// 		$('#in_a li').on('click','button',function(){
+	// 			$(this).parent().remove()
+	// 		})
+	// 	}
+	// }	
+	// function clicked(){
+	// 	event.stopPropagation();
+	// }
 </script>
 </html>
