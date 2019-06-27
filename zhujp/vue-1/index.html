@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" type="text/css" href="iconfont.css">
+	<style type="text/css">
+		*{
+			user-select: none;
+			list-style: none;
+		}
+		.box{
+			width: 360px;
+			height:460px;
+			border: 1px solid #000;
+			margin: 0 auto;
+			padding: 20px;
+			background-color: yellow;
+		}
+		.box input{
+			width: 300px;
+			height:40px;
+		}
+		.box span{
+			width: 50px;
+			height:40px;
+			padding-left: 10px;
+			font-size: 24px;
+			color: cyan;
+		}
+	</style>
+</head>
+<body>
+	<div id="app">
+		<div class="box">
+			<input type="text" name="" placeholder="添加事项" v-model="something">
+			<span class="iconfont" v-on:click="add">&#xe600;</span>
+			待办事项
+			<ul id="wait_th">
+				<li v-if="!list.length">还未添加事项</li>
+				<li v-else v-for="(item,index) in list">{{item}}
+					<span class="iconfont" v-on:click="done(item,index)">&#xe8d8;</span>
+				</li>
+			</ul>
+			完成事项
+			<ul id="finish">
+				<li v-for="(item,index) in doneList">{{item}}
+					<span class="iconfont" v-on:click="wwc(item,index)">&#xe612;</span>
+					<span class="iconfont" v-on:click="del(index)">&#xe63b;</span>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+	<script type="text/javascript">
+		var vm = new Vue({
+			el:'#app',
+			data(){
+				return {
+					something: '',
+					list:[],
+					doneList:[],
+				}
+			},
+			methods:{
+				add(){
+					if (this.something == '') {
+						alert('内容为空')
+						return;
+					}else{
+						this.list.push(this.something);
+						this.something = '';
+					}
+				},
+				done(item,index){
+					this.list.splice(index,1);
+					this.doneList.push(item);
+				},
+				wwc(item,index){
+					this.doneList.splice(index,1);
+					this.list.push(item);
+				},
+				del(index){
+					this.doneList.splice(index,1);
+				},
+			},
+		})
+	</script>
+</body>
+</html>
