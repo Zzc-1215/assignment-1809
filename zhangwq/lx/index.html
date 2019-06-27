@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="font/iconfont.css">
     <title>Document</title>
     <style>
         * {
@@ -15,26 +16,31 @@
         #box {
             width: 400px;
             min-height: 400px;
-            margin: 0 auto;
+            margin: 100px auto;
             border: 1px solid red;
         }
 
         #text {
-            width: 396px;
+            width: 296px;
             height: 30px;
             line-height: 30px;
+            margin: 10px 50px 10px 50px;
         }
 
-        #btn {
-            width: 400px;
+        .btn {
+            width: 300px;
             height: 30px;
             line-height: 30px;
+            margin: 0 50px 20px 50px;
+            border: 1px solid #aaa;
+            color: #aaa;
+            background: #eee;
         }
 
         #hang,
         #ul {
             width: 300px;
-            height: 30px;
+            min-height: 30px;
             line-height: 30px;
             text-align: center;
             margin: 50px 0 50px 50px;
@@ -45,53 +51,82 @@
             height: 30px;
             list-style: none;
             border: 1px solid #ccc;
+            box-shadow:1px 1px 15px -5px #000;
+            margin-top: 15px;
         }
-
-        #complete,
-        #no,
-        #del {
+        button{
+            height: 30px;
             float: right;
-            line-height: 30px;
             border-style: none;
             margin-left: 10px;
             padding: 0 5px;
+            outline: none;
+        }
+        .iconfont{
+            font-size: 20px;
+            color: red;
+            background: #fff;
         }
     </style>
 </head>
 
 <body>
     <div id="box">
-        <input type='text' placeholder="请输入添加的事项" id="text"><br>
-        <button id="btn">添加事项</button>
-        <br>
+        <input type='text' placeholder="请输入添加的事项" id="text" v-model='something'>
+        <button v-on:click="btn" class="btn">添加事项</button>
         --待办事项--
         <ul id="hang">
+            <li v-if='!list.length'>没有待办事项!!!</li>
+            <li v-for='(item,index) in list'>
+                {{item}}
+                <button v-on:click="done(item,index)" class="iconfont">&#xe601;</button>
+            </li>
         </ul>
         --完成事项--
         <ul id="ul">
+            <li v-if='!doneList.length'>没有完成事项!!!</li>
+            <li v-else v-for='(item,index) in doneList'>
+                {{item}}
+                <button v-on:click="del(index)" class="iconfont">&#xe600;</button>
+                <button v-on:click='no(item,index)' class="iconfont">&#xe61a;</button>
+            </li>
         </ul>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script>
-        $('#btn').on('click', function () {
-            if ($('#text').val() == '') {
-                alert('不能为空');
-            } else {
-                $('#hang').append(`<li><span>${$('#text').val()}</span><button id="complete">完成</button></li>`);
-                // $('#text').val('')
-            }
-        })
-        $('#hang').on('click', '#complete', function () {
-            $('#ul').append(`<li><span>${$('#text').val()}</span><button id="del">删除</button><button id="no">未完成</button></li>`)
-            $(this).parent().remove();
-        })
-        $('#ul').on('click', '#del', function () {
-            $(this).parent().remove();
-        })
-        $('#ul').on('click', '#no', function () {
-            $('#hang').append(`<li><span>${$('#text').val()}</span><button id="complete">完成</button></li>`);
-            $(this).parent().remove();
+        new Vue({
+            el: '#box',
+            data() {
+                return{
+                    something: '',
+                    list: [],
+                    doneList: [],
+                }
+            },
+            methods: {
+                btn(){
+                    if(this.something ==''){
+                        alert('不能为空');
+                        return;
+                    }else{
+                        this.list.push(this.something);
+                        this.something='';
+                    }
+                    
+                },
+                done(item,index){
+                    this.list.splice(index,1);
+                    this.doneList.push(item);
+                },
+                no(item,index){
+                    this.list.push(item);
+                    this.doneList.splice(index,1);
+                },
+                del(index){
+                    this.doneList.splice(index,1);
+                },
+            },
         })
 
     </script>
