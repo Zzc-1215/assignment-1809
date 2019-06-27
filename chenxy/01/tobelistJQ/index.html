@@ -63,18 +63,18 @@
             $('.dblist').prepend(li);
             $('.finish').on('click',function(){
                 $(this).removeClass().attr('class','remove').html('删除');
-                var button = $(`<button class="no">未完成</button>`)
-                $(this).parent().append(button);
+                var button = $(`<button class="no">未完成</button>`);
+                $(this).parent().append(button);  
                 $('.oklist').prepend($(this).parent());
                 $('.remove').on('click',function(){
                     $(this).parent().remove()
                 })
-                $('.no').on('click',function(){                
+                $('.no').on('click',function(){
                     $('.dblist').prepend($(this).parent());
                     $(this).removeClass().attr('class','finish').html('完成');
                     $('.remove').remove();
                 })
-            })
+            }) 
         })
     </script>
 </body>
