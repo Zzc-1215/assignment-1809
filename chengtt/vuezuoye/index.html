@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>Document</title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+				list-style: none;
+				outline: medium;
+			}
+			
+			#app {
+				width: 500px;
+				height: 600px;
+				background-repeat: no-repeat;
+				margin: 0 auto;
+				border: 1px solid #000000;
+			}
+			
+			#input {
+				width: 496px;
+				height: 30px;
+			}
+			a{text-decoration:none;}
+			#btn {
+				width: 500px;
+				height: 30px;
+				margin: 0 auto;
+			}
+			
+			#zhong {
+				font-size: 24px;
+				margin: 30px 0;
+			}
+			
+			#zhong input {
+				width: 300px;
+				height: 30px;
+			}
+			
+			#xia {
+				font-size: 24px;
+				margin: 30px 0;
+			}
+			
+			#xia input {
+				width: 300px;
+				height: 30px;
+			}
+		</style>
+
+	</head>
+
+	<body>
+
+		<div id="app">
+			<div id="list">
+				任务计划列表
+				<input type="text" id="input" v-model="id" placeholder="请输入添加的事项" style="display: block;margin: 0 auto;" />
+				<input type="button" id="btn" value="添加的事项" v-on:click="add()"/>
+			</div>
+			<div id="zhong">
+				--待办事项--
+				<ul>
+					<li v-if="!list.length">还未完成</li>
+					<li v-else v-for="(item,index) in list">
+						{{item}}
+						<a href="#" v-on:click="wancheng(item,index)"><img src="2.jpg" style="height: 30px;vertical-align: middle;"></a>
+					</li>
+				</ul>
+				
+			</div>
+			<div id="xia">
+				--完成事项--
+				<ol>
+					
+					<li v-for="(item,index) in doneList">{{item}}
+					<a href="#" v-on:click="del(index)"><img src="0.jpg" style="width: 30px;height: 30px;vertical-align: middle;"> </a>
+					</li>
+				</ol>
+				
+			</div>
+
+		</div>
+
+		<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+	</body>
+        <script>
+        new Vue({
+        		el:'#app',
+        		data(){      			
+        			return {
+        				id:'',
+        				list:[],
+        				doneList:[],
+        			}	
+        		},
+        		methods:{
+        			add(){
+        				//var data={id:this.id,name:this.name}
+        				this.list.push(this.id)
+        				this.id=""
+        			},
+        			wancheng(item,index){
+        				this.list.splice(index,1);
+				        this.doneList.push(item);
+        				
+        			},
+        			del(index){
+        				
+						
+						this.doneList.splice(index,1)
+						console.log('doneList')
+					}
+        			
+        		}
+        		
+						
+        	})
+        </script>
+</html>
