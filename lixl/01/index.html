@@ -6,7 +6,27 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
 		<title>Document</title>
+		<link rel="stylesheet" type="text/css" href="font/demo.css"/>
+		<link rel="stylesheet" type="text/css" href="font/iconfont.css"/>
 		<style type="text/css">
+			@font-face {
+			  font-family: 'iconfont';
+			  src: url('iconfont.eot');
+			  src: url('iconfont.eot?#iefix') format('embedded-opentype'),
+			      url('iconfont.woff2') format('woff2'),
+			      url('iconfont.woff') format('woff'),
+			      url('iconfont.ttf') format('truetype'),
+			      url('iconfont.svg#iconfont') format('svg');
+			}
+			
+			.iconfont {
+				font-family: "iconfont" !important;
+				font-size: 16px;
+				font-style: normal;
+				-webkit-font-smoothing: antialiased;
+				-moz-osx-font-smoothing: grayscale;
+			}
+			
 			* {
 				margin: 0;
 				padding: 0;
@@ -53,36 +73,6 @@
 			#list1 {
 				min-height: 200px;
 			}
-			
-			.red {
-				width: 100%;
-				height: 100%;
-				background-color: red;
-				/*下面的样式可以不写，这里为了方便理解*/
-				opacity: 1;
-				margin-left: 0;
-			}
-			
-			.red-enter {
-				opacity: 0;
-				margin-left: 100%;
-			}
-			
-			.red-enter-active,
-			.red-leave-active {
-				transition: all 1s;
-			}
-			
-			.red-leave {
-				/*对于简单动画来说，[name]-leave也可以不写，多数情况下，此处的样式和元素正常显示是的样式是相同的*/
-				opacity: 1;
-				margin-left: 0;
-			}
-			
-			.red-leave-active {
-				opacity: 0;
-				margin-left: 100%;
-			}
 		</style>
 	</head>
 
@@ -103,8 +93,8 @@
 					</div>
 					<li v-else v-for="(cont,i) in unfinished">
 						{{cont}}
-						<i v-on:click="del(i)">删除</i>
-						<span v-on:click="accomplishbtn(cont,i)">完成</span>
+						<i v-on:click="del(i)" class="iconfont">&#xe63c;</i>
+						<span v-on:click="accomplishbtn(cont,i)" class="iconfont">&#xe600;</span>
 					</li>
 				</ul>
 			</div>
@@ -113,8 +103,8 @@
 				<ul id="list1">
 					<li v-for="(cont,index) in accomplish">
 						{{cont}}
-						<i v-on:click="delet(index8)">删除</i>
-						<span v-on:click="unfinishedbtn(cont,index)">未完成</span>
+						<i v-on:click="delet(index8)" class="iconfont">&#xe63c;</i>
+						<span v-on:click="unfinishedbtn(cont,index)" class="iconfont">&#xe6e4;</span>
 					</li>
 					<!--<transition name="red"><div v-show="show" class="red"></div></transition>-->
 				</ul>
