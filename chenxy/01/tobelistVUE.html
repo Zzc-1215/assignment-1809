@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>记事本</title>
+        <script src="jquery.js"></script>
+        <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+        <link rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+            integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+            crossorigin="anonymous">
+
+        <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+        <style>
+            *{margin: 0;padding: 0;list-style: none;}
+            #box{
+                width: 350px;
+                min-height: 400px;
+                border: 1px solid;
+                margin: 100px auto;
+                text-align: center;
+                background: url(./01.jpg) no-repeat;
+                background-size: 100% 100%;
+                position: relative;
+                border-radius: 5px;
+            }
+            .head{
+                width: 100px;
+                height: 40px;
+                position: absolute;
+                top: -30px;
+                left: 130px;
+                border-top: 2px solid;
+                border-left: 2px solid;
+                border-right: 2px solid;
+                border-radius: 5px;
+                z-index: -5;
+            }
+            #box input{
+                width: 99%;
+                height: 30px;
+                background-color: rgba(255, 255, 255, .3);
+                border: 2px #ccc solid;
+                border-radius: 5px 5px 0 0;
+                box-sizing: border-box;
+            }
+            .addbut{
+                position: absolute;
+                top: 4px;
+                right: 5px;
+                font-size: 20px;
+            }
+            .db,.ok{
+                min-height: 200px;
+            }
+            .db li,.ok li{
+                width: 100%;
+                height: 25px;
+                border: 1px #ccc solid;
+                margin-bottom: 10px;
+                background-color: rgba(240, 240, 240, .4);
+            }
+            .finish,.remove{
+                font-size: 18px;
+                float: right;
+                margin-right: 15px;
+                margin-top: 3px;
+            }
+            .no{
+                font-size: 18px;
+                margin-right: 10px;
+                margin-top: 2px;
+                float: right;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="box">
+            <div class="head"></div>
+            <input id="wbk" v-model="something" type="text" placeholder="记录生活，记录你">
+            <span class="addbut glyphicon glyphicon-pencil" v-on:click="add"></span>
+            <div class="db">
+                <p>----待办的事项----</p>
+                <ul class="dblist">
+                    <li v-for = "(item,index) in list">
+                        {{item}}
+                        <span class="finish glyphicon glyphicon-saved" v-on:click="ok(item,index)"></span>
+                    </li>
+                </ul>
+            </div>
+            <div class="ok">
+                <p>----已完成事项----</p>
+                <ul class="okList">
+                    <li v-for="(item,index) in okList">
+                        {{item}}
+                        <span class="remove glyphicon glyphicon-trash" v-on:click="del(index)"></span>
+                        <span class="no glyphicon glyphicon-open" v-on:click="back(item,index)"></span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <script>
+        var ve = new Vue({
+            el:'#box',
+            data(){
+                return{
+                    something:'',
+                    list:[],
+                    okList:[],
+                }
+            },
+            methods:{
+                add(){
+                    if(this.something == ''){
+                        alert('请记录生活');
+                    }else{
+                        this.list.push(this.something);
+                    }
+                },
+                ok(item,index){
+                    // 在未完成事项里面删除一个，
+                    this.list.splice(index,1);
+                    // 添加到已完成事项里面
+                    this.okList.push(item);
+                },
+                del(index){
+                    this.okList.splice(index,1);
+                },
+                back(item,index){
+                    this.okList.splice(index,1);
+                    this.list.push(item);
+                }
+            }
+        })
+    
+    </script>
+    </body>
+</html>

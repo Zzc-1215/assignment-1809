@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .show-enter-active,
+        .show-leave-active {
+            transition: all 2s;
+        }
+
+        .show-enter,
+        .show-leave-to {
+            margin-left: 100px;
+        }
+
+        .show-enter-to,
+        .show-leave {
+            margin-left: 0px;
+        }
+    </style>
+</head>
+<script src="vue.js"></script>
+<script src="jquery.js"></script>
+<body>
+
+    <div id="app">
+        <button @click="toggle">显示/隐藏</button><br>
+        <transition name="show">
+            <span class="show" v-show="isshow">it 传说</span>
+        </transition>
+    </div>
+    <script>
+
+        // 实例化vue对象（MVVM中的View Model）
+        new Vue({
+            // vm控制的区块为id为app的div，此div中的所有vue指令均可以被vm解析
+            el: '#app',
+            data: {
+                // 数据 （MVVM中的Model）
+                isshow: false
+            },
+            methods: {
+                toggle: function () {
+                    this.isshow = !this.isshow;
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
