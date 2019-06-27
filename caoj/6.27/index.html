@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{margin: 0;padding: 0;text-decoration: none;list-style-type: none;}
+			.box{width: 500px;min-height:600px;margin: 0 auto;border: 1px solid #000;}
+			.top{width: 405px;margin: 0 auto;}
+			#txt{width: 400px;height: 30px;text-align: center;}
+			.btn{width: 405px;height: 40px;}
+			.wwc{width: 100%;min-height: 200px;}
+			.ywc{width: 100%;min-height: 200px;}
+			.wwc li{
+				width: 80%;height: 40px;border-bottom: 1px solid #000;line-height: 40px;margin-left: 45px;
+			}
+			.ywc li{
+				width: 80%;height: 40px;border-bottom: 1px solid #000;line-height: 40px;margin-left: 45px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box" id="app">
+			<div class="top">
+				<input v-model="value" type="text" name="" id="txt" placeholder="输入事项"></br>
+			<button v-on:click="btn" class="btn">添加事项</button>
+			</div>
+			
+			<h3>未完成</h3>
+			<ul class="wwc">
+				<li v-if="list.length == 0" style="border: none;text-align: center;height: 50px;line-height: 100px;">还未添加代办事项</li>
+				<li v-for="item,index in list">{{item}}
+					<a class="done" v-on:click="done(index)" style="float: right;">完成</a>
+				</li>
+			</ul>
+			
+			<h3>已完成</h3>
+			<ul class="ywc">
+				<li v-if="list1.length == 0" style="border: none;text-align: center;height: 50px;line-height: 100px;">还未添加完成事项</li>
+				<li v-for="item,index in list1">{{item}}
+					<a class="del" v-on:click="del(index)" style="float: right;">删除</a>
+				</li>
+			</ul>
+		</div>
+		<script src="vue.js"></script>
+		<script type="text/javascript">
+			new Vue({
+				el:'#app',
+				data:{
+					value:'',
+					list:[],
+					list1:[],
+				},
+				methods:{
+					btn(){
+						if (this.value=='') {
+							alert('请输入内容')
+						} else{
+							this.list.push(this.value);
+							this.value='';
+						}
+						
+					},
+					done(index){
+						var a = this.list.splice(index,1);
+						this.list1.push(a[0])
+					},
+					del(index){
+						this.list1.splice(index,1);
+					}
+				},
+			})
+			
+			
+		</script>
+	</body>
+</html>

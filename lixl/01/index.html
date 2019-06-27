@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+				list-style: none;
+			}
+			
+			.g-box {
+				width: 400px;
+				margin: auto;
+				background: #ccc;
+				color: yellow;
+			}
+			
+			ul li span,
+			i {
+				float: right;
+				font-style: normal;
+				margin: 0 5px;
+				border: solid 1px;
+				cursor: pointer;
+				padding: 0 5px;
+			}
+			
+			ul li {
+				height: 23px;
+				text-shadow: 0 0 5px blue;
+			}
+			
+			ul li span:hover {
+				background: white;
+				color: blueviolet;
+			}
+			
+			ul li i:hover {
+				background: black;
+				color: white;
+			}
+			
+			#list {
+				min-height: 200px;
+				border-bottom: dashed 1px;
+			}
+			
+			#list1 {
+				min-height: 200px;
+			}
+			
+			.red {
+				width: 100%;
+				height: 100%;
+				background-color: red;
+				/*下面的样式可以不写，这里为了方便理解*/
+				opacity: 1;
+				margin-left: 0;
+			}
+			
+			.red-enter {
+				opacity: 0;
+				margin-left: 100%;
+			}
+			
+			.red-enter-active,
+			.red-leave-active {
+				transition: all 1s;
+			}
+			
+			.red-leave {
+				/*对于简单动画来说，[name]-leave也可以不写，多数情况下，此处的样式和元素正常显示是的样式是相同的*/
+				opacity: 1;
+				margin-left: 0;
+			}
+			
+			.red-leave-active {
+				opacity: 0;
+				margin-left: 100%;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="g-box" id="bigbox">
+			<div class="g-title">
+				<h3 style="text-align: center;font-size: 26px; font-weight: normal; ">Hello ToDoList</h3>
+			</div>
+			<div class="g-search">
+				<input type="text" placeholder="添加待办事项" id="m-searchinp" style="width: 99%;height: 40px;" v-model="val" />
+				<button id="m-searchbtn" style="width: 100%;height: 36px;" v-if="val" v-on:click="add">添加待办事项</button>
+			</div>
+			<div class="g-unfinished">
+				<p style="color: red;">未完成</p>
+				<ul id="list">
+					<div style="color: aqua;font-size: 16px;text-align: center;" v-if="!unfinished.length">
+						还未添加事项
+					</div>
+					<li v-else v-for="(cont,i) in unfinished">
+						{{cont}}
+						<i v-on:click="del(i)">删除</i>
+						<span v-on:click="accomplishbtn(cont,i)">完成</span>
+					</li>
+				</ul>
+			</div>
+			<div class="g-accomplish">
+				<p style="color: green;">完成</p>
+				<ul id="list1">
+					<li v-for="(cont,index) in accomplish">
+						{{cont}}
+						<i v-on:click="delet(index8)">删除</i>
+						<span v-on:click="unfinishedbtn(cont,index)">未完成</span>
+					</li>
+					<!--<transition name="red"><div v-show="show" class="red"></div></transition>-->
+				</ul>
+			</div>
+		</div>
+		<script type="text/javascript" src="vue.js"></script>
+		<script type="text/javascript">
+			var mvc = new Vue({
+				el: '#bigbox',
+				data() {
+					return {
+						val: '',
+						unfinished: [],
+						accomplish: [],
+					}
+				},
+				methods: {
+					add() {
+						this.unfinished.push(this.val)
+						this.val = ''
+					},
+					accomplishbtn(cont, i) {
+						this.unfinished.splice(i, 1)
+						this.accomplish.push(cont)
+					},
+					unfinishedbtn(cont, index) {
+						this.accomplish.splice(index, 1)
+						this.unfinished.push(cont)
+					},
+					del(i) {
+						this.unfinished.splice(i, 1)
+					},
+					delet(index) {
+						this.accomplish.splice(index, 1)
+					}
+				},
+			})
+
+			//		var str=''
+			//		$('#m-searchinp').on('change',function(){
+			//			str=$(this).val()
+			////			console.log(str)
+			//			$(this).val('')
+			//		})
+			//		$('#m-searchbtn').on('click',function(){
+			//			if (str!='') {
+			//				var oLi=$('<li>'+str+'<span>完成</span></li>')
+			//				$('#list').prepend(oLi)
+			//				$('#list').children('div').remove()
+			//			}
+			//		})
+			//		$('#list').on('click','span',function(){
+			//			var newstr=$(this).parent().html().split('<')[0]
+			//			$(this).parent().remove()
+			//			var oLi=$('<li>'+newstr+'<i>删除</i><span>未完成</span></li>')
+			//			$('#list1').prepend(oLi)
+			////			console.log(newstr)
+			//		})
+			//		$('#list1').on('click','span',function(){
+			//			var newstr=$(this).parent().html().split('<')[0]
+			//			$(this).parent().remove()
+			//			var oLi=$('<li>'+newstr+'<span>完成</span></li>')
+			//			$('#list').prepend(oLi)
+			////			console.log(newstr)
+			//		})
+			//		$('#list1').on('click','i',function(){
+			//			$(this).parent().remove()
+			//		})
+		</script>
+	</body>
+
+</html>

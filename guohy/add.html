@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+	*{
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		text-decoration: none;
+		box-sizing: border-box;	
+		outline: none;
+	}
+	.box{
+		width: 300px;
+		height: 300px;
+		margin: 0 auto; 
+	}
+	.top{
+		width: 100%;
+		height: 30px;
+	}
+	#int{
+		width: 80%;
+		height: 30px;
+		float: left;
+		border:none;
+	}
+	#add{
+		width: 20%;
+		height: 30px;
+		float: right;
+		background-color: #000;
+		color:#fff;
+		border: none;
+	}
+	/*未完成盒子样式*/
+	#incomplete_box{
+		width: 100%;
+		min-height: 100px;
+	}
+	#incomplete_box_li{
+		position: relative;
+		width: 100%;
+		height:30px;
+		line-height: 30px;
+		background-color: #ccc;
+		border-radius: 30px;
+		overflow: hidden;
+		margin-top: 10px;
+	}
+	#complete_btn{
+		height: 100%;
+		position: absolute;
+		right:0px;
+	}
+	/*完成盒子样式*/
+	#complete_box{
+		width: 100%;
+		min-height: 100px;
+	}
+	#complete_box_list{
+		position: relative;
+		width: 100%;
+		height:30px;
+		line-height: 30px;
+		background-color: #fff;
+		border-radius: 30px;
+		overflow: hidden;
+		margin-top: 10px;
+	}
+	#incomplete_btn{
+		height: 100%;
+		position: absolute;
+		right:60px;
+	}
+	#delete_btn{
+		width:60px;
+		height: 100%;
+		position: absolute;
+		right:0px;
+	}
+</style>
+</head>
+<body style="background-color: rgba(0,0,0,.8)">
+	<div class="box">
+		<div class="top">
+			<input type="text" id="int" v-model="value">
+			<button id="add" @click='btn()' id="add">添加项目</button>
+		</div>
+		<div style="color:#fff;font-style: italic;">--待办事项--</div>
+		<div id="incomplete_box">
+			<li v-if="list1==0"  style="color:#ccc;margin-top: 10px;text-align: center;margin-top: 80px;font-size: 20px">------暂无待办事项------</li>
+			<li id="incomplete_box_li" v-else v-for='item,index in list1'>{{item}}
+				<button @click='remove1(index)' id="complete_btn">完成</button>
+			</li>
+		</div>
+		<div style="color:#fff;font-style: italic;">--完成事项--</div>
+		<div id="complete_box">
+			<li v-if='list2==0' style="color:#ccc;margin-top: 10px;text-align: center;margin-top: 80px;font-size: 20px">------暂无完成事项------</li>
+			<li id="complete_box_list" v-else v-for='(item,index) in list2'>{{item}}
+				<button @click='remove2(index)' id="incomplete_btn">为完成</button>
+				<button @click='de(index)' id="delete_btn">删除</button>
+			</li>
+		</div>
+	</div>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script>
+		new Vue({
+			el:'.box',
+			data:{
+				value:'',
+				list1: [],
+				list2: []
+			},
+			methods:{
+				btn(){
+					if(this.value){
+						this.list1.push(this.value)
+						this.value=''
+					}else{
+						alert('不能为空')
+					}
+				},
+				remove1(index){
+					var val1=this.list1.splice(index,1)
+					this.list2.push(val1[0])
+				},
+				remove2(index){
+					var val2=this.list2.splice(index,1)
+					this.list1.push(val2[0])
+				},
+				de(index){
+					this.list2.splice(index,1)
+				}
+			}
+
+		})
+	</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> -->
+	<!-- <script>
+		$('#add').on('click',function(){
+			$('#out').html('')
+			var intVal=$('#int').val()
+			$(`<li id="incomplete_box_list"><span>${intVal}</span><input type="button" value="完成" id="complete_btn"></li>`).appendTo($('#incomplete_box'))
+			$('#int').val('')
+		})
+		// 改为完成
+		$('#incomplete_box').on('click','#complete_btn',function(){
+			$('#out2').html('')
+			$(this).parent().remove()
+			var span1=$(this).siblings('span').html()
+			$(`<li id="complete_box_list"><span>${span1}</span><input type="button" value="未完成" id="incomplete_btn"><input type="button" value="删除" id="delete_btn"></li>`).appendTo($('#complete_box'))
+		})
+		// 改为未完成
+		$('#complete_box').on('click','#incomplete_btn',function(){
+			$(this).parent().remove()
+			var span2=$(this).siblings('span').html()
+			$(`<li id="complete_box_list"><span>${span2}</span><input type="button" value="完成" id="complete_btn"></li>`).appendTo($('#incomplete_box'))
+		})
+		// 删除
+		$('#complete_box').on('click','#delete_btn',function(){
+			$(this).parent().remove()
+		})
+	</script> -->
+</body>
+</html>

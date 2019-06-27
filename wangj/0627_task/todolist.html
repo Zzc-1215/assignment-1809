@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div class="box">
+        <!-- 添加事项 -->
+        <div id="add_box">
+            <input type="text" placeholder="请输入添加的事项" id="userIpt">
+            <button id="add_btn">添加事项</button>
+        </div>
+        <!-- 添加事项结束 -->
+
+        <!-- 代办事项 -->
+        <div id="ready_box">
+            <!-- <div class="item">
+                <input type="text" placeholder="还未添加事项！" class="readyIpt">
+                <button id="finish_btn">完成</button>
+            </div> -->
+        </div>
+        <!-- 代办事项结束 -->
+
+        <!-- 完成事项 -->
+        <div id="finish_box">
+            <!-- <input type="text" placeholder="">
+            <button id="delete_btn">删除</button> -->
+        </div>
+        <!-- 完成事项结束 -->
+    </div>
+</body>
+
+<script>
+
+    add_btn.onclick = function(){
+
+        var oDiv = document.createElement('div')
+        oDiv.className = 'item'
+        ready_box.appendChild(oDiv)
+
+        var oIpt = document.createElement('input')
+        var obtn = document.createElement('button')
+        oIpt.className = 'readyIpt'
+        oIpt.placeholder = '还未添加事项！'
+        oIpt.value = userIpt.value
+        userIpt.value = ''
+        obtn.className = 'finish_btn'
+        obtn.innerHTML = '完成'
+        oDiv.appendChild(oIpt)
+        oDiv.appendChild(obtn)
+
+        obtn.onclick = function(){
+            var newDiv = document.createElement('div')
+            newDiv.className = 'finish_item'
+            finish_box.appendChild(newDiv)
+
+            var newIpt = document.createElement('input')
+            var newbtn = document.createElement('button')
+            newIpt.className = 'finishIpt'
+            // newIpt.placeholder = '还未添加事项！'
+            newIpt.value = oIpt.value
+            oIpt.value = ''
+            newbtn.className = 'delete_btn'
+            newbtn.innerHTML = '删除'
+            newDiv.appendChild(newIpt)
+            newDiv.appendChild(newbtn)
+
+            newbtn.onclick=function(){
+                finish_box.removeChild(newDiv)
+            }
+        }
+        
+
+       
+
+    }
+</script>
+</html>

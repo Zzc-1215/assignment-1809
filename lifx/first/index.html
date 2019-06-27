@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			list-style: none
+		}
+		.fl{
+			float: left;
+		}
+		.fr{
+			float: right;
+		}
+		#ul li{
+			line-height: 50px;
+		}
+		/*#ul:hover{
+			background-color: pink;
+		}
+		#ol:hover{
+			background-color: pink;
+		}*/
+		#ul li p{
+			line-height: 50px;
+		}
+		#ol li span{
+			/*height:20px;*/
+			/*display: inline-block;*/
+			line-height: 40px;
+			width: 40px;
+			text-align: center;
+			border:1px solid #ccc;
+			border-radius: 50%;
+			margin-left: 10px;
+		}
+		#ul li button{
+			line-height: 40px;
+		}
+		#ol li{
+			line-height: 50px;
+		}
+		#ol li p{
+			line-height: 50px;
+		}
+		#ol li button{
+			line-height: 40px;
+		}
+	</style>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</head>
+<body>
+	<div style="width: 500px;min-height: 30px;margin:0 auto;" id="app">
+		<input type="text"  style="width: 100%;height: 50px;" placeholder="请输入添加事项"  v-model='something' id="pan">
+		<button style="width: 100%;height: 50px;" v-on:click='add'>添加事项</button>
+		--待办事项--<br>
+		<ul id="ul" style="min-height: 50px;">
+			<li v-if='!list.length'>
+				还未添加事项
+			</li>
+			<li v-else v-for="(item,index) in list">
+				{{item}}
+				<button class="fr" v-on:click = 'done(item,index)'>完成</button>
+				
+			</li>
+		</ul>
+		--完成事项--
+		<ol id="ol" style="min-height: 50px;">
+			<li v-for='(item,index) in doneList'>
+				{{item}}
+				<span class="glyphicon glyphicon-remove fr" v-on:click='del(index)'></span>
+				<button class="fr" v-on:click = 'wei(item,index)'>未完成</button>
+			</li>
+		</ol>
+	</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script type="text/javascript">
+	var vm = new Vue({
+		el:'#app',
+		data(){
+			return {
+				something:'',
+				list:[],
+				doneList:[],
+			}
+		},
+		methods:{
+			add(){
+				this.list.push(this.something);
+				this.something = ''
+			},
+			done(item,index){
+				this.list.splice(index,1);
+				this.doneList.push(item);
+			},
+			del(index){
+				this.doneList.splice(index,1);
+			},
+			wei(item,index){
+				this.doneList.splice(index,1);
+				this.list.push(item);
+			}
+		}
+	})
+	
+</script>
+</html>
