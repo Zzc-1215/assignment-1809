@@ -13,9 +13,11 @@
 			text-decoration: none;
 		}
 		.txt{
-			width: 600px;
-			height: 38px;
+			width: 551px;
+			min-height: 38px;
 			line-height: 38px;
+			padding-left: 38px;
+			padding-right: 10px;
 		}
 	</style>
 </head>
@@ -34,11 +36,10 @@
 				<!-- 还未添加事项 -->
 				<div v-if="!list.length" style="text-align: center;line-height: 150px;">还未添加事项</div>
 				<!-- 事项 -->
-				<div class="txt" v-else v-for="(item,index) in list" style="text-indent: 1em;border-bottom: solid 1px #d2d0cd;
-			background: #f7e1a5;">
+				<div class="txt" v-else v-for="(item,index) in list" style="border-bottom: solid 1px #d2d0cd;
+			background: #f7e1a5;border-left: solid 1px #f7d59c;">
 					{{item}}
-					<span style="display: inline-block;width: 38px;height: 38px;border-right: solid 1px #f7d59c;float: left;line-height: 38px;"></span>
-					<i class="iconfont" v-on:click="done(item,index)" style="width: 38px;height: 38px;line-height: 38px;display: block;font-size: 30px;float: right;margin-right: 8px;">&#xe665;</i>
+					<i class="iconfont" v-on:click="done(item,index)" style="width: 38px;height: 38px;line-height: 38px;display: block;font-size: 30px;float: right;color: #19ff00;">&#xe665;</i>
 				</div>
 			</div>
 		<!-- 完成的事项 -->
@@ -47,14 +48,13 @@
 				<!-- 已完成事项 -->
 				<div v-if="!doneList.length" style="text-align: center;line-height: 150px;">还未添加事项</div>
 				<!-- 事项 -->
-				<div class="txt" v-for="(item,index) in doneList" style="text-indent: 1em;border-bottom: solid 1px #d2d0cd;
-			background: #f9e9e9;">
+				<div class="txt" v-for="(item,index) in doneList" style="border-bottom: solid 1px #d2d0cd;
+			background: #f9e9e9;padding-left: 38px;border-left: solid 1px #f7d59c;">
 					{{item}}
-					<span style="display: inline-block;width: 38px;height: 38px;border-right: solid 1px #f7d59c;float: left;line-height: 38px;"></span>
 					<!-- 未完成 -->
-					<i class="iconfont" v-on:click="no(item,index)" style="width: 38px;height: 38px;line-height: 38px;display: block;font-size: 30px;float: right;margin-right: 8px;">&#xe668;</i>
+					<i class="iconfont" v-on:click="no(item,index)" style="width: 38px;height: 38px;line-height: 38px;display: block;font-size: 30px;float: right;">&#xe668;</i>
 					<!-- 删除 -->
-					<i class="iconfont" v-on:click="del(index)" style="width: 38px;height: 38px;line-height: 38px;display: block;font-size: 30px;float: right;margin-right: 8px;">&#xe612;</i>
+					<i class="iconfont" v-on:click="del(index)" style="width: 38px;height: 38px;line-height: 38px;display: block;font-size: 30px;float: right;">&#xe612;</i>
 				</div>
 			</div>
 		</div>
