@@ -1,0 +1,11 @@
+--基本指令--
+	V-text
+	V-html
+	V-show
+	V-if v-else v-else-if ： 结构必须相邻
+	v-for
+	V-on(@)
+	V-bind(:)
+	V-model => @input + :value
+	V-cloak
+	V-once: 渲染一次，低开销

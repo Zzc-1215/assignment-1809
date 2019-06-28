@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <style>
+        [v-cloak] {
+            display:none;
+        }
+        .abc{
+            color: red;
+        }
+        .ccc{
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app" v-cloak>
+        <h1>v-bind (:)</h1>
+        <p class="ccc" :class="{abc:true,ddd:false}" style="color:blue" :style="{fontSize:'30px'}">fjdlakjfd</p>
+        <!-- 
+            v-text  $.text()
+            v-html $.html();
+         -->
+         <p v-text="'<i>abc</i>'"></p>
+         <p v-html="'<i>abc</i>'"></p>
+
+
+
+         <!-- if(  ) -->
+         <a v-if="0">第一个a</a>
+         <a v-else-if="0">第二个a</a>
+         <a v-else>第三个a</a>
+
+
+
+
+
+         <h1>v-show</h1>
+         <button @click="isshow = !isshow">切换</button>
+         <div v-show="isshow">show</div>
+         <div v-show="!isshow">hide</div>
+
+
+         <h1>v-for</h1> 
+         <!-- 数组: 1、数据，2：下标
+            字符串、
+            数字、
+            对象：1、value；2：key；3：下标 -->
+         <ul>
+             <li v-for="(item,index) in [1,2,3]">
+                 {{item}}---{{index}}
+             </li>
+         </ul>
+         <ul>
+            <li v-for="(item,key,index) in {a:1,b:2}">
+                {{item}}-- {{key}} --{{index}}
+            </li>
+        </ul>
+
+        <h1>v-on  @ </h1>
+        <!-- 
+            指令name
+            指令的绑定值
+            :传给指令的参数
+            .指令的修饰符
+            v-for: =  "1+1"
+
+            onclik
+            onmousever
+         -->
+        <button v-on:mouseover="print">print</button>
+
+        
+
+        <h1>V-model  => v-on:input + v-bind:value </h1>
+
+        <input type="text" v-model="abc">
+
+        <h1>v-once</h1>
+
+         <p >{{abc}}</p>
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data() {
+                return {
+                    isshow: true,
+                    abc: 123,
+                }
+            },
+            methods: {
+                print(){
+                    console.log(1);
+                }
+            },
+        })
+
+        // vm.$set()
+    </script>
+</body>
+</html>
