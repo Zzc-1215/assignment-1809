@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			
+			#app {
+				width: 350px;
+				height: 500px;
+				margin: auto;
+			}
+			
+			p {
+				padding-top: 15px;
+			}
+			
+			#val,
+			#val2 {
+				width: 350px;
+				height: 50px;
+				line-height: 50px;
+				background-color: pink;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="app">
+			<input type="text" id="hh" value="" ref='input' v-model="value" style="width: 346px;height: 46px;" />
+			<input type="button" id="" value="添加事项" v-on:click="add" style="width: 350px;height: 50px;" />
+			<p>--代办事项--</p>
+			<div id="val" v-for="item in val">{{ item }}
+				<a>完成</a>
+			</div>
+			<p>--完成事项--</p>
+			<div id="val2">
+				<a>完成</a>
+			</div>
+
+		</div>
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<script>
+			new Vue({
+				el: '#app',
+				data() {
+					return {
+						value: '',
+						val: [],
+					}
+				},
+				methods: {
+					add() {
+						if(this.value) {
+							this.val.push(this.value);
+							this.value = '';
+							this.$refs.input.focus();
+						} else {
+							alert('内容不能为空');
+						}
+				},
+			}
+			})
+		</script>
+	</body>
+
+</html>
