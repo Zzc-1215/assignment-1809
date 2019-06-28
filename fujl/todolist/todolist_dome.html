@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="css/reset.css">\
+	<link rel="stylesheet" href="font/iconfont.css">
+	<script src="font/iconfont.js"></script>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+		body {
+			background: url(css/1.jpg) left center repeat-y;
+			background-size: 100% 100%;
+			height: 100%;
+		}
+
+		#app {
+			width: 700px;
+			margin: 150px auto;
+			border: 1px solid #ccc;
+			border-radius: 8px;
+
+		}
+
+		.fl {
+			float: left;
+		}
+
+		.fr {
+			float: right;
+		}
+
+		#ul li {
+			line-height: 50px;
+			min-height: 50px;
+		}
+
+		#ul li p {
+			line-height: 50px;
+		}
+
+		#ul li button {
+			line-height: 40px;
+		}
+
+		#ol li {
+			line-height: 50px;
+		}
+
+		#ol li p {
+			line-height: 50px;
+		}
+
+		#ol li button {
+			line-height: 40px;
+		}
+
+		ul {
+			color: rgb(241, 16, 16);
+			font-family: 'Frijole', cursive;
+			font-size: 20px;
+			
+			text-align: center;
+			letter-spacing: 8px;
+			margin: 30px auto 0;
+			animation: 2s animate infinite linear;
+			
+		}
+		ol{
+			color: rgb(17, 0, 255);
+			font-family: 'Frijole', cursive;
+			font-size: 20px;
+			
+			text-align: center;
+			letter-spacing: 8px;
+			margin: 30px auto 0;
+			animation: 2s animate infinite linear;
+		}
+		li{
+			border: 1px solid black;
+			margin: 5px 0;
+			background: #ccc;
+			font-weight: 900;
+		}
+		a {
+			float: right;
+		}
+
+		@keyframes animate {
+			0% {
+				text-shadow: 0 0 0 white;
+			}
+
+			40% {
+				color: rgba(204, 18, 18, 0);
+				text-shadow: 0 0 30px white;
+			}
+
+			70% {
+				color: rgba(3, 85, 153, 0.4);
+				text-shadow: 0 0 10px white;
+			}
+
+			90% {
+				color: rgba(39, 226, 1, 0.6);
+				text-shadow: 0 0 30px white;
+			}
+
+			100% {
+				text-shadow: 0 0 40px rgba(0, 58, 248, 0);
+			}
+		}
+
+		@media only screen and (max-width: 990px) {
+			.text-effect {
+				font-size: 80px;
+			}
+		}
+
+		@media only screen and (max-width: 767px) {
+			.text-effect {
+				font-size: 40px;
+			}
+		}
+
+		@media only screen and (max-width: 479px) {
+			.text-effect {
+				font-size: 30px;
+			}
+		}
+
+		@media only screen and (max-width: 359px) {
+			.text-effect {
+				font-size: 25px;
+			}
+		}
+
+		#put {
+			width: 100%;
+			height: 50px;
+			margin: 10px;
+			margin: 8px 0 8px 0;
+		}
+		#put::placeholder{
+			text-indent: 2em;
+
+		}
+
+		.btn {
+			width: 100%;
+			height: 50px;
+			background: rgb(44, 73, 236);
+			color: white;
+			font-size: 20px;
+			text-align: center;
+			line-height: 50px;
+			letter-spacing: 8px;
+			border:none;
+			border-radius: 8px;
+		}
+		p{
+			font-size: 28px;
+			line-height: 50px;
+			color: wheat;
+		}
+		a{
+			font-size: 20px;
+			line-height: 50px;
+			color: black;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="app">
+		<div style="width: 500px;min-height: 30px;margin:50px auto">
+			<input v-model="something" type="text"  placeholder="请输入添加事项" id="put">
+			<button class="btn" v-on:click="add">添加事项</button>
+			<p>--待办事项--</p>
+			<ul id="ul" style="min-height: 50px;" class="clearfix">
+				<li v-if="!list.length">还未添加事项</li>
+				<li v-else v-for="(item,index) in list">
+					{{item}}
+					<a href="#" v-on:click="done(item,index)" class="iconfont" title="进行中....">&#xe600;</a>
+				</li>
+			</ul>
+			<p>--完成事项--</p>
+			<ol id="ol" style="min-height: 50px;"  class="clearfix">
+				<li v-if="!doneList.length">还未添加事项</li>
+				<li v-for="(item,index) in doneList">{{item}}
+					<a href="#" v-on:click="del(index)" class="iconfont" title="删除">&#xe792;</a>
+				</li>
+			</ol>
+		</div>
+	</div>
+</body>
+<!-- <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+
+
+<script type="text/javascript">
+
+         	
+				
+
+
+	var vm = new Vue({
+		el: '#app',
+		data() {
+			return {
+				something: '',
+				list: [],
+				doneList: [],
+			}
+		},
+		methods: {
+			add() {
+				var m=document.getElementsByTagName("input");
+				for(var i=0;i<m.length;i++)
+				{
+					if(m[i].value==""||m[i].value==null)
+					{
+						alert("请填写所有的內容！");
+						return false;
+					}
+				}
+				this.list.push(this.something);
+				this.something = '';
+			},
+			done(item, index) {
+				this.list.splice(index, 1);
+				this.doneList.push(item);
+			},
+			del(index) {
+				this.doneList.splice(index, 1);
+			}
+		},
+	})
+</script>
+
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="font/iconfont.css">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        .iconfont{
+            font-size: 20px;
+        }
+        #box{
+            max-width: 300px;
+            min-height: 300px;
+            border: solid 1px #ccc;
+            margin: 50px auto;
+            padding: 10px;
+            background:url(img/1.png) left center no-repeat;
+            background-size: 100% 100%;
+            -webkit-user-select:none;
+        }
+        .tit p{
+            font-size: 24px;
+            font-weight: 600;
+            line-height: 80px;
+            text-align: center;
+        }
+        .top{
+            min-height: 80px;
+        }
+        #texts{
+            width: 300px;
+            height:40px;
+            padding-left: 10px;
+            box-sizing: border-box;
+        }
+        #addBtn{
+            width: 300px;
+            height: 40px;
+            font-size: 18px;
+            border: none;
+            outline: none;
+            margin-top: 10px;
+        }
+        #addBtn:hover{
+            background: #eeeeee;
+        }
+        #unfinish{
+            min-height: 100px;
+        }
+        #unfinish p{
+            line-height: 50px;
+            text-align: center;
+            font-style: italic;
+            font-weight: 500;
+        }
+        #compliect{
+            min-height: 100px;
+        }
+        .bottom p{
+            font-size: 18px;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+        .bottom li{
+            padding-left: 15px;
+            height: 50px;
+            line-height: 50px;
+            border-bottom: solid 1px #ccc;
+        }
+        .bottom li span{
+            float: right;
+            margin: 0 10px;
+        }
+        .bottom button:hover{
+            cursor: pointer;
+            box-shadow: 0 0 1px 1px #ccc;
+        }
+        .compe{
+            color: turquoise;
+        }
+        .nofinish{
+            color: darkorange;
+        }
+        .delete{
+            color: crimson;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <div class="tit">
+            <p>TODOLIST</p>
+        </div>
+        <div class="top">
+            <input v-model="inputValue" type="text" id="texts" placeholder="添加ToDo">
+            <button v-if="inputValue" v-on:click="addBtn" id="addBtn">添加</button>
+        </div>
+        <div class="bottom">
+            <p>未完成</p>
+            <ul id="unfinish">
+                <p v-if="!list.length">还未添加事项</p>
+                <li v-else v-for="(item,index) in list">{{item}}
+                    <span class="iconfont compe" v-on:click="compelet(item,index)">&#xe66a;</span>
+                </li>
+            </ul>
+            <p>已完成</p>
+            <ul id="compliect">
+                <li v-for="(item,index) in comList">{{item}}
+                    <span class="iconfont delete" v-on:click="del(index)" >&#xe63b;</span>
+                    <span class="iconfont nofinish" v-on:click="unfinish(item,index)">&#xe60e;</span>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</body>
+<script src="vue.js"></script>
+<script>
+    var vq= new Vue({
+        el:'#box',
+        data(){
+           return{
+            inputValue:'',//用户输入内容
+            list:[],//未完成数组
+            comList:[],//已完成数组
+           }
+        },
+        methods:{
+            //添加按钮
+            addBtn(){
+                this.list.push(this.inputValue)
+                this.inputValue=''
+            },
+            //完成
+            compelet(item,index){
+                this.comList.push(item)
+                this.list.splice(index,1)
+            },
+            //未完成
+            unfinish(item,index){
+                this.list.push(item)
+                this.comList.splice(index,1)
+            },
+            //删除
+            del(index){
+                this.comList.splice(index,1)
+            }
+        }
+    })
+</script>
+</html>

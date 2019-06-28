@@ -6,10 +6,59 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link rel="stylesheet" href="css.css">
+    <script src="vue.js"></script>
 </head>
 
 <body>
-
+    <div id="app">
+        <input class="text" type="text" v-model="value" ref="input">
+        <input class="button" type="button" value="确定" @click="add">
+        <h2>代办事项</h2>
+        <ul>
+            <li v-if="list1.length==0" class="dai1">还未添加代办事项</li>
+            <li v-else v-for="item,index in list1" class="dai2">{{item}}
+                <a class="done" @click="done(index)">完成</a>
+            </li>
+        </ul>
+        <h2>完成事项</h2>
+        <ul>
+            <li v-if="list2.length==0" class="dai1">还未添加代办事项</li>
+            <li v-else v-for="item,index in list2" class="dai2">{{item}}
+                <a class="remove" @click="remove(index)">删除</a>
+            </li>
+        </ul>
+    </div>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                value: '',
+                list1: [],
+                list2: []
+            },
+            methods: {
+                add() {
+                    if (this.value) {
+                        this.list1.push(this.value);
+                        this.value = '',
+                            this.$refs.input.focus();
+                    } else {
+                        alert('请添加事项')
+                    }
+                },
+                done(index) {
+                    var value = this.list1.splice(index, 1);
+                    this.list2.push(value[0])
+                    
+                },
+                remove(index) {
+                    this.list2.splice(index, 1)
+                }
+            }
+        })
+    </script>
 </body>
+
 
 </html>

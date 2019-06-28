@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,29 +8,134 @@
     <title>Document</title>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <style>
-        *{margin: 0;padding: 0;list-style: none;box-sizing: border-box;user-select: none;}
-        a{text-decoration: none;}
-        body{width: 100%;height: 100%;background: #fefefe;}
-        button{border: none;outline: none;}
-        #content{width: 600px;margin: 0 auto;text-align: center;background: papayawhip;}
-        #txt{height: 40px;border: none;outline: none;border-color: #b8b8b8 transparent #ccc #b8b8b8;border: 1px solid #b6b6b6;font: 16px/18px arial;width: 550px;padding-left: 10px;}
-        #add{height: 40px;background: #3385ff;border-bottom: 1px solid #2d78f4;color: #fff;padding: 0 10px;cursor: pointer;}
-        #list1{min-height:200px;background: rgb(170, 230, 170);}
-        #list1>li{text-align: left;height: 30px;line-height: 30px;padding-left: 20px;margin-bottom: 5px;background: rgb(126, 128, 37);color:orange}
-        #list1>li:hover{color: red;background: rgb(119, 36, 36);transition: .2s;color: #fff;}
-        #end{color: #fff;padding: 0px 10px;font-size: 20px;float: right;margin-top: 2px;line-height: 24px;}
-        #del{color: #fff;padding: 0px 10px;font-size: 20px;float: right;margin-top: 2px;line-height: 24px;}
-        #out{color: #fff;padding: 0px 10px;font-size: 20px;float: right;margin-top: 2px;line-height: 24px;}
-        #list2{min-height:200px;background:paleturquoise;}
-        #list2>li{text-align: left;height: 30px;line-height: 30px;padding-left: 20px;margin-bottom: 5px;background: rgb(126, 128, 37);color:orange}
-        #list2>li:hover{color: red;background: rgb(119, 36, 36);transition: .2s;color: #fff;}
-        
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        body {
+            width: 100%;
+            height: 100%;
+            background: #fefefe;
+        }
+
+        button {
+            border: none;
+            outline: none;
+        }
+
+        #content {
+            width: 600px;
+            margin: 0 auto;
+            text-align: center;
+            background: papayawhip;
+        }
+
+        #txt {
+            height: 40px;
+            border: none;
+            outline: none;
+            border-color: #b8b8b8 transparent #ccc #b8b8b8;
+            border: 1px solid #b6b6b6;
+            font: 16px/18px arial;
+            width: 550px;
+            padding-left: 10px;
+        }
+
+        #add {
+            height: 40px;
+            background: #3385ff;
+            border-bottom: 1px solid #2d78f4;
+            color: #fff;
+            padding: 0 10px;
+            cursor: pointer;
+        }
+
+        #list1 {
+            min-height: 200px;
+            background: rgb(170, 230, 170);
+        }
+
+        #list1>li {
+            text-align: left;
+            height: 30px;
+            line-height: 30px;
+            padding-left: 20px;
+            margin-bottom: 5px;
+            background: rgb(126, 128, 37);
+            color: orange
+        }
+
+        #list1>li:hover {
+            color: red;
+            background: rgb(119, 36, 36);
+            transition: .2s;
+            color: #fff;
+        }
+
+        #end {
+            color: #fff;
+            padding: 0px 10px;
+            font-size: 20px;
+            float: right;
+            margin-top: 2px;
+            line-height: 24px;
+        }
+
+        #del {
+            color: #fff;
+            padding: 0px 10px;
+            font-size: 20px;
+            float: right;
+            margin-top: 2px;
+            line-height: 24px;
+        }
+
+        #out {
+            color: #fff;
+            padding: 0px 10px;
+            font-size: 20px;
+            float: right;
+            margin-top: 2px;
+            line-height: 24px;
+        }
+
+        #list2 {
+            min-height: 200px;
+            background: paleturquoise;
+        }
+
+        #list2>li {
+            text-align: left;
+            height: 30px;
+            line-height: 30px;
+            padding-left: 20px;
+            margin-bottom: 5px;
+            background: rgb(126, 128, 37);
+            color: orange
+        }
+
+        #list2>li:hover {
+            color: red;
+            background: rgb(119, 36, 36);
+            transition: .2s;
+            color: #fff;
+        }
     </style>
 </head>
+
 <body>
     <div id="root">
         <div id="content">
-            <div><input type="text" id="txt" placeholder="这是一个比较厉害的计划" v-model='something'><button id="add" @click='add'>添加</button></div>
+            <div><input type="text" id="txt" placeholder="这是一个比较厉害的计划" v-model='something' v-focus><button id="add"
+                    @click='add'>添加</button></div>
             <!-- 待完成 -->
             待完成的...
             <ul id="list1">
@@ -52,35 +158,41 @@
         </div>
     </div>
 </body>
-    <script>
-        new Vue({
-            el:'#root',
-            data:{
-                something:'',
-                list1:[],
-                list2:[],
-            },
-            methods:{
-                // 添加
-                add(){
+<script>
+    new Vue({
+        el: '#root',
+        data: {
+            something: '',
+            list1: [],
+            list2: [],
+        },
+        methods: {
+            // 添加
+            add() {
+                if (this.something == '') {
+                    
+                } else {
                     this.list1.unshift(this.something);
-                    this.something=''
-                },
-                // 完成
-                end(v,i){
-                    this.list2.unshift(v);
-                    this.list1.splice(i,1); 
-                },
-                // 完成删除
-                del(v,i){
-                    this.list2.splice(i,1)
-                },
-                // 未完成
-                out(v,i){
-                    this.list1.push(v)
-                    this.list2.splice(i,1)
+                    this.something = ''
                 }
+            },
+            // 完成
+            end(v, i) {
+                this.list2.unshift(v);
+                this.list1.splice(i, 1);
+            },
+            // 完成删除
+            del(v, i) {
+                this.list2.splice(i, 1)
+            },
+            // 未完成
+            out(v, i) {
+                this.list1.push(v)
+                this.list2.splice(i, 1)
             }
-        })
-    </script>
+        },
+        directives: { focus: { inserted: function (el) { el.focus() } } }// 自动聚焦
+    })
+</script>
+
 </html>
