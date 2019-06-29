@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>评分</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+</head>
+    <style>
+        .box{
+            padding:20px;
+            width:400px;
+            border:1px solid black;
+            margin:40px auto;
+        }
+        [v-cloak]{display: none;}
+        li{
+            list-style:none;
+            display:inline-block;
+            width:60px;
+            height:60px;
+            border-radius:50%;
+            border:1px solid rgb(136, 206, 250);
+            margin-right:10px;
+        }
+        .xianshi{
+          background-color:red;  
+        }
+    </style>
+<body>
+    <ul class="box" v-cloak>
+        <li class="x" v-for="(intem,index) in 5" @mouseover="run(index)" @mouseout="pause" @click="dian(index)" :class="{'xianshi':djg>index}"></li><span>{{djg}}</span>
+
+    </ul>
+    <script>
+    var vm=new Vue({
+        el:'.box',
+        data(){
+            return{
+                djg:0,
+                kg:false,
+            }
+        },
+        methods:{
+            run(index){
+                console.log(index)
+                if(!this.kg){
+                   this.djg=index+1;
+                }
+            },
+            pause(){
+                if(!this.kg){
+                   this.djg=0;
+                }
+            },
+            dian(index){
+                this.index=index+1;
+                this.kg=true;
+            },
+        }
+    })
+    </script>
+</body>
+</html>
