@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>点灯游戏</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #box {
+            width: 300px;
+            height: 300px;
+            margin: 50px auto;
+            box-shadow: -10px 6px 15px 6px #ccc;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 28px;
+        }
+
+        .con {
+            width: 154px;
+            height: 154px;
+            margin: 20px auto;
+            overflow: hidden;
+        }
+
+        .li {
+            width: 20px;
+            height: 20px;
+            border: 1px solid #ccc;
+            float: left;
+            text-align: center;
+            line-height: 20px;
+            list-style: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <h1>点灯游戏</h1>
+        <ul class="con">
+            <li class="li" v-for="(item,index) in list" @click='btn(index)'><span v-show="ok==index">{{item}}</span></li>
+        </ul>
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#box',
+            data() {
+                return {
+                    list: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1,1,1,1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1,1,1,1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1,1,1,1,1,1,1,],
+                    ok: true,
+                }
+            },
+            methods: {
+                btn(index) {
+                    console.log(index);
+                    console.log(index + 7);
+                    console.log(index - 7);
+                    console.log(index + 1);
+                    console.log(index - 1);
+                    this.ok = !this.ok;
+                    this.ok = index;
+                    this.ok = index +7
+                    // this.ok = index+1;
+                    // this.ok = index-7;
+                    // this.ok = index-1;
+                },
+            },
+        })
+    </script>
+</body>
+
+</html>
