@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>逻辑思维倒水题</title>
+		<link rel="stylesheet" type="text/css" href="css.css"/>
+	</head>
+	<body>
+		<p>有三个木桶，分别是10L、7L、5L的容量，现在10L的木桶里面装满了水，要求你用7L的木桶和3L的木桶，均匀的把10L的水分为两个5L的</p>
+		<div id="box">
+			<div v-for="(cup,key) in cups" :class="{list:key==lift}" @click="quan(key)" class="main ca">
+				<div class="s" :style="{height:cup.c/cup.full*100+'%'}"></div>
+				<span>{{cup.c}}ml</span>
+			</div>
+		</div>
+	</body>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script>
+		var vm=new Vue({
+			el:"#box",
+			data(){
+				return{
+					lift: null,
+                    cups:{
+						a:{
+							full:10,
+							c:10,
+						},
+						b:{
+							full:7,
+							c:0,
+						},
+						c:{
+							full:3,
+							c:0,
+						}
+					}
+				}
+			},
+			methods:{
+				quan(cup){
+					if(this.lift){
+                        if(cup == this.lift){
+                            this.lift = null;
+                            return
+                        }
+                        var drl = this.cups[cup].full - this.cups[cup].c > this.cups[this.lift].c?this.cups[this.lift].c:this.cups[cup].full - this.cups[cup].c;
+                        var syl = this.cups[this.lift].c - drl;
+                        
+                        this.cups[cup].c += drl;
+                        this.cups[this.lift].c = syl;
+
+                        this.lift = null;
+                    }else{
+                        this.lift = cup;
+                    }
+					
+				}	
+			}
+		})
+	</script>
+</html>

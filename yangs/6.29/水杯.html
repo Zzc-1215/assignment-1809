@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <script>
+        window.onload = function() {
+            document.documentElement.style.fontSize = document.documentElement.clientWidth / 750 * 100 + 'px';
+            window.onresize = function() {
+                document.documentElement.style.fontSize = document.documentElement.clientWidth / 750 * 100 + 'px';
+            }
+        }
+    </script>
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        body,
+        html {
+            height: 100%;
+        }
+        
+        .box {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            font-size: 0.3rem;
+        }
+        
+        .box>div {
+            width: 1.4rem;
+            border: 1px #999 solid;
+            border-top: none;
+            position: absolute;
+            bottom: 30%;
+            transition: all .4s;
+            font-size: 0.3rem;
+        }
+        
+        .box>div>div {
+            width: 100%;
+            background: blue;
+            position: absolute;
+            bottom: 0;
+            transition: all .6s;
+        }
+        
+        .box>div span {
+            position: absolute;
+            top: -0.5rem;
+            left: 50%;
+            margin-left: -0.1rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <span>步数: {{n}}</span>
+        <div @click.stop="take(item,index)" v-for="(item,index) in arr" :style="{height:item.capacity*0.6+'rem',left:index*2.2+0.8+'rem',transform: !pickType&&pick==index?'translateY(-0.5rem)':'translateY(0)'}">
+            <div :style="{height:item.L/item.capacity*100+'%'}"></div>
+            <span>{{item.L}}</span>
+        </div>
+    </div>
+</body>
+
+<script>
+    new Vue({
+        el: '.box',
+        data: {
+            arr: [{
+                capacity: 10,
+                L: 10,
+            }, {
+                capacity: 7,
+                L: 0,
+            }, {
+                capacity: 3,
+                L: 0,
+            }],
+            pick: null,
+            pickType: true,
+            n: 0,
+        },
+        methods: {
+            take(item, index) {
+                if (index !== this.pick) {
+                    if (!this.pickType) {
+                        var drl = item.capacity - item.L; //要倒入多少
+                        var syl = this.arr[this.pick].L; //剩余多少
+                        item.L = syl >= drl ? item.capacity : item.L + syl;
+                        this.arr[this.pick].L = syl >= drl ? syl - drl : 0;
+                        this.pickType = true;
+                        this.pick = null;
+                        this.n++;
+                    } else {
+                        this.pickType = false;
+                        this.pick = index;
+                    }
+                } else {
+                    this.pick = null;
+                    this.pickType = true;
+                }
+            }
+        },
+    })
+</script>
+
+</html>
