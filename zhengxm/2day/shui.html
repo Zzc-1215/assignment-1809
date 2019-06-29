@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        [v-cloak] {
+            display:block;
+        }
+        #container{
+            width: 800px;
+            background-color: darkgray;
+            padding-top: 50px;
+            min-height: 500px;
+            margin: 0 auto;
+        }
+        .small p{
+            text-align: center;
+            line-height: 50px;
+            font-size: 22px;
+            color: antiquewhite;
+            position: absolute;
+            bottom: -50px;
+            left: 50%;
+            margin-left: -50px;
+        }
+        .big,.middle,.small{
+            width: 200px;
+            height: 350px;
+            border:1px solid #ffffff;  
+            border-top: 2px solid transparent;
+            border-radius: 6px;
+            margin-left: 20px;
+            padding-top:2px;
+            float: left;
+            position: relative;
+            transform: rotate(0deg);
+            transition: 1s;
+            /* position: relative; */
+        }
+        /* .big div{
+            height: 350px;
+            transition: all 1s;
+            background-color: aquamarine;
+            border-radius: 6px;
+            margin: 0 auto;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+        }
+        .middle div{
+            height: 0%;
+            transition: all 1s;
+            background-color: aquamarine;
+            border-radius: 6px;
+            margin: 0 auto;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+        } */
+        .small div{
+            /* height: 0%; */
+            width: 200px;
+            transition: all 1s;
+            border-radius: 6px;
+            margin: 0 auto;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+        }
+        .big.lift,.middle.lift,.small.lift{
+            transform: rotate(30deg);
+        }
+    </style>
+</head>
+<body>
+    <div id="container" v-cloak>
+        <div class="small" :class="{lift:key==lift}" v-for="(cup,key) in cups" @click="daoshui(key)">
+            <div :style="{height:cup.c/cup.full*100+'%'}" style="background-color: aquamarine;"></div>
+            <p>{{cup.c}}L</p>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <script>
+         var vm = new Vue({
+            el:'#container',
+            data(){
+                return {
+
+                    lift: null,
+                    
+                    cups:{
+                        da: {
+                            full: 10,
+                            c: 10,
+                        },
+                        zhong: {
+                            full: 7,
+                            c: 0,
+                        },
+                        xiao: {
+                            full: 3,
+                            c: 0,
+                        }
+                    }
+                }
+            },
+            methods:{
+                daoshui(cup){
+                    if(this.lift){
+                        if(cup == this.lift){
+                            this.lift = null;
+                            return
+                        }
+                        var drl = this.cups[cup].full - this.cups[cup].c > this.cups[this.lift].c?this.cups[this.lift].c:this.cups[cup].full - this.cups[cup].c;
+                        var syl = this.cups[this.lift].c - drl;
+                        
+                        this.cups[cup].c += drl;
+                        this.cups[this.lift].c = syl;
+
+                        this.lift = null;
+                    }else{
+                        this.lift = cup;
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>       
