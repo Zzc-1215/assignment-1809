@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>点灯</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .box {
+            width: 500px;
+            height: 500px;
+            border: 1px solid red;
+            margin: 30px auto;
+        }
+
+        .d {
+            width: 98px;
+            float: left;
+            height: 98px;
+            text-align: center;
+            line-height: 98px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div class="d" v-text="item" v-for="(item,index) in list[0]" @click="add(index,0,item)">
+        </div>
+        <div class="d" v-text="item" v-for="(item,index) in list[1]" @click="add(index,1,item)">
+        </div>
+        <div class="d" v-text="item" v-for="(item,index) in list[2]" @click="add(index,2,item)">
+        </div>
+        <div class="d" v-text="item" v-for="(item,index) in list[3]" @click="add(index,3,item)">
+        </div>
+        <div class="d" v-text="item" v-for="(item,index) in list[4]" @click="add(index,4,item)">
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script>
+        new Vue({
+            el: ".box",
+            data: {
+                list: [["", "", "", "", ""], ["", "", "", "", ""], ["", "", "", "", ""], ["", "", "", "", ""], ["", "", "", "", ""]],
+            },
+            methods: {
+                add(index, num, item) {
+                    if ((num - 1 >= 0 && num - 1 < 5) && index >= 0 && index < 5) {
+                        if (item) {
+                            this.list[num - 1].splice(index, 1, "");
+                        } else {
+                            this.list[num - 1].splice(index, 1, "1");
+                        }
+                    }
+                    if ((index - 1) >= 0 && (index - 1) < 5) {
+                        if (item) {
+                            this.list[num].splice(index - 1, 1, "");
+                        } else {
+                            this.list[num].splice(index - 1, 1, "1");
+                        }
+                    }
+                    if (item) {
+                        this.list[num].splice(index, 1, "");
+                    } else {
+                        this.list[num].splice(index, 1, "1");
+                    }
+
+                    if ((index + 1) >= 0 && (index + 1) < 5) {
+                        if (item) {
+                            this.list[num].splice(index + 1, 1, "");
+                        } else {
+                            this.list[num].splice(index + 1, 1, "1");
+                        }
+                    }
+                    if ((num + 1 >= 0 && num + 1 < 5) && index >= 0 && index < 5) {
+                        if (item) {
+                            this.list[num + 1].splice(index, 1, "");
+                        } else {
+                            this.list[num + 1].splice(index, 1, "1");
+                        }
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

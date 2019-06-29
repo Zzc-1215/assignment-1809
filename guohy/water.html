@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+	*{
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+	}
+	#app{
+		width:800px;
+		height: 300px;
+		padding-top: 50px;
+		padding-left: 50px;
+		background-color: #ccc;
+		margin: 100px auto;
+	}
+	.item{
+		width: 100px;
+		height: 200px;
+		text-align: center;
+		line-height: 200px;
+		border: solid 3px #000;
+		border-radius: 0 0 20px 20px;
+		border-top: none;
+		float: left;
+		margin-right: 150px;
+		position: relative;
+		overflow: hidden;
+		transform: rotate(0deg);
+        transition: .5s;
+        color:red;
+	}
+	/* @keyframes myanimation{
+	 	from{
+			transform:translateY(0);
+	 	}
+	 	to{
+			transform:translateY(20px);
+	 	}
+	 }*/
+	/*水杯倾斜*/
+	.item.lift{
+		transform:rotate(30deg);
+	}
+	.color{
+		width: 100%;
+		height: 0;
+		background-color: rgba(255,255,254,.5);
+		position: absolute;
+		bottom: 0;
+		transition: all .5s;
+	}
+</style>
+</head>
+<body style="background-color: #f8f8f8">
+	<div id="app">
+		<div class="item"  :class="{lift:key==lift}" v-for="(cup,key) in cups" @click="daoshui(key)">
+			{{cup.c}}L
+			<div class="color" :style="{height: cup.c/cup.full*100+'%'}"></div>
+			
+		</div>
+	</div>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script>
+        var vm = new Vue({
+            el:'#app',
+            data(){
+                return {
+
+                    lift: null,
+                    
+                    cups:{
+                        da: {
+                            full: 10,
+                            c: 10,
+                        },
+                        zhong: {
+                            full: 7,
+                            c: 0,
+                        },
+                        xiao: {
+                            full: 3,
+                            c: 0,
+                        }
+                    }
+                }
+            },
+            methods:{
+                daoshui(cup){
+                    // 判断是否已经端起水 this.lift指的是谁被端起
+                    if(this.lift){
+                        // 同一个杯子抬起两次就让他放下
+                        if(cup == this.lift){
+                            this.lift = null;
+                            return
+                        }
+                        // 计算要倒出去多少水
+                        //this.cups[cup].full 被倒进水的杯子的容量  this.cups[cup].c被倒进水的杯子现在有多少水
+                        //this.cups[this.lift].c要倒水的杯子有多少水
+                        // console.log(this.cups[cup].full,this.cups[cup].c)
+                        // 如果被倒进水的杯子的容量减去原有水量大于要倒水的杯子含有水量,那么就全部倒进去
+                        // 如果被倒进水的杯子的容量减去原有水量小于或等于要倒水的杯子含有水量,那么要倒进去的水量就是用被倒进水的杯子的容量减去原有水量
+                        var drl = this.cups[cup].full - this.cups[cup].c > this.cups[this.lift].c?this.cups[this.lift].c:this.cups[cup].full - this.cups[cup].c; 
+                        // var drl = this.cups[cup].full - this.cups[cup].c > this.cups[this.lift].c?this.cups[this.lift].c:this.cups[cup].full - this.cups[cup].c;
+                        // 计算还剩多少水
+                        var syl = this.cups[this.lift].c - drl;
+                        
+                        this.cups[cup].c += drl;
+                        this.cups[this.lift].c = syl;
+                        // 第二次抬起的杯子不是同一个就让第一次抬起的杯子放下
+                        this.lift = null;
+                    }else{
+                        // 第二次抬起的杯子是同一个就让杯子放下
+                        this.lift = cup;
+                      
+                    }
+                }
+            }
+        })
+    
+    </script>
+</body>
+</html>

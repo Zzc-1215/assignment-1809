@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>点灯游戏</title>
+    <style>
+        *{margin: 0;padding: 0;list-style:none;}
+        .box{
+            width: 300px;
+            height: 300px;
+            margin: 100px auto;
+            /* border: 1px solid; */
+        }
+        .item{
+            width: 100px;
+            height: 100px;
+            border: 1px solid;
+            float: left;
+            box-sizing: border-box;
+        }
+        .active{
+            background-color: orangered;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <div class="item" :class="{active:true}" v-for="(item,index) in 9" @click="dj(index)"></div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el:'.box',
+            // data(){
+            //     return{
+                    
+            //     }
+            // }
+            methods:{
+                dj(deng){
+                    console.log(deng);
+                    if(deng == this.index){
+                        console.log('ok')
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>
