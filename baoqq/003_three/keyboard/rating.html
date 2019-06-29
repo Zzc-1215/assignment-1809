@@ -34,7 +34,7 @@
 
 <body>
     <div id="box">
-        <p>留下评论再走吧</p>
+        <p style="font-size: 26px;">留下评论再走吧<span class="glyphicon glyphicon-heart" style="font-size: 30px;color: red;"></span></p>
         <div v-for="num in 5" @mouseenter="over(num)" @mouseleave="leave()" @click="select(num)"
             :class="{'on':current>=num}">
         </div>
