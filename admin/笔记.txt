@@ -9,3 +9,15 @@
 	V-model => @input + :value
 	V-cloak
 	V-once: 渲染一次，低开销
+--vue事件--
+	V-on 简写 （@click）
+	V-on:click
+	事件对象event
+	事件修饰符（可以串联）
+		Stop  .prevent .capture .self .once  .passive
+	v-model  .number .lazy .trim
+	v-on:keyup.13
+	了解 事件捕捉、事件冒泡（事件委托原理）
+	StopPropagation   preventDetault
+	原生事件方法attachEvent()采用冒泡方式，而addEventListener()可以采用冒泡或事件捕获方式。
+
