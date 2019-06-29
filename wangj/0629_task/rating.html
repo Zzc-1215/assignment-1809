@@ -25,14 +25,16 @@
             -moz-osx-font-smoothing: grayscale;
         }
 
-        ul{list-style: none;}
+        ul {
+            list-style: none;
+        }
 
-        ul>.star{
+        ul>.star {
             font-size: 40px;
             display: inline-block;
         }
 
-        ul>.star.c{
+        ul>.star.c {
             color: orange;
         }
     </style>
@@ -41,7 +43,8 @@
 <body>
     <div class="box">
         <ul>
-            <li class="iconfont star" :class="{c:item}" v-for="(item, index) in newArr" @mouseover="color(index)">&#xe754;</li>
+            <li class="iconfont star" :class="{c:newNum>index}" v-for="(item, index) in num" @mouseover="move(index)"
+                @mouseout="leave(index)" @click="cli(index)">&#xe754;</li>
         </ul>
     </div>
 </body>
@@ -49,20 +52,50 @@
 
 <script>
     var vm = new Vue({
-        el:'.box',
-        data(){
-            return{
-                x:'&#xe754;',
-                newArr:['','','','',''],
+        el: '.box',
+        data() {
+            return {
+                num: 5,
+                newNum: 0,
+                judge: false,
             }
         },
         methods: {
-            color(index){
-                for (var i = 0; i < 5; i++) {
-                    this.newArr.splice(index,1,this.x)
+            move(index) {
+                // var num = 0;
+                // if (num<=index) {
+                // num ++
+                // }
+
+                if (!this.judge) {
+                    this.newNum = index + 1
                 }
             },
+            leave(index) {
+                // var num = 5;
+                // if (num<index) {
+
+                // num--
+                // }
+
+
+                if (!this.judge) {
+                    this.newNum = 0
+                }
+            },
+            cli(index) {
+                // if (!this.judge) {
+
+                // }else{
+                //     this.judge = false
+                // }
+
+                this.judge = true
+                this.newNum = index + 1
+                // move(index)
+            }
         },
     })
 </script>
+
 </html>
