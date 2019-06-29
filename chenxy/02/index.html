@@ -49,12 +49,6 @@
             transform: rotate(0deg);
             transition: .5s;
         }
-        /* .middle{
-            height: 98px;
-            position: absolute;
-            top:20px;
-            left: 216px; 
-        } */
         .main div span{
             width: 20px;
             height: 50px;
@@ -81,6 +75,10 @@
         }
         .smallColor{
             height: 0%;
+            transition:all .5s;
+        }
+        .small.lift{
+            transform: rotate(30deg);
         }
     </style>
 </head>
@@ -91,32 +89,59 @@
             <p>有三个木桶，分别是10L、7L、5L的容量，现在10L的木桶里面装满了水，要求你用7L的木桶和5L的木桶，均匀的把10L的水分为两个5L的</p>
         </div>
         <div class="main">
-            <div class="big" v-on:click='big($event)'>
-                <div class="bigColor"></div>
-                <span></span>10L
-            </div>
-            <div class="middle">
-                <div class="middleColor"></div>
-                <span></span>7L
-            </div>
-            <div class="small">
-                <div class="smallColor"></div>
-                <span></span>3L
+            <div class="small" :class="{lift:key==lift}" v-for="(cup,key) in cups" @click="daoshui(key)">
+                <div class="smallColor" :style="{height: cup.xz/cup.full*100+'%'}"></div>
+                <span></span>{{cup.xz}}L
             </div>
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script>
-        new Vue({
+        var vm = new Vue({
             el:'.box',
-            // data(){
-
-            // },
+            data(){
+                return{
+                    lift:null,
+                    cups: {
+                        big:{
+                            full:10,
+                            xz:10,
+                        },
+                        middle:{
+                            full:7,
+                            xz:0,
+                        },
+                        small:{
+                            full:3,
+                            xz:0,
+                        }
+                    }
+                }
+            },
             methods:{
-                big(event){
-                    console.log(event.currentTarget)
-                    event.currentTarget.style.transform='rotate(30deg)';
+                daoshui(cup){
+                    if(this.lift){
+                        // 端起以后的杯子再点击，就放下
+                        if(cup == this.lift){
+                            this.lift = null;
+                            return;
+                        }
+
+                        // 倒入量
+                        // this.cups[cup]：将要倒入水的杯子
+                        // this.cups[this.lift]：举起来的杯子
+                        var drl = this.cups[cup].full - this.cups[cup].xz > this.cups[this.lift].xz?this.cups[this.lift].xz:this.cups[cup].full - this.cups[cup].xz;
+                        // 剩余量
+                        var syl = this.cups[this.lift].xz - drl;
+
+                        this.cups[cup].xz += drl;
+                        this.cups[this.lift].xz = syl;
+
+                        this.lift = null;
+                    }else{
+                        this.lift = cup;
+                    }
                 }
             }
 
