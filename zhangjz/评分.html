@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        *{margin: 0;padding: 0;list-style: none;}
+        .clearfix::after,
+        .clearfix::before {content: '';display: block;width: 0;height: 0;visibility: hidden;clear: both;}
+        [v-cloak]{display: none;}
+        ul{width: 410px;margin: 60px auto;}
+        ul>li{width: 60px;height: 60px;border-radius: 50%;float: left;margin: 10px;cursor: pointer;border: 1px solid #ccc;}
+        p{text-align: center;margin-top: -50px;}
+    </style>
+</head>
+<body>
+    <div id="root" v-cloak>
+        <ul class="clearfix">
+            <!-- <li v-for='(v,i) in 5' @mouseover='z_index=i'  @mouseout='z_index=z_index' :style="{background:z_index==i?'red':'none'}"></li> -->
+            <!-- {{z_index}} -->
+            <li v-for='n in 5' @click='add(n)' :style="{background:judge>=n?'red':'none'}"></li> 
+        </ul>
+        <p>{{num}}分</p>
+    </div>
+</body>
+    <script>
+        var vm=new Vue({
+            el:'#root',
+            data:{
+                judge:-1,
+                z_index:0,
+                num:0
+            },
+            methods:{
+                add(n){
+                    this.judge=n;
+                    this.num=n;
+                }
+
+            }
+        })
+    </script>
+</html>
