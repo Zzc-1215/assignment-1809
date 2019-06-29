@@ -39,13 +39,19 @@
          .full.lift{
             transform:rotate(30deg);
         }
+        .posi{
+            width: 100%;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+        }
     </style>
 </head>
 <body>
     <div id="box">
         <div class="full" :class="{lift:key==lift}" v-for="(item,key) in cups" @click=change(key)>
            <div class="bigback" :style="{height:item.c/item.full*100+'%'}"> 
-               {{item.c}}L
+               <div class="posi">{{item.c}}L</div>
             </div>
         </div>
     </div>
