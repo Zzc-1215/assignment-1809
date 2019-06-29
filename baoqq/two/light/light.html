@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .container {
+            width: 500px;
+            height: 500px;
+            margin: 50px auto;
+            background: rgba(0, 0, 0, .1);
+        }
+
+        .title p {
+            text-align: center;
+            padding: 10px;
+            font-size: 30px;
+            background: rgba(231, 175, 238, 0.842);
+        }
+
+        .content {
+            width: 300px;
+            height: 300px;
+            margin: 0 auto;
+            border: 1px solid #ccc;
+            overflow: hidden;
+        }
+
+        .itemBox {
+            width: 60px;
+            height: 60px;
+            float: left;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="title">
+            <p>点亮所有的灯</p>
+        </div>
+        <div class="content">
+            <div class="itemBox" v-for="item in smallBox" @click="isshow=!isshow" v-on:click="isshow()"></div>
+        </div>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '.container',
+            data() {
+                return {
+                    smallBox: 25,
+                    // isshow = true,
+                }
+            },
+            methods:{
+                isshow(){
+                    isshow = true;  
+                },
+            },
+        })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+
+</body>
+
+</html>
