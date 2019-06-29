@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>点灯小游戏</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        #box{
+            width: 500px;
+            height: 500px;
+            
+            margin: 0 auto;
+        }
+        #box h2{
+            text-align: center;
+            line-height: 50px;
+            background-color: aqua;
+            border: 1px solid #ccc;
+
+        }
+        #content{
+            width: 100%;
+            height: 450px;
+            background-color: #ffffff;
+            border: 1px solid #ccc;
+
+        }
+        .light{
+            width: 50px;
+            height: 50px;
+            box-sizing: border-box;
+            border:1px solid #ccc;
+            float: left;
+        }
+        .col{
+            /* background-color: cornflowerblue */
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <h2>点亮所有的灯</h2>
+        <div id="content">
+            <div style="width:250px;height:250px;margin:100px auto;">
+                <div class="light" v-for="item in arr" v-show="ok" @click="" :class='{col:true}'>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    var vm = new Vue({
+        el:'#box',
+        data(){
+            return {
+                arr:25,
+                ok:true,
+                
+                // no:false
+                // ok:false
+            }
+        },
+        methods:{
+            abc(){
+                // alert()
+            }
+        },
+    })
+</script>
+</html>
