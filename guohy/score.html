@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+	*{
+		margin: 0;
+		padding: 0;
+
+	}
+	#app{
+		width: 300px;
+		height: 60px;
+		margin: 0 auto;
+		background-color:#f4f4f4;
+		line-height: 60px;
+	}
+	#app span{
+		margin-left: 30px;
+		color:red;
+		font-size: 30px;
+	}
+	.item{
+		width: 30px;
+		height: 30px;
+		font-size: 40px;
+		color:white;
+		float: left;
+		margin-right: 10px;
+	}
+	.ee{
+		color:yellow;
+	}
+</style>
+</head>
+<body>
+	<div id="app">
+		<div class="item" v-for='(item,index) in 5' :class="{'ee':duoshao>index}"  @mouseover='mouseover_fn(index)' @mouseout='mouseout_fn(index)' @click='click_fn(index)'>
+			★
+			</div>
+			<span>{{duoshao}}分</span>
+		</div>
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<script>
+			new Vue({
+				el:'#app',
+				data(){
+					return{
+						duoshao:0,
+						kaiguan:true,
+					}
+				},
+				methods:{
+					mouseover_fn(index){
+						if(this.kaiguan){
+							this.duoshao=index+1
+						}
+					},
+					mouseout_fn(index){
+						if(this.kaiguan){
+							this.duoshao=0
+						}
+					},
+					click_fn(index){
+						this.duoshao=index+1
+						this.kaiguan=false
+					}
+				}
+			})
+
+		</script>
+	</body>
+	</html>
