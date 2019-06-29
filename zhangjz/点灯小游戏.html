@@ -13,8 +13,11 @@
             padding: 0;
             list-style: none;
             box-sizing: border-box;
+            user-select: none;
         }
-
+        [v-cloak] {
+            display:none;
+        }
         .clearfix {
             zoom: 1;
         }
@@ -30,25 +33,30 @@
         }
 
         .box {
-            width: 1000px;
-            margin: 50px auto;
+            width: 800px;
+            /* margin: 50px auto; */
         }
 
         .box li {
             float: left;
-            width: 200px;
-            height: 200px;
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            line-height: 50px;
             border: 1px solid;
+            cursor: pointer;
         }
-        .active{background: lawngreen;}
+        .a{background: lawngreen;}
+        .b{background: none;}
     </style>
 </head>
 
 <body>
-    <div id="root">
+    <div id="root" v-cloak>
         <div class="box clearfix">
-            <ul>
-                <li v-for='v in arr' @click='add(v)'>{{v}}</li>
+            <input type="text" v-model.number='sideLength' @input='addBlocks' :disabled='sideLength==20'>
+            <ul :style="{width:sideLength*50+'px'}">
+                <li :class="{a: v}" v-for='(v,i) in arr' @click='add(i)'></li>
             </ul>
         </div>
     </div>
@@ -57,13 +65,45 @@
         new Vue({
             el:'#root',
             data:{
-                arr:['','','','','','','','','','','','','','','','','','','',''],
+                sideLength:'5',
+                arr:null,
+                isshow: true,
             },
             methods:{
-                add(num){
-                    this.arr[num+1]
+                //出现盒子
+                addBlocks(){
+                    var L=this.sideLength*this.sideLength;
+                    var str=[];
+                    for(var i=0;i<L;i++){
+                        str[i]=''
+                    }
+                    this.arr=str
+                },
+                // 点击出现
+                add(i){
+                    var addFive=this.getFive(i);
+                    addFive.forEach(element => {
+                        if(element>=0 && element<this.arr.length){
+                            if(this.arr[element]){
+                                this.arr.splice(element,1,'');
+                            }else{
+                                this.arr.splice(element,1,'1');
+                            }
+                        }
+                    });
+                },
+                //获取上下左右
+                getFive(center){
+                    var wu=[];
+                    wu[0]=center-this.sideLength;
+                    wu[1]=center+this.sideLength;
+                    wu[2]=center%this.sideLength==0?'-1':center-1;
+                    wu[3]=(center+1)%this.sideLength==0?'-1':center+1;
+                    wu[4]=center;
+                    console.log(wu);
+                    return wu;
                 }
-            }
+            },
         })
     </script>
 </html>
