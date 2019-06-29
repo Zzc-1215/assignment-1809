@@ -21,51 +21,58 @@
 			background: #ffc;
 		}
 		#app>div{
-			width: 180px;
-			min-height: 140px;
-			float: left;
-		}
-		#app>div i{
 			width: 100px;
 			border: solid 1px #565649;
 			border-top: solid 2px transparent;
 			margin: 30px auto;
-			display: block;
+			float: left;
+			margin: 0 40px;
+			position: relative;
 		}
-		#app>div P{
-			text-align: center;
-		}
-		#app>div:first-child i{
-			background: #76b5ec;
+		#app>div:first-child{
+			/*background: #76b5ec;*/
 			height: 140px;
+			margin-top: 30px;
 		}
-		#app>div:nth-child(2) i{
+		#app>div:nth-child(2){
 			margin-top: 70px;
 			height: 98px;
 		}
-		#app>div:nth-child(3) i{
+		#app>div:nth-child(3){
 			margin-top: 125px;
 			height: 42px;
 		}
-	
+		#app>div i{
+			width: 100px;
+			height: 100%;
+			display: block;
+			background: #76b5ec;
+			position: absolute;
+			bottom: 0;
+			left: 0;
+		}
+		#app>div p{
+			text-align: center;
+			line-height: 42px;
+			z-index: 10;
+		}
+		.dong{
+			width: 100px;
+			height: 0%;
+			transition: all .5s;
+			background: #76b5ec;
+		}
+		#app>div .lift{
+			transform: rotate(30deg)
+		}
 	</style>
 </head>
 <body>
 	<div id="app" v-cloak>
-		<div>
-			<!-- <i class="iconfont" v-model='big'>&#xe606;</i> -->
-			<i class="iconfont" v-model='something'></i>
-			<p>10L</p>
-		</div>
-		<div>
-			<!-- <i class="iconfont" v-model='middle'>&#xe61f;</i> -->
-			<i class="iconfont" v-model='something'></i>
-			<p>7L</p>
-		</div>
-		<div>
-			<!-- <i class="iconfont" v-model='small'>&#xe65f;</i> -->
-			<i class="iconfont" v-model='something'></i>
-			<p>3L</p>
+		<div :class="{lift:key == lift}" v-for="(cup,key) in cups" @click="daoshui(key)">
+			<!-- 水的高度：剩下的水的高度 / 满的高度 * 100% -->
+			<i class="dong" :style="{height: cup.c/cup.full*100+'%'}"></i>
+			<p>{{cup.c}}L</p>
 		</div>
 	</div>
 </body>
@@ -75,17 +82,46 @@
 		el: '#app',
 		data(){
 			return{
-				something:'',
-				// middle:'',
-				// small:'',
-				list:[],
-				doneList:[]
+				lift:null,
+
+				cups:{
+					da:{
+						full: 10,
+						c: 10,
+					},
+					zhong:{
+						full:7,
+						c:0,
+					},
+					xiao:{
+						full: 3,
+						c:0,
+					}
+				}
 			}
 		},
 		methods:{
-			add(){
-				this.list.push(this.gig)
+			daoshui(cup){
+				if(this.lift){
+					if(cup == this.lift){
+						this.lift = null;
+						return
+					}
+					// 倒入量
+					// 要倒入的杯子的满水量 - 要倒入的杯子的剩余量 > 举起的杯子的剩余量 ？ 举起的杯子的剩余量： 要倒入的杯子的满水量 - 要倒入的杯子的剩余量
+					var drl = this.cups[cup].full - this.cups[cup].c > this.cups[this.lift].c?this.cups[this.lift].c:this.cups[cup].full - this.cups[cup].c;
 
+					// 剩余量
+					// 剩余量 = 举起的杯子的剩余量 - 倒入量
+					var syl = this.cups[this.lift].c - drl;
+
+					this.cups[cup].c += drl;
+					this.cups[this.lift].c = syl;
+
+					this.lift = null;
+				}else{
+					this.lift = cup;
+				}
 			}
 		}
 	})
