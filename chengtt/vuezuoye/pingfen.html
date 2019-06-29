@@ -45,22 +45,22 @@
 				data() {
 					return {
 						value: 0,
-						flag: false
+						grade: false
 					}
 				},
 				methods: {
 					yi(index) {
-						if(!this.flag) {
+						if(!this.grade) {
 							this.value = index + 1
 						}
 					},
 					chu(index) {
-						if(!this.flag) {
+						if(!this.grade) {
 							this.value = 0
 						}
 					},
 					click(index) {
-						this.flag = true
+						this.grade = true
 						this.value = index + 1
 					}
 				}
