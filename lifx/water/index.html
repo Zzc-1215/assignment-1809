@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>倒水小游戏</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            background-color: cyan
+        }
+        #box{
+            width: 600px;
+            height: 500px;
+            background-color: #ffffff;
+            margin:0 auto;
+        }
+        #title{
+            width: 100%;
+            height: 200px;
+        }
+        #title h3{
+            line-height: 50px;
+            text-align: center;
+        }
+        #title p{
+            line-height: 50px;
+            font-size: 26px;
+            text-indent: 2em;
+        }
+        #content{
+            margin-top: 20px;
+            width: 100%;
+            height: 280px;
+           
+        }
+        .cu{
+            width: 100px;
+            height: 100px;
+            border-left:2px solid; 
+            border-right:2px solid; 
+            border-bottom:2px solid;
+            float: left;
+            line-height: 100px;
+            border-radius: 0 0 10px 10px;
+            position: relative;
+            transform: rotate(0deg);
+            transition: .5s;
+            margin: 80px 50px; 
+            text-align: center
+        }
+        .cupColor{
+            height: 0%;
+            transition: all .5s;
+            /* text-align: center; */
+            width: 100%;
+            background-color: #4444fab3;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            border-radius: 0 0 10px 10px;
+        }
+        .cu.lift{
+            transform:rotate(30deg);
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <div id="title">
+            <h3>倒水游戏</h3>
+            <p>有三个木桶，分别是10L、7L、3L的容量，现在10L的木桶里面装满了水，要求你用7L的木桶和3L的木桶，均匀的把10L的水分为两个5L的。</p>
+        </div>
+        <div id="content">
+            <div class="cu" :class="{lift:key==lift}" v-for="(cup,key) in cups" @click="daoshui(key)">
+                <div class="cupColor" :style="{height:cup.c/cup.full*100+'%'}">
+                    
+                </div>
+                {{cup.c}}L
+            </div>
+        </div>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    var vm = new Vue({
+        el:'#box',
+        data(){
+            return {
+                lift:null,
+                cups:{
+                    big:{
+                        full:10,
+                        c:10
+                    },
+                    contre:{
+                        full:7,
+                        c:0
+                    },
+                    little:{
+                        full:3,
+                        c:0
+                    }
+                }
+            }
+        },
+        methods:{
+            daoshui(cup){
+                if(this.lift){
+                    if(cup==this.lift){
+                        this.lift=null;
+                        return
+                    }
+                    var drl = this.cups[cup].full - this.cups[cup].c > this.cups[this.lift].c?this.cups[this.lift].c:this.cups[cup].full - this.cups[cup].c;
+                    var syl = this.cups[this.lift].c - drl;
+                    this.cups[cup].c += drl;
+                    this.cups[this.lift].c = syl;
+                    this.lift = null
+                }else{
+                    this.lift=cup
+                }
+            }
+        }
+    })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// new Vue({
+//     el:"#app",
+//     data(){
+//         return {
+//             big:'10',
+//             centre:'',
+//             little:'',
+//         }
+//     },
+//     methods:{
+//         abc(){
+//             console.log(this)
+//             console.log(a)
+//             a.style.top=150+'px'
+//             b.style.top = 200+'px'
+//             c.style.top = 200+'px'
+//         },
+//         bcd(){
+//             a.style.top=200+'px'
+//             b.style.top = 150+'px'
+//             c.style.top = 200+'px'
+//         },
+//         cde(){
+//             a.style.top=200+'px'
+//             b.style.top = 200+'px'
+//             c.style.top = 150+'px'
+//         }
+//     }
+// })
+</script>
+</html>
