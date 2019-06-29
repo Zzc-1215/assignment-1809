@@ -36,7 +36,7 @@
 		<div id="rate">
 			<input type="text" v-model.number="choice" @change="num"/>
 			<ul>
-				<li :class="{active:cont}" v-for="(cont,index) in nuwarr" @click="col(index)"><span @mouseover.stop="col(index)" @mouseout.stop="out(index)"></span></li>
+				<li :class="{active:cont}" v-for="(cont,index) in nuwarr" @click="col(index)"><span @mouseover="col(index)"></span></li>
 			</ul>
 		</div>
 		<script type="text/javascript" src="vue.js"></script>
@@ -58,17 +58,19 @@
 						this.nuwarr=arr
 					},
 					col(i){
+						var a=this.num()
+						console.log(a)
 //						console.log(i,this.nuwarr)
 						for (var j=0; j<i+1;j++) {
 							this.nuwarr.splice(j,1,'1')
 						}
 						console.log(i,this.nuwarr)
 					},
-					out(i){
-						for (var j=0; j<i+1;j++) {
-							this.nuwarr.splice(j,1,'')
-						}
-					}
+//					out(i){
+//						for (var j=0; j<i+1;j++) {
+//							this.nuwarr.splice(j,1,'')
+//						}
+//					}
 				}
 			})
 		</script>
