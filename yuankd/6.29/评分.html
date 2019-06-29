@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        #box{
+            width: 300px;
+            margin: 100px auto;
+        }
+        #box p{
+            font-size: 20px;
+            margin-top: 10px;
+        }
+        .cont{
+            height: 40px;
+            margin-top: 20px;
+        }
+        .cont li{
+            float: left;
+            margin: 0 2px;
+        }
+        .cont li i{
+            width: 30px;
+            height: 30px;
+            display: inline-block;
+            border: solid 1px #ccc;
+            border-radius: 50%;
+        }
+        .hight i{
+            background: blueviolet;
+            transform: scale(0.9);
+            transition:all 0.5s;
+
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <input type="text" v-model.number="conut" @change="overall">
+        <p @click="overall">评分</p>
+        <ul class="cont">
+            <li :class="{hight:item}" v-for="(item,index) in arr" @click="click(index)">
+                <!-- <div v-show="!isshow"></div> -->
+                <i @mouseover="mouse(index)"></i>
+            </li>
+        </ul>
+    </div>
+</body>
+<script src='vue.js'></script>
+<script>
+    var vm=new Vue({
+        el:'#box',
+        data(){
+            return{
+                conut:5,
+                arr:null
+            }
+        },
+        methods:{
+            overall(){
+                var array=[]
+                for (let i = 0; i < this.conut; i++) {
+                    array[i]=''
+                }
+                this.arr=array
+            },
+            click(index){
+                this.overall()
+                for (let i = 0; i <= index; i++) {
+                    this.arr.splice(i,1,'dot')
+                }
+                console.log(index,this.arr)
+            },
+            mouse(index){
+                this.overall()
+                for (let i = 0; i <= index; i++) {
+                    this.arr.splice(i,1,'mouse')
+                }
+                console.log(index,this.arr)
+            }
+        }
+
+    })
+</script>
+</html>
