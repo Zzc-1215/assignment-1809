@@ -94,7 +94,7 @@
 <body>
     <div id="add">
         <div  id="addEvent">
-            <input v-model="something" type="text" id="text" placeholder="请输入添加的事项" >
+            <input v-model="something" type="text" id="text" placeholder="请输入添加的事项" ref="input1">
             <span class="iconfont" id="addBtn"  v-on:click="add">&#xe61d;</span>
             <div id="agenda">
                 <p>---待办事项---</p>
@@ -138,6 +138,7 @@
                     }else{
                         this.list.push(this.something);
                         this.something = '';
+                        this.$refs.input1 === document.getElementById('text').focus();
                     }
                 },
                 done(item,index){
