@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="font/iconfont.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <style>
+        #container{
+            width: 400px;
+            margin: 100px auto;
+        }
+        .face{
+            color: antiquewhite;
+            font-size: 30px;
+        }
+        .block{
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <p>评分</p>
+        <div class="block">
+            <span class="iconfont face" v-for="(item,index) in arr" :class="{'colorf':item}" ref="lian" @mouseover="enter(index)" @click="select(index)"
+            @mouseout="leave(index)">&#xe602;</span>
+        </div>
+    </div>
+        <script>
+            var vm = new Vue({
+                el:'#container',
+                data() {
+                    return {
+                        arr:['','','','',''],
+                        show : false,
+                    }
+                },
+                methods:{
+                    enter(index) {
+                        if (!this.show) {
+                            for (var i = 0; i <= index; i++) {
+                                this.$refs.lian[i].style.color = "aquamarine";
+                            }
+                        }
+                    },
+                    leave(index) {
+                        if (!this.show) {
+                            for (var i = 0; i <= index; i++) {
+                                this.$refs.lian[i].style.color = "antiquewhite";
+                            }
+                        }
+                    },
+                    select(index) {
+                        this.show = !this.show;
+                    }
+                }
+            })
+        </script>
+</body>
+</html>

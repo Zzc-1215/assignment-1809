@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        @font-face {
+            font-family: 'iconfont';
+            src: url('font/iconfont.eot');
+            src: url('font/iconfont.eot?#iefix') format('embedded-opentype'),
+                url('font/iconfont.woff2') format('woff2'),
+                url('font/iconfont.woff') format('woff'),
+                url('font/iconfont.ttf') format('truetype'),
+                url('font/iconfont.svg#iconfont') format('svg');
+        }
+
+        .iconfont {
+            font-family: "iconfont" !important;
+            font-size: 16px;
+            font-style: normal;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        ul>.star {
+            font-size: 40px;
+            display: inline-block;
+        }
+
+        ul>.star.c {
+            color: orange;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <ul>
+            <li class="iconfont star" :class="{c:newNum>index}" v-for="(item, index) in num" @mouseover="move(index)"
+                @mouseout="leave(index)" @click="cli(index)">&#xe754;</li>
+        </ul>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+
+<script>
+    var vm = new Vue({
+        el: '.box',
+        data() {
+            return {
+                num: 5,
+                newNum: 0,
+                judge: false,
+            }
+        },
+        methods: {
+            move(index) {
+                // var num = 0;
+                // if (num<=index) {
+                // num ++
+                // }
+
+                if (!this.judge) {
+                    this.newNum = index + 1
+                }
+            },
+            leave(index) {
+                // var num = 5;
+                // if (num<index) {
+
+                // num--
+                // }
+
+
+                if (!this.judge) {
+                    this.newNum = 0
+                }
+            },
+            cli(index) {
+                // if (!this.judge) {
+
+                // }else{
+                //     this.judge = false
+                // }
+
+                this.judge = true
+                this.newNum = index + 1
+                // move(index)
+            }
+        },
+    })
+</script>
+
+</html>

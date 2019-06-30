@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>评分</title>
+		<style>
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			#box{
+				width:300px;
+				height:40px;
+				padding: 10px 20px;
+				margin: 100px auto;
+				background-color:burlywood;
+			}
+			.ali{
+				width:40px;
+				height:40px;
+				border-radius: 50%;
+				border:1px solid #000;
+				float:left;
+				list-style: none;
+				margin-right:7px;
+				text-align: center;
+				line-height: 40px;
+			}
+			.e{
+				width: 20px;
+				height: 40px;
+				text-align: center;
+				line-height:40px;
+				font-size: 20px;
+				float:right;
+			}
+			.hover{
+				background-color: #BD2C00;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box">
+			<ul>
+				<li v-for="(item,index) in 5" class="ali" :class="{'hover':aa>index}" @mouseover="move(index)" @mouseout="out" @click="dian(index)"></li>
+			</ul>
+			<p :class="{e:true}">{{aa}}</p>
+		</div>
+	</body>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script type="text/javascript">
+		new Vue({
+			el:'#box',
+			data(){
+				return{
+					aa:0,
+					flag:false,
+				}
+			},
+			methods:{
+				move(index){
+					if(!this.flag){
+						this.aa=index+1;
+					}
+					// e.target.style.color='#DF5000'
+					
+				},
+				out(index){
+					if(!this.flag){
+						this.aa=0
+					}
+				},
+				dian(index){
+					this.flag=true
+					this.aa=index+1
+					
+					
+				}
+			}
+		})
+	</script>
+</html>
