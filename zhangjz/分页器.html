@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>分页器</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        .page-bar {
+            margin: 40px;
+        }
+
+        ul,
+        li {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        li {
+            list-style: none
+        }
+
+        .page-bar li:first-child>a {
+            margin-left: 0px
+        }
+
+        .page-bar a {
+            border: 1px solid #ddd;
+            text-decoration: none;
+            position: relative;
+            float: left;
+            padding: 6px 12px;
+            margin-left: -1px;
+            line-height: 1.42857143;
+            color: #337ab7;
+            cursor: pointer
+        }
+
+        .page-bar a:hover {
+            background-color: #eee;
+        }
+
+        .page-bar a.banclick {
+            cursor: not-allowed;
+        }
+
+        .page-bar .active a {
+            color: #fff;
+            cursor: default;
+            background-color: #337ab7;
+            border-color: #337ab7;
+        }
+
+        .page-bar i {
+            font-style: normal;
+            color: #d44950;
+            margin: 0px 4px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page-bar">
+        {{cur}} 
+        <ul>
+            <li><a @click='cur=1'>首页</a></li>
+            <li v-if="cur>1"><a @click="cur--">上一页</a></li>
+            <li v-if="cur==1"><a class="banclick">上一页</a></li>
+            <li v-for="(page,i) in trueAllSize" :class="{'active': cur == firstPage+i}" >
+                <a @click="click(firstPage+i)">{{firstPage+i}}</a>
+            </li>
+            <li v-if="cur!=all"><a @click="cur++">下一页</a></li>
+            <li v-if="cur == all"><a class="banclick">下一页</a></li>
+            <!-- <li><a>共<i>{{all}}</i>页</a></li> -->
+            <li><a @click='cur=all'>页尾</a></li>
+        </ul>
+    </div>
+</body>
+<script>
+    var pageBar = new Vue({
+        el: '.page-bar',
+        data: {
+            all: 20, //总页数
+            cur: 1,//当前页码
+            allSize:10, //一页多少
+            
+        },
+        computed:{
+            trueAllSize(){
+                if(this.allSize>this.all){
+                    return this.all
+                }else{
+                    return this.allSize
+                }
+            },
+            firstPage(){
+                if(this.cur<=Math.floor(this.trueAllSize/2)){
+                    return 1
+                }else if(this.cur>= this.all-Math.floor(this.trueAllSize/2)){
+                    return this.all - this.trueAllSize + 1;
+                }
+                return this.cur-Math.floor(this.trueAllSize/2)
+            }
+        },
+        methods: {
+            click(i){
+                this.cur=i;
+            }
+        }
+
+    });
+</script>
+
+</html>
