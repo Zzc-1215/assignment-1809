@@ -65,7 +65,6 @@
                     }
                     this.arr1 = arr;
                     // this.arr1.splice(1,1,'');
-                    console.log(this.arr1)
                 },
                 diandeng(i){
                     var SXZYZ = this.getSXZY(i);
@@ -83,9 +82,7 @@
                     var wu = [];
                     wu[0] = center-this.sideLength;
                     wu[1] = center+this.sideLength;
-
                     wu[2] = center%this.sideLength == 0?'-1':center-1;
-
                     wu[3] = (center+1)%this.sideLength == 0?'-1':center+1;
                     wu[4] = center;
                     console.log(wu);

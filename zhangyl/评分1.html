@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <style>
+        #box{
+            width:430px;
+            height: 200px;
+            margin: 50px auto;
+            border:1px solid;
+        }
+        #box div{
+            width:60px;
+            height: 60px;
+            border-radius: 50%;
+            border:1px solid;
+            float: left;
+            margin: 10px;
+        }
+        #box .color{
+            background:red;
+        }
+        
+    </style>
+</head>
+<body>
+    <div id='box'>
+        <p style="text-align:center;">评分</p>
+        <div v-for='(item) in 5' @mouseover='over(item)' @mouseout='out()' @click='circle(item)' :class="{'color':start>=item}"></div>
+    </div>
+    <script>
+        var vm=new Vue({
+            el:'#box',
+            data(){
+                return{
+                    start:-1,
+                    kg:false,
+                }
+            },
+            methods:{
+                over(index){
+                    if(!this.kg){
+                        this.start=index;
+                    }
+                },
+                out(){
+                    if(!this.kg){
+                        this.start=-1;
+                    }
+                },
+                circle(item){
+                    this.kg=true;
+                    this.start=item;
+                }
+            }
+        })
+    
+    
+    
+    </script>
+</body>
+</html>

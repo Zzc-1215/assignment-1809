@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			img {
+				width: 30px;
+				height: 30px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app" class="row">
+			<div class="form-group clearfix">
+				
+				<div class="col-md-8">
+					<div class="grade-box">
+						<img v-for="(star,index) in stars" v-bind:src="star.src" v-on:click="rating(index)" />
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="js/vue(1).js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var starOffImg = "img/2.png";
+			var starOnImg = "img/1.png";
+			var app = new Vue({
+				el: "#app",
+				data: {
+					stars: [{
+							src: starOffImg,
+							active: false
+						}, {
+							src: starOffImg,
+							active: false
+						}, {
+							src: starOffImg,
+							active: false
+						},
+						{
+							src: starOffImg,
+							active: false
+						}, {
+							src: starOffImg,
+							active: false
+						}
+					],
+					starNum: 0,
+				},
+				methods: {
+					//评分
+					rating: function(index) {
+						var total = this.stars.length; 
+						var idx = index + 1; 
+
+						
+						if (this.starNum == 0) {
+							this.starNum = idx;
+							for (var i = 0; i < idx; i++) {
+								this.stars[i].src = starOnImg;
+								this.stars[i].active = true;
+							}
+						} else {
+							
+							if (idx == this.starNum) {
+								for (var i = index; i < total; i++) {
+									this.stars[i].src = starOffImg;
+									this.stars[i].active = false;
+								}
+							}
+							//如果小于当前最高星级，则直接保留当前星级
+							if (idx < this.starNum) {
+								for (var i = idx; i < this.starNum; i++) {
+									this.stars[i].src = starOffImg;
+									this.stars[i].active = false;
+								}
+							}
+							//如果大于当前星级，则直接选到该星级
+							if (idx > this.starNum) {
+								for (var i = 0; i < idx; i++) {
+									this.stars[i].src = starOnImg;
+									this.stars[i].active = true;
+								}
+							}
+
+							
+						}
+					},
+				}
+			})
+		</script>
+	</body>
+</html>

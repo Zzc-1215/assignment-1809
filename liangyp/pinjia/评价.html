@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+			user-select: none;
+		}
+		[v-cloak] {
+            display:none;
+        }
+		#app{
+			width: 200px;
+			height: 100px;
+			margin: 40px auto;
+		}
+		#app>div span{
+			display: inline-block;
+			width: 30px;
+			height: 30px;
+			border-radius: 50%;
+			border: solid 1px;
+			float: left;
+			margin-left: 4px;
+		}
+		#app>div span.light{
+			background: aqua;
+			transition: all .8s;
+		}
+	</style>
+</head>
+<body>
+	<div id="app" v-cloak>
+		<h1 @click="block">评分</h1>
+		<div :style="{width:quanLength*40+'px',marginTop: 20+'px'}">
+			<span :class="{light:item}" v-for="(item,index) in all" @mouseover="liang(index)" @mouseout="mie(index)" @click="que(index)"></span>
+		</div>
+	</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+<script type="text/javascript">
+	var vm = new Vue({
+		el: '#app',
+		data(){
+			return{
+				quanLength:5,
+				all:null 
+			}
+		},
+		methods:{
+			block(){
+				var arr1 = [];
+				for(var i=0;i<this.quanLength;i++){
+					arr1[i] = '';
+				}
+				this.all = arr1
+			},
+			light(i){
+				var liang = this.getLiang(i);
+				liang.forEach(element => {
+					this.arr.splice(element,1,'1')
+				})
+			},
+			mie(i){
+				var mie = this.getLiang(i);
+				mie.forEach(element =>{
+					this.arr.splice(element,1,'')
+				})
+			},
+			que(i){
+				var que = this.getLiang(i);
+				que.forEach(element =>{
+					this.arr.splice(element,1,'1')
+				})
+			},
+			getLiang(center){
+				var yuan = [];
+				yuan[0] = center;
+				console.log(yuan)
+				return yuan;
+			}
+		}
+	})
+</script>
+</html>
