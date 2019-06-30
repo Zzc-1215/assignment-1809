@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        *{margin: 0;padding: 0;list-style: none;}
+        .clearfix::after,
+        .clearfix::before {content: '';display: block;width: 0;height: 0;visibility: hidden;clear: both;}
+        [v-cloak]{display: none;}
+        ul{width: 410px;margin: 60px auto;}
+        ul>li{width: 60px;height: 60px;border-radius: 50%;float: left;margin: 10px;cursor: pointer;border: 1px solid #ccc;text-align: center;line-height: 60px;}
+        p{text-align: center;margin-top: -50px;}
+    </style>
+</head>
+<body>
+    <div id="root" v-cloak>
+        <ul class="clearfix">
+            <!-- <li v-for='(v,i) in 5' @mouseover='z_index=i'  @mouseout='z_index=z_index' :style="{background:z_index==i?'red':'none'}"></li> -->
+            <!-- {{z_index}} -->
+            <li v-for='(n,i) in 5'  @mouseover="move(i)"  @click='add(i)' @mouseout="out(i)" :style="{background:judge>=n?'#ccc':'none'}">{{i+1}}</li> 
+        </ul>
+        <p>{{num}}分</p>
+    </div>
+</body>
+    <script>
+        var vm=new Vue({
+            el:'#root',
+            data:{
+                judge:0,
+                z_index:0,
+                num:0,
+                tr:false,
+            },
+            methods:{
+                move(n){
+                    if(!this.tr){
+                        this.judge=n+1
+                        this.num=this.judge;
+                    }
+                },
+                out(n){
+                    if(!this.tr){
+                        this.judge=0
+                        this.num=this.judge;
+                    }
+                },
+                add(n){
+                    this.tr=true;
+                    this.judge=n+1;
+                    this.num=this.judge;
+                }
+
+            }
+        })
+    </script>
+</html>

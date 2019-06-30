@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>评分</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <style>
+        ul li {
+            width: 60px;
+            height: 60px;
+            border: 1px solid #ccc;
+            list-style: none;
+            display: inline-block;
+            margin-left: 5px;
+            transition: .5s;
+            border-radius: 50%;
+        }
+
+        .active {
+            background: yellow;
+            border: 1px solid yellow;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <ul>
+            <li v-for="i in max.default" @mouseover="yiru(i)" :class="{active:currentindex>=i || activeindex>=i}"
+                @mouseout="yichu" @click=dianji(i)></li>
+        </ul>
+    </div>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                max: {
+                    type: Number,
+                    default: 5
+                },
+                currentindex: 0,
+                activeindex: 0
+            },
+            methods: {
+                yiru(i) {
+                    if (this.disabled) {
+                        return
+                    }
+                    this.currentindex = i
+                },
+                yichu() {
+                    if (this.disabled) {
+                        return
+                    }
+                    this.currentindex = 0
+                },
+                dianji(i) {
+                    if (this.disabled) {
+                        return
+                    }
+                    this.activeindex = this.currentindex
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

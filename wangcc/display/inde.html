@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			*{
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			}
+			#box{
+				min-width:auto;
+				height:auto;
+				margin:100px auto;
+			}
+			.playa{
+				float: left;
+				width: 50px;
+				height: 50px;
+				text-align: center;
+				line-height: 50px;
+				background-color:#b144d4c9;
+				border:1px solid #fff;
+				cursor: pointer;
+			}
+			.list{
+				background:#DF5000;
+			}
+		</style>
+	</head>
+	<body style="text-align: center;">
+		<h2>点灯游戏</h2>
+		<p>如何将所有盒子都点亮</p>
+		<div id="box" :style="{width:anum*50+'px'}">
+			<div style="width:200px;height:40px; margin: 0 auto;">
+				<input type="text" v-model.number="anum" placeholder="玩几乘几的盒子" style="width:115px ;height: 30px;">
+				<button @click="isshow" style="width:80px;height:30px;">开始游戏</button>	
+			</div>
+			<div class="playa" @click="onclick(index)" :class="{list:item}" v-for="(item,index) in arr"></div>
+		</div>
+	</body>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script>
+		var vm = new Vue({
+			el:'#box',
+			data(){
+				return{
+					anum:'',
+					arr:null,
+				}
+			},
+			methods:{
+				isshow(){
+					var length=this.anum*this.anum;
+					var maxarr=[];
+					for(var i=0;i<length;i++){
+						maxarr[i]='';
+					}
+					console.log(maxarr)
+					this.arr=maxarr;
+				},
+				onclick(index){
+					var direction=this.Calculation(index);
+					direction.forEach(element=>{
+						if(element>=0 && element<this.arr.length){
+							if(this.arr[element]){
+								this.arr.splice(element,1,'');
+							}else{
+								this.arr.splice(element,1,'1');
+							}
+						}
+					})
+				},
+				Calculation(center){
+					var athis=[];
+					athis[0]=center-this.anum;
+					athis[1]=center+this.anum;
+					athis[2]=center%this.anum==0?'-1':center-1;
+					athis[3]=(center+1)%this.anum==0?'-1':center+1;
+					athis[4]=center;
+					return athis;
+				}
+			}
+		})
+	</script>
+</html>

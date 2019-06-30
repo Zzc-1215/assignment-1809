@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>Document</title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+				list-style: none;
+			}			
+			.li {
+				width: 50px;
+				height: 50px;
+				border: 1px solid #ccc;
+				border-radius: 50%;
+				margin: 10px;
+				display: inline-block;				
+			}			
+			span{			
+				font-size: 20px;
+				color: red;
+				margin-left:30px ;
+			}		
+			.hover {
+				background-color: yellow;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="app">
+			<ul>
+				<li v-for="(item,index) in 5" class="li" :class="{'hover':value>index}" @mousemove="yi(index)" @mouseout="chu" @click="click(index)"></li>
+			</ul>
+				<span :class="{e:true}">{{value}}分</span>		
+	</div>
+		<script type="text/javascript" src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+		<script>
+			new Vue({
+				el: '#app',
+				data() {
+					return {
+						value: 0,
+						grade: false
+					}
+				},
+				methods: {
+					yi(index) {
+						if(!this.grade) {
+							this.value = index + 1
+						}
+					},
+					chu(index) {
+						if(!this.grade) {
+							this.value = 0
+						}
+					},
+					click(index) {
+						this.grade = true
+						this.value = index + 1
+					}
+				}
+			})
+		</script>
+	</body>
+
+</html>
