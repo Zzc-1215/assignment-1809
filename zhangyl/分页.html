@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>分页</title>
+    <style>
+		*{
+			margin: 0;
+			padding: 0;
+			list-style: none;
+		}
+		ul>li{
+			width:80px;
+			height: 80px;
+			line-height: 80px;
+			text-align: center;
+			border:1px solid #ccc;
+			float: left;
+		}
+		ul>li.active{
+			background: red;
+			color: white;
+		}
+    </style>
+</head>
+<body>
+    <div id='box'>
+		{{cPage}}
+		<ul>
+			<li @click='first'>首页</li>
+			<li @click='prev'>上一页</li>
+			
+			<li v-for='(page,index) in truePageSize' :class="{active:cPage==(firstPage+index)}" @click="jump(firstPage+index)">
+				{{firstPage+index}}				
+			</li>
+			<li @click='next'>下一页</li>
+			<li @click='last'>尾页</li>
+		</ul>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script type="text/javascript">
+		var vm=new Vue({
+			el:'#box',
+			data:{
+				totalPage:100,//总页
+				pageSize:9,//大小为5
+				cPage:1,//当前页
+			},
+			computed:{
+				truePageSize(){
+					if(this.pageSize>this.totalPage){
+						return this.totalPage;
+					} else{
+						return this.pageSize
+					}
+				},
+				firstPage(){
+					if(this.cPage<=Math.floor(this.truePageSize/2)){
+						return 1;
+					}else if(this.cPage>=this.totalPage-Math.floor(this.truePageSize/2)){
+						return this.totalPage - this.truePageSize+1;
+					}
+					return this.cPage -Math.floor(this.truePageSize/2);
+				}
+			},
+			methods:{
+				first(){
+					this.cPage=1;
+				},
+				prev(){
+					if(this.cPage<=1) return;
+					this.cPage--;
+				},
+				next(){
+					if(this.cPage>=this.totalPage) return;
+					this.cPage++;
+				},
+				last(){
+					this.cPage=this.totalPage;
+				},
+				jump(i){
+					this.cPage=i;
+				}
+			}
+		})
+	</script>
+</body>
+</html>
