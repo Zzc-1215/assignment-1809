@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <style>
+        ul li{
+            width: 50px;
+            height: 50px;
+            border: 1px solid #000;
+            border-radius: 50%;
+            float: left;
+            list-style:none;
+            margin: 5px;
+        }
+        .active{
+            background-color: red;
+            transform: scale(1.1);
+            transition: .35s;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <ul>
+            <li v-for="item in maxScore" :class="{active:currentIndex >= item || activeIndex >=item}" @mouseover="over(item)" @mouseout="out()" @click="score(item)"></li>
+        </ul>
+    </div>
+    <script>
+        var vm = new Vue({
+            el:'#app',
+            data(){
+                return {
+                    maxScore:5,
+                    currentIndex:0,
+                    activeIndex:0,
+                }
+            },
+            methods:{
+                over(item){
+                    this.currentIndex = item;
+                },
+                out(){
+                    this.currentIndex = 0;
+                },
+                score(item){
+                    this.activeIndex = item;
+                }
+            }
+        })
+    </script>
+</body>
+</html>
