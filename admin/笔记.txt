@@ -41,5 +41,15 @@
 	Vue.set(vm.obj, key, newValue)；
 	Vue.delete(target,key);
 	Object.assign({}, vm.obj, newObj);
+--自定义指令--
+    全局注册/局部注册
+    Vue.directive(‘focus’, {钩子函数})
+    directives: { focus: {钩子函数}}
+    Directive
+    钩子函数
+        bind;inserted;update;componentUpdated;unbind
+    钩子函数参数
+        el;binding(name、value、oldValue、expression、arg、modifiers);vnode;oldVnode
+    钩子函数简写（bind+update）
 
 
