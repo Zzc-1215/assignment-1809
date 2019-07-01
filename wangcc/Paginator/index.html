@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>分页器(个人)</title>
+		<style>
+			*{
+				margin: 0;
+				padding: 0;
+				user-select:none; 
+			}
+			#box{
+				width:600px;
+				height:30px;
+				padding:10px 20px;
+				margin:100px auto;
+				box-shadow:0px 0px 25px -5px #ccc;
+			}
+			.dian{
+				width:70px;
+				height:30px;
+				text-align:center;
+				line-height:30px;
+				list-style:none;
+				border:1px solid #ccc;
+				font-size: 15px;
+				cursor: pointer;
+				float: left;
+			}
+			#ye{
+				width:300px;
+				height:32px;
+				float: left;
+				overflow: hidden;
+				position: relative;
+			}
+			#list{
+				width:1000px;
+				height:30px;
+				position: absolute;
+				top:0;
+				left:0;
+			}
+			.pagin{
+				width: 40px;
+				height: 30px;
+				margin:0px 4px;
+				list-style: none;
+				text-align:center;
+				line-height:30px;
+				border:1px solid #ccc;
+				float: left;
+				cursor: pointer;
+			}
+			
+			.list_style{
+				border:1px solid red;
+			}
+			
+		</style>
+	</head>
+	<body>
+		<div id="box">
+			<li class="dian" @click="one">第一页</li>
+			<li class="dian" @click="prev">上一页</li>
+			<div id="ye">
+				<ul id="list">
+					<li class="pagin" v-for="(item,index) in maxn" :class="{list_style:aa==index}">{{item}}</li>
+				</ul>
+			</div>
+			<li class="dian" @click="next">下一页</li>
+			<li class="dian" @click="aend">最后一页</li>
+		</div>
+	</body>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script>
+		new Vue({
+			el:'#box',
+			data(){
+				return{
+					aa:0,//记录下标
+					num:0,//
+					// atrue:null,
+					maxn:20,//总页数
+					shu:50,//定义一个数值一次走50px
+				}
+			},
+			created(){
+				
+			},
+			methods:{
+				one(){
+					this.num=0;
+					this.aa=0
+					list.style.left=0+'px';
+				},
+				aend(){
+					this.num=19;
+					list.style.left=-700+'px';
+				},
+				next(){
+					this.num++;
+					this.aa=this.num;
+					if(this.num>19){
+						this.num=19
+						this.aa=this.num;
+						alert('此页已是最后一页')
+					}else{
+						if(this.num>=this.maxn-3){
+							this.aa=this.num;
+						}else{
+							if(this.num>3){
+								this.shu+=50;
+								console.log(this.shu)
+								list.style.left=-this.shu+'px';
+							}
+						}
+					}
+					console.log(this.num)
+				},
+				prev(){
+					this.num--;
+					this.aa=this.num;
+					if(this.num<0){
+						this.num=0;
+						this.aa=this.num;
+						alert('此页面是第一页')
+					}else{
+						if(this.num<=this.maxn-3){
+							this.aa=this.num;
+						}else{
+							if(this.num>=4){
+								this.shu+=50;
+								list.style.left=this.shu+'px';
+							}
+						}
+					}
+					console.log(this.num) 
+					console.log(this.shu)
+				}
+			}
+		})
+	</script>
+</html>
