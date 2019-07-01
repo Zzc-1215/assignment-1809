@@ -18,32 +18,37 @@
 			}
 		</style>
 	</head>
-
+ 
 	<body>
 		<div id="box">
-			<div v-for="n in 5" @mouseenter="enter(n)" @mouseleave="leave()" @click="Selected(n)" :class="{'on':cur>=n}"></div>
-		</div>
+			<div v-for="n in 5" @mouseenter="enter(n)" @mouseleave="leave()" @click="Selected(n)" :class="{'on':cur>=n || linshi>=n}"></div>
+		</div> 
 		<script>
 			var vm = new Vue({
 				el: '#box',
 				data: {
-					cur: -1,
+					cur: -1,//hover
+					curS:-1,//当前真实的分
+					linshi:-1,
 					flag: false //鼠标点击后变成true，鼠标进入进出事件就不会改变背景图
 				},
 				methods: {
 					enter(idx) {
-						if(!this.flag) {
+//						if(!this.flag) {
 							this.cur = idx;
-						}
+							this.linshi = idx;
+//						}
 					},
 					leave() {
-						if(!this.flag) {
+//						if(!this.flag) {
 							this.cur = -1;
-						}
+							this.linshi = this.curS;
+//						}
 					},
 					Selected(n) {
-						this.flag = true;
-						this.cur = n;
+//						this.flag = true;
+						this.curS = n;
+						this.linshi = n;
 					}
 				}
 			});
