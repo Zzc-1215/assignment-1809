@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="iconfont.css">
+    <style>
+        .iconfont{
+            font-size: 24px;
+            line-height: 36px;
+            height: 36px;
+            margin-right: 5px;
+            cursor: pointer;
+        }
+        .active{
+            color: orange;
+        }
+    </style>
+</head>
+<script src="vue.js"></script>
+<body>
+    <div id="box">
+        <div>请做出评分<span style="margin-left:10px;">{{trueNum}}分</span></div>
+        <div><span v-for="i in num" class="iconfont" @mouseover="mouseover(i)" @mouseout="mouseout" @click="click(i)" :class="{active:i<=starNum || i<=trueNum}">&#xe6d7;</span></div>
+    </div>
+    <script>
+        var vm = new Vue({
+            el:'#box',
+            data:{
+                num:5, //总共几颗星
+                starNum:0, //移入时候的位置
+                trueNum:0 //点击时候的位置
+            },
+            methods:{
+                mouseover(i){
+                    this.starNum = i
+                },
+                mouseout(){
+                    this.starNum = 0
+                },
+                click(i){
+                    this.trueNum = i
+                }
+            }
+        })
+    </script>
+</body>
+</html>
