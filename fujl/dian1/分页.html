@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>分页</title>
+    <style>
+        *{margin: 0;padding: 0;list-style: none;}
+        .box{
+            text-align: center;
+            height: 50px;
+            box-shadow: 2px 3px 10px #a3a3a3;
+            margin: 200px auto;
+            padding: 5px 0;
+        }
+        .list li{
+            width: 50px;
+            height: 50px;
+            margin: 0 3px;
+            box-shadow: 1px 2px 3px #ccc;
+            float: left;
+            text-align: center;
+            line-height: 50px;
+        }
+        .active{
+            background-color: #a3a3a3;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <ul class="list">
+            <li @click="first">首页</li>
+            <li @click="prev">上一页</li>
+            <li v-for="(i,index) in truePageSize" :class="{active:dqpage == (firstPage+index)}" @click="dq(i)">{{firstPage+index}}</li>
+            <li @click="next">下一页</li>
+            <li @click="last">尾页</li>
+            <!-- {{getSum}} -->
+        </ul>
+    </div>
+
+    <script src="../vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el:'.box',
+            data(){
+                return{
+                    allpage:100,
+                    pagesize:9,
+                    dqpage:9,
+                    // firstPage:7
+                }
+            },
+            computed:{
+                truePageSize(){
+                    if(this.pagesize > this.allpage){
+                        return this.allpage
+                    }else{
+                        return this.pagesize
+                    }
+                },
+                firstPage(){
+                    if(this.dqpage<=Math.floor(this.truePageSize/2)){
+                        return 1;
+                    }else if(this.dqpage>=this.allpage-Math.floor(this.truePageSize/2)){
+                        return this.allpage-this.truePageSize+1
+                    }
+                    return this.dqpage - Math.floor(this.truePageSize/2)
+                }
+            },
+            methods:{
+                first(){
+                    this.dqpage = 1;
+                },
+                prev(){
+                    if(this.dqpage<=1) return
+                    this.dqpage--;
+                },
+                next(){
+                    if(this.dqpage>=this.allpage) return
+                    this.dqpage++;
+                    // this.firstPage = 
+                },
+                last(){
+                    this.dqpage = this.allpage;
+                },
+                dq(i){
+                    this.dqpage = i
+                }
+            }
+        })
+     
+    </script>
+</body>
+</html>

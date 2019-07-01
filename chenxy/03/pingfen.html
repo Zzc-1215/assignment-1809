@@ -43,6 +43,10 @@
                 transition: all .3s;
                 margin-left: 10px;
             }
+            .active{
+                color: orange;
+                transform: scale(1.2);
+            }
         </style>
     </head>
     <body>
@@ -50,9 +54,7 @@
             <p><span class="glyphicon glyphicon-hand-down" style="font-size:
                     20px;margin-right: 5px;"></span>打个分，再走吧</p>
             <div class="main">
-                <span class="wjx glyphicon glyphicon-star" v-for="(item,index)
-                    in arr" @mousemove="move(index)" @mouseout="out(index)"
-                    @click="click(index)" ref="active"></span>
+                <span class="wjx glyphicon glyphicon-star" v-for="i in maxfenshu" :class="{active:dqfenshu>=i || dafenshu>=i}" @mouseover="over(i)" @mouseout="out()" @click="click(i)"></span>
             </div>
         </div>
 
@@ -63,34 +65,24 @@
                 el:'.box',
                 data(){
                     return{
-                        arr:['','','','',''],
-                        isType:false
+                        // 最大的分数
+                        maxfenshu:5,
+                        // 当前的分数
+                        dqfenshu:0,
+                        // 打的分数
+                        dafenshu:0
                     }
                 },
                 methods:{
-                    move(index){
-                        if(!this.isType){
-                            for(var i=0;i<=index;i++){
-                                this.$refs.active[i].style.color='orange';
-                                this.$refs.active[i].style.transform='scale(1.2)'
-                            }
-                        }
+                    over(i){
+                        this.dqfenshu = i;
                     },
-                    out(index){
-                        if(!this.isType){
-                            for(var i=0;i<=index;i++){
-                                this.$refs.active[i].style.color='';
-                                this.$refs.active[i].style.transform=''
-                            }
-                        }
+                    out(){
+                        this.dqfenshu = 0;
                     },
-                    click(index){
-                        if(!this.isType){
-                            for(var i=0;i<=index;i++){
-                                this.$refs.active[i].style.color='orange';
-                            }
-                            this.isType = !this.isType;
-                        }
+                    click(i){
+                        // 点击时，让dafenshu等于i
+                        this.dafenshu = i;
                     }
                 }
             })

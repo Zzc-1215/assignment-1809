@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <style>
+        #box{
+            width:430px;
+            height: 200px;
+            margin: 50px auto;
+            border:1px solid;
+        }
+        #box div{
+            width:60px;
+            height: 60px;
+            border-radius: 50%;
+            border:1px solid;
+            float: left;
+            margin: 10px;
+			transition: .5s;
+			cursor: pointer;
+        }
+       /* #box div:hover, */
+	   .active{
+		   transform: scale(1.1,1.1);
+		   background: red;
+		   border:1px solid red;
+	   }
+        
+    </style>
+</head>
+<body>
+    <div id='box'>
+        <p style="text-align:center;">评分:{{activeindex}}</p>
+        <div v-for='i in maxScore' :class="{active:currentindex>=i || activeindex>=i}" @mouseover="mouseover(i)" @mouseout="mouseout" @click="dafen(i)"></div>
+    </div>
+    <script>
+        new Vue({
+			el:'#box',
+			data:{
+				maxScore:5,//最大分数
+				currentindex:0,//当前索引值,鼠标悬上去的索引值
+				activeindex:0,//激活的索引值
+			},
+			methods:{
+				mouseover(i){
+					this.currentindex=i;//当前的索引值等于i
+				},
+				mouseout(i){
+					this.currentindex=0;//清空
+				},
+				dafen(i){
+					this.activeindex=i;//打分的时候让它激活时的索引值等于i
+				}
+			}
+		})
+    
+    
+    </script>
+</body>
+</html>

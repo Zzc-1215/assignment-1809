@@ -13,6 +13,8 @@
         [v-cloak]{display: none;}
         ul{width: 410px;margin: 60px auto;}
         ul>li{width: 60px;height: 60px;border-radius: 50%;float: left;margin: 10px;cursor: pointer;border: 1px solid #ccc;text-align: center;line-height: 60px;}
+        /* ul>li:hover, */
+        .active{transform: scale(1.1,1.1);background: red;border: 1px solid red;}
         p{text-align: center;margin-top: -50px;}
     </style>
 </head>
@@ -21,40 +23,39 @@
         <ul class="clearfix">
             <!-- <li v-for='(v,i) in 5' @mouseover='z_index=i'  @mouseout='z_index=z_index' :style="{background:z_index==i?'red':'none'}"></li> -->
             <!-- {{z_index}} -->
-            <li v-for='(n,i) in 5'  @mouseover="move(i)"  @click='add(i)' @mouseout="out(i)" :style="{background:judge>=n?'#ccc':'none'}">{{i+1}}</li> 
+            
+            <li 
+            v-for="i in max" :class="{active:currentindex>=i || activeindex>=i}" 
+               @mouseover="mouseover(i)"
+               @mouseout="mouseout"
+                @click="click(i)"
+                >
+            </li> 
+            
         </ul>
-        <p>{{num}}分</p>
+        <p>{{activeindex}}分</p>
     </div>
 </body>
     <script>
         var vm=new Vue({
             el:'#root',
             data:{
-                judge:0,
-                z_index:0,
-                num:0,
-                tr:false,
+               max:5, //定义几个元素
+               currentindex:0, //当前索引值
+               activeindex:0, //激活索引值
             },
             methods:{
-                move(n){
-                    if(!this.tr){
-                        this.judge=n+1
-                        this.num=this.judge;
-                    }
+                mouseover(i){
+                    this.currentindex=i;
                 },
-                out(n){
-                    if(!this.tr){
-                        this.judge=0
-                        this.num=this.judge;
-                    }
+                mouseout(i){
+                    this.currentindex=0;
                 },
-                add(n){
-                    this.tr=true;
-                    this.judge=n+1;
-                    this.num=this.judge;
+                click(i){
+                    this.activeindex=i
                 }
-
             }
+            
         })
     </script>
 </html>

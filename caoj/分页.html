@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			* {
+				padding: 0;
+				margin: 0;
+				list-style: none;
+			}
+			.fen {
+				position: absolute;
+				left: 60px;
+				top: 100px;
+			}
+			.fen li {
+				width: 60px;
+				height: 40px;
+				border: 1px solid;
+				float: left;
+				user-select: none;
+				text-align: center;
+				line-height: 40px;
+			}
+			.fen .ac {
+				background: tan;
+			}
+			.fen .ww {
+				border: solid #c9c9c9 1px;
+				color: #C9C9C9;
+			}
+			.fen .ellipsis-right {
+				position: absolute;
+				left: 636px;
+				background: thistle;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="app">
+			<div class="fen">
+				<div v-cloak style="position: relative;">
+					<li @click="one()" :class="{'ww':n===yi}">首页</li>
+					<li @click="shang()" :class="{'ww':n===yi}">上一页</li>
+
+					<li v-for="item,index in xh" @click="aClik(index)" :class="{'ac':n === firstPage + index}">
+						{{firstPage + index}}
+					</li>
+
+					<li @click="xia()" :class="{'ww':n===arr}">下一页</li>
+					<li @click="wei()" :class="{'ww':n===arr}">页尾</li>
+					<li style="width: 130px; font-size: 13px;">总页数：{{ arr}} / {{n}}</li>
+				</div>
+			</div>
+		</div>
+
+		<script src="vue.js"></script>
+		<script type="text/javascript">
+			new Vue({
+				el: "#app",
+				data: {
+					arr: 100,
+					xh: 10,
+					n: 1,
+					yi: 1
+				}
+			,
+			computed: {
+				show() {
+					if(this.n < this.arr - Math.floor(this.xh / 2) + 1) {
+						return true
+					}
+				},
+				firstPage() {
+					if(this.n <= this.xh / 2) {
+						return 1
+					} else if(this.n > this.arr - Math.floor(this.xh / 2)) {
+						return(this.arr - this.xh) + 1
+					} else {
+						return this.n - Math.floor(this.xh / 2)
+					}
+				},
+			},
+			methods: {
+				aClik(index) {
+					this.n = this.firstPage + index;
+				},
+
+				xia() {
+					this.n >= this.arr ? this.n == this.arr : this.n++;
+				},
+				shang() {
+					this.n > 1 ? this.n-- : this.n;
+				},
+				one() {
+					this.n = this.yi;
+				},
+				wei() {
+					this.n = this.arr;
+				}
+			}
+			})
+		</script>
+	</body>
+
+</html>
