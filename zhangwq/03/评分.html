@@ -15,10 +15,11 @@
         }
         .iconfont{
             color: #ccc;
-            font-size: 22px;
+            font-size: 30px;
         }
         #box .on{
             color: red;
+            transition: all 0.5s;
         }
     </style>
 </head>
@@ -35,17 +36,19 @@
         
         var vm = new Vue({
             el:'#box',
-            data(){/*
+            data(){
                 return{
                     a: -1,
+                    score:-1,
                     flag: false//鼠标点击后变成true
                 }
             },
             methods:{
                 //鼠标悬停
-                mouseenter(index){ 
+                mouseenter(index){
                     if (!this.flag) {
                         this.a = index;
+                        // this.a = this.score;
                     }
                 },
                 //鼠标离开
@@ -57,7 +60,7 @@
                 //鼠标点击
                 click(index){
                     this.flag = true;
-                    this.a = index;
+                    this.score = index;
                 },
             },
         })

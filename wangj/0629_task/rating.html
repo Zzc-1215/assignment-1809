@@ -31,11 +31,14 @@
 
         ul>.star {
             font-size: 40px;
+            color: #ccc;
             display: inline-block;
         }
 
         ul>.star.c {
             color: orange;
+            transform: scale(1.1,1.1);
+            transition: all .35s;
         }
     </style>
 </head>
@@ -43,8 +46,8 @@
 <body>
     <div class="box">
         <ul>
-            <li class="iconfont star" :class="{c:newNum>index}" v-for="(item, index) in num" @mouseover="move(index)"
-                @mouseout="leave(index)" @click="cli(index)">&#xe754;</li>
+            <li class="iconfont star" :class="{c:newNum>=i || store>=i}" v-for="i in num" @mouseover="move(i)"
+                @mouseout="leave(i)" @click="cli(i)">&#xe754;</li>
         </ul>
     </div>
 </body>
@@ -57,42 +60,46 @@
             return {
                 num: 5,
                 newNum: 0,
-                judge: false,
+                store:0,
+                // judge: false,
             }
         },
         methods: {
-            move(index) {
+            move(i) {
                 // var num = 0;
                 // if (num<=index) {
                 // num ++
                 // }
 
-                if (!this.judge) {
-                    this.newNum = index + 1
-                }
+                // if (!this.judge) {
+                //     this.newNum = index + 1
+                // }
+
+                this.newNum = i
             },
-            leave(index) {
+            leave() {
                 // var num = 5;
                 // if (num<index) {
 
                 // num--
                 // }
 
-
-                if (!this.judge) {
-                    this.newNum = 0
-                }
+                // if (!this.judge) {
+                //     this.newNum = 0
+                // }
+                this.newNum = 0
             },
-            cli(index) {
+            cli(i) {
                 // if (!this.judge) {
 
                 // }else{
                 //     this.judge = false
                 // }
 
-                this.judge = true
-                this.newNum = index + 1
+                // this.judge = true
+                // this.newNum = index + 1
                 // move(index)
+                this.store = i
             }
         },
     })

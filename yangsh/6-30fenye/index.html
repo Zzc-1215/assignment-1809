@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>Document</title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+				list-style: none;
+			}
+			
+			ul {
+				margin: 50px;
+			}
+			
+			ul>li {
+				width: 50px;
+				height: 50px;
+				border: 1px solid #ccc;
+				text-align: center;
+				line-height: 50px;
+				font-size: 14px;
+				margin-left: -1px;
+				cursor: pointer;
+				float: left;
+			}
+			
+			ul>li.active {
+				background-color: aqua;
+				color: pink;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="box">
+			<ul>
+				<li @click="first">首页</li>
+				<li @click="prev">上一页</li>
+				<li v-for="(page,index) in truePageLength" :class="{active:cPage==firstPage+index}" @click="jump(firstPage+index)">
+					{{firstPage+index}}
+				</li>
+				<li @click="next">下一页</li>
+				<li @click="last">尾页</li>
+			</ul>
+		</div>
+	</body>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+
+	<script>
+		var vm = new Vue({
+			el: '.box',
+			data: {
+				cPage: 1,
+				totalPage: 100,
+				pageLength: 5,
+			},
+			computed: {
+				truePageLength() {
+					if(this.pageLength > this.totalPage) {
+						return this.totalPage
+					} else {
+						return this.pageLength
+					}
+				},
+				firstPage() {
+					if(this.cPage <= Math.floor(this.truePageLength / 2)) {
+						return 1
+					} else if(this.cPage >= this.totalPage - Math.floor(this.truePageLength / 2)) {
+						return this.totalPage - this.truePageLength + 1
+					}
+					return this.cPage - Math.floor(this.truePageLength / 2)
+				}
+			},
+			methods: {
+				first() {
+					this.cPage = 1
+				},
+				prev() {
+					if(this.cPage <= 1) {
+						return
+					}
+					this.cPage--
+				},
+				next() {
+					if(this.cPage >= this.totalPage) {
+						return
+					}
+					this.cPage++
+				},
+				last() {
+					this.cPage = this.totalPage
+				},
+				jump(i) {
+					this.cPage = i
+				}
+			},
+		})
+	</script>
+
+</html>
