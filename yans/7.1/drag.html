@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+    #app{
+        width: 100px;
+        height: 100px;
+        border:1px solid #ccc;
+        position: relative;
+    }
+    #drag{
+        width: 20px;
+        height: 20px;
+        background-color: pink;
+        position: absolute;
+        border-radius: 50%;
+        top: 0;
+        right: 0;
+    }
+</style>
+</head>
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <div id="app">
+        <div id="drag"></div>
+    </div>
+    <script>
+        var vm=new Vue({
+            el:'#app'
+        })
+        app.onmousedown=function (event) {
+            var mouseX=event.pageX
+            var mouseY=event.pageY
+            var diffX=app.offsetLeft
+            var diffY=app.offsetTop
+            document.onmousemove=function(e){
+                app.style.left=(e.clientX-mouseX+diffX)+'px'
+                app.style.top=(e.clientY-mouseY+diffY)+'px'
+            }
+        }
+        document.onmouseup=function(){
+            document.onmousemove=null
+        }
+        drag.onmousedown=function (event) {
+            event.stopPropagation()
+            var mouseX=event.pageX
+            var mouseY=event.pageY
+            document.onmousemove=function(e){
+                var angle = getAngle(app.offsetLeft+50,app.offsetTop+50,e.pageX,e.pageY);
+               app.style.transform = 'rotate('+ angle +'deg)';
+            }
+        }
+        function getAngle(px,py,mx,my){//获得人物中心和鼠标坐标连线，与y轴正半轴之间的夹角
+            var x = Math.abs(px-mx);
+            var y = Math.abs(py-my);
+            var z = Math.sqrt(Math.pow(x,2)+Math.pow(y,2));
+            var cos = y/z;
+            var radina = Math.acos(cos);//用反三角函数求弧度
+            var angle = Math.floor(180/(Math.PI/radina));//将弧度转换成角度
+
+            if(mx>px&&my>py){//鼠标在第四象限
+                angle = 180 - angle;
+            }
+
+            if(mx==px&&my>py){//鼠标在y轴负方向上
+                angle = 180;
+            }
+
+            if(mx>px&&my==py){//鼠标在x轴正方向上
+                angle = 90;
+            }
+
+            if(mx<px&&my>py){//鼠标在第三象限
+                angle = 180+angle;
+            }
+
+            if(mx<px&&my==py){//鼠标在x轴负方向
+                angle = 270;
+            }
+
+            if(mx<px&&my<py){//鼠标在第二象限
+                angle = 360 - angle;
+            }
+        return angle-45;
+    }
+    </script>
+</body>
+</html>
