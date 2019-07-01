@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .box>div {
+            width: 100px;
+            height: 100px;
+            /* border: 1px solid #000; */
+            background-color: yellow;
+            box-shadow: 0 0 15px 5px #ccc;
+            border-radius: 50%;
+        }
+
+        .box div span {
+            width: 10px;
+            height: 10px;
+            background-color: #00f;
+            display: inline-block;
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+    </style>
+</head>
+
+<body style="background-color:black;">
+    <div class="box">
+        <div v-drag:rotate></div>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+
+<script>
+
+    var zI = 0;
+    var num = 0
+    Vue.directive('drag', function (el, binding) {
+
+        if (binding.arg == 'rotate') {
+            var span = document.createElement('span')
+            el.appendChild(span)
+            span.onmousedown = function (evt) {
+                event.stopPropagation();
+                console.log(el.offsetLeft + 50, el.offsetTop + 50);
+                var mouseDownX = evt.pageX;
+                var mouseDownY = evt.pageY;
+                document.onmousemove = function (e) {
+                    var angle = getAngle(el.offsetLeft + 50, el.offsetTop + 50, e.pageX, e.pageY);
+
+                    el.style.transform = 'rotate(' + angle + 'deg)';
+                }
+            }
+        }
+        el.style.position = 'absolute';
+        el.style.cursor = 'pointer';
+        el.onmousedown = function (evt) {
+            var mouseX = evt.clientX;
+            var mouseY = evt.clientY;
+            var offL = el.offsetLeft;
+            var offT = el.offsetTop;
+
+            document.onmousemove = function (evt) {
+                el.style.zIndex = ++zI
+                var moveX = evt.clientX - mouseX + offL
+                var moveY = evt.clientY - mouseY + offT
+
+                el.style.left = moveX + 'px'
+                el.style.top = moveY + 'px'
+            }
+        }
+        document.onmouseup = function () {
+            document.onmousemove = null;
+        }
+
+        function getAngle(px, py, mx, my) {//获得人物中心和鼠标坐标连线，与y轴正半轴之间的夹角
+            var x = Math.abs(px - mx);
+            var y = Math.abs(py - my);
+            var z = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
+            var cos = y / z;
+            var radina = Math.acos(cos);//用反三角函数求弧度
+            var angle = Math.floor(180 / (Math.PI / radina));//将弧度转换成角度
+
+            if (mx > px && my > py) {//鼠标在第四象限
+                angle = 180 - angle;
+            }
+
+            if (mx == px && my > py) {//鼠标在y轴负方向上
+                angle = 180;
+            }
+
+            if (mx > px && my == py) {//鼠标在x轴正方向上
+                angle = 90;
+            }
+
+            if (mx < px && my > py) {//鼠标在第三象限
+                angle = 180 + angle;
+            }
+
+            if (mx < px && my == py) {//鼠标在x轴负方向
+                angle = 270;
+            }
+
+            if (mx < px && my < py) {//鼠标在第二象限
+                angle = 360 - angle;
+            }
+            return angle - 45;
+        }
+    })
+
+    new Vue({
+        el: '.box',
+        // methods: {
+
+        // },
+    })
+
+</script>
+
+</html>
