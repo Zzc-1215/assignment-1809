@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+	*{
+		margin: 0;
+		padding: 0;
+		list-style: none;
+      text-decoration: none;
+	}
+	#app{
+		width: 700px;
+		height: 50px;
+      margin: 50px auto;
+	}
+	.box a{
+		padding: 10px 14px;
+		float: left;
+      color:#000;
+
+	}
+	.box a.active{
+      border-radius: 50%;
+		background-color: #000;
+		color:#fff;
+	}
+</style>
+</head>
+<body>
+	<div id="app">
+		<div class="box">
+			<a href="javaScript:;" @click='btnhome()'>回到首页</a>
+			<a href="javaScript:;" @click='cur--,pagebtn()'>上一页</a>
+				<a href="javaScript:;"  v-for='index in indexs' :class="{ 'active': cur == index}" @click=' btnClick(index)'>{{index}}
+            </a>
+			<a href="javaScript:;" @click='cur++,pagebtn()'>下一页</a>
+         <a href="javaScript:;" @click='btnend()'>最后一页</a>
+         <a href="javaScript:;">共{{all}}页</a>
+		</div>
+	</div>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script>
+		var vm=new Vue({
+			el:'.box',
+			data(){
+				return{
+					all:100, 
+   					cur: 1
+   				}
+   			},
+   			methods:{
+   				btnClick(data){
+   					if(data != this.cur){
+   						this.cur = data
+   					}
+   				},
+   				btnend(){
+   					this.cur = this.all 
+   				},
+               btnhome(){
+                  this.cur = 1
+               },
+   				pagebtn(){
+   					if(this.cur<1){
+   						this.cur=1
+                     alert('已经是第一页了')
+   					}
+                  console.log(this.all)
+                  if(this.cur>this.all){
+                     this.cur=this.all
+                     alert('已经是第最后你一页了')
+                  }
+   				}
+   			},
+   			computed: {
+   				indexs(){
+   					var left = 1;
+   					var right = this.all;
+   					var arr = [];
+
+   					if(this.all>= 5){
+   						if(this.cur > 3 && this.cur < this.all-2){
+   							left = this.cur - 2
+   							right = this.cur + 2
+   						}else{
+   							if(this.cur<=3){
+                           // 1~5
+   								left = 1
+   								right = 5
+   							}else{
+   								right = this.all
+   								left = this.all -4
+   							}
+   						}
+   					}
+   					while (left <= right){
+   						arr.push(left)
+   						left ++
+   					}
+                  
+   					return arr
+   				}
+
+   			}
+   		})
+   	</script>
+   </body>
+   </html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{margin: 0;padding: 0;cursor: pointer;}
+        .content {
+            width: 740px;
+            height: 70px;
+            line-height: 70px;
+            border-radius: 20px;
+            padding: 0 10px;
+            margin: 100px auto;
+        }
+
+        .preBtn {
+            height: 50px;
+            line-height: 50px;
+            float: left;
+            padding: 10px 20px;
+            display: inline-block;
+
+        }
+
+        .itemSpan {
+            width: 540px;
+            height: 70px;
+            overflow: hidden;
+            display: inline-block;
+        }
+
+        .itemSpan span {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            font-size: 20px;
+            border-radius: 5px;
+            margin-left: 10px;
+            margin-top: 10px;
+            background: rgba(0, 0, 0, .4);
+            color: #fff;
+            font-weight: bolder;
+        }
+
+        .nextBtn {
+            height: 50px;
+            line-height: 50px;
+            float: right;
+            padding: 10px 20px;
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="content">
+        <div class="preBtn" @click="num++">上一页</div>
+        <div class="itemSpan">
+            <span v-for="n in arr">{{n}}</span>
+        </div>
+        <div class="nextBtn" @click="num--">下一页</div>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        new Vue({
+            el: '.content',
+            data() {
+                return {
+                    num=1,
+                    arr: [1,2,3,4,5,6,7,8,9]
+                }
+            },
+            computed: {
+                pre(index){
+                    // num++;
+                }
+            }
+        })
+
+    </script>
+
+</body>
+
+</html>
