@@ -14,12 +14,14 @@
 	V-on:click
 	事件对象event
 	事件修饰符（可以串联）
-		Stop  .prevent .capture .self .once  .passive
+		Stop（阻止传播）.prevent .capture .self .once  .passive
 	v-model  .number .lazy .trim
 	v-on:keyup.13
 	了解 事件捕捉、事件冒泡（事件委托原理）
-	StopPropagation   preventDetault
+	StopPropagation（阻止事件捕获）   preventDetault（阻止事件冒泡）
+	事件委托：点击子元素给父级绑定事件
 	原生事件方法attachEvent()采用冒泡方式，而addEventListener()可以采用冒泡或事件捕获方式。
+	addEventListen（'事件类型'，'回调函数'，'是否捕获 默认为false'）
 --computed--
 	计算属性缓存vs方法
     		计算属性是基于它们的响应式依赖进行缓存的只在相关响应式依赖发生改变时它们才会重新求值。相比之下，每当触发重新渲染时，调用方法将总会再次执行函数。
