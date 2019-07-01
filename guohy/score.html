@@ -36,7 +36,7 @@
 </head>
 <body>
 	<div id="app">
-		<div class="item" v-for='(item,index) in 5' :class="{'ee':duoshao>index}"  @mouseover='mouseover_fn(index)' @mouseout='mouseout_fn(index)' @click='click_fn(index)'>
+		<div class="item" v-for='(item,index) in 5' :class="{'ee':duoshao>index}"  @mouseover='mouseover_fn(index)' @mouseout='mouseout_fn()' @click='click_fn(index)'>
 			★
 			</div>
 			<span>{{duoshao}}分</span>
@@ -57,7 +57,7 @@
 							this.duoshao=index+1
 						}
 					},
-					mouseout_fn(index){
+					mouseout_fn(){
 						if(this.kaiguan){
 							this.duoshao=0
 						}

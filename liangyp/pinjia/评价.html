@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+			user-select: none;
+		}
+		[v-cloak] {
+            display:none;
+        }
+		#app{
+			width: 200px;
+			height: 100px;
+			margin: 40px auto;
+		}
+		#app>div span{
+			display: inline-block;
+			width: 30px;
+			height: 30px;
+			border-radius: 50%;
+			border: solid 1px;
+			float: left;
+			margin-left: 4px;
+		}
+		#app>div span.light{
+			background: aqua;
+			transition: all .8s;
+		}
+	</style>
+</head>
+<body>
+	<div id="app" v-cloak>
+		<h1>评分</h1>
+		<div :style="{width:quanLength*40+'px',marginTop: 20+'px'}">
+			<span :class="{light:currentindex>=i || activerindex>=i}" v-for="i in quanLength" @mouseover="liang(i)" @mouseout="mie(i)" @click="que(i)"></span>
+			{{activerindex}}
+		</div>
+	</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+<script type="text/javascript">
+	var vm = new Vue({
+		el: '#app', 
+		data:{
+			quanLength: 5,
+			currentindex: 0,
+			activerindex: 0
+		},
+		methods:{
+			liang(i){
+				this.currentindex = i;
+			},
+			mie(i){             
+				this.currentindex = 0;
+			},
+			que(i){
+				this.activerindex = i;
+			}
+		}
+	})
+</script>
+</html>

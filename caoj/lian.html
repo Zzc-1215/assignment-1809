@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			*{padding: 0; margin: 0; list-style: none;}
+			.box{width: 500px; height: 300px;margin: 20px auto;}
+			li{width: 30px; height: 30px; background: pink;float: left;margin: 6px;	}
+			.active{background: red;}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<div>
+				<li v-for="i in 5" @click="lick(i)" @mouseout="out(i)" @mousemove="move(i)" :class="{active:man>=i||min>=i}"></li>
+			</div>
+		</div>
+		
+		
+		<script src="vue.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			new Vue({
+				el:'#app',
+				data:{
+					man:0,
+					min:0
+				},
+				methods:{
+					lick(i){
+						this.man=i
+					},
+					move(i){
+						this.min=i
+					},
+					out(i){
+						this.min=0
+					}
+					
+				}
+			})
+		</script>
+	</body>
+</html>

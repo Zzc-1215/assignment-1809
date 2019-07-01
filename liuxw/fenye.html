@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>分页器</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            text-decoration: none;
+            color: #000;
+            list-style: none;
+            user-select: none;
+        }
+
+        .box {
+            /* width: 500px; */
+            height: 50px;
+            margin: 30px auto;
+        }
+
+        .box span {
+            width: 48px;
+            border: 1px solid #ccc;
+            height: 48px;
+            display: block;
+            text-align: center;
+            line-height: 48px;
+            float: left;
+        }
+
+        ul {
+            height: 100%;
+            display: block;
+            float: left;
+        }
+
+        ul li {
+            width: 48px;
+            height: 48px;
+            text-align: center;
+            line-height: 48px;
+            border: 1px solid #ccc;
+            float: left;
+        }
+
+        .active {
+            background: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <span @click="one()">首页</span>
+        <span @click="lrun()">
+            <</span> <ul>
+                <li v-for="(item,index) in truepage" :class='{active:cpe==(firstpage+index)}' @click="active(index)">
+                    {{firstpage+index}}</li>
+                </ul>
+                <span @click="hrun()">></span>
+                <span @click="last">尾页</span>
+    </div>
+    <script>
+        new Vue({
+            el: ".box",
+            data: {
+                cpe: 1,
+                pagesize: 9,
+                list: 50
+            },
+            computed: {
+                truepage(){
+                    if(this.pagesize>this.list){
+                        return this.list;
+                    }else{
+                        return this.pagesize;
+                    }
+                },
+                firstpage() {
+                    if (this.cpe <= parseInt(this.truepage / 2)) {
+                        return 1;
+                    } else if (this.cpe >= this.list - parseInt(this.truepage / 2)) {
+                        return this.list - this.truepage + 1;
+                    }
+                    return this.cpe - parseInt(this.truepage / 2);
+                }
+            },
+            methods: {
+                one() {
+                    this.cpe = 1;
+                },
+                last() {
+                    this.cpe = this.list;
+                },
+                lrun() {
+                    if (this.cpe <= 1) return;
+                    this.cpe--;
+                },
+                hrun() {
+                    if (this.cpe >= this.list) return;
+                    this.cpe++;
+                },
+                active(index) {
+                    this.cpe = this.firstpage + index;
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
