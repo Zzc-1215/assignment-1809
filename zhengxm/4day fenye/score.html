@@ -26,8 +26,11 @@
             /* font-size: 30px; */
         }
         .colof{
-            color: aquamarine;
+            /* color: aquamarine; */
             background-color: aquamarine;
+            display: inline-block;
+            width: 30px;
+            height: 30px;
             font-size: 30px;
         }
     </style>
@@ -36,7 +39,7 @@
     <div id="container">
         <p>评分</p>
         <div class="block">
-            <span v-for="(item,index) in maxScore" :class="{'colorf':currentIndex>index || activeIndex>=index}" ref="lian" @mouseover="enter(index)" @click="select(index)"
+            <span v-for="(item,index) in maxScore" :class="{'colof':currentIndex>index || activeIndex>=index}" ref="lian" @mouseover="enter(index)" @click="select(index)"
             @mouseout="leave"></span>
         </div>
     </div>
