@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>拖动</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #box {
+            width: 200px;
+            height: 200px;
+            border: 1px solid red;
+        }
+
+        .smaill {
+            width: 50px;
+            height: 50px;
+            background: #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box" v-drag>
+        <div class="smaill">
+
+        </div>
+    </div>
+
+</body>
+<script>
+    Vue.directive("drag", function (el, bind) {
+        var hader = el.children[0];
+        hader.onmousedown = function (e) {
+            e.stopPropagation();
+            console.log(el.offsetLeft + 100, el.offsetTop + 100);
+            var mdx = e.pageX;
+            var mdy = e.pageY;
+            document.onmousemove = function (e) {
+                var angle = getAngle(el.offsetLeft + 100, el.offsetTop + 100, e.pageX, e.pageY);
+                el.style.transform = "rotate(" + angle + "deg)";
+            }
+        }
+
+
+
+
+        el.style.position = "absolute";
+        el.onmousedown = function (event) {
+            var cx = event.clientX;
+            var cy = event.clientY;
+            var offsetL = el.offsetLeft;
+            var offsetT = el.offsetTop;
+            document.onmousemove = function (e) {
+                var dx = e.clientX - cx + offsetL;
+                var dy = e.clientY - cy + offsetT;
+                console.log(dx, dy)
+                el.style.left = dx + "px";
+                el.style.top = dy + "px";
+            }
+        }
+        document.onmouseup = function () {
+            document.onmousemove = null;
+        }
+    });
+    new Vue({
+        el: "#box",
+    });
+    function getAngle(px, py, mx, my) {//???????????????y?????????
+        var x = Math.abs(px - mx);
+        var y = Math.abs(py - my);
+        var z = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
+        var cos = y / z;
+        var radina = Math.acos(cos);//?????????
+        var angle = Math.floor(180 / (Math.PI / radina));//????????
+
+        if (mx > px && my > py) {//???????
+            angle = 180 - angle;
+        }
+
+        if (mx == px && my > py) {//???y?????
+            angle = 180;
+        }
+
+        if (mx > px && my == py) {//???x?????
+            angle = 90;
+        }
+
+        if (mx < px && my > py) {//???????
+            angle = 180 + angle;
+        }
+
+        if (mx < px && my == py) {//???x????
+            angle = 270;
+        }
+
+        if (mx < px && my < py) {//???????
+            angle = 360 - angle;
+        }
+        return angle + 45;
+    }
+</script>
+
+</html>
