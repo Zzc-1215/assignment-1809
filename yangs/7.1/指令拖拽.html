@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>指令拖拽</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <style>
+       #app{
+           width:200px;
+           height:200px;
+           border:1px solid #ccc;
+           position:relative;
+       }
+       .small{
+           width:50px;
+           height:50px;
+           position:absolute;
+           right:0;
+           top:0; 
+        }
+    </style>
+</head>
+<body>
+    <div id="app" v-drag>
+        <div style="background-color:lawngreen" class="small"></div>
+    </div>
+    <script>
+        Vue.directive('drag',function(el,binding){
+            var handler = el.children[0];
+		    handler.onmousedown = function(event){
+                event.stopPropagation();
+                console.log(el.offsetLeft+100,el.offsetTop+100);
+                var mouseDownX = event.pageX;
+                var mouseDownY = event.pageY;
+                document.onmousemove = function(e){
+                    var angle = getAngle(el.offsetLeft+100,el.offsetTop+100,e.pageX,e.pageY);
+                    
+                    el.style.transform = 'rotate('+ angle +'deg)';
+			}
+		}
+
+
+
+
+
+
+
+            el.style.position='absolute';
+            el.style.cursor='pointer';
+
+            el.onmousedown=function(event){
+                var mouseX=event.clientX;
+                var mouseY=event.clientY; 
+
+                var offsetL=el.offsetLeft;
+                var offsetT=el.offsetTop;
+
+                console.log(mouseX,mouseY)
+                document.onmousemove=function(e){
+                   var diffX=e.clientX-mouseX+offsetL;
+                   var diffY=e.clientY-mouseY+offsetT;
+                   el.style.left=diffX+'px'
+                   el.style.top=diffY+'px'
+                }
+            }
+            document.onmouseup=function(){
+                document.onmousemove=null;
+            }
+        });
+
+        new Vue({
+            el:'#app',
+            // directives:{
+            //     'key':{},
+            //     'key':{}
+            // }
+        });
+        function getAngle(px,py,mx,my){//获得人物中心和鼠标坐标连线，与y轴正半轴之间的夹角
+			var x = Math.abs(px-mx);
+			var y = Math.abs(py-my);
+			var z = Math.sqrt(Math.pow(x,2)+Math.pow(y,2));
+			var cos = y/z;
+			var radina = Math.acos(cos);//用反三角函数求弧度
+			var angle = Math.floor(180/(Math.PI/radina));//将弧度转换成角度
+
+			if(mx>px&&my>py){//鼠标在第四象限
+				angle = 180 - angle;
+			}
+
+			if(mx==px&&my>py){//鼠标在y轴负方向上
+				angle = 180;
+			}
+
+			if(mx>px&&my==py){//鼠标在x轴正方向上
+				angle = 90;
+			}
+
+			if(mx<px&&my>py){//鼠标在第三象限
+				angle = 180+angle;
+			}
+
+			if(mx<px&&my==py){//鼠标在x轴负方向
+				angle = 270;
+			}
+
+			if(mx<px&&my<py){//鼠标在第二象限
+				angle = 360 - angle;
+			}
+		return angle-45;
+    }
+    </script>
+</body>
+</html>
