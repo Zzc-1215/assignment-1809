@@ -35,7 +35,7 @@
         <ul id="ul">
             <li @click="first">首页</li>
             <li @click="prev">上一页</li>
-            <li v-for="(item,index) in pageSize" :class="{active:currentPage == (firstPage + index)}" @click="click(item)">{{firstPage + index}}</li>
+            <li v-for="(item,index) in truePage" :class="{active:currentPage == (firstPage + index)}" @click="click(firstPage + index)">{{firstPage + index}}</li>
             <li @click="next">下一页</li>
             <li @click="last">尾页</li>
         </ul>
@@ -59,12 +59,12 @@
                      }
                 },
                 firstPage(){
-                    if(this.currentPage <= Math.floor(this.pageSize / 2)){
+                    if(this.currentPage <= Math.floor(this.truePage / 2)){
                         return 1;
-                    }else if(this.currentPage >= this.list - Math.floor(this.pageSize / 2)){
-                        return this.list - (this.pageSize - 1)
+                    }else if(this.currentPage >= this.list - Math.floor(this.truePage / 2)){
+                        return this.list - (this.truePage - 1)
                     }
-                    return this.currentPage - Math.floor(this.pageSize / 2)
+                    return this.currentPage - Math.floor(this.truePage / 2)
                 }
             },
             methods:{
