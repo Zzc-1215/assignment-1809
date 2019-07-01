@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>分页</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <style>
+        *{
+            list-style:none;
+            padding:0;
+            margin:0;
+        }
+        .clearfix:before,
+        .clearfix:after {
+            content: "";
+            display: table;
+        }
+
+        .clearfix:after {
+            clear: both;
+        }
+
+        .clearfix {
+            zoom: 1;
+        }
+        .box{
+            width:612px;
+            height:60px;
+            border:1px solid red;
+            margin:40px auto;
+        }
+        .fyq{
+            height:60px;
+            line-height:60px;
+            box-sizing:border-box;
+            width:420px;
+            overflow:hidden;
+            float:left;
+        }
+        ul li,.box div{
+            float:left;
+            border:1px solid black;
+            box-sizing:border-box;
+            height:60px;
+            box-sizing:border-box;
+            font-size:16px;
+            line-height:60px;
+        }
+
+        .ym{
+            font-size:16px;
+            width:60px;
+            height:60px;
+            text-align:center;
+        }
+        .sy,.weiye{
+            padding:0px 6px;
+        }
+        .active{
+            background-color: red;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="box clearfix">
+        <div class="sy" @click="first">首页</div>
+        <div class="prev" @click="prev">上一页</div>
+        <ul class="fyq clearfix">
+            <li v-for="(page,index) in truePageSize" :class="{'active':cPage==(firstPage+index)}" @click="jump(index)" class="ym">
+               {{firstPage+index}} 
+            </li>
+        </ul>
+        <div class="next" @click="next">下一页</div>
+        <div class="weiye" @click="last">尾页</div> 
+    </div>
+</body>
+<script>
+    var vm=new Vue({
+        el:'.box',
+        data:{
+            //总页数
+            totalPage:100,
+            //展示的页数
+            pageSize:7,
+            //第几页/页数i，
+            cPage:8,
+            
+        },
+        computed:{
+            truePageSize(){
+                if(this.pageSize>this.totalPage){
+                    return this.totalPage
+                }else{
+                    return this.pageSize;
+                }
+            },
+            firstPage(){
+                if(this.cPage<=Math.floor(this.truePageSize/2)){
+                    return 1;
+                }else if(this.cPage>=this.totalPage-Math.floor(this.truePageSize/2)){
+                    return this.totalPage-this.truePageSize+1;
+                }
+                return this.cPage-Math.floor(this.truePageSize/2) 
+            }
+        },
+        methods:{
+            first(){
+                this.cPage=1;
+            },
+            prev(){
+                if(this.cPage<=1)return
+                this.cPage--;
+                
+            },
+            next(){
+                if(this.cPage>=this.totalPage)return
+                this.cPage++;
+            },
+            last(){
+                this.cPage=this.totalPage;
+            },
+            jump(index){
+                this.cPage=this.firstPage+index;
+            }
+        },
+    })
+</script>
+</html>
