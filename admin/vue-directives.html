@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../assets/js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- <abc v-aaa></abc> -->
+        <div v-darg='true'></div>
+        <a href="#" v-hide='isHide'>111</a>
+        <a href="#" v-hide1='isHide'>111</a>
+        <p v-color:red.a.b="a" v-on1:click.stop="abc()">1</p>
+    </div>
+
+    <script>
+        
+    Vue.directive('color',{
+        bind(el,binding){
+            if(binding.arg){
+                el.style.color=binding.arg;
+            }
+        },
+    });
+
+
+    var vm = new Vue({
+        el:'#app',
+        data() {
+            return {
+                b: 'bbb',
+                a:true,
+                isHide: true
+            }
+        },
+        computed: {
+            
+        },
+        methods: {
+            abc(){
+                console.log('abc');
+                return 1;
+            }
+        },
+        directives:{
+            // 'color':{
+            //     bind(el,binding){
+            //         if(binding.arg){
+            //             el.style.color=binding.arg;
+            //         }
+            //     },
+            //     inserted(el,binding){
+            //         console.log(binding);
+            //     },
+            //     update(el,binding,v,oldv){
+            //         console.log('update');
+            //         // console.log(v==oldv);
+            //         if(binding.value != binding.oldValue){
+            //             el.style.display= 'none'
+            //         }
+            //     }
+            // },
+            'hide':{
+                bind(el,binding){
+                    if(binding.value){
+                        el.style.display = 'none'
+                    }
+                },
+                update(el,binding){
+                    if(binding.value){
+                        el.style.display = 'none'
+                    }else{
+                        el.style.display = ''
+                    }
+                }
+            },
+            hide1(el,binding,vnode,oldvnode){
+                console.log(vnode,oldvnode);
+                if(binding.value){
+                    el.style.display = 'none'
+                }else{
+                    el.style.display = ''
+                }
+            },
+            'on1':{
+                bind(el,binding){
+                    if(binding.arg == 'click'){
+                        console.log(binding);
+                        el.onclick = function(event){
+                            if(binding.modifiers.stop){
+                                event.stopPropagation();
+                            }
+                            eval('vm.'+binding.expression);
+                        }
+                    }
+                },
+            }
+        }
+    })
+    </script>
+</body>
+</html>

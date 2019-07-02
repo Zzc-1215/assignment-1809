@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        [v-cloak] {
+            display:none;
+        }
+        #container{
+            margin: 0 auto;
+        }
+        #info p{
+            text-align: center;
+        }
+        .light{
+            margin: 0 auto;
+            margin-top: 10px;
+        }
+        .light div{
+            width: 50px;
+            height: 50px;
+            box-sizing: border-box;
+            border: 1px solid lightblue;
+            float: left;
+        }
+        .lLight{
+            background-color: #deeff4;
+        }
+        @keyframes animate{
+            0%{
+                transform: scale(0.8)
+            }
+            50%{
+                transform: scale(1)
+            }
+            100%{
+                transform: scale(1.2)
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="container" v-cloak :style="{width:sild*50+'px'}">
+        <div id="info">
+            <p>你能点亮所有灯吗？请点亮所有的灯</p>
+        </div>
+        <input type="text" v-model.number="sild" @change='computedSild' id="text">
+        <div class="light" :style="{width:sild*50+'px'}">
+            <div :class="{lLight:item}"  v-for="(item,index) in arr" @click="lightUp(index)" v-show='index'>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el:'#container',
+            data(){
+                return{
+                    isshow:true,
+                    sild:5,
+                    arr:null,
+                }
+            },
+            methods:{
+                computedSild(){
+                    if(this.sild >= 2 && this.sild <= 30){
+                        var silds = this.sild * this.sild;
+                        var array = [];
+                        for(var i=0;i<silds;i++){
+                            array[i] = '';
+                        }
+                        this.arr = array;
+                    }else{
+                        alert('重新填写');
+                        return
+                    }
+                },
+                lightUp(i){
+                    var direction = this.getDirection(i);
+                    direction.forEach(element=>{
+                        if(element >= 0 && element <= this.arr.length-1){
+                            if(this.arr[element]){
+                                this.arr.splice(element,1,'');
+                            }else{
+                                this.arr.splice(element,1,'1');
+                            }
+                        }
+                    })
+                },
+                getDirection(center){
+                    var five = [];
+                    five[0] = center - this.sild;
+                    five[1] = center + this.sild;
+                    five[2] = center % this.sild == 0?'-1':center - 1;
+                    five[3] = (center + 1) % this.sild == 0?'-1':center + 1;
+                    five[4] = center;
+                    return five;
+                }
+            }
+        })
+    </script>
+</body>
+</html>

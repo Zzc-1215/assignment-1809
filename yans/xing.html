@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style>
+	*{margin: 0;padding: 0;list-style: none;}
+	li{
+		width: 30px;
+		height: 30px;
+		border-radius: 50%;
+		border: 1px solid #333;
+		float: left;
+		margin-left: 10px;
+	}
+	.active{
+		background-color: yellow;
+	}
+</style>
+</head>
+<body>
+	<ul class="start">
+		<li  v-for='(item,index) in smlist' @mouseover='color(index)' @mouseout='out(index)' :class='{active:item}'>
+		</li>
+	</ul>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+<script>
+	var vm=new Vue({
+		el:'.start',
+		data(){
+			return{
+				smlist:['','','','',''],
+				type:false
+			}
+		},
+		methods:{
+			color(item,index){
+				if (!type) {
+					for (var i=0;i<=item;i++) {
+						this.smlist.splice(i,1,'1')
+					}
+				}
+				
+			},
+			out(item,index){
+				if (type) {
+					for (var i=0;i<=item;i++) {
+						this.smlist.splice(i,1,'1')
+					}
+				}
+			}
+		}
+	})
+	methods:{
+			i_hover(index){
+				if (this.type) {
+					this.cur=index-1
+				}
+				
+			},
+			d_hover(item){
+				if (this.type) {
+					this.cur=-1
+				}
+					// this.$refs.rLi[item].style.color=''
+				
+			}
+		}
+</script>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #app{
+            padding: 50px;
+        }
+        ul li{
+            width: 50px;
+            height: 50px;
+            list-style: none;
+            text-align: center;
+            line-height: 50px;
+            float: left;
+            border: 1px solid #000;
+        }
+        button{
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            line-height: 50px;
+            float: left;
+        }
+        .active{
+            background-color: red;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <button @click="shou">首页</button>
+        <button @click="prev">上一页</button>
+        <ul>
+            <li v-for="(item,index) in trueMaxpage":class="{active:cPage == firstPage+index}" @click="jump(firstPage+index)">{{firstPage+index}}</li>
+        </ul>
+        <button @click="next">下一页</button>
+        <button @click="end">尾页</button>
+    </div>
+    <script>
+        var vm = new Vue({
+            el:'#app',
+            data(){
+                return {
+                    totalPage:50,
+                    maxpage:5,
+                    cPage:1,
+                }
+            },
+            computed:{
+                trueMaxpage(){
+                    if(this.maxpage > this.totalPage){
+                        return this.totalPage
+                    }else{
+                        return this.maxpage
+                    }
+                },
+                firstPage(){
+                    if(this.cPage <= Math.floor(this.trueMaxpage/2)){
+                        return 1;
+                    }else if(this.cPage >= this.totalPage - Math.floor(this.trueMaxpage/2)){
+                        return this.totalPage - this.trueMaxpage + 1;
+                    }
+                    return this.cPage - Math.floor(this.trueMaxpage/2)
+                }
+            },
+            methods:{
+                shou(){
+                    this.cPage = 1;
+                },
+                next(){
+                    if(this.cPage>=this.totalPage)return;
+                    this.cPage ++;
+                },
+                prev(){
+                    if(this.cPage<=1)return;
+                    this.cPage --;
+                },
+                end(){
+                    this.cPage = this.totalPage;
+                },
+                jump(item){
+                    this.cPage = item;
+                }
+            }
+        })
+    </script>
+</body>
+</html>

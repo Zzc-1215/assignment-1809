@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        ul {
+            list-style: none;
+        }
+
+        [v-cloak] {
+            display: none;
+        }
+
+        .box {
+            width: 1000px;
+            margin: 0 auto;
+        }
+
+        .light_box {
+            margin: 30px;
+        }
+
+        .light_box>div {
+            width: 50px;
+            height: 50px;
+            border: 1px solid pink;
+            box-sizing: border-box;
+            float: left;
+        }
+
+        .light_box>div.light {
+            background-color: aqua;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box" v-cloak>
+        <h2>点亮方块</h2>
+        <p>请输入你想挑战的宫格数（如：3*3只需输入3，然后点击页面空白处）</p>
+        <input type="text" v-model.number="sideLength" @change="figureUp" name="" id="">
+        <!-- <button @click="figureUp"></button> -->
+        <div class="light_box" :style="{width:sideLength*50+'px'}">
+            <div :class="{light:item}" v-for="(item,index) in newArr" @click="lightUp(index)"></div>
+        </div>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+
+<script>
+    var vm = new Vue({
+        el: '.box',
+        data() {
+            return {
+                sideLength: '',
+                newArr: null,
+            }
+        },
+        methods: {
+            figureUp() {
+                // console.log(this.sideLength)
+                var len = this.sideLength * this.sideLength
+                // console.log(len)
+                var arr = []
+                for (var i = 0; i < len; i++) {
+                    arr[i] = '';
+                }
+                // console.log(this.newArr)
+                this.newArr = arr
+            },
+            lightUp(i) {
+                var directions = this.getDirection(i);
+                directions.forEach(item => {
+                    console.log(item)
+                    if (item >= 0 && item < this.newArr.length) {
+                        if (this.newArr[item]) {
+                            this.newArr.splice(item, 1, '')
+                        } else {
+                            this.newArr.splice(item, 1, '1')
+                        }
+                    }
+                })
+            },
+            getDirection(center) {
+                var donArr = [];
+                donArr[0] = center - this.sideLength;
+                donArr[1] = center + this.sideLength;
+                donArr[2] = center % this.sideLength == 0 ? '-1' : center - 1;
+                donArr[3] = (center + 1) % this.sideLength == 0 ? '-1' : center + 1;
+                donArr[4] = center;
+                return donArr;
+            }
+        },
+    })
+</script>
+
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+				list-style: none;
+			}
+			
+			ul {
+				width: 480px;
+				height: 200px;
+				margin: 100px auto;
+			}
+			
+			#list>li.act {
+				width: 40px;
+				height: 40px;
+				border: solid 1px #ccc;
+				margin: 3px;
+				box-shadow: 2px 2px 2px black;
+				line-height: 40px;
+				text-align: center;
+				color: red;
+				float: left;
+				font-size: 18px;
+            	cursor: pointer;
+			}
+			
+			@keyframes light {
+				0% {
+					background-color: #e4d876;
+				}
+				10% {
+					background-color: #d4bc42;
+				}
+				20%{
+					background-color: #d4bc42;
+				}
+				30%{
+					background-color: #bc9d0f;
+				}
+				40%{
+					background-color: #87891c;
+				}
+				50%{
+					background-color: #7e8619;
+				}
+				60%{
+					background-color: #6b8218;
+				}
+				70%{
+					background-color: #597619;
+				}
+				80%{
+					background-color: #45771e;
+				}
+				90%{
+					background-color: #276921;
+				}
+				100% {
+					background-color: #286a22;
+				}
+			}
+			ul>li.active{
+				animation: 1s light;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="key">
+			<input type="text" />
+			<ul id="list">
+				<li class="act" :class="{active:cont}"  v-for="(cont,index) in arr" @click="clik(index)">{{cont}}</li>
+			</ul>
+		</div>
+		<script type="text/javascript" src="vue.js"></script>
+		<script type="text/javascript">
+			var mvvm = new Vue({
+				el: '#key',
+				data() {
+					return {
+						l:10,
+						arr: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/', 'ctrl', 'alt', '上', '下', '左', '右', '+', '-', '*', '/']
+					}
+				},
+				methods: {
+					clik(index) {
+						var direction=this.choice(index)
+						console.log(direction)
+						direction.forEach((obj,ind)=>{
+							if (obj >= 0 && obj < this.arr.length) {
+								console.log(this.arr[obj])
+							}
+						})
+					},
+					choice(i){
+						var snum=[]
+						snum[0]=i-this.l//上
+						snum[1]=i+this.l//下
+						snum[2]=i%this.l==0?'-1':i-1//左
+						snum[3]=(i+1)%this.l==0?'-1':i+1//右
+						snum[4]=i//中
+//						console.log(snum,i)
+						return snum
+					}
+				}
+			})
+		</script>
+	</body>
+
+</html>

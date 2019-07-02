@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>分页器</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            text-decoration: none;
+            color: #000;
+            list-style: none;
+            user-select: none;
+        }
+
+        .box {
+            height: 50px;
+            margin: 30px auto;
+        }
+
+        .box span {
+            width: 48px;
+            border: 1px solid #ccc;
+            height: 48px;
+            display: block;
+            text-align: center;
+            line-height: 48px;
+            float: left;
+        }
+
+        ul {
+            height: 100%;
+            display: block;
+            float: left;
+        }
+
+        ul li {
+            width: 48px;
+            height: 48px;
+            text-align: center;
+            line-height: 48px;
+            border: 1px solid #ccc;
+            float: left;
+        }
+
+        .active {
+            background: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <span @click="one()">首页</span>
+        <span @click="lrun()">
+            <</span> <ul>
+                <li v-for="(item,index) in truepage" :class='{active:cpe==(firstpage+index)}' @click="active(index)">
+                    {{firstpage+index}}</li>
+                </ul>
+                <span @click="hrun()">></span>
+                <span @click="last">尾页</span>
+    </div>
+    <script>
+        new Vue({
+            el: ".box",
+            data: {
+                //起始页
+                cpe: 1,
+                //要显示的页数
+                pagesize: 9,
+                //一共多少页
+                list: 50
+            },
+            computed: {
+                //获取真实的页数
+                truepage(){
+                    //判断要显示的页数跟总页数对比
+                    if(this.pagesize>this.list){
+                        //如果总页数小于显示页数 就循环总页数
+                        return this.list;
+                    }else{
+                        //否则循环要显示的页数
+                        return this.pagesize;
+                    }
+                },
+                //获取要显示页数的第一个
+                firstpage() {
+                    //如果起始页小于等于真实页数的一般 返回为1 用来判断第一个数
+                    if (this.cpe <= parseInt(this.truepage / 2)) {
+                        return 1;
+                        //或者起始页大于等于总页数减去真实页数的一半 返回总页数减去真实页数一半加1这是第一个的数   这个是判断最后一个为总长度时,在显示页数的第一个值
+                    } else if (this.cpe >= this.list - parseInt(this.truepage / 2)) {
+                        return this.list - this.truepage + 1;
+                    }
+                    //这个页数要在显示页数的中间
+                    return this.cpe - parseInt(this.truepage / 2);
+                }
+            },
+            methods: {
+                //返回首页
+                one() {
+                    this.cpe = 1;
+                },
+                //去尾页
+                last() {
+                    this.cpe = this.list;
+                },
+                //上一页
+                lrun() {
+                    if (this.cpe <= 1) return;
+                    this.cpe--;
+                },
+                //下一页
+                hrun() {
+                    if (this.cpe >= this.list) return;
+                    this.cpe++;
+                },
+                //当前页数
+                active(index) {
+                    this.cpe = this.firstpage + index;
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

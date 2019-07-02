@@ -1,126 +1,165 @@
 <!DOCTYPE html>
 <html lang="en">
 
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta http-equiv="X-UA-Compatible" content="ie=edge">
-		<title>Document</title>
-		<style>
-			* {
-				margin: 0;
-				padding: 0;
-				list-style: none;
-				outline: medium;
-			}
-			
-			#app {
-				width: 500px;
-				height: 600px;
-				background-repeat: no-repeat;
-				margin: 0 auto;
-				border: 1px solid #000000;
-			}
-			
-			#input {
-				width: 496px;
-				height: 30px;
-			}
-			a{text-decoration:none;}
-			#btn {
-				width: 500px;
-				height: 30px;
-				margin: 0 auto;
-			}
-			
-			#zhong {
-				font-size: 24px;
-				margin: 30px 0;
-			}
-			
-			#zhong input {
-				width: 300px;
-				height: 30px;
-			}
-			
-			#xia {
-				font-size: 24px;
-				margin: 30px 0;
-			}
-			
-			#xia input {
-				width: 300px;
-				height: 30px;
-			}
-		</style>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-	</head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-	<body>
+	<script type="text/javascript" src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
 
-		<div id="app">
-			<div id="list">
-				任务计划列表
-				<input type="text" id="input" v-model="id" placeholder="请输入添加的事项" style="display: block;margin: 0 auto;" />
-				<input type="button" id="btn" value="添加的事项" v-on:click="add()"/>
-			</div>
-			<div id="zhong">
-				--待办事项--
-				<ul>
-					<li v-if="!list.length">还未完成</li>
-					<li v-else v-for="(item,index) in list">
-						{{item}}
-						<a href="#" v-on:click="wancheng(item,index)"><img src="2.jpg" style="height: 30px;vertical-align: middle;"></a>
-					</li>
-				</ul>
-				
-			</div>
-			<div id="xia">
-				--完成事项--
-				<ol>
-					
-					<li v-for="(item,index) in doneList">{{item}}
-					<a href="#" v-on:click="del(index)"><img src="0.jpg" style="width: 30px;height: 30px;vertical-align: middle;"> </a>
-					</li>
-				</ol>
-				
-			</div>
+    <title>Document</title>
+    <style>
+        .table {
+            margin: 0;
+        }
+        
+        .table tbody>tr>td {
+            height: 50px;
+            line-height: 50px;
+            padding: 0;
+            position: relative;
+        }
+        
+        .table2 thead>tr>td {
+            height: 25px;
+            line-height: 25px;
+            padding: 0;
+        }
+        
+        .input {
+            width: 100%;
+            height: 50px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: none;
+        }
+    </style>
+</head>
 
-		</div>
+<body>
+    <div id="app">
+        <table class="table table-bordered" style="text-align:center">
+            <tbody>
+                <tr>
+                    <td>品名</td>
+                    <td>数量</td>
+                    <td>单价(元)</td>
+                    <td :rowspan="productLength+1">
+                        <table class="table2 table table-bordered">
+                            <thead>
+                                <tr>
+                                    <td colspan="5">金额</td>
+                                </tr>
 
-		<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
-	</body>
-        <script>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>万</td>
+                                    <td>千</td>
+                                    <td>百</td>
+                                    <td>十</td>
+                                    <td>元</td>
+                                </tr>
+                                <tr v-for="i,index in amountList">
+                                    <!-- <td v-for="item in list[index].prie*list[index].number+''">{{item}}</td> -->
+                                    <td v-for="a in i">{{a}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                    <td>备注</td>
+                </tr>
+                <tr v-for="product,index in list">
+                    <td @click.self="shouwInput">{{product.name}} <input @blur="hideInput" class="input" type="text" v-model="product.name"></td>
+                    <td @click.self="shouwInput">{{product.number}} <input @blur="hideInput" class="input" type="text" v-model="product.number"></td>
+                    <td @click.self="shouwInput">{{product.prie}} <input @blur="hideInput" class="input" type="text" v-model="product.prie"></td>
+                    <td @click.self="shouwInput">{{product.beizhu}} <input @blur="hideInput" class="input" type="text" v-model="product.beizhu"></td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td>合计(大写)</td>
+                    <td colspan="4">{{total|chinese}}</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <script>
         new Vue({
-        		el:'#app',
-        		data(){      			
-        			return {
-        				id:'',
-        				list:[],
-        				doneList:[],
-        			}	
-        		},
-        		methods:{
-        			add(){
-        				//var data={id:this.id,name:this.name}
-        				this.list.push(this.id)
-        				this.id=""
-        			},
-        			wancheng(item,index){
-        				this.list.splice(index,1);
-				        this.doneList.push(item);
-        				
-        			},
-        			del(index){
-        				
-						
-						this.doneList.splice(index,1)
-						console.log('doneList')
-					}
-        			
-        		}
-        		
-						
-        	})
-        </script>
+            el: '#app',
+            data: {
+                list: [{
+                    name: '',
+                    number: '',
+                    prie: '',
+                    beizhu: ''
+                }, {
+                    name: '',
+                    number: '',
+                    prie: '',
+                    beizhu: ''
+                }]
+            },
+
+            computed: {
+                productLength() {
+                    return this.list.length
+                },
+                amountList() {
+                    var arr = []
+                    this.list.forEach(element => {
+                        var a = element.prie * element.number + '';
+                        var b = 5 - a.length;
+                        for (var i = 0; i < b; i++) {
+                            a = ' ' + a
+                        }
+                        arr.push(a);
+
+                    });
+                    console.log(arr)
+                    return arr
+                },
+                total() {
+                    var total = 0;
+                    this.list.forEach(element => {
+                        total += element.prie * element.number
+                    })
+                    return total
+                }
+
+            },
+               filters: {
+                   'chinese':function(val) {
+                       var list1 = ['', '壹', '贰', '叁', '肆', '伍', '陆', '柒', '捌', '玖']
+                       var list2 = ['元整', '拾', '佰', '仟', '万', '拾', '佰', '仟', '亿']
+                      	var str=val.toString()
+                      	
+                      	var daxie=''
+                      	for (var i=0;i<str.length;i++) {
+                      		daxie+=list1[Number(str.charAt(i))]+list2[i]
+                      	}
+                      	return daxie
+                      
+                   }
+               },
+            methods: {
+                shouwInput(e) {
+                    e.target.children[0].style.display = 'block'
+                    e.target.children[0].focus()
+
+                },
+                hideInput(e) {
+                    e.target.style.display = 'none'
+                }
+
+            }
+
+        })
+    </script>
+</body>
+
 </html>

@@ -9,3 +9,62 @@
 	V-model => @input + :value
 	V-cloak
 	V-once: 渲染一次，低开销
+--vue事件--
+	V-on 简写 （@click）
+	V-on:click
+	事件对象event
+	事件修饰符（可以串联）
+		Stop（阻止传播）.prevent .capture .self .once  .passive
+	v-model  .number .lazy .trim
+	v-on:keyup.13
+	了解 事件捕捉、事件冒泡（事件委托原理）
+	StopPropagation（阻止事件捕获）   preventDetault（阻止事件冒泡）
+	事件委托：点击子元素给父级绑定事件
+	原生事件方法attachEvent()采用冒泡方式，而addEventListener()可以采用冒泡或事件捕获方式。
+	addEventListen（'事件类型'，'回调函数'，'是否捕获 默认为false'）
+--computed--
+	计算属性缓存vs方法
+    		计算属性是基于它们的响应式依赖进行缓存的只在相关响应式依赖发生改变时它们才会重新求值。相比之下，每当触发重新渲染时，调用方法将总会再次执行函数。
+	计算属性的setter
+    		两个钩子函数 get(),set()   
+		set定义一个参数是set值
+
+--watch--
+    回调参数（newValue，oldValue）
+    监听对象、数组，handle、deep参数
+    监听对象属性 对象键路径必须加上引号（’obj.name’）
+    通过实例方法$watch 来监听数据
+	vm.$watch('expOrFn',callback,[options])
+--数组更新--
+	Vue.set(vm.items, indexOfItem, newValue);
+	vm.$set(vm.items, indexOfItem, newValue);
+	vm.items.splice(indexOfItem, 1, newValue)
+--对象更新--
+	Vue.set(vm.obj, key, newValue)；
+	Vue.delete(target,key);
+	Object.assign({}, vm.obj, newObj);
+--自定义指令--
+    全局注册/局部注册
+    Vue.directive(‘focus’, {钩子函数})
+    directives: { focus: {钩子函数}}
+    Directive
+    钩子函数
+        bind;inserted;update;componentUpdated;unbind
+    钩子函数参数
+        el;binding(name、value、oldValue、expression、arg、modifiers);vnode;oldVnode
+    钩子函数简写（bind+update）
+--过滤器--
+  管道符：|
+   过滤器定义：
+	全局定义：Vue.filter('过滤器名字'，function（）｛｝)
+	局部定义：filters｛'过滤器名字'：function（）｛｝｝
+    过滤器的第一个参数是，要过滤的值
+    过滤器的第二个参数是，过滤器的第一个参数,以此类推
+    可以用在双花括号插值和?v-bind?表达式
+    过滤器 可以链式调用
+    过滤器参数： data | filterA (arg1,arg2)
+    过滤器更像是‘一对多’的计算熟悉 vs 计算属性 一对一
+    vue1.X的内置过滤器：（了解，2.x版本已经移除这些过滤器），
+	Capitalize、uppercase、lowercase、currency、pluralize、debounce、limitBy、filterBy、orderBy
+
+

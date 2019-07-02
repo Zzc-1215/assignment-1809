@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../assets/js/vue1.x.js"></script>
+</head>
+<body>
+    <!-- 
+        全局注册过滤器 
+        Vue.filter('filterName',function(val){
+            return val;
+        });
+
+        必须有 return
+
+        参数：1：过滤的值，2：过滤器的第一个参数，以此类推
+
+        过滤器可以串联使用
+
+        只可以用在双花括号插值和 v-bind 表达式e
+
+     -->
+    <div id="app">
+        <!-- {{ msg | filterName('!---','---!') |filterName }}
+        {{filterName2}} -->
+        <!-- <p v-for="m in (msg|filterName)">{{m}}</p> -->
+        <!-- <p v-bind:class="msg|filterName">1</p> -->
+
+        <h1>{{msg|capitalize}}</h1>
+        <h1>{{msg|upperCase}}</h1>
+        <h1>{{   ['1','000'] |pluralize}}</h1>
+        
+    </div>
+    <script>
+
+    // Vue.filter('filterName',function(val,arg1,arg2){
+    //     return (arg1||'***') + val + (arg2||'***');
+    // });
+
+    new Vue({
+        el:'#app',
+        data() {
+            return {
+                msg: 'hello',
+            }
+        },
+        computed: {
+            filterName2(){
+                return "**"+this.msg+'**';
+            }
+        },
+        filters:{
+            'capitalize':function(value){
+                if (!value && value !== 0) return '';
+                value = value.toString();
+                return value.charAt(0).toUpperCase() + value.slice(1);
+            },
+            'upperCase':function(value){
+                return value.toString().toUpperCase();
+            },
+            // currency: function currency(value, _currency, decimals) {
+            //     value = parseFloat(value);
+            //     if (!isFinite(value) || !value && value !== 0) return '';
+            //     _currency = _currency != null ? _currency : '$';
+            //     decimals = decimals != null ? decimals : 2;
+            //     var stringified = Math.abs(value).toFixed(decimals);
+            //     var _int = decimals ? stringified.slice(0, -1 - decimals) : stringified;
+            //     var i = _int.length % 3;
+            //     var head = i > 0 ? _int.slice(0, i) + (_int.length > 3 ? ',' : '') : '';
+            //     var _float = decimals ? stringified.slice(-1 - decimals) : '';
+            //     var sign = value < 0 ? '-' : '';
+            //     return sign + _currency + head + _int.slice(i).replace(digitsRE, '$1,') + _float;
+            // }
+        }
+    })
+    </script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="font/iconfont.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <style>
+        #container{
+            width: 400px;
+            margin: 100px auto;
+        }
+        .block{
+            margin-top: 10px;
+        }
+        .block span{
+            width: 30px;
+            height: 30px;
+            color: antiquewhite;
+            display: inline-block;
+            /* background-color: antiquewhite; */
+            border: 1px solid antiquewhite;
+            margin-left: 4px;
+            /* font-size: 30px; */
+        }
+        .colof{
+            /* color: aquamarine; */
+            background-color: aquamarine;
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            font-size: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <p>评分</p>
+        <div class="block">
+            <span v-for="(item,index) in maxScore" :class="{'colof':currentIndex>index || activeIndex>=index}" ref="lian" @mouseover="enter(index)" @click="select(index)"
+            @mouseout="leave"></span>
+        </div>
+    </div>
+        <script>
+            var vm = new Vue({
+                el:'#container',
+                data() {
+                    return {
+                        maxScore:5,
+                        currentIndex:0,
+                        activeIndex:0,
+                    }
+                },
+                methods:{
+                    enter(index) {
+                        this.currentIndex = index;
+                    },
+                    leave(index) {
+                        this.currentIndex = 0;
+                    },
+                    select(index) {
+                        this.activeIndex = index;
+                    }
+                }
+            })
+        </script>
+</body>
+</html>

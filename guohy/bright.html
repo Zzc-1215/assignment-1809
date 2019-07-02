@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    #app{
+        margin-top: 50px;
+        margin-left: 50px;
+    }
+    .item{
+        width: 30px;
+        height: 30px;
+        float: left;
+        /*text-align: center;*/
+        /*line-height: 30px;*/
+        background-color: #ccc;
+        border: solid 1px #000;
+    }
+    .item span{
+        width: 100%;
+        height: 100%;
+        display: none;
+    }
+    .item span img{
+        width: 100%;
+        height: 100%;
+    }
+    .bright{
+        background: blue;
+    }
+</style>
+</head>
+<body>
+ <div class="box">
+    <div class="title" style="font-size: 30px">点亮所有方块</div>
+    <div class="top">
+        <input type="text" v-model.number.lazy="num"><button @click='computeBlocks'>开始</button>
+    </div>
+    <div id="app" :style="{width:num*30+'px'}">
+        <div class="item" :class='{bright:item}' v-for='(item,index) in div' 
+        @click='bright_fn(index)'>
+            <span><img src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2223324669,2215459604&fm=26&gp=0.jpg" alt=""></span>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    new Vue({
+        el:'.box',
+        data(){
+            return{
+                num:'',
+                div:null
+            }
+        },
+        methods:{
+            computeBlocks(){
+                    // 创建num*num宫格
+                    var len=this.num*this.num
+                    // 声明一个空数组
+                    var arr=[]
+                    for(var i=0;i<len;i++){
+                        arr[i]='';
+                    }
+                    this.div=arr;
+                    // console.log(this.div);
+                    // console.log(arr);
+                } ,
+                bright_fn(i){
+                    var SXZYZ = this.getdiv(i);
+                    // 遍历被点亮的五个盒子
+                    SXZYZ.forEach(element => {
+                        //获取被点亮的五个盒子的下标
+                        // console.log(element)
+                        // 获取五次盒子总数用来和element作比较
+                        // console.log(this.div.length)
+                        //如果下标大于等于0 并且 小于盒子总数 那么就执行代码
+                        if(element>=0&&element<this.div.length){
+                            if(this.div[element]){
+                                this.div.splice(element,1,'');
+                            }else{
+                                this.div.splice(element,1,'1');
+                            }
+                        }
+                    });
+                },
+                getdiv(c){
+                    // 声明一个空数组用来存储五个被点亮的盒子
+                    var bright_div=[];
+                    bright_div[0]=c-this.num;
+                    bright_div[1]=c+this.num;
+                    bright_div[2]=c%this.num==0?'-1':c-1;
+                    bright_div[3]=(c+1)%this.num==0?'-1':c+1;
+                    bright_div[4]=c;
+                    // console.log(bright_div);
+                    return bright_div;
+                }
+            }
+        })
+    </script>
+</body>
+</html>

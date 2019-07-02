@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>脑筋急转弯</title>
     <style>
         * {
             margin: 0;
@@ -43,6 +43,7 @@
             height: 200px;
             background-color: #ccc;
             text-align: center;
+            /* position: relative; */
         }
 
         .big,
@@ -105,22 +106,26 @@
 <body>
     <div class="box">
         <div class="title">
-            
+            <h4>脑筋急转弯</h4>
+            <p>有三个木桶，分别是10L、7L、5L的容量，现在10L的木桶里面装满了水，要求你用7L的木桶和3L的木桶，均匀的把10L的水分为两个5L的</p>
         </div>
         <div class="main">
             <div class="small" :class="{lift:key==lift}" v-for="(cup,key) in cups" @click="daoshui(key)">
                 <div class="smallColor" :style="{height: cup.c/cup.full*100+'%'}"></div>
-                <span></span>{{cup.c}}L
+                <span></span>{{cup.c}}
             </div>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script>
         var vm = new Vue({
-            el: '#add',
+            el: '.box',
             data() {
                 return {
+
                     lift: null,
+
                     cups: {
                         da: {
                             full: 10,
@@ -132,7 +137,7 @@
                         },
                         xiao: {
                             full: 3,
-                            c: 0
+                            c: 0,
                         }
                     }
                 }
@@ -140,26 +145,25 @@
             methods: {
                 daoshui(cup) {
                     if (this.lift) {
-                        if (this.lift) {
-                            if (cup == this.lift) {
-                                this.lift = null;
-                                return
-                            }
-                            var drl = this.cups[cup].full - this.cups[cup].c > this.cups[this.lift].c ? this.cups[this.lift].c : this.cups[cup]
-                            var syl = this.cups[this.lift].c - drl;
-                            this.cups[cup].c += drl;
-                            this.cups[this.lift].c = syl;
-                            
+                        if (cup == this.lift) {
                             this.lift = null;
-                        } else {
-                            this.lift = cup;
+                            return
                         }
+                        var drl = this.cups[cup].full - this.cups[cup].c > this.cups[this.lift].c ? this.cups[this.lift].c : this.cups[cup].full - this.cups[cup].c;
+                        var syl = this.cups[this.lift].c - drl;
+
+                        this.cups[cup].c += drl;
+                        this.cups[this.lift].c = syl;
+
+                        this.lift = null;
+                    } else {
+                        this.lift = cup;
                     }
                 }
             }
         })
+
     </script>
-
-
+</body>
 
 </html>

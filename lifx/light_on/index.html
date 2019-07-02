@@ -12,24 +12,17 @@
             box-sizing: border-box;
         }
         #box{
-            width: 500px;
-            height: 500px;
-            
-            margin: 0 auto;
+            width: 100%;
+            height:auto;
         }
         #box h2{
             text-align: center;
             line-height: 50px;
             background-color: aqua;
-            border: 1px solid #ccc;
-
         }
         #content{
             width: 100%;
-            height: 450px;
             background-color: #ffffff;
-            border: 1px solid #ccc;
-
         }
         .light{
             width: 50px;
@@ -38,18 +31,42 @@
             border:1px solid #ccc;
             float: left;
         }
-        .col{
-            /* background-color: cornflowerblue */
+        /* .col{
+            background-color: cornflowerblue
+        } */
+        .light span{
+            float: left;
+            width: 100%;
+            height: 100%;
+            background-color: blue;
+            -webkit-animation:mymove 5s infinite;
+
+        }
+        @keyframes mymove{
+            from{
+                transform: rotate(180deg);
+                opacity: 0.5;
+                background-color: pink;
+
+            }
+            to{
+                transform: rotate(180deg);
+                opacity: 0.5;
+                background-color: rgb(199, 33, 116);  
+            }
         }
     </style>
 </head>
 <body>
     <div id="box">
-        <h2>点亮所有的灯</h2>
+        <h2>请您点亮所有的蓝灯</h2>
         <div id="content">
-            <div style="width:250px;height:250px;margin:100px auto;">
-                <div class="light" v-for="item in arr" v-show="ok" @click="" :class='{col:true}'>
-
+            <div style="text-align: center;margin-top: 10px;margin-bottom: 10px">
+                <input type="text" v-model.number="sideLength" @input="computeBlocks" style="width:200px;height:30px;color: red">
+            </div>    
+            <div :style="{width:sideLength*50+'px'}" style="margin: 0 auto;"> 
+                <div class="light" v-for="(item,index) in arr1"  @click="light_up(index)" >
+                    <span v-show='item'></span>
                 </div>
             </div>
             
@@ -57,22 +74,51 @@
     </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-<script>
+<script>  
     var vm = new Vue({
         el:'#box',
         data(){
             return {
-                arr:25,
-                ok:true,
-                
+                sideLength:'',
+                arr1:null,
                 // no:false
-                // ok:false
+                // ok:true
             }
         },
         methods:{
-            abc(){
-                // alert()
+            computeBlocks(){
+                if(this.sideLength>=20){
+                    this.sideLength=20
+                }
+                var l = this.sideLength * this.sideLength;
+                var arr = [];
+                for(var i = 0;i < l;i++){
+                    arr[i] = '';
+                }
+                this.arr1 = arr;
+            },
+            light_up(i){
+                var sxzyz = this.coordinate(i);
+                sxzyz.forEach(element => {
+                    if(element >=0 && element <this.arr1.length){
+                        if(this.arr1[element]){
+                            this.arr1.splice(element,1,'')
+                        }else{
+                            this.arr1.splice(element,1,'1')
+                        }
+                    }
+                })
+            },
+            coordinate(center){
+                var five = [];
+                five[0] = center - this.sideLength;
+                five[1] = center + this.sideLength;
+                five[2] = center % this.sideLength == 0 ? '-1' : center - 1;
+                five[3] = (center+1) % this.sideLength == 0 ? '-1' : center + 1;
+                five[4] = center;
+                return five;  
             }
+            
         },
     })
 </script>
