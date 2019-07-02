@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+				list-style: none;
+			}
+			
+			.drag {
+				width: 100px;
+				height: 100px;
+				position: absolute;
+				top: 0;
+				left: 0;
+				background-size: cover;
+			}
+			
+			#rk {
+				width: 100px;
+				height: 100px;
+				border: 1px solid;
+				display: inline-block;
+				position: relative;
+			}
+			
+			#handler {
+				width: 30px;
+				height: 30px;
+				display: inline-block;
+				background-color: paleturquoise;
+				position: absolute;
+				right: 0;
+				top: 0;
+			}
+			
+			.drag:hover {
+				width: 100px;
+				height: 100px;
+				position: absolute;
+				top: 0;
+				left: 0;
+				cursor: pointer;
+				background-size: cover;
+			}
+		</style>
+	</head>
+
+	<body>
+	<div id="app" v-drag class="drag">
+		<div id="rk">
+			<span id="handler"></span>
+		</div>
+	</div>
+	<script type="text/javascript" src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+	<script>
+		new Vue({
+			el: '#app',
+			directives: {
+				drag(el, bindings) {
+					handler.onmousedown=function(e){
+						e.stopPropagation();
+						var mouseDownX = e.pageX;
+						var mouseDownY = e.pageY;
+					}
+					
+
+					el.onmousedown = function(e) {
+						var disx = e.pageX - el.offsetLeft;
+						var disy = e.pageY - el.offsetTop;
+						e.stopPropagation();
+						var mouseDownX = e.pageX;
+						var mouseDownY = e.pageY;
+						document.onmousemove = function(e) {
+							el.style.left = e.pageX - disx + 'px';
+							el.style.top = e.pageY - disy + 'px';
+							var angle = getAngle(rk.offsetLeft + 50, rk.offsetTop + 50, e.pageX, e.pageY);
+							rk.style.transform = 'rotate(' + angle + 'deg)';
+
+							}
+
+						document.onmouseup = function() {
+							document.onmousemove = document.onmouseup = null;
+							}
+						function getAngle(px,py,mx,my){
+							var x=Math.abs(px-mx)
+							var y=Math.abs(py-my)
+							var z=Math.sqrt(Math.pow(x,2)+Math.pow(y,2))
+							var cos=y/x;
+							var radina=Math.acos(cos)
+							var angle=Math.floor(180/(Math.PI/radina))
+							if (mx>px&&my>py) {
+								angle=180-angle
+								
+							}
+							if (mx==px&&my>py) {
+								angle=180
+								
+							}
+							if (mx>px&&my==py) {
+								angle=90
+								
+							}
+							if (mx<px&&my>py) {
+								angle=180+angle
+								
+							}
+							if (mx<px&&my==py) {
+								angle=270
+								
+							}
+							if (mx<px&&my<py) {
+								angle=360-angle
+								
+							}
+							return angle-45
+						}
+
+							
+					}
+				}
+			}
+		})
+		</script>
+	</body>
+
+</html>

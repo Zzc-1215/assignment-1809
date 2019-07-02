@@ -35,10 +35,11 @@
         <ul class="list">
             <li @click="first">首页</li>
             <li @click="prev">上一页</li>
-            <li v-for="(i,index) in truePageSize" :class="{active:dqpage == (firstPage+index)}" @click="dq(i)">{{firstPage+index}}</li>
+            <!-- i永远是pagesize,而不是你当前所点击的页数 -->
+            <li v-for="(i,index) in truePageSize" :class="{active:dqpage == (firstPage+index)}" @click="dq(firstPage+index)">{{firstPage+index}}</li>
+            <!-- firstPage+index才是你当前所点击的页数 -->
             <li @click="next">下一页</li>
             <li @click="last">尾页</li>
-            <!-- {{getSum}} -->
         </ul>
     </div>
 
@@ -51,7 +52,6 @@
                     allpage:100,
                     pagesize:9,
                     dqpage:9,
-                    // firstPage:7
                 }
             },
             computed:{
@@ -82,7 +82,6 @@
                 next(){
                     if(this.dqpage>=this.allpage) return
                     this.dqpage++;
-                    // this.firstPage = 
                 },
                 last(){
                     this.dqpage = this.allpage;

@@ -35,7 +35,7 @@
 		<ul class="list">
 			<li class="ye" @click='first'>首页</li>
 			<li class="ye" @click='prev' style="width:60px;">上一页</li>
-			<li v-for='(item,index) in pagesize' @click='target(item)' :class="{'active':page==firstpage+index}" ref='rLi'>{{firstpage+index}}</li>
+			<li v-for='(item,index) in pagesize' @click='target(firstpage+index)' :class="{'active':page==firstpage+index}" ref='rLi'>{{firstpage+index}}</li>
 			<li class="ye" @click='next' style="width:60px;">下一页</li>
 			<li class="ye" @click='last'>尾页</li>
 		</ul>
@@ -62,9 +62,6 @@
 			
 		},
 		methods:{
-			target(item){
-				this.page=item
-			},
 			first(){
 				this.page=1
 			},
@@ -78,6 +75,9 @@
 			},
 			last(){
 				this.page=this.totalpage
+			},
+			target(index){
+				this.page=index
 			},
 		}
 	})
