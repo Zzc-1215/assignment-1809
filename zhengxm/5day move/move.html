@@ -37,6 +37,7 @@
                 var span = document.createElement('span');
                 el.appendChild(span);
                 span.onmousedown = function(event){
+                    console.log(1)
                     event.stopPropagation();
                     mdX = event.pageX;
                     mdY = event.pageY;
