@@ -170,13 +170,13 @@
             amountList() {
                 var arr = []
                 this.products.forEach(element => {
-                    var str = ''
+                    var str = (element.price * element.num).toString()
                     // console.log(str.length)
-                    var zero = 8 - (element.price * element.num).toString().length
-                    console.log(zero)
-                    for (var i = 0; i < zero.length; i++) {
-                        str = '34235425'+ (element.price * element.num).toString()
-                        console.log(str)
+                    var zero = 8 - str.length
+                    // console.log(zero)
+                    for (var i = 0; i < zero; i++) {
+                        str = ' '+ str
+                        // console.log(str)
                     }
                     arr.push(str)
                     console.log(arr)
