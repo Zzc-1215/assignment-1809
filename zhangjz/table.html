@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        *{margin: 0;padding: 0;user-select: none;}
+        .list{border-collapse: collapse;border-spacing: 0;}
+        .list tr td{border: 1px solid;width: 200px;height: 50px;text-align: center;vertical-align: top;position: relative;line-height: 50px;}
+        table{border-collapse: collapse;}
+        input{width: 198px;border: 1px solid #fff;outline: none;position: absolute;left: 0;top: 0;height:48px;font-size: 20px;display: none;}
+    </style>
+</head>
+<body>
+    <div id="root">
+        <table class="list">
+            <tr>
+                <td>产品</td>
+                <td>数量</td>
+                <td>单价</td>
+                <td :rowspan="productsLength+1" >
+                    <table>
+                        <tr>
+                            <td colspan="8" style="height: 25px;line-height: 25px">金额</td> 
+                        </tr>
+                        <tr>
+                            <td style="height: 25px;line-height: 25px;">千</td>
+                            <td style="height: 25px;line-height: 25px;">百</td>
+                            <td style="height: 25px;line-height: 25px;">十</td>
+                            <td style="height: 25px;line-height: 25px;">万</td>
+                            <td style="height: 25px;line-height: 25px;">千</td>
+                            <td style="height: 25px;line-height: 25px;">百</td>
+                            <td style="height: 25px;line-height: 25px;">十</td>
+                            <td style="height: 25px;line-height: 25px;">元</td>
+                        </tr>
+                        <tr v-for="n in productsLength">
+                            <!-- <td>{{amountList[n-1]}}</td> -->
+                            <td v-for="l in amountList[n-1]">{{l}}</td>
+                        </tr>
+                    </table>
+                </td>
+                <td>备注</td>
+            </tr>
+            <tr v-for='i in products' >
+                <td @click='showInput'>
+                    {{i.name}}
+                    <input type="text" v-model="i.name" @blur='hideInput'>
+                </td>
+                <td  @click='showInput'>
+                    {{i.price}}
+                    <input type="number" maxlength="8" v-model="i.price"  @blur='hideInput'>
+                </td>
+                <td  @click='showInput'>
+                    {{i.num}}
+                    <input type="number" maxlength="8" v-model="i.num"  @blur='hideInput'>
+                </td>
+                <td  @click='showInput'>
+                    {{i.ps}}
+                    <input type="text" v-model="i.ps">
+                </td>
+            </tr>
+            <tfoot>
+                <tr>
+                    <td>合计:</td>
+                    <td colspan="4">{{total | chinese}}</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</body>
+<script>
+    new Vue({
+        el:'#root',
+        data:{
+            products:[
+                {
+                    name:'',
+                    price:'',
+                    num:'',
+                    amount:'',
+                    ps:''
+                },
+                {
+                    name:'',
+                    price:'',
+                    num:'',
+                    amount:'',
+                    ps:''
+                },
+                {
+                    name:'',
+                    price:'',
+                    num:'',
+                    amount:'',
+                    ps:''
+                },
+            ]
+        },
+        methods:{
+            showInput(e){
+                if(e.target.children[0]){
+                    e.target.children[0].style.display='block';
+                }  
+            },
+            hideInput(e){
+                e.target.style.display='none';
+            }
+        },
+        filters:{
+            'chinese':function(val){
+                var list1=['','壹','贰','叁','肆','伍','陆','柒','捌','玖'];
+                var list2=['元整','拾','佰','仟','万','拾','佰','仟','亿'];
+                
+                var str = val.toString();
+                var upper='';
+                for(var i=0;i<str.length;i++){
+                    upper += list1[Number(str.charAt(i))]+list2[str.length-i-1];
+                }
+                return upper
+            }
+        },
+        computed:{
+            total(){
+                var t=0;
+                this.products.forEach(element=>{
+                    t+=element.price*element.num;
+                })
+                return t
+            },
+            productsLength(){
+                return this. products.length
+            },
+            amountList(){
+                var arr=[];
+                this.products.forEach(element => {
+                    var str=(element.price*element.num).toString();
+                    var zeroLength=8-str.length;
+                    for(var i=0;i<zeroLength;i++){
+                        str= ' ' + str
+                    }
+                    arr.push(str)
+                });
+                return arr
+            }
+        }
+    })
+</script>
+</html>
