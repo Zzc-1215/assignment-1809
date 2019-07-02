@@ -44,6 +44,7 @@
             el.style.position = 'absolute';
             el.style.cursor = 'pointer';
             el.onmousedown = function(event){
+			    event.stopPropagation();
                 var mouseX = event.clientX;
                 var mouseY = event.clientY;
                 var offsetLeft = el.offsetLeft;
