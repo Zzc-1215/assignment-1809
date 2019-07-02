@@ -11,7 +11,10 @@
 			}
 			
 			#drag {
+				/*width: 1519px;
+				height: 746px;*
 				position: relative;
+				/*overflow: hidden;*/
 			}
 			
 			#drag>div {
@@ -23,6 +26,7 @@
 				position: absolute;
 				left: 0px;
 				top: 0px;
+				
 			}
 			
 			#drag>div span {
@@ -51,6 +55,7 @@
 				if(binding.arg == 'rotate') {
 					var span = el.appendChild(document.createElement('span'))
 					span.onmousedown = function(event) {
+//						console.log(el.children)
 						event.stopPropagation();
 						console.log(el.offsetLeft + 50, el.offsetTop + 50);
 						var mouseDownX = event.pageX;
