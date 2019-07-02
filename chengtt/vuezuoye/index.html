@@ -1,165 +1,165 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
-	<head>
-		<meta charset="UTF-8">
-		<title></title>
-		<style>
-			* {
-				margin: 0;
-				padding: 0;
-				list-style: none;
-				text-decoration: none;
-				vertical-align: middle;
-			}
-			
-			#app {
-				width: 800px;
-				height: 400px;
-				border: 1px solid;
-				margin: 100px auto;
-				padding: 10px 20px;
-				box-sizing: border-box;
-			}
-			
-			.title {
-				border-bottom: 1px solid;
-				padding-bottom: 5px;
-			}
-			
-			.title h4 {
-				text-align: center;
-				margin-bottom: 20px;
-			}
-			
-			.title p {
-				text-indent: 36px;
-				font-size: 18px;
-			}
-			
-			.water {
-				margin-top: 20px;
-				width: 100%;
-				height: 200px;
-				background-color: #ccc;
-				text-align: center;
-			}
-			
-			.cupes {
-				width: 100px;
-				height: 140px;
-				border-left: 2px solid;
-				border-right: 2px solid;
-				border-bottom: 2px solid;
-				float: left;
-				margin: 30px 74px;
-				line-height: 140px;
-				border-radius: 0 0 10px 10px;
-				position: relative;
-				transform: rotate(0deg);
-				transition: .5s;
-			}
-			
-			.coler {
-				width: 100%;
-				height: 100%;
-				background-color: #bed8f0;
-				position: absolute;
-				bottom: 0;
-				left: 0;
-				border-radius: 0 0 10px 10px;
-			}
-			
-			.color {
-				height: 0%;
-				transition: all .5s;
-			}
-			
-			.cupes.lift {
-				transform: rotate(30deg)
-			}
-			
-			.water div span {
-				width: 20px;
-				height: 50px;
-				border: 2px solid;
-				display: inline-block;
-				box-sizing: border-box;
-				position: absolute;
-				left: -20px;
-				top: 45px;
-				border-right: none;
-				border-radius: 10px 0 0 10px;
-			}
-			
-			
-		</style>
-	</head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-	<body>
-		<div id="app">
-			<div class="title">
-				<h4>趣味小游戏</h4>
-				<p>有三个木桶，分别是10L、7L、5L的容量，现在10L的木桶里面装满了水，要求你用7L的木桶和3L的木桶，均匀的把10L的水分为两个5L的</p>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-			</div>
-			<div class="water">
-				<div class="cupes" :class="{lift:key==lift}" v-for="(cup,key) in cups" @click="daoshui(key)">
+	<script type="text/javascript" src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
 
-					<div class="coler" :style="{height: cup.c/cup.full*100+'%'}"></div>
-					<span></span>{{cup.c}}L
-				</div>
-			</div>
+    <title>Document</title>
+    <style>
+        .table {
+            margin: 0;
+        }
+        
+        .table tbody>tr>td {
+            height: 50px;
+            line-height: 50px;
+            padding: 0;
+            position: relative;
+        }
+        
+        .table2 thead>tr>td {
+            height: 25px;
+            line-height: 25px;
+            padding: 0;
+        }
+        
+        .input {
+            width: 100%;
+            height: 50px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: none;
+        }
+    </style>
+</head>
 
-		</div>
-		<script type="text/javascript" src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
-		<script>
-			new Vue({
-				el: '#app',
-				data() {
-					return {
-						lift: null,
-						cups: {
-							da: {
-								full: 10,
-								c: 10,
-							},
-							zhong: {
-								full: 7,
-								c: 0,
+<body>
+    <div id="app">
+        <table class="table table-bordered" style="text-align:center">
+            <tbody>
+                <tr>
+                    <td>品名</td>
+                    <td>数量</td>
+                    <td>单价(元)</td>
+                    <td :rowspan="productLength+1">
+                        <table class="table2 table table-bordered">
+                            <thead>
+                                <tr>
+                                    <td colspan="5">金额</td>
+                                </tr>
 
-							},
-							xiao: {
-								full: 3,
-								c: 0,
-							}
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>万</td>
+                                    <td>千</td>
+                                    <td>百</td>
+                                    <td>十</td>
+                                    <td>元</td>
+                                </tr>
+                                <tr v-for="i,index in amountList">
+                                    <!-- <td v-for="item in list[index].prie*list[index].number+''">{{item}}</td> -->
+                                    <td v-for="a in i">{{a}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                    <td>备注</td>
+                </tr>
+                <tr v-for="product,index in list">
+                    <td @click.self="shouwInput">{{product.name}} <input @blur="hideInput" class="input" type="text" v-model="product.name"></td>
+                    <td @click.self="shouwInput">{{product.number}} <input @blur="hideInput" class="input" type="text" v-model="product.number"></td>
+                    <td @click.self="shouwInput">{{product.prie}} <input @blur="hideInput" class="input" type="text" v-model="product.prie"></td>
+                    <td @click.self="shouwInput">{{product.beizhu}} <input @blur="hideInput" class="input" type="text" v-model="product.beizhu"></td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td>合计(大写)</td>
+                    <td colspan="4">{{total|chinese}}</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                list: [{
+                    name: '',
+                    number: '',
+                    prie: '',
+                    beizhu: ''
+                }, {
+                    name: '',
+                    number: '',
+                    prie: '',
+                    beizhu: ''
+                }]
+            },
 
-						}
+            computed: {
+                productLength() {
+                    return this.list.length
+                },
+                amountList() {
+                    var arr = []
+                    this.list.forEach(element => {
+                        var a = element.prie * element.number + '';
+                        var b = 5 - a.length;
+                        for (var i = 0; i < b; i++) {
+                            a = ' ' + a
+                        }
+                        arr.push(a);
 
-					}
-				},
-				methods: {
-					daoshui(cup) {
-						if(this.lift) {
-							if(cup == this.lift) {
-								this.lift = null;
-								return
+                    });
+                    console.log(arr)
+                    return arr
+                },
+                total() {
+                    var total = 0;
+                    this.list.forEach(element => {
+                        total += element.prie * element.number
+                    })
+                    return total
+                }
 
-							}
-							var drl = this.cups[cup].full - this.cups[cup].c > this.cups[this.lift].c ? this.cups[this.lift].c : this.cups[cup].full - this.cups[cup].c;
-							var syl = this.cups[this.lift].c - drl;
-							this.cups[cup].c += drl;
-							this.cups[this.lift].c = syl;
+            },
+               filters: {
+                   'chinese':function(val) {
+                       var list1 = ['', '壹', '贰', '叁', '肆', '伍', '陆', '柒', '捌', '玖']
+                       var list2 = ['元整', '拾', '佰', '仟', '万', '拾', '佰', '仟', '亿']
+                      	var str=val.toString()
+                      	
+                      	var daxie=''
+                      	for (var i=0;i<str.length;i++) {
+                      		daxie+=list1[Number(str.charAt(i))]+list2[i]
+                      	}
+                      	return daxie
+                      
+                   }
+               },
+            methods: {
+                shouwInput(e) {
+                    e.target.children[0].style.display = 'block'
+                    e.target.children[0].focus()
 
-							this.lift = null;
-						} else {
-							this.lift = cup;
-						}
+                },
+                hideInput(e) {
+                    e.target.style.display = 'none'
+                }
 
-					}
-				}
-			})
-		</script>
-	</body>
+            }
+
+        })
+    </script>
+</body>
 
 </html>
