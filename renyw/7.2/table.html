@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        [v-cloak] {
+            display: none;
+        }
+
+        #box {
+            width: 70%;
+            margin: 30px auto;
+            /* border: 1px solid #ccc; */
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        tr {
+            height: 50px;
+            line-height: 50px;
+        }
+
+        td {
+            border: 1px solid #ccc;
+            width: 100px;
+            text-align: center;
+            position: relative;
+        }
+
+        .simple {
+            width: 30%;
+        }
+
+        .ltspan {
+            height: 25px;
+            line-height: 25px;
+        }
+        input{
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 48px;
+            line-height: 48px;
+            border: none;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box" v-cloak>
+        <table>
+            <tr>
+                <td>货名</td>
+                <td>单价</td>
+                <td>数量</td>
+                <td :rowspan="productsLength+1" class="simple">
+                    <table>
+                        <tr class="ltspan">
+                            <td colspan="8">金额</td>
+                        </tr>
+                        <tr class="simple ltspan">
+                            <td class="ltspan">千</td>
+                            <td class="ltspan">百</td>
+                            <td class="ltspan">十</td>
+                            <td class="ltspan">万</td>
+                            <td class="ltspan">千</td>
+                            <td class="ltspan">百</td>
+                            <td class="ltspan">十</td>
+                            <td class="ltspan">元</td>
+                        </tr>
+                        <tr v-for="n in productsLength">
+                            <td v-for="l in amountList[n-1]">
+                                {{l}}
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td>备注</td>
+            </tr>
+            <tr v-for="product in products">
+                <td @click="showInt">
+                    {{product.name}}
+                    <input type="text" v-model="product.name" @blur="hideInt">
+                </td>
+                <td @click="showInt">
+                    {{product.price}}
+                    <input type="text" v-model="product.price" @blur="hideInt">
+                </td>
+                <td @click="showInt">
+                    {{product.num}}
+                    <input type="text" v-model="product.num" @blur="hideInt">
+                </td>
+                <td @click="showInt">
+                    {{product.info}}
+                    <input type="text" v-model="product.info" @blur="hideInt">
+                </td>
+            </tr>
+            <tfoot>
+                <tr>
+                    <td>合计：</td>
+                    <td colspan="4">{{total | chinese}}</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#box',
+            data: {
+                products: [
+                    {
+                        name: '三星',
+                        price: '5000',
+                        num: '1',
+                        info: ''
+                    }, {
+                        name: 'apple',
+                        price: '7000',
+                        num: '2',
+                        info: ''
+                    }, {
+                        name: 'oppo',
+                        price: '2000',
+                        num: '1',
+                        info: ''
+                    },
+                ]
+            },
+            filters: {
+                'chinese': function (val) { //过滤器 转为大写的数字
+                    var list1 = ['', '壹', '贰', '叁', '肆', '伍', '陆', '柒', '捌', '玖'];
+                    var list2 = ['元整', '拾', '佰', '仟', '万'];
+
+                    var str = val.toString();
+                    var upp = '';
+                    for (var i = 0; i < str.length; i++) {
+                        upp += list1[Number(str.charAt(i))] + list2[str.length - i - 1];
+                    }
+                    return upp;
+                }
+            },
+            computed: {
+                productsLength() { //记录数据的长度
+                    return this.products.length;
+                },
+                amountList() { //操作每个商品的总价 并 拼接相应长度的空格 以可切割循环
+                    var arr = [];
+                    this.products.forEach(element => {
+                        var str = (element.price * element.num).toString();
+                        var zeroL = 8 - str.length;
+                        for (var i = 0; i < zeroL; i++) {
+                            str = ' ' + str;
+                        }
+                        arr.push(str)
+                    });
+                    return arr;
+                },
+                total() { //总商品总价格
+                    var t = 0;
+                    this.products.forEach(element => {
+                        t += element.price * element.num;
+                    })
+                    return t;
+                }
+            },
+            methods: {
+                showInt(e) { //点击出现input框
+                    console.log(e.target.tagName);
+                    if (e.target.tagName == 'TD') {
+                        e.target.children[0].style.display = 'block';
+                        e.target.children[0].autofocus = true;
+                    }else if(e.target.tagName == 'INPUT'){
+                        e.target.style.display = 'block';
+                        e.target.autofocus = true;
+                    }
+                },
+                hideInt(event) { //失去焦点隐藏input框
+                    event.target.style.display = 'none';
+                }
+            }
+        })
+
+    </script>
+</body>
+
+</html>

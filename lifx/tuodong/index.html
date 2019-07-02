@@ -37,25 +37,27 @@
 
 <body>
     <div id="box">
-        <div class="bo" v-drag:rotate>
+        <div class="bo" v-drag:rotate style="background-color: red">
+        </div>
+        <div class="bo" v-drag:rotate style="background-color: yellow">
         </div>
     </div>
 </body>
 <script>
+    var num = 0;
     Vue.directive('drag', function (el, binding) {
         if (binding.arg == 'rotate') {
             var span = document.createElement('span');
             console.log(span)
             var pan = el.appendChild(span);
             var zhuan = el.children[0];
-            // console.log(zhuan)   
+            console.log(zhuan)   
             zhuan.onmousedown = function (event) {
                 event.stopPropagation();
                 var mouseDownX = event.pageX;
                 var mouseDownY = event.pageY;
                 document.onmousemove = function (e) {
                     var angle = getAngle(el.offsetLeft + 50, el.offsetTop + 50, e.pageX, e.pageY);
-
                     el.style.transform = 'rotate(' + angle + 'deg)';
                 }
             }   
@@ -63,6 +65,7 @@
         el.style.position = 'absolute';
         el.style.cursor = 'pointer';
         el.onmousedown = function (event) {
+            el.style.zIndex = ++num;
             var mouseX = event.clientX;
             var mouseY = event.clientY;
             var offsetL = el.offsetLeft;
@@ -79,7 +82,6 @@
             document.onmousemove = null;
         }
     });
-    // console.log(getAngle(1,1,1,1))
     function getAngle(px, py, mx, my) {//获得人物中心和鼠标坐标连线，与y轴正半轴之间的夹角
         var x = Math.abs(px - mx);
         var y = Math.abs(py - my);
