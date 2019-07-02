@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<script src="vue.js" type="text/javascript" charset="utf-8"></script>
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			.box{
+				width: 100px;
+				height: 100px;
+				border: 1px solid blue;
+				position:relative;
+			}
+			#handler{
+				width: 20px;
+				height: 20px;
+				display: inline-block;
+				background: #fff;
+				position: absolute;
+				right: 0;
+				top: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<div class="box" v-long style="background:red" id="abc">
+				<span id="handler">
+					
+				</span>
+			</div>
+			<div class="box" v-long style="background:blue" id="abc">
+				<span id="handler">
+					
+				</span>
+			</div>
+			<div class="box" v-long style="background:green" id="abc">
+				<span id="handler">
+					
+				</span>
+			</div>
+			<div class="box" v-long style="background:yellow" id="abc">
+				<span id="handler">
+					
+				</span>
+			</div>
+			<div class="box" v-long style="background:black" id="abc">
+				<span id="handler">
+					
+				</span>
+			</div>
+		</div>
+		
+		
+		<script type="text/javascript">
+			
+			var zind=0
+			
+			Vue.directive('long',function(el,binding){
+				
+				el.style.position='absolute'
+				el.style.cursor='pointer'
+				
+				
+				el.onmousedown=function(event){
+					el.style.zIndex=zind++
+					var mouseX=event.clientX
+					var mouseY=event.clientY
+					
+					var offsetL=el.offsetLeft
+					var offsetT=el.offsetTop
+
+					
+				document.onmousemove=function(e){
+					
+						
+						var diffX=e.clientX-mouseX+offsetL
+						var diffY=e.clientY-mouseY+offsetT
+						
+						el.style.left=diffX+'px'
+						el.style.top=diffY+'px' 
+					}
+				}
+				document.onmouseup=function(){
+					document.onmousemove=null
+					
+				}
+			})
+			
+			
+			new Vue({
+				el:'#app',
+				 
+			})
+			var abc = document.getElementById('abc')
+			var handler = document.getElementById('handler')
+			handler.onmousedown = function(event){
+				event.stopPropagation();
+				console.log(abc.offsetLeft+50,abc.offsetTop+50,)
+				var mouseDownX = event.pageX;
+				var mouseDownY = event.pageY;
+				document.onmousemove = function(e){
+					var angle = getAngle(abc.offsetLeft+50,abc.offsetTop+50,e.pageX,e.pageY);
+					abc.style.transform = 'rotate('+angle+'deg)'
+				}
+			}
+			function getAngle(px,py,mx,my){
+				var x = Math.abs(px-mx);
+				var y = Math.abs(py-my);
+				var z = Math.sqrt(Math.pow(x,2)+Math.pow(y,2));
+				var cos = y/z;
+				var radina = Math.acos(cos);
+				var angle = Math.floor(180/(Math.PI/radina));
+				
+				if(mx > px && my > py){
+					angle = 180 -angle;
+				}
+				
+				if(mx == px && my > py){
+					angle = 180;
+				}
+				
+				if(mx > px && my == py){
+					angle = 90;
+				}
+				
+				if(mx < px && my > py){
+					angle = 180 + angle;
+				}
+				
+				if(mx < px && my == py){
+					angle = 270;
+				}
+				
+				if(mx < px && my < py){
+					angle = 360 - angle;
+				}
+				return angle - 45;
+				
+			}
+		</script>
+	</body>
+</html>
