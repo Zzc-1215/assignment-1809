@@ -53,5 +53,18 @@
     钩子函数参数
         el;binding(name、value、oldValue、expression、arg、modifiers);vnode;oldVnode
     钩子函数简写（bind+update）
+--过滤器--
+  管道符：|
+   过滤器定义：
+	全局定义：Vue.filter('过滤器名字'，function（）｛｝)
+	局部定义：filters｛'过滤器名字'：function（）｛｝｝
+    过滤器的第一个参数是，要过滤的值
+    过滤器的第二个参数是，过滤器的第一个参数,以此类推
+    可以用在双花括号插值和?v-bind?表达式
+    过滤器 可以链式调用
+    过滤器参数： data | filterA (arg1,arg2)
+    过滤器更像是‘一对多’的计算熟悉 vs 计算属性 一对一
+    vue1.X的内置过滤器：（了解，2.x版本已经移除这些过滤器），
+	Capitalize、uppercase、lowercase、currency、pluralize、debounce、limitBy、filterBy、orderBy
 
 
