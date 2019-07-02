@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        table {
+            margin: 0 auto;
+            border-collapse: collapse;
+        }
+
+        table tr>td {
+            border: 1px solid #ccc;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            vertical-align: top;
+            position: relative;
+            /* border */
+        }
+
+        td {
+            width: 200px;
+            height: 54px;
+        }
+
+        .height {
+            line-height: 23px;
+            height: 23px;
+        }
+
+        input {
+            width: 100%;
+            line-height: 48px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            border: none;
+            outline: none;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <table>
+            <tr>
+                <td width='200'>品名</td>
+                <td width='200'>数量</td>
+                <td width='200'>单价</td>
+                <td width='200' :rowspan="productsLength+1" style="position:relative;">
+                    <table style="position:absolute;left: 0;top: 0;">
+                        <tr class="height">
+                            <td class="height" colspan="8">金额</tdcl>
+                        </tr>
+                        <tr class="height">
+                            <td class="height">千</td>
+                            <td class="height">百</td>
+                            <td class="height">十</td>
+                            <td class="height">万</td>
+                            <td class="height">千</td>
+                            <td class="height">百</td>
+                            <td class="height">十</td>
+                            <td class="height">元</td>
+                        </tr>
+                        <tr v-for="n in productsLength">
+                            <!-- <td>{{amountList[n-1]}}</td> -->
+                            <td v-for="l in amountList[n-1]">
+                                {{l}}
+                            </td>
+                            <!-- <td v-for="l in amountList[n-1]">
+                                {{l}}
+                            </td> -->
+                            <!-- <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td> -->
+                        </tr>
+                    </table>
+                </td>
+                <td>备注</td>
+            </tr>
+            <tr v-for='product in products'>
+                <td @click="showIpt">{{product.name}}
+                    <input type="text" v-model="product.name" @blur="hideIpt">
+                </td>
+                <td @click="showIpt">{{product.num}}
+                    <input type="number" v-model="product.num" @blur="hideIpt">
+                </td>
+                <td @click="showIpt">{{product.price}}
+                    <input type="number" v-model="product.price" @blur="hideIpt">
+                </td>
+                <td @click="showIpt">{{product.remarks}}
+                    <input type="text" v-model="product.remarks" @blur="hideIpt">
+                </td>
+            </tr>
+            <tfoot>
+                <tr>
+                    <td>合计人民币（大写）：</td>
+                    <td colspan="4">{{total | chinese}}</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+
+<script>
+    new Vue({
+        el: '.box',
+        data() {
+            return {
+                products: [
+                    {
+                        name: '',
+                        price: 1,
+                        num: 321,
+                        // amount:'',
+                        remarks: '',
+                    },
+                    {
+                        name: '',
+                        price: '',
+                        num: '',
+                        // amount:'',
+                        remarks: '',
+                    },
+                ]
+            }
+        },
+        methods: {
+            showIpt(evt){
+                evt.target.children[0].style.display = 'block'
+            },
+            hideIpt(evt){
+                evt.target.style.display = 'none'
+            }
+        },
+        filters:{
+            'chinese':function(val){
+                var list1 = ['','壹','贰','叁','肆','伍','陆','柒','捌','玖'];
+                var list2 = ['元整','拾','佰','仟','万','拾','佰','仟','亿'];
+                var str = val.toString()
+                var D = ''
+                for (let i = 0; i < str.length; i++) {
+                    D += list1[Number(str.charAt(i))]+list2[str.length-i-1]
+                    
+                }
+                return D
+            }
+        },
+        computed: {
+            productsLength() {
+                return this.products.length
+            },
+            total() {
+                var t = 0;
+                this.products.forEach(element => {
+                    t += element.price * element.num
+                    
+                });
+                return t;
+            },
+            amountList() {
+                var arr = []
+                this.products.forEach(element => {
+                    var str = ''
+                    // console.log(str.length)
+                    var zero = 8 - (element.price * element.num).toString().length
+                    console.log(zero)
+                    for (var i = 0; i < zero.length; i++) {
+                        str = '34235425'+ (element.price * element.num).toString()
+                        console.log(str)
+                    }
+                    arr.push(str)
+                    console.log(arr)
+                });
+                return arr
+            },
+        },
+    })
+</script>
+
+</html>
