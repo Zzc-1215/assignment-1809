@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<style type="text/css">
+*{margin:0;padding:0;}
+#app{width: 1000px;}
+table{width: 100%;border-collapse: collapse;}
+td{width: 200px; height: 60px; border:solid 1px #dedede;text-align:center;}
+.price-title{line-height: 30px;height: 30px;}
+/*input{width: 100%;line-height:60px;position: absolute;top:0;bottom:0;}*/
+</style>
+<body>
+	<div id="app">
+		<table>
+			<tr>
+				<td>产品</td>
+				<td>数量</td>
+				<td>单价</td>
+				<td :rowspan="productsLength+1">
+					<table>
+						<tr>
+							<td  class="price-title" colspan="8">金额</td>
+
+						</tr>
+						<tr>
+							<td class="price-title">千</td>
+							<td class="price-title">百</td>
+							<td class="price-title">十</td>
+							<td class="price-title">万</td>
+							<td class="price-title">千</td>
+							<td class="price-title">百</td>
+							<td class="price-title">十</td>
+							<td class="price-title">元</td>
+						</tr>
+						<!-- 循环的金额 -->
+						<tr v-for='items in productsLength'>
+							<!-- <td>{{amountList[items-1]}}</td>拿到所有总价格 -->
+							<td v-for="mount in amountList[items-1]">
+								{{mount}}
+							</td><!-- 展示的每个价格 -->
+						<!-- 	<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td>{{products[items-1].num*products[items-1].price}}</td> -->
+							<!-- 转成字符串，每一个单词循环到 tr里面-->
+						</tr>
+					</table>
+				</td>
+				<td>备注</td>
+			</tr>
+			<tr v-for='item in products'>
+				<td>
+					{{item.name}}
+					<input type="text" v-model='item.name'>
+				</td><!-- 产品 -->
+				<td>
+					{{item.num}}
+					<input type="text" v-model='item.num'>
+				</td><!-- 数量 -->
+				<td>
+					{{item.price}}
+					<input type="text" v-model='item.price'>
+				</td><!-- 单价 -->
+				<td>
+					{{item.beizhu}}
+					<input type="text" v-model='item.beizhu'>
+				</td><!-- 备注 -->
+			</tr>
+			<tfoot>
+				<tr>
+					<td>合计：</td>
+					<td colspan="4">{{total}} </td>
+					<!-- 汉语可以用过滤器定义chinese -->
+				</tr>
+			</tfoot>
+		</table>
+		{{products}}
+	</div>
+</body>
+ <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script type="text/javascript">
+	new Vue({
+		el:'#app',
+		data(){
+			return {
+				// total:'',//总额   通过products计算出来的
+				products:[
+					{
+						name:'',
+						price:'321',//单价
+						num:'1',//件数
+						// amount:'',//总价
+						beizhu:''//备注
+					},
+					{
+						name:'',
+						price:'',//单价
+						num:'',//件数
+						// amount:'',//总价
+						beizhu:''//备注
+					}
+				]
+			}
+		},
+		// filters:{
+		// 	'chinese':function(val,){//val=total()
+		// 		return 
+		// 	}
+		// }
+		computed:{
+			productsLength(){//用在于金额单元格在循环products时+1个
+				return this.products.length
+			},
+			amountList(){//总价
+				// --------  商品总和    用来解决金额的空格
+				var arr=[]
+				this.products.forEach(element => {
+					var str = (element.price*element.num).toString()
+					//某个单件的价格转成了字符串
+					var zeroLength = 8-str.length;
+					//补的前面0的长度 000000321
+					for (var i = 0; i < zeroLength; i++) {
+						str= ' ' + str
+					}
+					arr.push(str)
+				})
+				// --------
+				return arr
+			},
+			total(){//return amount总价相加就好了
+				var t=0;//总价格
+				this.products.forEach(element =>{
+					t+=element.num*element.price
+				})
+				return t 
+			}
+		},
+	})
+</script>
+</html>
