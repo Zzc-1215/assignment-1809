@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>货单</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        #box {
+            width: 100%;
+            height: auto;
+        }
+
+        table {
+            border-spacing: 0;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        table tr>td {
+            border: 1px solid #000;
+            line-height: 50px;
+            height: 50px;
+            text-align: center;
+            vertical-align: top;
+            position: relative;
+        }
+
+        .price_title {
+            line-height: 25px;
+            height: 25px;
+
+        }
+
+        input {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            border: 1px solid #ddd;
+            box-shadow: none;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <table>
+            <tr>
+                <td width='200'>产品</td>
+                <td width='200'>数量</td>
+                <td width='200'>单价</td>
+                <td :rowspan="(productsLength+1)">
+                    <table>
+                        <tr>
+                            <td colspan="8" class="price_title">金额</td>
+                        </tr>
+                        <tr>
+                            <td class="price_title">千</td>
+                            <td class="price_title">百</td>
+                            <td class="price_title">十</td>
+                            <td class="price_title">万</td> 
+                            <td class="price_title">千</td>
+                            <td class="price_title">百</td>
+                            <td class="price_title">十</td>
+                            <td class="price_title">元</td>
+                        </tr>
+                        <tr v-for="n in productsLength">
+                            <!-- <td>{{heji[n-1]}}</td> -->
+                            <td  v-for="l in heji[n-1]">
+                                {{l}}
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td>备注</td>
+            </tr>
+            <tr v-for="i in products">
+                <td @click="showinput">{{i.name}}
+                    <input type="text" v-model="i.name" @blur="hide" autofocus="autofocus">
+                </td>
+                <td @click="showinput">{{i.num}}
+                    <input type="text" v-model="i.num" @blur="hide"  autofocus="autofocus">
+                </td>
+                <td @click="showinput">{{i.price}}
+                    <input type="text" v-model="i.price" @blur="hide"  autofocus="autofocus">
+                </td>
+                <td @click="showinput"  >{{i.beizhu}}
+                    <input type="text" v-model="i.beizhu" @blur="hide"  autofocus="autofocus">
+                </td>
+            </tr>
+            <tfoot>
+                <tr>
+                    <td>合计：</td>
+                    <td colspan="4">{{zongji | chinese}}</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <script>
+        var vm = new Vue({
+            el: '#box',
+            data() {
+                return {
+
+                    products: [
+                        {
+                            name: '',
+                            price: '',
+                            num: '',
+                            beizhu: '',
+                        },
+                        {
+                            name: '',
+                            price: '',
+                            num: '',
+                            beuzhu: '',
+                        }
+                    ]
+                }
+            },
+            methods: {
+                showinput(e){
+                    e.target.children[0].style.display='block';
+                },
+                hide(e){
+                    e.target.style.display='none'; 
+                }
+            },
+            filters: {
+                'chinese':function(val){
+                    var list1 = ['','壹','贰','叁','肆','伍','陆','柒','捌','玖'];
+                    var list2 = ['元整','拾','佰','仟','万','拾','佰','仟','亿'];
+                    var str = val.toString();
+                    var daxie = '';
+                    for(var i=0;i<str.length;i++){
+                       daxie += list1[Number(str.charAt(i))] + list2[str.length-i-1]
+                    }
+                    return daxie ;
+                }             
+            },
+            computed: {
+                productsLength(){
+                    return this.products.length
+                },
+                heji() {
+                    var arr = [];
+                    this.products.forEach(element => {
+                       var str = (element.price*element.num).toString();
+                       var zerolength = 8-str.length;
+                       for(var i=0;i<zerolength;i++){
+                        str = ' ' + str;
+                       };
+                       arr.push(str)
+                    });
+                    return arr
+                },
+                zongji() {
+                    var zj = 0;
+                    this.products.forEach(element => {
+                        zj += element.price*element.num
+                    })
+                    return zj
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
