@@ -68,7 +68,7 @@
 
 	<body>
 		<div id="water">
-			<div class="cup" :class="{trans:key==lift}" :class="{rota:key==list}" @click="three(key)" v-for="(cont,key) in cup">
+			<div class="cup" :class="{trans:key==lift}" @click="three(key)" v-for="(cont,key) in cup">
 				<div v-bind:style="{height:cont.current/cont.gross*100+'%'}">{{cont.current}}升</div>
 			</div>
 		</div>
@@ -79,7 +79,6 @@
 				data() {
 					return {
 						lift: null,
-						list: null,
 						cup: {
 							big: {
 								gross: 10,

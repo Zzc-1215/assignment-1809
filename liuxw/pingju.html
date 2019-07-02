@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>凭据</title>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button{
+            -webkit-appearance: none !important;
+            }
+        .first td{
+            position: relative;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+        }
+        input{
+            width: 100%;
+            line-height: 50px;
+            height: 50px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: none;
+        }
+        #jp{
+            height: 25px;
+            padding: 0;
+            line-height: 25px;
+        }
+        .price{
+            width: 100%;
+            border: 1px solid black;
+        }
+        .price tr,.price tr td{
+            border: 1px solid black;
+        }
+        .title,.title td{
+            border: 1px solid black;
+            height: 25px;
+            line-height: 25px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <table class="first table table-bordered">
+            <tr>
+                <td>品名</td>
+                <td>数量</td>
+                <td>单价(元)</td>
+                <td :rowspan="listlength+1" id="jp">
+                    金额
+                    <table class="price">
+                        <tr class="title">
+                            <td>千</td>
+                            <td>百</td>
+                            <td>十</td>
+                            <td>万</td>
+                            <td>千</td>
+                            <td>百</td>
+                            <td>十</td>
+                            <td>元</td>
+                        </tr>
+                        <tr v-for="n in listlength">
+                            //循环总价的数组
+                        <td v-for="j in zjlist[n-1]">
+                            {{j}}
+                        </td>
+                        </tr>
+                    </table>
+                </td>
+                <td>备注</td>
+            </tr>
+            //循环创建数据
+            <tr v-for="item in list">
+                <td @click="Ishow">{{item.name}}<input type="number" v-model="item.name" @blur="Ihide($event)">
+                </td>
+                <td @click="Ishow">{{item.num}}<input type="number" v-model="item.num" @blur="Ihide($event)">
+                </td>
+                <td @click="Ishow">{{item.price}}<input type="number" v-model="item.price" @blur="Ihide($event)">
+                </td>
+                <td @click="Ishow">{{item.beizhu}}<input type="number" v-model="item.beizhu" @blur="Ihide($event)">
+                </td>
+            </tr>
+            <tfoot>
+                <tr>
+                    <td>合计</td>
+                    //过滤得到的总价
+                    <td colspan="4">{{total | chinese}}</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <script>
+        new Vue({
+            el: ".box",
+            data: {
+                    list: [
+                        {
+                            name: "",
+                            price: "",
+                            num: "",
+                            beizhu: ""
+                        },
+                        {
+                            name: "",
+                            price: "",
+                            num: "",
+                            beizhu: ""
+                        },
+                        {
+                            name: "",
+                            price: "",
+                            num:  "",
+                            beizhu: ""
+                        }
+                    ]
+            },
+            methods:{
+                //点击显示输入框
+                Ishow(e){
+                    if(e.target.children[0]){
+                    e.target.children[0].style.display="block";
+                    e.target.children[0].autofocus=true;
+                    }
+                },
+                Ihide(e){
+                    //失去焦点 隐藏输入框
+                    e.target.style.display="none";
+                }
+            },
+            filters:{
+                //局部过滤 闯入val
+                "chinese":function(val){
+                    //定义一个空字符串
+                    var zj="";
+                    //第一个是数字大写的转换 第一个位置为空 是为了把字符串中的数字当做索引传入
+                    var number=[" ","壹","贰","叁","肆","伍","陆","柒","捌","玖"];
+                    //价格单位
+                    var dw=["元整","拾","佰","仟","万","拾","佰","仟","亿"];
+                    //把总价转换为字符串
+                    var str=val.toString();
+                    //循环这个字符串
+                    for(var i=0;i<str.length;i++){
+                        //用空字符串连接总价中的数字和单位
+                        zj+=number[Number(str.charAt(i))]+dw[str.length-i-1];
+                    }
+                    //返回
+                    return zj;
+                }
+            },
+            computed: {
+                listlength(){
+                    //返回数据的总长度
+                    return  this.list.length;
+                },
+                zjlist(){
+                    var arr=[];
+                    //循环商品列表
+                    this.list.forEach(element => {
+                        //用一个变量接收当前商品单价乘当前商品的个数  并转换为字符串
+                        var str=(element.price*element.num).toString();
+                        //因为总价总需要按照单位排列 共8位 只能放置8个字符串 用总长度减去当前总价的字符串长度
+                        var zero=8-str.length;
+                        //循环需要补空格的个数
+                        for(var i=0;i<zero;i++){
+                            str=" "+str;
+                        }
+                        //把当前补过空格的总价加入一个数组中
+                        arr.push(str);
+                    });
+                    return arr;
+                },
+                total(){
+                    var t=0;
+                    //循环商品列表
+             this.list.forEach(element=>{
+                 //用一个变量接收当前商品的单价乘商品的个数
+              t+=element.price*element.num;
+                    })
+                    //得到所有总价 并返回
+                    return t;
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -13,7 +13,7 @@
 			display: none;
 		}
 		#app{
-			width: 600px;
+			width: 660px;
 			height: 120px;
 			overflow: hidden;
 			margin: 40px auto;
@@ -37,10 +37,10 @@
 </head>
 <body>
 	<div id="app" v-cloak>
-		<ul :style="{width:444+'px',height:50+'px'}">
+		<ul :style="{width:660+'px',height:50+'px'}">
 			<li @click="head">首页</li>
 			<li @click="prev">上一页</li>
-			<li :class="{light:cPage==(firstPage + index)}" v-for="(page,index) in pageSize" @click="jump(page)">{{firstPage + index}}</li>
+			<li :class="{light:cPage==(firstPage + index)}" v-for="(page,index) in truePage" @click="jump(firstPage + index)">{{firstPage + index}}</li>
 			<li @click="next">下一页</li>
 			<li @click="foot">尾页</li>
 		</ul>
@@ -52,17 +52,24 @@
 		el:'#app',
 		data:{
 			totalPage:100,
-			pageSize:5,
+			pageSize:10,
 			cPage: 1,
 		},
 		computed:{
-			firstPage(){
-				if(this.cPage <= Math.floor(this.pageSize/2)){
-					return 1;
-				}else if(this.cPage >= this.totalPage-Math.floor(this.pageSize/2)){
-					return this.totalPage - this.pageSize + 1
+			truePage(){
+				if(this.pageSize>this.totalPage){
+					return this.totalPage;
+				}else{
+					return this.pageSize;
 				}
-				return this.cPage - Math.floor(this.pageSize/2)
+			},
+			firstPage(){
+				if(this.cPage <= Math.floor(this.truePage/2)){
+					return 1;
+				}else if(this.cPage >= this.totalPage-Math.floor(this.truePage/2)){
+					return this.totalPage - this.truePage + 1
+				}
+				return this.cPage - Math.floor(this.truePage/2)
 			}
 		},
 		methods:{
@@ -70,9 +77,15 @@
 				this.cPage = 1
 			},
 			prev(){
+				if(this.cPage<=1){
+					return
+				}
 				this.cPage --
 			},
 			next(){
+				if(this.cPage >= this.totalPage){
+					return
+				}
 				this.cPage ++
 			},
 			foot(){

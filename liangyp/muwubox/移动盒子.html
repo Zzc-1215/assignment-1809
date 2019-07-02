@@ -20,24 +20,35 @@
 			border-radius: 50%;
 			position: relative;
 		}
-		#tou{
+		#box img{
+			width: 200px;
+			height: 200px;
+			border-radius: 50%;
+		}
+		#box span{
 			width: 30px;
 			height: 30px;
 			display: block;
 			/*background: blue;*/
 			position: absolute;
 			text-align: center;
+			z-index: 3;
 			font-size: 24px;
 			line-height: 30px;
 			top: 0;
 			right: 0;
 		}
+		#box span img{
+			width: 30px;
+			height: 30px;
+		}
 	</style>
 </head>
-<body>
+<body style="background: #000;">
 	<div id="app">
-		<div id="box" v-drag>
-			<span id="tou" v-drag>×</span>
+		<div id="box" v-drag:rotate>
+			<img src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2319196103,2510865082&fm=26&gp=0.jpg">
+			<!-- <span id="tou" v-drag>×</span> -->
 		</div>
 	</div>
 </body>
@@ -45,6 +56,26 @@
 <script type="text/javascript">
 	var tou = document.querySelector('#tou');
 	Vue.directive('drag',function(el,binding){
+
+		if(binding.arg == 'rotate'){
+			var span = document.createElement('span')
+			var yue = document.createElement('img')
+			// span.innerHTML='×'
+			yue.src='https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1562040846620&di=31615e79488d8473cd415edc07295757&imgtype=0&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fq_70%2Cc_zoom%2Cw_640%2Fimages%2F20180627%2Fd5f33057333d4df9a413ec44f5ae3ab9.jpeg'
+			span.appendChild(yue)
+			el.appendChild(span)
+			span.onmousedown = function(event){
+				console.log('hh')
+				event.stopPropagation();
+				var mouseDownX = event.pageX;
+				var mouseDownY = event.pageY;
+				document.onmousemove = function(e){
+					var angle = getAngle(box.offsetLeft + 50,box.offsetTop + 50,e.pageX,e.pageY);
+					box.style.transform = 'rotate('+angle+'deg)';
+				}
+			}
+		}
+		
 		
 		el.style.cursor = 'pointer';
 		el.onmousedown = function(event){
@@ -68,16 +99,7 @@
 			document.onmousemove = null;
 		}
 	});
-	tou.onmousedown = function(event){
-			console.log(hh)
-			event.stopPropagation();
-			var mouseDownX = event.pageX;
-			var mouseDownY = event.pageY;
-			document.onmousemove = function(e){
-				var angle = getAngle(box.offsetLeft + 50,box.offsetTop + 50,e.pageX,e.pageY);
-				box.style.transform = 'rotate('+angle+'deg)';
-			}
-		}
+	
 	function getAngle(px,py,mx,my){//获得人物中心和鼠标坐标连线，与y轴正半轴之间的夹角
 		var x = Math.abs(px-mx);
 		var y = Math.abs(py-my);

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>账单</title>
+		<link rel="stylesheet" href="css/css.css">
+	</head>
+	<body>
+		<div id="box">
+			<table border="1" cellspacing="0">
+				<tr>
+					<td class="head">商品名</td>
+					<td class="head">数量</td>
+					<td class="head">单价</td>
+					<td class="head one" :rowspan="frequencyl+1">
+						<table border="1" cellspacing="0" style="width: 100%;border:1px solid #ccc;">
+							<tr>
+								<td colspan="8" style="border:1px solid #ccc;height: 25px;">金额</td>
+							</tr>
+							<tr>
+								<td style="border:1px solid #ccc;height: 25px;">千</td>
+								<td style="border:1px solid #ccc;height: 25px;">百</td>
+								<td style="border:1px solid #ccc;height: 25px;">十</td>
+								<td style="border:1px solid #ccc;height: 25px;">万</td>
+								<td style="border:1px solid #ccc;height: 25px;">千</td>
+								<td style="border:1px solid #ccc;height: 25px;">百</td>
+								<td style="border:1px solid #ccc;height: 25px;">十</td>
+								<td style="border:1px solid #ccc;height: 25px;">元</td>
+							</tr>
+							<tr v-for="a in frequencyl">
+								<td v-for="c in maxnum[a-1]" style="border:1px solid #ccc;height: 50px;">
+									{{c}}
+								</td>
+							</tr>
+						</table>
+					</td>
+					<td class="head">备注</td>
+				</tr>
+				<tr v-for="n in frequency">
+					<td class="head">
+						<!-- {{n.commodityname}} -->
+						<input type="text" v-model="n.commodityname">
+					</td>
+					<td class="head">
+						<!-- {{n.num}} -->
+						<input type="text" v-model="n.num">
+					</td>
+					<td class="head">
+						<!-- {{n.unit}} -->
+						<input type="text" v-model="n.unit">
+					</td>
+					<td class="head">
+						<!-- {{n.remarks}} -->
+						<input type="text" v-model="n.remarks">
+					</td>
+				</tr>
+				<tr>
+					<td class="head">总金额</td>
+					<td class="head" colspan="4">{{max | Capitalize}}</td>
+				</tr>
+			</table>
+		</div>
+	</body>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script>
+		new Vue({
+			el:'#box',
+			data(){
+				return{
+					frequency:[
+						{
+							commodityname:'',
+							num:'',
+							unit:'',
+							remarks:'',
+						},{
+							commodityname:'',
+							num:'',
+							unit:'',
+							remarks:'',
+						},{
+							commodityname:'',
+							num:'',
+							unit:'',
+							remarks:'',
+						}
+					],
+				}
+			},
+			computed:{
+				frequencyl(){
+					return this.frequency.length;
+				},
+				//计算金额
+				maxnum(){
+					var m=[];
+					this.frequency.forEach(element=>{
+						var len=(element.num*element.unit).toString();
+						var mlen=8-len.length;
+						for(var i=0;i<mlen;i++){
+							len=' '+len;
+						}
+						m.push(len)
+					});
+					return m;
+				},
+				max(){
+					var a=0;
+					this.frequency.forEach(element=>{
+						a+=element.num*element.unit;
+					})
+					return a;
+				}
+			},
+			filters:{
+				'Capitalize':function(cont){
+					var nber=['','壹','贰','叁','肆','伍','陆','柒','捌','玖','拾'];
+					var Company=['','元整','拾','佰','仟','万','拾','佰','仟','亿'];
+					var jon=cont.toString();
+					var nul='';
+					for(var i=0;i<jon.length;i++){
+						nul+=nber[Number(jon.charAt(i))]+Company[jon.length-i-1+1]
+					}
+					return nul;
+				}
+			}
+		})
+	</script>
+</html>
