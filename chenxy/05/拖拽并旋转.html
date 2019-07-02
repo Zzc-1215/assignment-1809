@@ -21,6 +21,7 @@
             background-color: #a3a3a3;
             position: absolute;
             top: 0;right: 0;
+            z-index: 10;
         }
     </style>
 </head>
@@ -35,8 +36,9 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script>
 
-        // var big = document.getElementById('big');
-        // var span = document.getElementById('span');
+        var big = document.getElementById('big');
+        var span = document.getElementById('span');
+        console.log(span);
         // el:指令所绑定的元素，用来操作DOM;
         Vue.directive('drag',function(el,binding){
             el.style.position = 'absolute';
@@ -44,12 +46,6 @@
             el.onmousedown = function(event){
                 var mouseX = event.clientX;
                 var mouseY = event.clientY;
-                // 旋转
-                document.onmousemove = function(e){
-                    var angle = getAngle(big.offsetLeft+50,big.offsetTop+50,e.pageX,e.pageY);
-                    
-                    big.style.transform = 'rotate('+ angle +'deg)';
-                }
                 var offsetLeft = el.offsetLeft;
                 var offsetTop = el.offsetTop;
 
@@ -66,41 +62,54 @@
             document.onmouseup = function(e){
                 document.onmousemove = null;
             }
+            
+            // 旋转
+            span.onclick = function(){
+                alert(123);
+            }
+            span.onmousemove = function(e){
+                var angle = getAngle(big.offsetLeft+50,big.offsetTop+50,e.pageX,e.pageY);
+
+                big.style.transform = 'rotate('+ angle +'deg)';
+            }
+            
         });
+        
+           
 
-        function getAngle(px,py,mx,my){//获得人物中心和鼠标坐标连线，与y轴正半轴之间的夹角
-			var x = Math.abs(px-mx);
-			var y = Math.abs(py-my);
-			var z = Math.sqrt(Math.pow(x,2)+Math.pow(y,2));
-			var cos = y/z;
-			var radina = Math.acos(cos);//用反三角函数求弧度
-			var angle = Math.floor(180/(Math.PI/radina));//将弧度转换成角度
+    //     function getAngle(px,py,mx,my){//获得人物中心和鼠标坐标连线，与y轴正半轴之间的夹角
+	// 		var x = Math.abs(px-mx);
+	// 		var y = Math.abs(py-my);
+	// 		var z = Math.sqrt(Math.pow(x,2)+Math.pow(y,2));
+	// 		var cos = y/z;
+	// 		var radina = Math.acos(cos);//用反三角函数求弧度
+	// 		var angle = Math.floor(180/(Math.PI/radina));//将弧度转换成角度
 
-			if(mx>px&&my>py){//鼠标在第四象限
-				angle = 180 - angle;
-			}
+	// 		if(mx>px&&my>py){//鼠标在第四象限
+	// 			angle = 180 - angle;
+	// 		}
 
-			if(mx==px&&my>py){//鼠标在y轴负方向上
-				angle = 180;
-			}
+	// 		if(mx==px&&my>py){//鼠标在y轴负方向上
+	// 			angle = 180;
+	// 		}
 
-			if(mx>px&&my==py){//鼠标在x轴正方向上
-				angle = 90;
-			}
+	// 		if(mx>px&&my==py){//鼠标在x轴正方向上
+	// 			angle = 90;
+	// 		}
 
-			if(mx<px&&my>py){//鼠标在第三象限
-				angle = 180+angle;
-			}
+	// 		if(mx<px&&my>py){//鼠标在第三象限
+	// 			angle = 180+angle;
+	// 		}
 
-			if(mx<px&&my==py){//鼠标在x轴负方向
-				angle = 270;
-			}
+	// 		if(mx<px&&my==py){//鼠标在x轴负方向
+	// 			angle = 270;
+	// 		}
 
-			if(mx<px&&my<py){//鼠标在第二象限
-				angle = 360 - angle;
-			}
-		return angle-45;
-    }
+	// 		if(mx<px&&my<py){//鼠标在第二象限
+	// 			angle = 360 - angle;
+	// 		}
+	// 	return angle-45;
+    // }
 
         new Vue({
             el:'.box',
