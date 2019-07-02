@@ -53,6 +53,7 @@
                     var angle = getAngle(el.offsetLeft + 50, el.offsetTop + 50, e.pageX, e.pageY);
 
                     el.style.transform = 'rotate(' + angle + 'deg)';
+                    el.style.backgroundColor = random()
                 }
             }
         }
@@ -109,6 +110,10 @@
                 angle = 360 - angle;
             }
             return angle - 45;
+        }
+
+        function random(){
+            return `rgb(${Math.random()*255},${Math.random()*255},${Math.random()*255})`
         }
     })
 
