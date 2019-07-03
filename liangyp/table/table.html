@@ -78,16 +78,16 @@
 			</tr>
 			<tr v-for="product in products">
 				<td>{{product.name}}
-					<input type="text" v-model="products.name" name="">
+					<input type="text" v-model="product.name" name="">
 				</td>
 				<td>{{product.price}}
-					<input type="text" v-model="products.price" name="">
+					<input type="text" v-model="product.price" name="">
 				</td>
 				<td>{{product.num}}
-					<input type="text" v-model="products.num" name="">
+					<input type="text" v-model="product.num" name="">
 				</td>
 				<td>{{product.beizhu}}
-					<input type="text" v-model="products.beizhu" name="">
+					<input type="text" v-model="product.beizhu" name="">
 				</td>
 			</tr>
 			<tfoot>
