@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="font/iconfont.css">
+    <link rel="stylesheet" href="animate/animate.css">
+    <title>轮播图</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #app {
+            width: 400px;
+            height: 260px;
+            border: 1px solid #ccc;
+            margin: 30px auto;
+            position: relative;
+        }
+
+        li {
+            width: 400px;
+            height: 260px;
+            background: red;
+            line-height: 260px;
+            text-align: center;
+            list-style: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .left {
+            position: absolute;
+            left: 5px;
+            top: 110px;
+            z-index: 10;
+            display: none;
+        }
+
+        .right {
+            position: absolute;
+            right: 5px;
+            top: 110px;
+            z-index: 10;
+            display: none;
+        }
+
+        button {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border-style: none;
+            background: rgba(255, 255, 255, 0.9);
+            outline: none;
+        }
+
+        .iconfont {
+            font-size: 20px;
+            color: #fff;
+        }
+
+        .a {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <transition appear leave-active-class="bounceInLeft animated" enter-active-class="bounceInLeft animated">
+            <ul v-test:a>
+                <button v-test:a class="left" @click='left()' :class="{a:block}"><i class="iconfont">&#xe650;</i></button>
+                <button v-test:a class="right" @click="right()" :class="{a:block}"><i class="iconfont">&#xe602;</i></button>
+                <li name='test' v-for="(item,index) in list" v-if="isshow==index"  name='test'>{{item}}</li>
+            </ul>
+        </transition>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data() {
+                return {
+                    list: ['1','2','3','4','5'],
+                    isshow: 0,
+                    block: false,
+                    num: 0,
+                }
+            },
+            directives: {
+                'test': function (el, binding) {
+                    el.onmouseenter = function () {
+                        vm.block = true;
+                    };
+                    el.onmouseleave = function () {
+                        vm.block = false;
+                    };
+                }
+            },
+            methods: {
+                left() {
+                    if(this.isshow <= 0){
+                        this.isshow=this.list.length-1;
+                        return;
+                    }
+                    this.isshow--
+                },
+                right() {
+                    if(this.isshow>=this.list.length-1){
+                        this.isshow=0;
+                        return;
+                    }
+                    this.isshow++;
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
