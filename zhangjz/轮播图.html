@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            user-select: none;
+        }
+
+        .banner {
+            width: 400px;
+            height: 600px;
+            position: relative;
+            margin: 50px auto;
+        }
+
+        .list {
+            width: 400;
+        }
+
+        .list>li {
+            float: left;
+        }
+
+        .list>li img {
+            width: 400px;
+            height: 600px;
+        }
+
+        #prev,
+        #next {
+            position: absolute;
+            top: 50%;
+            margin-top: -40px;
+            height: 80px;
+            width: 40px;
+            background-color: rgba(225, 0, 0, .6);
+            z-index: 2;
+            cursor: pointer;
+        }
+
+        #prev {
+            left: 0;
+        }
+
+        #next {
+            right: 0;
+        }
+
+        .dot {
+            position: absolute;
+            width: 100%;
+            bottom: 10px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .dot span {
+            width: 10px;
+            height: 10px;
+            display: inline-block;
+            margin-right: 10px;
+            border: 1px solid #fff;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .active {
+            background: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root">
+        <div class="banner" @mouseover='hover()' @mouseout='out()'>
+            <ul class="list">
+                <li v-for="(i,$index) in arr" v-show="$index==z_index"><img :src="i" alt=""></li>
+            </ul>
+            <span id="prev" @click="up()" v-show="isshow"></span>
+            <span id="next" @click="down()" v-show="isshow"></span>
+            <div class="dot">
+                <span v-for="(i, $index) in arr" :class="{active:$index==z_index }" @click="change($index)"></span>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    var vm = new Vue({
+        el: '#root',
+        data: {
+            //v-show 显示图片
+            z_index: 0,
+            //图片
+            arr: [
+                'https://photo.tuchong.com/3262232/f/90179442.jpg',
+                'https://photo.tuchong.com/3262232/f/532743983.jpg',
+                'https://photo.tuchong.com/2463054/f/18203129.jpg',
+                'https://photo.tuchong.com/1038102/f/18739079.jpg',
+                'https://photo.tuchong.com/3353838/f/226101129.jpg'
+            ],
+            isshow: false,//按钮显示
+            timer: null,//定时器
+        },
+        methods: {
+            // ++
+            down() {
+                this.z_index++;
+                if (this.z_index > this.arr.length - 1) {
+                    this.z_index = 0;
+                }
+                console.log(this.z_index)
+            },
+            // -- 
+            up() {
+                this.z_index--;
+                if (this.z_index < 0) {
+                    this.z_index = this.arr.length - 1
+                }
+                console.log(this.z_index)
+            },
+            //移入清除定时器
+            hover() {
+                this.isshow = true;
+                clearInterval(this.timer)
+            },
+            //移出开启定时器
+            out() {
+                this.isshow = false;
+                this.timer = setInterval(this.autoPlay, 2500)
+            },
+            //自动播放
+            autoPlay() {
+                this.z_index++;
+                if (this.z_index > this.arr.length - 1) { //当遍历到最后一张图片置零
+                    this.z_index = 0
+                }
+            },
+            //启动
+            play() {
+                this.timer = setInterval(this.autoPlay, 2500)
+            },
+            //dot
+            change(i) {
+                this.z_index = i
+            },
+        },
+        //created 这个钩子在实例被创建之后被调用
+        created() {
+            this.play()
+        }
+
+    })
+
+</script>
+
+</html>
