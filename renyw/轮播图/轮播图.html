@@ -57,14 +57,12 @@
         }
 
         .button .prev {
-            left: 0;
-            transform: translateX(20px);
+            left: 10px;
 
         }
 
         .button .next {
-            right: 0;
-            transform: translateX(-20px);
+            right: 10px;
         }
 
         .oDot {
@@ -88,52 +86,56 @@
         .oDot span.active {
             background: orange;
         }
-
-        /* .v-enter {
-            opacity: 0;
+        
+        .prev-enter,
+        .prev-leave-to {
+            transform: translateX(-30px)
         }
 
-        .v-enter-active {
-            transition: 1s;
+        .prev-enter-active,
+        .prev-leave-active {
+            transition: all 1s;
         }
 
-        .v-enter-to {
-            transform: translateX(60px);
-            opacity: 1;
+        .prev-enter-to,
+        .prev-leave {
+            transform: translateX(0);
         }
 
-        .v-leave {
-            opacity: 1;
+        .next-enter,
+        .next-leave-to {
+            transform: translateX(30px)
         }
 
-        .v-leave-active {
-            transition: 1s;
+        .next-enter-active,
+        .next-leave-active {
+            transition: all 1s;
         }
 
-        .v-leave-to {
-            opacity: 0;
-            transform: translateX(-60px);
-        } */
+        .next-enter-to,
+        .next-leave {
+            transform: translateX(0);
+        }
     </style>
 </head>
 
 <body>
-    <!-- @mouseover="isshow=!isshow" @mouseout="isshow=!isshow" -->
-    <div id="app" v-cloak>
+    <!-- -->
+    <div id="app" v-cloak @mouseover="isshow=!isshow" @mouseout="isshow=!isshow">
         <ul>
             <li v-for="i in num" v-show="i==boxIx">{{i}}</li>
         </ul>
-        <div class="button">
+        <!-- <div class="button">
             <div class="prev" @click.self="prev">&lt;</div>
             <div class="next" @click.self="next">&gt;</div>
-        </div>
+        </div> -->
 
-        <!-- <transition-group class="button">
-            <div v-if="isshow" key="1" class="prev" @click.self="prev">&lt;</div>
+        <transition-group class="button" name='prev'>
+            <div v-show="isshow" key='1' class="prev" @click.self="prev">&lt;</div>
         </transition-group>
-        <transition-group class="button">
-            <div v-if="isshow" key="2" class="next" @click.self="next">&gt;</div>
-        </transition-group> -->
+        <transition-group class="button" name='next'>
+            <div v-show="isshow" key='2' class="next" @click.self="next">&gt;</div>
+        </transition-group>
         <div class="oDot" style="width:w();margin-left:ml()">
             <span v-for="i in num" :class="i==boxIx?'active':''" @click="dot(i)"></span>
         </div>
