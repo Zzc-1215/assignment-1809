@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<style>
+	*{
+		box-sizing: border-box;
+		margin: 0;
+		padding: 0;
+	}
+	
+	table{
+		margin: 0  auto;
+	}
+	.top{
+		width: 700px;
+		height: 80px;
+		margin: 0 auto; 
+	}
+	.top h3{
+		font-size: 24px;
+		line-height: 30px;
+		text-align: center;
+		font-weight: 800;
+	}
+	td{
+		width: 100px;
+		height: 40px;
+		border: 1px solid #ccc;
+		text-align: center;
+		line-height: 40px;
+		box-sizing: border-box;
+		font-size: 14px;
+	}
+	.nn>td{
+		position: relative;
+	}
+	.tr>td{
+		height: 46px;
+	}
+	.tr1 td,.tr2 td{
+		height: 20px;
+		line-height: 20px;
+	}
+	input{
+		width: 100px;
+		height: 38px;
+		border:none; 
+		display: none;
+		position: absolute;
+		left: 0;
+		top: 0;
+	}
+</style>
+</head>
+<body>
+	<div id="app">
+		<div class="top">
+			<h3>货物收据清单</h3>
+			<p>地址：</p>
+		</div>
+		<table border="0" cellspacing="0" cellpadding="0">
+			<tbody>
+				<tr class="tr">
+					<td style="width: 200px">品名</td>
+					<td>数量</td>
+					<td>单价(元)</td>
+					<td style="width: 200px" :rowspan="lang+1 ">
+						<table border="0" cellspacing="0" cellpadding="0" class="table2">
+							<tr class="tr1" style="height:23px">
+								<td colspan="10">金额</td>
+							</tr>
+							<tr class="tr2" style="height:23px">
+								<!-- <td></td>
+								<td>十亿</td>
+								<td>亿</td>
+								<td>千万</td>-->
+								<!-- <td>百万</td>
+								<td>十万</td> -->
+								<td>万</td>
+								<td>千</td>
+								<td>百</td>
+								<td>十</td>
+								<td>个</td>
+							</tr>
+							<tr v-for="amount,index in list" style="height:42px">
+								<!-- <td>{{arr[index].price*arr[index].number}}</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td> -->
+								<td v-for="a in amount">{{a}}</td>
+								<!-- <td>{{i}}</td> -->
+							</tr>
+						</table>
+					</td>
+					<td>备注</td>
+				<tr v-for="product,index in arr" class="nn">
+					<td @click.self="showInput">{{product.name}}<input type="text" v-model="product.name" style="width: 200px" @blur="hideInput"></td>
+					<td @click.self="showInput">{{product.number}}<input type="text" v-model="product.number" @blur="hideInput"></td>
+					<td @click.self="showInput">{{product.price}}<input type="text" v-model="product.price" @blur="hideInput"></td>
+					<td @click.self="showInput">{{product.remark}}<input type="text" v-model="product.remark" @blur="hideInput"></td>
+				</tr>
+				<tr>
+					<td>合计人民币(大写)</td>
+					<td colspan="4">{{total|big}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+<script>
+	new Vue({
+		el:"#app",
+		data:{
+			arr:[
+				{
+					name:'',
+					number:'',
+					price:'',
+					remark:''
+				},
+				{
+					name:'',
+					number:'',
+					price:'',
+					remark:''
+				},
+				{
+					name:'',
+					number:'',
+					price:'',
+					remark:''
+				}
+			],
+		},
+		filters:{
+			big(value){
+				var list1=['零','壹','贰','叁','肆','伍','陆','柒','捌','玖']
+				var list2=['整元','拾','佰','仟','万','拾','佰','仟','亿']
+				value+=''
+				var a='';
+				for(var i=value.length;i>0;i--){
+					a+=value.charAt(i-1)==0?'零':list2[value.length-i]
+					a+=list1[value.charAt(i-1)];
+				}
+				return a.split("").reverse().join("");
+			}
+		},
+		computed:{
+			lang(){
+				return this.arr.length;
+			},
+			list(){
+				var arr1=[]
+				this.arr.forEach(element=>{
+					var a=element.price*element.number+'';
+					var b=5-a.length;
+					for(var i=0;i<b;i++){
+						a=' '+a
+					}
+					arr1.push(a)
+				})
+				return arr1
+			},
+			total(){
+				var total=0;
+				this.arr.forEach(element=>{
+					total+=element.price*element.number
+				})
+				return total
+			}
+		},
+		methods:{
+			showInput(event){
+				event.target.children[0].style.display='block';
+				event.target.children[0].focus();
+
+				// this.arr[index][key]=true;
+			},
+			hideInput(event){
+				event.target.style.display='none';
+			}
+		}
+	})
+</script>
+</html>
