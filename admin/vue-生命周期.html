@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>vue-lifecycle</title>
+  <script src="../assets/js/vue.js"></script>
+
+</head>
+<body>
+  <div id="container">
+    <keep-alive>
+        <abc v-if="isshow"></abc>
+    </keep-alive>
+    
+    <p @click="change">{{msg}}</p>
+  </div>
+
+  <script type="text/javascript">
+    Vue.component('abc',{
+      template: '<a>link</a>',
+      activated(){
+        console.log('Activated');
+      },
+      deactivated(){
+        console.log('deactivated');
+      } 
+    })
+
+    var vm = new Vue({
+      // el:'#container',
+      data() {
+        return {
+          msg:'hello',
+          isshow: true,
+        }
+      },
+      computed: {
+        msg1(){
+          return this.msg;
+        }
+      },
+      methods: {
+        change(){
+          alert(1);
+        },
+        initData(){
+          // this.cups.da.c = 10;
+        }
+      },
+      // 1/ Vue{}
+      // loading...
+      beforeCreate() {
+        console.log(this.change);
+      },
+      // 初始化一些默认数据
+      // 请求数据接口
+      created() {
+        console.log(this.msg1);
+        // initData();
+
+        setTimeout(()=>{
+          this.msg = 'nihao'
+          console.log(document.getElementById('container').innerHTML);
+          // 局部的updated
+          this.$nextTick(function(){
+            console.log("更新了nihao的数据");
+            console.log(document.getElementById('container').innerHTML);
+          })
+        },1000)
+        setTimeout(()=>{
+          this.msg = 'haha!!!'
+        },2000)
+      },
+      beforeMount() {
+        console.log(document.getElementById('container').innerHTML);
+      },
+      // 操作dom对象，js jq
+      mounted() {
+        console.log(document.getElementById('container').innerHTML);
+      },
+      
+
+
+      beforeUpdate() {
+        console.log('beforeUpdate');
+        console.log(document.getElementById('container').innerHTML);
+      },
+      // swiper
+
+      // $nextTick(callback)
+      // 全局
+      updated() {
+        console.log('updated');
+      },
+
+      beforeDestroy(){
+        console.log('beforeDestroy');
+      },
+      destroyed() {
+        console.log('destroyed');        
+      }
+
+    })
+
+    vm.$mount('#container');
+  </script>
+</body>
+</html>
