@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>轮播图</title>
+		<style>
+			*{
+				margin: 0;
+				padding: 0;
+				list-style: none;
+			}
+			.box{
+				width: 500px;
+				height: 300px;
+				margin: 100px auto;
+				position: relative;
+				overflow: hidden;
+				border: 1px solid #000;
+				
+			}
+			.prev,.next{
+				width: 50px;
+				height: 50px;
+				text-align: center;
+				line-height: 50px;
+				color: #fff;
+				font-size: 20px;
+				background-color: rgba(29,18,18,.4);
+				border-radius: 50%;
+				position: absolute;
+				top: 50%;
+				border: none;
+				outline: none;
+				cursor: pointer;
+				z-index: 100;
+			}
+			.prev{
+				left: 10px;
+			}
+			.next{
+				right: 10px;
+			}
+			.box>ul>li{
+				width: 100%;
+				height: 100%;
+				float: left;
+				position: absolute;
+			}
+			.box>ul>li>img{
+				width: 100%;
+				height: 100%;
+			}
+			.prev-enter,.prev-leave-to{
+				transform: translateX(-30px);
+			}
+			.prev-enter-active,
+	        .prev-leave-active {
+	            transition: all 1s;
+	        }
+	        .prev-enter-to,
+	        .prev-leave {
+	            transform: translateX(0);
+	        }
+	        .next-enter,
+	        .next-leave-to {
+	            transform: translateX(30px)
+	        }
+	
+	        .next-enter-active,
+	        .next-leave-active {
+	            transition: all 1s;
+	        }
+	
+	        .next-enter-to,
+	        .next-leave {
+	            transform: translateX(0);
+	        }
+	        .imgprev-enter-active,
+	        .imgprev-leave-active,
+	        .imgnext-enter-active,
+	        .imgnext-leave-active {
+	            transition: all .5s linear;
+	        }
+	
+	        .imgprev-enter,
+	        .imgnext-leave-to {
+	            transform: translateX(100%);
+	        }
+	
+	        .imgprev-enter-to,
+	        .imgprev-leave,
+	        .imgnext-enter-to,
+	        .imgnext-leave {
+	            transform: translateX(0);
+	        }
+	
+	        .imgprev-leave-to,
+	        .imgnext-enter {
+	            transform: translateX(-100%);
+	        }
+	        .qms{
+	        	height: 5px;
+	        	position: absolute;
+	        	bottom: 10px;
+	        	left: 30%;
+	        	 text-align: center;
+	        }
+	        .qms>li{
+	        	width: 20px;
+	        	height: 5px;
+	        	float: left;
+	        	margin: 0 5px;
+	        	 text-align: center;
+	        	background-color: #ccc;
+	        }
+	        .qms>li.active{
+	        	background-color: cornflowerblue;
+	        }
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<div class="box" @mouseover="showBtn=true" @mouseout="showBtn=false">
+				<transition name="prev">
+					<button class="prev" v-show="showBtn" @click="prev">
+						&lt;
+					</button>
+				</transition>
+				<transition name="next">
+					<button class="next" v-show="showBtn" @click="next">&gt;</button>
+				</transition>
+				<transition-group tag="ul" :name="Img">
+					<li v-for="item,index in arr" :key="index+1" v-if="Index==index">	
+						<img :src="item"/>
+					</li>
+				</transition-group>
+				
+				<ol class="qms">
+					<li v-for="i,index in arr.length":class="{active:Index==index}"></li>
+				</ol>
+					
+			</div>
+		</div>
+		<script type="text/javascript" src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+		<script>
+			new Vue({
+				el:"#app",
+				data:{
+					arr:[
+					"img/2.jpg",
+					"img/1.jpg",
+					"img/7.jpg",
+					"img/4.jpg",
+					"img/5.jpg",
+					"img/6.jpg",
+					
+					],
+					showBtn:false,
+					Index:0,
+					Img:"imgprev",
+				},
+				methods:{
+					prev(){
+						this.Index--;
+						if (this.Index<0) {
+							this.Index=this.arr.length-1;
+							
+						}
+						this.Img="imgnext"
+					},
+					next(){
+						this.Index++;
+                    if (this.Index > this.arr.length - 1) {
+                        this.Index = 0;
+                    }
+                    this.Img = 'imgprev';
+					}
+				}
+			})
+		</script>
+		
+	</body>
+</html>
