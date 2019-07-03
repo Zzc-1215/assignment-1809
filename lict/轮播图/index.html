@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			#box>div{
+				width: 500px; 
+				height: 400px;
+				border: 1px solid #red;
+				margin: 0 auto;
+				overflow: hidden;
+				position: relative;
+			}
+			#box>div>div:nth-of-type(1){
+				
+				 position: absolute;
+				 transition: .3s;
+				 top: 0;
+				 left: 0;
+			}
+			#box>div>div:nth-of-type(1)>img{
+				width: 500px;
+				 height:400px;
+				 float: left;
+			}
+			#box>div>div:nth-of-type(2){
+				position: absolute;
+				height: 60px;
+				line-height: 60px;
+				background: rgba(0,0,0,.5);
+				right: 5px;
+				width: 35px;	
+				text-align: center;
+				color: beige;
+				top: 50%;
+				margin-top: -30px;
+			}
+			#box>div>div:nth-of-type(3){
+				position: absolute;
+				width: 35px;
+				text-align: center;
+				color: beige;
+				height: 60px;
+				line-height: 60px;
+				background: rgba(0,0,0,.5);
+				left: 5px;
+				top: 50%;
+				margin-top: -30px;
+			}
+			#box>div>ul{
+				height: 30px;
+				list-style: none;
+				position: absolute;
+				left: 50%;
+				margin-left: -62.5px;
+				bottom: 30px;			
+			}
+			#box>div>ul>li{
+				width: 15px;
+				border-radius: 50%;
+				height: 15px;
+				float: left;
+				border: 1px solid red;
+				margin: 0 5px;
+				background: rgba(255,255,255,.5);
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box">
+			<div>
+				<div :style="[{width:arr.length*100+'%'},{left:'-'+index*100+'%'}]">
+					<img v-for="(i,$index) in arr" :src="i" />
+				</div>
+				<div @click="index>=arr.length-1?index=0:index++">></div>
+				<div @click="index<=0?index=arr.length-1:index--"><</div>
+				<ul>
+					<li v-for="(i,$index) in arr.length" @click="index=$index"></li>
+				</ul>
+			</div>
+		</div>
+		
+	</body>
+<script src="js/vue(2).js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		new Vue({
+			el:'#box',
+			data:{
+				index:0,
+				arr:['img/1.jpg','img/2.jpg','img/3.jpg','img/4.jpg','img/5.jpg']
+			}
+		})
+	</script>
+</html>
