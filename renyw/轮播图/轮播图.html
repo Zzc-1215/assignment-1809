@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="vue.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        [v-cloak] {
+            display: none;
+        }
+
+        #app {
+            width: 500px;
+            height: 300px;
+            margin: 50px auto;
+            border: 1px solid #ccc;
+            position: relative;
+        }
+
+        ul {
+            position: absolute;
+        }
+
+        ul li {
+            width: 500px;
+            height: 300px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 40px;
+            line-height: 200px;
+            text-align: center;
+            background: pink;
+        }
+
+        .button div {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            position: absolute;
+            top: 50%;
+            margin-top: -20px;
+            text-align: center;
+            font-size: 34px;
+            line-height: 40px;
+            color: #fff;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .button .prev {
+            left: 0;
+            transform: translateX(20px);
+
+        }
+
+        .button .next {
+            right: 0;
+            transform: translateX(-20px);
+        }
+
+        .oDot {
+            height: 10px;
+            bottom: 20px;
+            position: absolute;
+            left: 50%;
+            width: 150px;
+            margin-left: -75px;
+        }
+
+        .oDot span {
+            width: 20px;
+            height: 10px;
+            margin: 0 4px;
+            background: rgba(255, 255, 255, 0.5);
+            float: left;
+            cursor: pointer;
+        }
+
+        .oDot span.active {
+            background: orange;
+        }
+
+        /* .v-enter {
+            opacity: 0;
+        }
+
+        .v-enter-active {
+            transition: 1s;
+        }
+
+        .v-enter-to {
+            transform: translateX(60px);
+            opacity: 1;
+        }
+
+        .v-leave {
+            opacity: 1;
+        }
+
+        .v-leave-active {
+            transition: 1s;
+        }
+
+        .v-leave-to {
+            opacity: 0;
+            transform: translateX(-60px);
+        } */
+    </style>
+</head>
+
+<body>
+    <!-- @mouseover="isshow=!isshow" @mouseout="isshow=!isshow" -->
+    <div id="app" v-cloak>
+        <ul>
+            <li v-for="i in num" v-show="i==boxIx">{{i}}</li>
+        </ul>
+        <div class="button">
+            <div class="prev" @click.self="prev">&lt;</div>
+            <div class="next" @click.self="next">&gt;</div>
+        </div>
+
+        <!-- <transition-group class="button">
+            <div v-if="isshow" key="1" class="prev" @click.self="prev">&lt;</div>
+        </transition-group>
+        <transition-group class="button">
+            <div v-if="isshow" key="2" class="next" @click.self="next">&gt;</div>
+        </transition-group> -->
+        <div class="oDot" style="width:w();margin-left:ml()">
+            <span v-for="i in num" :class="i==boxIx?'active':''" @click="dot(i)"></span>
+        </div>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                boxIx: 1,
+                num: 5,
+                isshow: false
+            },
+            methods: {
+                next() {
+                    if (this.boxIx >= this.num) {
+                        this.boxIx = 1;
+                        return;
+                    }
+                    this.boxIx++;
+                },
+                prev() {
+                    if (this.boxIx <= 1) {
+                        this.boxIx = this.num;
+                        return;
+                    }
+                    this.boxIx--;
+                },
+                dot(index) {
+                    this.boxIx = index;
+                }
+            },
+            computed: {
+                w() {
+                    return this.num * 30 + 'px';
+                },
+                ml() {
+                    return -this.num * 30 / 2 + 'px';
+                }
+            }
+        })
+
+    </script>
+</body>
+
+</html>
