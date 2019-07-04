@@ -1,0 +1,85 @@
+@charset "UTF-8";
+/* 重置样式表 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; }
+
+ul, ol {
+  list-style: none; }
+
+em, i {
+  font-style: normal; }
+
+a {
+  text-decoration: none;
+  color: #000; }
+
+a:hover {
+  text-decoration: underline; }
+
+input {
+  border: none;
+  outline: none;
+  background-color: transparent; }
+
+/*公用*/
+.clearfix:after, .clearfix:before {
+  content: '';
+  display: table; }
+
+.clearfix:after {
+  clear: both; }
+
+.hide {
+  display: none; }
+
+.fl {
+  float: left; }
+
+.fr {
+  float: right; }
+
+@font-face {
+  font-family: 'iconfont';
+  src: url("iconfont.eot");
+  src: url("iconfont.eot?#iefix") format("embedded-opentype"), url("iconfont.woff2") format("woff2"), url("iconfont.woff") format("woff"), url("iconfont.ttf") format("truetype"), url("iconfont.svg#iconfont") format("svg"); }
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 0.22222rem;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; }
+
+.search_box {
+  width: 10rem;
+  padding: 0.38889rem 0.69444rem 0.38889rem 0.97222rem;
+  text-align: center; }
+  .search_box input {
+    background: #e8e8e8;
+    width: 6.02778rem;
+    height: 0.83333rem;
+    border-radius: 0.41667rem;
+    padding-left: 0.27778rem;
+    font-size: 0.27778rem; }
+  .search_box span {
+    height: 0.83333rem;
+    line-height: 0.83333rem;
+    font-size: 0.72222rem; }
+  .search_box i {
+    padding-left: 0.16667rem;
+    font-size: 0.44444rem; }
+  .search_box em {
+    padding-left: 0.27778rem;
+    font-size: 0.44444rem; }
+  .search_box p {
+    margin-top: -0.41667rem;
+    margin-left: -1.94444rem;
+    width: 6.02778rem;
+    line-height: 1px; }
+    .search_box p b {
+      font-size: 0.38889rem;
+      padding-right: 0.06944rem;
+      margin-top: 0.27778rem;
+      color: #5f5f5f; }

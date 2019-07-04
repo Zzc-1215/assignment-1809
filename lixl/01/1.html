@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div class="banner">
+			<img src="" v-for="(item,index) in itwmdata" :src="item.img" v-show="index==num"/>
+			<p v-for="(item,index) in itwmdata" v-show="index==num">{{item}}</p>
+			<ul class="point">
+				<li v-for="(item,index) in itwmdata" :class="index==num"></li>
+			</ul>
+		</div>
+		<script type="text/javascript" src="js/vue.js"></script>
+		<script type="text/javascript">
+			var mvvm=new Vue({
+				el:'.banner',
+				data(){
+					return{
+						itwmdata:['img/10.png','img/10.png','img/10.png','img/10.png'],
+						num:0,
+					}
+				},
+				methods:{
+					autoplay(){
+						this.num++
+						if (this.num==this.itwmdata.length) {
+							this.num=0
+						}
+					},
+					play(){
+						setInterval(this.autoplay,2000)
+					}
+				}
+			})
+		</script>
+		
+	</body>
+</html>
