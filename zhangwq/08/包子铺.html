@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <meta name="viewport"
+        content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <script>
+        window.onload = function () {
+            document.documentElement.style.fontSize = document.documentElement.clientWidth / 640 * 100 + 'px';
+            window.onresize = function () {
+                document.documentElement.style.fontSize = document.documentElement.clientWidth / 640 * 100 + 'px';
+            };
+        };
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .left {
+            width: 2rem;
+            height: 10rem;
+            background: #ddd;
+            float: left;
+        }
+
+        .right {
+            width: 4.4rem;
+            height: 10rem;
+            background: #fff;
+            float: left;
+        }
+
+        .li {
+            height: 0.8rem;
+            font-size: 0.24rem;
+            text-align: center;
+            line-height: 0.8rem;
+        }
+
+        .lis {
+            height: 200px;
+            list-style: none;
+            border-bottom: 1px solid #ccc;
+            margin-top: 0.2rem;
+        }
+
+        img {
+            width: 2rem;
+            height: 2rem;
+            float: left;
+            margin-left: 0.1rem;
+            margin-right: 0.1rem;
+        }
+
+        h4 {
+            height: 50px;
+            font-size: 22px;
+            line-height: 50px;
+        }
+
+        p {
+            height: 50px;
+            font-size: 16px;
+            line-height: 25px;
+            display: block;
+        }
+
+        span {
+            height: 50px;
+            font-size: 20px;
+            line-height: 50px;
+            margin-top: 0.3rem;
+            display: block;
+            color: red;
+        }
+        .active{
+            background: orange;
+        }
+        #ul{
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <abc v-model="foots">{{foots}}</abc>
+    </div>
+    <template id="con">
+        <div>
+            <ul class="left">
+                <li class="li" @click='click(index)' :class="{active:idx==index}" v-for="(item,index) in list">{{item}}</li>
+            </ul>
+            <div class="right">
+                <ul id="ul">
+                    <li v-for="(item,index) in foots" class="lis">
+                        <img :src="item[index].img" alt="">
+                        <h4>{{item[index].name}}</h4>
+                        <p>{{item[index].info}}</p>
+                        <span>￥{{item[index].price}}元</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </template>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        Vue.component('abc', {
+            template: '#con',
+            data() {
+                return {
+                    idx:0,
+                    list: ['水饺', '凉菜', '流食', '饮料', '豆浆', '新品'],
+                    foots: [
+                        [
+                            {
+                                name: '猪肉大葱馅饺子',
+                                img: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1769208920,1304930106&fm=26&gp=0.jpg',
+                                info: '简介简介简介简介简介简介简介简介简介简介简介简介简介',
+                                price: '5',
+                            },
+                            {
+                                name: '地三鲜',
+                                img: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1126716551,3134048915&fm=26&gp=0.jpg',
+                                info: '简介',
+                                price: '10',
+                            },
+                            {
+                                name: '123',
+                                img: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1126716551,3134048915&fm=26&gp=0.jpg',
+                                info: '简介',
+                                price: '10',
+                            },
+                        ],
+                    ],
+                }
+            },
+            methods:{
+                click(index){
+                    this.idx=index;
+                    ul.style.display='block'
+                }
+            }
+        })
+        var vm = new Vue({
+            el: '#app',
+            data() {
+                return {
+                    foots:[]
+                }
+            },
+
+        })
+    </script>
+</body>
+
+</html>

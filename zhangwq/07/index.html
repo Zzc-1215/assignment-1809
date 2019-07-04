@@ -20,6 +20,7 @@
             border: 1px solid #ccc;
             margin: 30px auto;
             position: relative;
+            overflow: hidden;
         }
 
         li {
@@ -67,18 +68,34 @@
         .a {
             display: block;
         }
+
+        .v-leave-to,
+        .v-enter {
+            opacity: 0;
+        }
+
+        .v-leave-active,
+        .v-enter-active {
+            transition: 2s;
+        }
+
+        .v-enter-to,
+        .v-leave {
+            opacity: 1;
+        }
     </style>
 </head>
 
 <body>
-    <div id="app">
-        <transition appear leave-active-class="bounceInLeft animated" enter-active-class="bounceInLeft animated">
-            <ul v-test:a>
-                <button v-test:a class="left" @click='left()' :class="{a:block}"><i class="iconfont">&#xe650;</i></button>
-                <button v-test:a class="right" @click="right()" :class="{a:block}"><i class="iconfont">&#xe602;</i></button>
-                <li name='test' v-for="(item,index) in list" v-if="isshow==index"  name='test'>{{item}}</li>
-            </ul>
-        </transition>
+    <div id="app" v-test:a>
+        <ul>
+            <transition-group enter-active-class="bounceInLeft animated" leave-active-class="bounceOutLeft animated">
+                <li v-for="(item,index) in list" :key="index" v-show="isshow==index">{{item}}</li>
+            </transition-group>
+        </ul>
+        <button class="left" @click='left' :class="{a:block}"><i class="iconfont">&#xe650;</i></button>
+        <button class="right" @click="right" :class="{a:block}"><i class="iconfont">&#xe602;</i></button>
+
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script>
@@ -86,10 +103,9 @@
             el: '#app',
             data() {
                 return {
-                    list: ['1','2','3','4','5'],
+                    list: ['1', '2', '3', '4', '5'],
                     isshow: 0,
                     block: false,
-                    num: 0,
                 }
             },
             directives: {
@@ -104,15 +120,15 @@
             },
             methods: {
                 left() {
-                    if(this.isshow <= 0){
-                        this.isshow=this.list.length-1;
+                    if (this.isshow <= 0) {
+                        this.isshow = this.list.length - 1;
                         return;
                     }
-                    this.isshow--
+                    this.isshow--;
                 },
                 right() {
-                    if(this.isshow>=this.list.length-1){
-                        this.isshow=0;
+                    if (this.isshow >= this.list.length - 1) {
+                        this.isshow = 0;
                         return;
                     }
                     this.isshow++;
