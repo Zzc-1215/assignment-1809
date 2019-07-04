@@ -85,4 +85,31 @@ Destroyed
 	实例的销毁，vue实例还是存在的，只是解绑了事件的监听还有watcher对象数据与view的绑定，即数据驱动
 Activated/deactivated   组件激活、停用
 
+---过渡、动画---
+1、单元素、动态组件过渡 <transition>
+2、过渡类名（过渡、动画）
+3、钩子函数（参数）
+4、appear属性,duraction
+5、多个元素过渡必须要绑定key，过渡模式（mode out-in in-out）
+
+6、列表过渡<transition-group> 、 key（必须） tag属性（默认span）
+7、动态过渡 :name
+8、v-move
+
+--组件基础--
+1、组件是可复用的 Vue 实例，且带有一个名字，（所以它接收相同的选项）
+2、全局注册和局部注册
+3、data必须是一个函数，（返回独立拷贝对象，避免指向同一个data影响其他实例）
+4、向子组件传值，prop  （对象）
+5、组件模板必须是单个根元素，DOM模板
+	1、template，写在选项里
+	2、<template>标签的模版	
+	3、<script type="x-template">标签里的模版（不推荐）
+6、父组件通过 v-on 监听子组件实例的任意自定义事件，来接受信息。
+7、$emit(arg1，arg2)，第一个参数：事件名，第二个参数：传递的事件参数,用$event来接受，或者方法的第一个参数
+8、组件上使用 v-model （:value + @input）;
+9、使用组件名（字母全小写且必须包含一个连字符），避免冲突
+    定义组件名，kebab-case或者PascalCase，但是使用时只有 kebab-case 是有效的
+10、prop命名：kebab-case或者PascalCase 使用：kebab-case（同组件名规则）
+
 

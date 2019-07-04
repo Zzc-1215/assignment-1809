@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../assets/js/vue.js"></script>
+</head>
+<body>
+
+
+    <!-- <button id="abc">点击</button>
+    <script>
+        document.getElementById('abc').onclick  = function(){
+            // ...
+        }
+    </script> -->
+
+
+    <div id="app">
+        {{abc}}
+        <a-bc :color="color" @diZhengle="dianji"></a-bc>
+
+        <!-- 使用 -->
+        <!-- 全部小写 -->
+        <!-- <test></test>
+        <test-1></test-1> -->
+    </div>
+    
+    <template id="abc">
+        <h1>
+            <button @click="change">button</button>
+            {{msg}}
+            <p :style="{color:color}">12312315384093284</p>
+        </h1>
+    </template>
+    <script>
+        // <bc-input-number value="10" @change="" :min :max :disable :step="2"><bc-input-number>
+        // 父组件向子组件传值 prop
+        // 子组件向父组件发送事件 $emit(arg1,arg2)
+            // arg1: 事件名
+            // arg2: 第一个参数
+
+        // 组件名： 
+            // 使用必须小写
+            // 定义：kebab-case或者PascalCase 
+            // 使用时只有 kebab-case 
+        // 事件名：
+            // 推荐始终使用 kebab-case 的事件名
+        // 全局注册：
+        var componet = Vue.component('ABc',{
+            template:"#abc",
+            props:['color','background'],
+            data() {
+                return {
+                    msg:'abc',
+                }
+            },
+            methods: {
+                change(event){
+                    this.msg = 123;
+                    this.$emit('dizhengle');
+                }
+            },
+            // ...
+        });
+
+        
+        var vm = new Vue({
+            data(){
+                return{
+                    abc:1,
+                    color: 'red'
+                }
+            },
+            methods:{
+                dianji(val){
+                    // event.target
+                    console.log(val);
+                }
+            }
+        }).$mount('#app');
+
+        console.log(componet);
+        console.log(new componet());
+
+        console.log(Vue);
+        console.log(vm);
+        
+    </script>
+</body>
+</html>
