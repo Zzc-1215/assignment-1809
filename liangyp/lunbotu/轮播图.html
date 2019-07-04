@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>轮播图</title>
+	<link rel="icon" href="https://p0.meituan.net/waimaipoi/40b99f7d1fee7ecb3381a5657805cbc34205.jpg">
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+			user-select: none;
+		}
+		[v-cloak]{
+			display: none;
+		}
+		#app{
+			width: 400px;
+			margin: 40px auto;
+			overflow: hidden;
+			position: relative;
+		}
+		#app h2{
+			font-size: 30px;
+			line-height: 64px;
+			text-align: center;
+		}
+		ul{
+			width: 100%;
+			height: 240px;
+			background-color: #ff0;
+			position: relative;
+		}
+		ul li{
+			/*float: left;*/
+			position: absolute;
+			left: 0;
+			top: 0;
+		}
+		ul li img{
+			width: 400px;
+			height: 240px;
+		}
+		#app span{
+			width: 40px;
+			height: 54px;
+			background: rgba(0,0,0,.4);
+			position: absolute;
+			top: 130px;
+			text-align: center;
+			line-height: 54px;
+			color: #fff;
+			font-size: 22px;
+			display: none;
+		}
+		#app:hover span{
+			display: block;
+		}
+		.leftBtn{
+			left: 0;
+		}
+		.rightBtn{
+			right: 0;
+		}
+		.leftBtn-enter{
+			display: block;
+		}
+		.leftBtn-enter-active{
+			transition: .5s;
+		}
+		.leftBtn-enter-to{
+			display: none;
+		}
+		.rightBtn-enter{
+			display: none;
+		}
+		.rightBtn-enter-active{
+			transition: .5s;
+		}
+		.rightBtn-enter-to{
+			display: block;
+		}
+	</style>
+</head>
+<body>
+	<div id="app">
+		<h2>轮播图</h2>
+		<ul>
+			<li v-for=" i in Img"><img :src="Img[currentIndex]" alt=""></li>
+		</ul>
+		<!-- <transition> -->
+			<span class="leftBtn" @click="page(jian)" v-if="Img[currentIndex]<imgLenght?imgLenght:currentIndex-1"><</span>
+		<!-- </transition> -->
+		<!-- <transition > -->
+			<span class="rightBtn" @click="page(change)" v-if="Img[currentIndex]>imgLenght?currentIndex:currentIndex+1">></span>
+		<!-- </transition> -->
+		
+	</div>
+</body>
+<script type="text/javascript">
+	var vm = new Vue({
+		el:'#app',
+		data(){
+			return {
+				idshow: true,
+				Img:['./IMG/1.jpg','./IMG/2.jpg','./IMG/3.jpg'
+				,'./IMG/4.jpg','./IMG/5.jpg'],
+				imgLenght: 5,
+				currentIndex:0
+			}
+		},
+		methods:{
+			page(index){
+				this.currentIndex = index;
+			}
+		},
+		computed:{
+			change(){
+				if(this.currentIndex == this.Img.length-1){
+					return 0;
+				}else{
+					return this.currentIndex +1;
+					console.log(this.currentIndex)
+				}
+			},
+			jian(){
+				if(this.currentIndex == 0){
+					return this.Img.length-1;
+				}else{
+					return this.currentIndex - 1;
+					console.log(this.currentIndex)
+				}
+			}
+		}
+	})
+</script>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/animate.css">
+    <style>
+        /* .test-enter {
+            opacity: 0;
+            color: red;
+        }
+
+        .test-enter-active {
+            transition: 2s;
+        }
+
+        .test-enter-to {
+            opacity: 1;
+            color: #000;
+        }
+
+
+        .test-leave {
+            transform: scale(1,1)
+        }
+
+        .test-leave-active {
+            animation:test 1s;
+        }
+
+        .test-leave-to {
+            transform: scale(0,0)
+        }
+
+
+
+        @keyframes test{
+            from{
+                transform: rotate(0deg)
+            }
+            to{
+                transform: rotate(360deg)
+            }
+        } */
+
+        .test{
+            animation: test 1s;
+        }
+        @keyframes test{
+            from{
+                transform: rotate(0deg)
+            }
+            to{
+                transform: rotate(360deg)
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <p class="animated slideInUp">123</p>
+    <p class="test">456</p> -->
+
+    <div id="app">
+        <button @click="isshow = !isshow">点击</button>
+        <!-- appear的作用是刷新页面的时候就会出现动画，如果不写appear，进入页面的时候就不会有动画产生
+        
+            duration="3000" 动画会被我应用三秒的时间
+
+            多个元素过渡必须绑定key，过渡模式(mode out-in in-out)
+        -->
+        <transition mode="out-in" appear duration="3000" leave-active-class="bounceOut animated" enter-active-class="animated slideInUp">
+            <!-- key值必须是唯一的  -->
+            <h1 key="1" v-if="isshow">qqqqqq</h1>
+            <h1 key="2" v-else>aaa</h1>
+        </transition>
+        <!-- <transition name="test"> -->
+            <!-- 没有定义name，默认是v- -->
+            <!-- <h1 v-if="isshow">hhhhhhhh</h1>
+        </transition> -->
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        
+        new Vue({
+            el:"#app",
+            data () {
+                return {
+                    isshow:true,
+                }
+            }    
+        })
+
+    </script>
+
+</body>
+
+</html>

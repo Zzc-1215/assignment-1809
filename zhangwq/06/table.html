@@ -78,19 +78,19 @@
                 <td style="width: 200px">备注</td>
             </tr>
             <tr v-for="product in products">
-                <td @click="showInput">
+                <td @click.self="showInput">
                     {{product.name}}
                     <input type="text" v-model="product.name" @blur="hideInput">
                 </td>
-                <td @click="showInput">
+                <td @click.self="showInput">
                     {{product.num}}
                     <input type="text" v-model="product.num" @blur="hideInput">
                 </td>
-                <td @click="showInput">
+                <td @click.self="showInput">
                     {{product.price}}
                     <input type="text" v-model="product.price" @blur="hideInput">
                 </td>
-                <td @click="showInput">
+                <td @click.self="showInput">
                     {{product.beizhu}}
                     <input type="text" v-model="product.beizhu" @blur="hideInput">
                 </td>
@@ -135,6 +135,7 @@
             methods:{
                 showInput(event){
                     event.target.children[0].style.display='block';
+                    event.target.children[0].focus();
                 },
                 hideInput(e){
                     e.target.style.display='none';
