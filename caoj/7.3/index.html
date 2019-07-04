@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=620" />
+		
+		<script src="mobile-util.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" type="text/css" href="style1.css" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+
+	</head>
+	<body>
+		<div id="con">
+			<h3 style="font-size: 18px;text-align:center;height: 50px;line-height: 50px;position: relative;">配送至现代管理大学<a href="javascript:;" style="position: absolute;right: 20px;">出发</a></h3>
+			<ul id="oul">
+				<li @click="msg=0" :class="{'cur':msg===0}">点菜</li>
+				<li @click="msg=1" :class="{'cur':msg===1}">评论</li>
+				<li @click="msg=2" :class="{'cur':msg===2}">商家</li>
+			</ul>
+			<div id="box">
+				<div v-show="msg===0">
+					<ul id="llu">
+						<li @click="ad=0" :class="{'cur':ad===0}">主食</li>
+						<li @click="ad=1" :class="{'cur':ad===1}">菜单</li>
+						<li @click="ad=2" :class="{'cur':ad===2}">饮品</li>
+						
+					</ul>
+					<div id="app">
+						<div v-show="ad===0">
+							1
+						</div>
+						<div v-show="ad===1">
+							2
+						</div>
+						<div v-show="ad===2">
+							3
+						</div>
+					</div>
+					
+				</div>
+				<div v-show="msg===1">
+					css
+				</div>
+				<div v-show="msg===2">
+					javascript
+				</div>
+				<div v-show="msg===3">
+					vue
+				</div>
+			</div>
+		</div>
+		<script src="vue.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var example1 = new Vue({
+				el: '#con',
+				data: {
+					msg:0,
+					ad:0
+						},
+			})
+		</script>
+	</body>
+</html>
