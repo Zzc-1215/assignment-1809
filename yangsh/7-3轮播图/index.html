@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+				list-style-type: none;
+			}
+			
+			img {
+				vertical-align: top;
+				width: 100%;
+			}
+			
+			.box {
+				height: 400px;
+				width: 300px;
+				position: relative;
+			}
+			
+			.Dian-left,
+			.Dian-right {
+				display: inline-block;
+				width: 30px;
+				height: 40px;
+				position: absolute;
+				top: 50%;
+				margin-top: -20px;
+				background-color: rgba(0, 0, 0, .5);
+			}
+			
+			.Dian-left {
+				top: 100px;
+				left: 5px;
+				margin-left: -15px;
+			}
+			.Dian-right {
+				top: 100px;
+				right: 15px;
+				margin-right: -15px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="box">
+			<ul>
+				<li v-for="(i,$index) in arr" v-show="$index==n">
+					<img :src="i" alt="">
+				</li>
+			</ul>
+
+			<span class="Dian-left" @click="left()"></span>
+			<span class="Dian-right" @click="right()"></span>
+		</div>
+
+	</body>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+	<script>
+		new Vue({
+			el: ".box",
+			data: {
+				n: 0,
+				type: 0,
+				arr: ['./img/1-1.jpg', "./img/2-2.jpg", "./img/3-3.jpg", "./img/4-4.jpg", "./img/5-5.jpg"]
+			},
+			methods: {
+				left() {
+					this.n--
+						if(this.n < 0) {
+							this.n = 4
+						}
+					console.log(this.n)
+				},
+				right() {
+					this.n++
+						if(this.n == 4) {
+							this.n = 0
+						}
+					console.log(this.n)
+				}
+			}
+		})
+	</script>
+
+</html>
