@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>过渡</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <link rel="stylesheet" href="animation.css">
+    <style>
+        *{
+            padding:0;
+            margin:0;
+            list-style:none;
+        }
+        .clearfix:before,
+        .clearfix:after {
+            content: "";
+            display: table;
+        }
+
+        .clearfix:after {
+            clear: both;
+        }
+
+        .clearfix {
+            zoom: 1;
+        }
+        .box{
+            width:500px;
+            height:300px;
+            margin:40px auto;
+            position:relative;
+        }
+        .item{
+            width:500px;
+            height:300px;
+            float:left;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        .prev,.next{
+            display:inline-block;
+            width:50px;
+            height:50px;
+            border-radius:50%;
+            color:#fff;
+            font-size:24px;
+            line-height:50px;
+            background:rgb(68, 66, 66,.6);
+            text-align:center;
+            position:absolute;
+        }
+        .prev{
+            left:0;
+            top:125px;
+        }
+        .next{
+            right:0;
+            top:125px;
+        }
+        .item img{
+            width:100%;
+            height:100%；
+        }
+    </style>
+</head>
+<body>
+    <ul class="box clearfix" @mouseenter="hover()" @mouseleave="out()">
+        <li class="item bounceInRight animated" v-for="(item,index) in arr" v-show="index===t_index" >
+            <img :src="item" alt="">
+        </li>
+        <span class="prev" @click="back()" v-show="isshow"><</span>
+        <span class="next" @click="nxt()" v-show="isshow">></span>
+    </ul>
+</body>
+<script>
+    var vm=new Vue({
+        el:'.box',
+        data:{
+            arr:['image/img1.jpg','image/img2.jpg','image/img3.jpg','image/img4.jpg'],
+            t_index:0,
+            isshow:'false'
+        },
+        methods:{
+            nxt(){
+                this.t_index++;
+                if(this.t_index==4){
+                    this.t_index=0;
+                }
+                console.log(this.t_index)
+            },
+            back(){
+                if(this.t_index==0){
+                    this.t_index=4;
+                }
+                this.t_index--;
+                console.log(this.t_index)
+            },
+            hover(){
+                this.isshow=true;
+            },
+            out(){
+                this.isshow=false;
+            }
+        }
+    })
+</script>
+</html>

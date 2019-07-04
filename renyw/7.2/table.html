@@ -90,19 +90,19 @@
                 <td>备注</td>
             </tr>
             <tr v-for="product in products">
-                <td @click="showInt">
+                <td @click.self="showInt">
                     {{product.name}}
                     <input type="text" v-model="product.name" @blur="hideInt">
                 </td>
-                <td @click="showInt">
+                <td @click.self="showInt">
                     {{product.price}}
                     <input type="text" v-model="product.price" @blur="hideInt">
                 </td>
-                <td @click="showInt">
+                <td @click.self="showInt">
                     {{product.num}}
                     <input type="text" v-model="product.num" @blur="hideInt">
                 </td>
-                <td @click="showInt">
+                <td @click.self="showInt">
                     {{product.info}}
                     <input type="text" v-model="product.info" @blur="hideInt">
                 </td>
@@ -178,14 +178,14 @@
             },
             methods: {
                 showInt(e) { //点击出现input框
-                    console.log(e.target.tagName);
-                    if (e.target.tagName == 'TD') {
+                    // console.log(e.target.tagName);
+                    // if (e.target.tagName == 'TD') {
                         e.target.children[0].style.display = 'block';
-                        e.target.children[0].autofocus = true;
-                    }else if(e.target.tagName == 'INPUT'){
-                        e.target.style.display = 'block';
-                        e.target.autofocus = true;
-                    }
+                        e.target.children[0].focus();
+                    // }else if(e.target.tagName == 'INPUT'){
+                        // e.target.style.display = 'block';
+                        // e.target.autofocus = true;
+                    // }
                 },
                 hideInt(event) { //失去焦点隐藏input框
                     event.target.style.display = 'none';
