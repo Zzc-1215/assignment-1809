@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .v-enter{
+            opacity: 0;
+        }
+        .v-enter-active{
+            transition: 2s;
+        }
+        .v-enter-on{
+            opacity: 1;
+        }
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        .box{
+            width: 400px;
+            height: 300px;
+            overflow: hidden;
+            margin: 100px auto;
+            position: relative;
+        }
+        .box .content{
+            width: 400px;
+            height: 300px;
+            font-size: 30px;
+            text-align: center;
+            line-height: 300px;
+        }
+        .box .content:nth-child(odd){
+            background: paleturquoise;
+        }
+        .box .content:nth-child(2n){
+            background: mediumturquoise;
+        }
+        .box a{
+            width: 50px;
+            height: 60px;
+            font-size: 30px;
+            text-align: center;
+            line-height: 60px;
+            text-decoration: none;
+            position: absolute;
+            top:50%;
+            margin-top: -30px;
+            opacity: 0;
+        }
+        #left{
+            left: -50px;
+        }
+        #right{
+            right: -50px;
+        }
+        /* .box:hover a{
+           opacity: 1;
+           transition: all 3s;
+        } */
+        .box:hover #left{
+            opacity: 1;
+            transition: all 2s;
+            left: 0px;
+        }
+        .box:hover #right{
+            opacity: 1;
+            transition: all 2s;
+            right: 0px;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+           <transition-group tag="ul">
+                <div class="content" :key="index" v-for="(item,index) in list"  v-if="num==index">{{item}}</div>
+           </transition-group>
+        <a id="left" href="javascript:;" @click="left()"><</a>
+        <a id="right" href="javascript:;" @click="right()">></a>
+    </div>
+</body>
+<script src="vue.js"></script>
+<script>
+    var vm= new Vue({
+        el:'.box',
+        data(){
+           return{
+                list:5,
+                // isshow:true,
+                num:0,
+           }
+        },
+        methods:{
+            right(){
+                this.num++;
+                if (this.num==this.list) {
+                    this.num=0;
+                }
+            },
+            left(){
+                this.num--;
+                if (this.num<0) {
+                    this.num=this.list-1;
+                }
+            },
+            // mouseover(e){
+            //     e.target.parentNode.parentNode.children('a').style.display='block'
+            // },
+            // mouseout(e){
+            //     e.target.children('a').style.display='none'
+            // }
+        }
+    })
+
+</script>
+</html>

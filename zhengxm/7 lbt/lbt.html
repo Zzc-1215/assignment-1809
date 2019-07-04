@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <link rel="stylesheet" type="text/css" href="swiper4-animate-demo/css/animate.min.css">
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            user-select: none;
+            cursor: pointer;
+        }
+        li{
+            list-style-type: none;
+        }
+        #container{
+            width: 500px;
+            height: 260px;
+            margin: 100px auto;
+            position: relative;
+        }
+        #img li{
+            width: 500px;
+            height: 260px;
+            background-color: coral;
+            line-height: 260px;
+            text-align: center;
+        }
+        #img li img{
+            width: 500px;
+            height: 260px;
+            /* background-color: coral;
+            line-height: 260px;
+            text-align: center; */
+        }
+        .color{
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        #img span{
+            width: 30px;
+            height: 60px;
+            color: #fff;
+            font-size: 20px;
+            display: none;
+            position: absolute;
+        } 
+        #right{
+            top: 50%;
+            margin-top: -30px;
+            right: 10px;
+        }
+        #left{
+            top: 50%;
+            margin-top: -30px;
+            left: 10px;
+           
+        }
+        #img:hover span{
+            display: block;
+        }
+        .dot{
+            position: absolute;
+            width: 100px;
+            height: 20px;
+            left: 50%;
+            margin-left: -50px;
+            bottom: 20px;
+        }
+        .circle{
+            width: 10px;
+            height: 10px;
+            display: inline-block;
+            border-radius: 50%;
+            background-color: #fff;
+            margin-left: 10px;
+        }
+        .active{
+            background-color: cyan;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <ul id="img" @mouse="isshow = !isshow">
+            <transition-group tag="ul" mode="in-out">
+                <li v-for="(i,index) in colors" :key="index" class="color" leave-active-class="animated bounceInRight">
+                    <img :src="colors[currentIndex]"> 
+                    {{currentIndex+1}}
+                </li>
+            </transition-group>
+            <span id="right" @click="gotoPage(right)">></span>
+            <span id="left" @click="gotoPage(left)"><</span>
+        </ul>
+        <div class="dot" v-if="this.colors.length>1">
+            <span class="circle" v-for="(i,index) in colors" :class="{'active':currentIndex == index}" @click="gotoPage(index)"></span>
+        </div>
+    </div>
+    <script>
+        var vm = new Vue({
+            el:'#container',
+            data(){
+                return {
+                    colors:['img/1.jpg','img/2.jpg','img/3.jpg','img/4.jpg','img/5.jpg'],
+                    currentIndex:0,
+                    isshow:false,
+                }
+            },
+            methods:{
+                gotoPage(index){
+                    this.currentIndex = index;
+                }
+            },
+            computed:{
+                right(){
+                    if(this.currentIndex == this.colors.length-1){
+                        return 0;
+                    }else{
+                        return this.currentIndex + 1;
+                    }
+                },
+                left(){
+                    if(this.currentIndex == 0){
+                        return this.colors.length-1;
+                    }else{
+                        return this.currentIndex - 1;
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>

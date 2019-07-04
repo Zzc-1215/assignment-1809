@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		#app{
+			position: relative;
+			margin: 40px auto;
+			height:200px;
+			width: 400px;
+		}
+		[v-cloak]{
+			display:none;
+		}
+		ul{
+			position: absolute;
+			left:0;
+		}
+		ul li{
+			width: 400px;
+			height:200px;
+			border:1px solid #000;
+			list-style: none;
+			position: absolute;
+			text-align: center;
+			line-height: 200px;
+			left:0;
+			top: 0;
+			background-color: cyan;
+			opacity: 0;
+		}
+		ul li:first-child{
+			background-color: cyan;
+			opacity: 1;
+		}
+		span{
+			width: 30px;
+			height:30px;
+			display: block;
+			display:none;
+			text-align: center;
+			line-height: 30px;
+			background-color: rgba(9,9,9,.3);
+			position: absolute;
+			top:80px;
+			border-radius: 50%;
+		}
+		#app:hover span{
+			display:block;
+			transition:.5s;
+		}
+		#left{
+			left:10px;
+		}
+		#right{
+			right: 0px;
+		}
+		#app p{
+			position: absolute;
+			width: 100%;
+			bottom: 20px;
+			left:180px;
+		}
+		a{
+			width: 10px;
+			height:10px;
+			border:1px solid #000;
+			display:block;
+			float: left;
+			margin: 1px;
+			border-radius: 50%;
+		}
+		/*.test-enter{
+			opacity: 0;
+		}
+		.test-enter-active{
+			transition:.1s;
+		}
+		.test-enter-to{
+			opacity: 1;
+		}*/
+		#app .active{
+			opacity: 1;
+		}
+		.actives{
+			background-color: yellow;
+		}
+	</style>
+</head>
+<body>
+	<div id="app" v-cloak>
+		<ul>
+			<li v-for="(item,index) in list" :class="{active:num == index}">{{item}}</li>
+		</ul>
+		<span id="left" @click="left()"><</span>
+		<span id="right" @click="right()">></span>
+		<p>
+			<a href="javascript:;" v-for="(item,index) in list" :class="{actives:num == index}"></a>
+		</p>
+	</div>
+	<script type="text/javascript">
+		var vm = new Vue({
+			el:'#app',
+			data(){
+				return {
+					list:4,
+					num:0,
+				}
+			},
+			methods:{
+				left(){
+					this.num--;
+					if (this.num < 0) {
+						this.num = 3;
+					}
+				},
+				right(){
+					this.num++;
+					if (this.num > 3) {
+						this.num = 0;
+					}
+				},
+			}
+		})
+	</script>
+</body>
+</html>

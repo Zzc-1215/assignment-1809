@@ -6,6 +6,9 @@
 	<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
 	<style>
 	*{height: 0;}
+	[v-cloak]{
+		display: none;
+	}
 	input{
 		border: none;
 	}
@@ -42,7 +45,7 @@
 </style>
 </head>
 <body>
-	<div id="app">
+	<div id="app" v-cloak>
 		<table>
 			<tr>
 				<td>产品</td>
@@ -73,16 +76,16 @@
 				<td>备注</td>
 			</tr>
 			<tr v-for='item in products'>
-				<td @click='showCl'>{{item.name}}
+				<td @click.self='showCl'>{{item.name}}
 					<input type="text" v-model='item.name' @blur='hideCl'>
 				</td>
-				<td @click='showCl'>{{item.num}}
+				<td @click.self='showCl'>{{item.num}}
 					<input type="text" v-model='item.num' @blur='hideCl'>
 				</td>
-				<td @click='showCl'>{{item.price}}
+				<td @click.self='showCl'>{{item.price}}
 					<input type="text" v-model='item.price' @blur='hideCl'>
 				</td>
-				<td @click='showCl'>{{item.remark}}
+				<td @click.self='showCl'>{{item.remark}}
 					<input type="text" v-model='item.remark' @blur='hideCl'>
 				</td>
 			</tr>
@@ -144,7 +147,7 @@
 			},
 			filters:{
 				'chinese':function(val){
-					var list1=['','壹','贰','叁','肆','伍','陆','柒','捌','玖','零']
+					var list1=['零','壹','贰','叁','肆','伍','陆','柒','捌','玖','零']
 					var list2=['元整','拾','佰','仟','万','拾','佰','仟','亿']
 					var str=val.toString()
 					var daxie=''
@@ -157,6 +160,7 @@
 			methods:{
 				showCl(e){
 					e.target.children[0].style.display='block';
+					e.target.children[0].focus()
 				},
 				hideCl(e){
 					e.target.style.display='none';

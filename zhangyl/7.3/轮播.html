@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" href="animation.css">
+		<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+				list-style: none;
+			}
+
+			.banner {
+				width: 800px;
+				height: 400px;
+				border: 1px solid;
+				margin: 100px auto;
+				position: relative;
+			}
+
+			ul {}
+
+			ul li {
+				width: 100%;
+				height: 100%;
+				position: absolute;
+				top: 0;
+				left: 0;
+			}
+
+			ul li img {
+				width: 100%;
+				height: 100%;
+			}
+
+			.pre {
+				width: 50px;
+				height: 50px;
+				border-radius: 50%;
+				line-height: 50px;
+				text-align: center;
+				display: inline-block;
+				background: #ccc;
+				position: absolute;
+				left: 20px;
+				top: 40%;
+				color: #fff;
+				font-size: 30px;
+				display: none;
+			}
+
+			.next {
+				width: 50px;
+				height: 50px;
+				border-radius: 50%;
+				line-height: 50px;
+				text-align: center;
+				display: inline-block;
+				background: #ccc;
+				position: absolute;
+				right: 20px;
+				top: 40%;
+				color: #fff;
+				font-size: 30px;
+				display: none;
+			}	
+			.banner:hover .pre,
+			.banner:hover .next {
+				display: block;
+			}
+		</style>
+	</head>
+	<body>
+		<div id='app'>
+			<div class='banner'>
+				<ul>
+					<li class="fadeIn animated" v-for='(item,index) in arr' v-if="num==index"><img :src="item"></li>
+				</ul>
+				<div>
+					<span class='pre' @click='left()'><</span>
+					<span class='next' @click='right()'>></span>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			var vm = new Vue({
+				el: '#app',
+				data() {
+					return {
+						num:0,
+						arr: ['http://pic13.nipic.com/20110425/668573_150157400119_2.jpg',
+							'http://i9.hexun.com/2018-11-24/195299307.jpg',
+							'http://cdn.duitang.com/uploads/item/201305/26/20130526140022_5fMJe.jpeg',
+							'http://img.juimg.com/tuku/yulantu/110125/292-11012511135849.jpg',
+							'http://b-ssl.duitang.com/uploads/blog/201411/07/20141107110638_fuJKx.jpeg',
+						],
+					}
+				},
+				methods: {
+					right() {
+						this.num++;
+						if (this.num==this.arr) {
+						    this.num=0;
+						}
+					},
+					left() {
+						this.num--;
+						if (this.num<0) {
+						    this.num=this.list-1;
+						}
+					},
+
+				}
+			})
+		</script>
+	</body>
+</html>
+ 
