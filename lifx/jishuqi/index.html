@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>计数器</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <style>
+        .el-input-number {
+            position: relative;
+            display: inline-block;
+            width: 120px;
+            line-height: 38px;
+        }
+
+        .el-input-number__decrease,
+        .el-input-number__increase {
+            position: absolute;
+            z-index: 1;
+            top: 1px;
+            width: 40px;
+            height: auto;
+            text-align: center;
+            background: #f5f7fa;
+            color: #606266;
+            cursor: pointer;
+            font-size: 20px;
+            font-weight: bolder;
+        }
+
+        .el-input-number__increase {
+            background: cyan;
+            border-radius: 50%;
+            left: none;
+            right: 0;
+        }
+
+        .el-input-number__decrease {
+            background: cyan;
+            border-radius: 50%;
+        }
+
+        .el-input__inner {
+            -webkit-appearance: none;
+            background-color: #fff;
+            background-image: none;
+            border-radius: 4px;
+            /* border: 1px solid #dcdfe6; */
+            box-sizing: border-box;
+            border: none;
+            color: #606266;
+            display: inline-block;
+            font-size: inherit;
+            height: 40px;
+            line-height: 40px;
+            outline: none;
+            padding: 0 40px;
+            transition: border-color .2s cubic-bezier(.645, .045, .355, 1);
+            width: 400%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <bc-input-number v-model="value" :max='10' :min='0' :disabled="true"></bc-input-number>
+        <!-- <br>
+        <br>
+        {{value}} -->
+    </div>
+    <template id="abc">
+        <div class="el-input-number">
+            <span role="button" class="el-input-number__decrease is-disabled" @click="jian">
+                -
+            </span>
+            <span role="button" class="el-input-number__increase" @click="jia">
+                +
+            </span>
+            <div class="el-input">
+                <input class="el-input__inner" type="text" v-model="v" readonly>
+            </div>
+        </div>
+    </template>
+</body>
+<script>
+    Vue.component('bc-input-number', {
+        template: '#abc',
+        props: ['value','max','min','step','disabled'],
+        data() {
+            return {
+                v:this.value
+            }
+        },
+        methods: {
+            jia() {
+                if(!this.disabled) return
+                if(this.v >= this.max)return
+                this.v+=this.step || 1;
+            },
+            jian(){
+                if(!this.disabled) return
+                if(this.v <= this.min)return
+                this.v-=this.step || 1;
+                
+            }
+        },
+        watch: {
+            v(val,oldvalue){
+                this.$emit('input',val)
+            }
+        }
+    })
+    var vm = new Vue({
+        el: '#box',
+        data() {
+            return {
+                value: 1,
+            }
+        },
+       
+    })
+</script>
+
+</html>

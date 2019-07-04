@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>inputNumber</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <style>
+        *{
+            padding:0;
+            margin:0;
+        }
+        .box{
+            font-size:0px;
+            -webkit-appearance: none;
+            margin:40px auto;
+        }
+        .box button{
+            width:30px;
+            height:22px;
+            background:rgb(114, 162, 245);
+            border:none;
+            color:#fff;
+            font-size:16px;
+        }
+        .box input{
+            width:50px;
+            height:20px;
+            border:1px solid black;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="box">
+        <bc-number></bc-number>
+    </div>
+
+    <script>
+       
+        Vue.component('bc-number',{
+            data(){
+                return{
+                    num:0,
+                    add:'+',
+                    sub:"-",
+                    newnum:0,
+                    step:0
+                }
+            },
+            template:"<div><button @click='madd'>{{add}}</button><input type='text' :value='num'><button @click='msub'>{{sub}}</button></div>",
+            methods:{
+                madd(){
+                    this.num++;
+                    this.newnum=this.num;
+                },
+                msub(){
+                    // console.log(this.$el.children[2])
+                    if(this.num==0){
+                        this.$el.children[2].disabled=true;
+                    }else{
+                        this.num--;
+                        this.newnum=this.num;
+                    }
+                },
+            },
+            computed:{
+                //开关决定第二个button是否为disabled
+                btrue(){
+                    return this.newnum==0;
+                }
+            },
+            mounted(){
+                //初始判断
+                if(this.$el.children[1].value==0){
+                    this.$el.children[2].disabled=true;
+                }else{
+                    this.$el.children[2].disabled=false;
+                }
+            },
+            updated(){
+                //点击后的判断
+                this.btrue?this.$el.children[2].disabled=true:this.$el.children[2].disabled=false;
+            },
+        })
+        new Vue({
+            el:".box",
+        })
+    </script>
+</body>
+</html>

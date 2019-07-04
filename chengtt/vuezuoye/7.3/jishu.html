@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			<bc-input-number v-model="value" value="10" :min="1" :max="10" :disable="true" :step="2"></bc-input-number>
+		</div>
+		<template id="input-number">
+			<div>
+				<button @click='jian'>-</button>
+	            <input type="text" v-model="val" @blur="blur" @focus="focus">
+	            <button @click='jia'>+</button> 
+			</div>
+		</template>
+		<script type="text/javascript" src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+		<script>
+			Vue.component('bc-input-number',{
+				template:"#input-number",
+				props:['value','min','max','stap','disabled'],
+				data(){
+					return{
+						val:this.value,
+					}
+				},
+				watch:{
+					val(val){
+						this.$emit('change', val);
+                   		this.$emit('input', val);
+					}
+				},
+				methods:{
+					jia(){
+						this.val += this.step || 1;
+	                    if (this.val >= this.max) {
+	                        this.val = this.max;
+	                        return;
+	                    	};
+					},
+					jian() {
+	                    this.val -= this.step || 1;
+	                    if (this.val <= this.min || 0) {
+	                        this.val = this.min || 0;
+	                        return;
+	                    }
+	                },
+		            blur(ev) {
+	                    this.$emit('blur', ev.target)
+	                },
+	                focus(ev) {
+	                    this.$emit('focus', ev.target)
+	                }
+				},
+			}),
+			new Vue({
+				el:"#app",
+				data:{
+					value:1,
+				},
+				
+			})
+		</script>
+	</body>
+</html>

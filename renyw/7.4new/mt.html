@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/iconfont.css">
+    <script src="js/flexible_css.js"></script>
+    <script src="js/flexible.js"></script>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app" v-cloak>
+        <div class="bgbox">
+            <qf-shop></qf-shop>
+        </div>
+    </div>
+    <template id="shopbox">
+        <div class="lists clearfix">
+            <ul class="listUl">
+                <li class="litem" :class="typeInx==$index?'active':''" @click="typeInx=$index" v-for="(food,$index) in foods">{{food.ltypes}}</li>
+            </ul>
+            <div class="productbox">
+                <div class="typetit">
+                    {{foods[typeInx].ltypes}}
+                </div>
+                <div v-if="typeInx==$index" v-for="(ltypect,$index) in foods">
+                    <div class="babycont clearfix" v-for="cont in ltypect.food">
+                        <div class="imgbox">
+                            <img :src='cont.img' alt="">
+                        </div>
+                        <div class="babybox">
+                            <p class="titbaby">{{cont.name}}</p>
+                            <p class="infobaby">{{cont.info}}</p>
+                            <div class="jg clearfix">
+                                <p class="price">￥{{cont.price}}</p>
+                                <bc-input-number v-model="value" :step="2" :max="10" :min="0"></bc-input-number>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+    <template id="intNumber">
+        <div class="box">
+            <span class="prev" @click="prev">-</span>
+            <input type="text" class="int" v-model="v">
+            <span class="next" @click="next">+</span>
+        </div>
+    </template>
+    <script src="../vue.js"></script>
+    <script>
+        var component = Vue.component('qf-shop', {
+            template: '#shopbox',
+            data() {
+                return {
+                    typeInx: 0,
+                    foods: [
+                        {
+                            ltypes: '本店特色',
+                            food: [{
+                                name: '鲜虾菜心',
+                                price: '9',
+                                info: '虾仁一个，万年青菜',
+                                img: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1562255798314&di=65d96390961564d8dbf556d1b8c8f574&imgtype=0&src=http%3A%2F%2Fimg1.voc.com.cn%2FUpLoadFile%2F2016%2F08%2F25%2F201608250717393006.jpg'
+                            }, {
+                                name: '猪肉大葱',
+                                price: '8',
+                                info: '猪肉(肥瘦适中),大葱',
+                                img: 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1926447759,2383249261&fm=11&gp=0.jpg'
+                            }, {
+                                name: '素三鲜',
+                                price: '9',
+                                info: '香菇，木耳，鸡蛋',
+                                img: 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=24833232,650301067&fm=11&gp=0.jpg'
+                            }]
+                        }, {
+                            ltypes: '水饺',
+                            food: [{
+                                name: '猪肉白菜水饺',
+                                price: '16',
+                                info: '虾仁一个，万年青菜',
+                                img: 'https://f10.baidu.com/it/u=4282036640,831512286&fm=72'
+                            }, {
+                                name: '鲅鱼三鲜水饺',
+                                price: '20',
+                                info: '猪肉(肥瘦适中),大葱',
+                                img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3607722980,2957536157&fm=26&gp=0.jpg'
+                            }, {
+                                name: '牛肉芹菜水饺',
+                                price: '22',
+                                info: '香菇，木耳，鸡蛋',
+                                img: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3295395667,1755581435&fm=26&gp=0.jpg'
+                            }, {
+                                name: '虾仁三鲜水饺',
+                                price: '25',
+                                info: '香菇，木耳，鸡蛋',
+                                img: 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=129404797,970943927&fm=26&gp=0.jpg'
+                            }]
+                        }, {
+                            ltypes: '流食',
+                            food: [{
+                                name: '鲜肉混沌',
+                                price: '6',
+                                info: '虾仁一个，万年青菜',
+                                img: 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2350039188,1052181721&fm=26&gp=0.jpg'
+                            }, {
+                                name: '棒渣粥',
+                                price: '2',
+                                info: '猪肉(肥瘦适中),大葱',
+                                img: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1780820455,1494179116&fm=26&gp=0.jpg'
+                            }, {
+                                name: '芥菜混沌',
+                                price: '10',
+                                info: '香菇，木耳，鸡蛋',
+                                img: 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1585667943,3820285033&fm=26&gp=0.jpg'
+                            }, {
+                                name: '小米粥',
+                                price: '3',
+                                info: '香菇，木耳，鸡蛋',
+                                img: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=940502177,3033959034&fm=26&gp=0.jpg'
+                            }]
+                        }, {
+                            ltypes: '凉菜',
+                            food: [{
+                                name: '芥兰黄豆',
+                                price: '8',
+                                info: '虾仁一个，万年青菜',
+                                img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1758786112,3837879453&fm=26&gp=0.jpg'
+                            }, {
+                                name: '茶鸡蛋',
+                                price: '2',
+                                info: '猪肉(肥瘦适中),大葱',
+                                img: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3483539389,1137286553&fm=26&gp=0.jpg'
+                            }, {
+                                name: '奥尔良鸡翅',
+                                price: '23',
+                                info: '香菇，木耳，鸡蛋',
+                                img: 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=904914610,3912827275&fm=26&gp=0.jpg'
+                            }, {
+                                name: '果仁菠菜',
+                                price: '8',
+                                info: '香菇，木耳，鸡蛋',
+                                img: 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1986855178,3497225521&fm=26&gp=0.jpg'
+                            }]
+                        }, {
+                            ltypes: '饮料',
+                            food: [{
+                                name: '波蕊口乐',
+                                price: '4.5',
+                                info: '虾仁一个，万年青菜',
+                                img: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3839467754,1267011684&fm=26&gp=0.jpg'
+                            }, {
+                                name: '果粒橙',
+                                price: '4',
+                                info: '猪肉(肥瘦适中),大葱',
+                                img: 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1778258153,1719694364&fm=26&gp=0.jpg'
+                            }, {
+                                name: '北冰洋听',
+                                price: '5',
+                                info: '香菇，木耳，鸡蛋',
+                                img: 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=236960007,561190420&fm=15&gp=0.jpg'
+                            }, {
+                                name: '冰红茶',
+                                price: '4',
+                                info: '香菇，木耳，鸡蛋',
+                                img: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2077900526,3951155038&fm=26&gp=0.jpg'
+                            }, {
+                                name: '绿茶',
+                                price: '4',
+                                info: '香菇，木耳，鸡蛋',
+                                img: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2077900526,3951155038&fm=26&gp=0.jpg'
+                            }]
+                        }, {
+                            ltypes: '庆丰新品',
+                            food: [{
+                                name: '特色小包点',
+                                price: '6',
+                                info: '下午茶小点心椒盐黑芝麻',
+                                img: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=4145667057,3880337190&fm=11&gp=0.jpg'
+                            }]
+                        }
+                    ]
+                }
+            }
+        })
+       
+        var component2 = Vue.component('bc-input-number',{
+            template:'#intNumber',
+            props:['value','step','max','min'],
+            data(){
+                return {
+                    v : this.value,
+                }
+            },
+            watch:{
+                v(val,oldvalue){
+                    if(val>=this.max){
+                        val = this.max
+                    }
+                    if(val<=this.min){
+                        val = this.min
+                    }
+                    this.$emit('input',val)
+                },
+            },
+            methods:{
+                next(){
+                    if(this.v>=this.max){
+                        this.v = this.max;
+                        return;
+                    }
+                    this.v += this.step || 1;
+                },
+                prev(){
+                    if(this.v<=this.min){
+                        this.v = this.min
+                        return;
+                    }
+                    this.v -= this.step || 1;
+                }
+            }
+        })
+
+        var vm = new Vue({
+            el:'#app',
+            data:{
+                value: 0,
+            },
+            methods:{
+               
+            }
+        })
+    </script>
+</body>
+
+</html>

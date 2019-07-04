@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>菜单</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		
+      <style>
+			* {
+				margin: 0;
+				padding: 0;
+				list-style: none;
+			}
+			
+			.header {
+				width: 100%;
+				height: 50px;
+				font-size: 20px;
+				line-height: 50px;
+				text-align: center;
+			}
+			
+			.nav {
+				width: 100%;
+				height: 50px;
+				border: 1px solid #000;
+			}
+			
+			.nav .zi {
+				float: left;
+				width: 107px;
+				border-right: 1px solid #000;
+				line-height: 50px;
+				text-align: center;
+			}
+			
+			#app {
+				width: 435px;
+				margin: 0 auto;
+				height: 800px;
+			}
+			
+			a {
+				text-decoration: none;
+				height: 49px;
+				background-color: lightblue;
+				line-height: 50px;
+				text-align: center;
+				display: block;
+				border-bottom: 1px solid #000;
+			}
+			
+			.box {
+				border: 1px solid #ccc;
+				height: 800px;
+			}
+			
+			.tab {
+				width: 100px;
+				height: 800px;
+				float: left;
+			}
+			.dli-l{
+				float: left;
+				width: 30%;
+				height: 100%;
+			}
+			.dli-l img{
+				width: 100px;
+				height: 100px;
+				
+				float: left;
+			}
+			.dli-r{
+				
+				width: 120px;
+				height: 120px;
+				float: left;
+				
+			}
+			.dli-r p{
+				font-size: 24px;
+				font-weight: 100;
+				margin-bottom: 24px;
+				
+			}
+			.dli-r span:nth-child(2){
+				color: orange;
+				font-size: 16px;
+				
+				text-align: left;
+				padding-top: 24px;
+			}
+			.one{
+				float: right;
+				
+			}
+			.one button{
+				width: 30px;
+				height: 30px;
+				border-radius: 50%;
+				text-align:center;
+				line-height: 30px;
+				display: inline-block;
+				outline-style: none;
+				
+				background-color: rgba(250,250,18,.5);
+			}
+			.footer {
+            width: 435px;
+            height: 80px;
+            background: lavenderblush;
+            position: fixed;
+            bottom: 0;
+            line-height: 80px;
+            padding-left: 20px;
+            font-size: 24px;
+            box-sizing: border-box;
+        }
+
+        .footer a {
+            text-align: center;
+            float: right;
+            color: #fff;
+            width: 140px;
+            height: 80px;
+            line-height: 80px;
+            background-color: paleturquoise;
+           
+        }
+        </style>
+		<script type="text/javascript" src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+		
+	</head>
+	<body>
+		<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+		<div id="app">
+			<div class="header">
+				<p>&lt;庆丰包子铺(窦店)</p>
+			</div>
+			<div class="nav">
+				<div class="zi">点餐</div>
+				<div class="zi">评价</div>
+				<div class="zi">商家</div>
+			</div>
+			<div class="tab">
+				<a href="javascript:;" @click="tabId=index"v-for="(i,index) in arr" class="{tabId=0}">{{i.type}}</a>
+			</div>
+			<div class="box">
+				<div v-if="tabId == index" v-for="(o,index) in arr" :key="index">
+					<li class="dli" v-for="(i,index) in o.list" :key="index">
+						<div class="dli-l"><img :src="i.img" /></div>
+						<div class="dli-r">
+							<p>{{i.name}}</p>
+							<span>{{i.jiage}}</span>
+							<div class="one">
+								<button>-</button>
+								<span>{{i.num}}</span>
+								<button>+</button>
+							</div>
+						</div>
+					</li>
+				</div>
+			</div>
+			<footer class='footer'>
+                    总价:元
+                    
+                    <a href="#">去结算</a>
+                </footer>
+		</div>		
+	</body>
+	<script>
+		new Vue({
+			el:'#app',
+			data: {
+					tabId: 0,
+					arr: [{
+						type: '热销',
+						list: [{
+							name: "南瓜粥",
+							img: "8.jpg",
+							jiage: '￥15',
+							num: '0'
+						}, {
+							name: "山东大包子",
+							img: "0.jpg",
+							jiage: '￥1.5',
+							num: '0'
+						}, {
+							name: "紫菜蛋花汤",
+							img: "2.jpg",
+							jiage: '￥5',
+							num: '0'
+						}, {
+							name: "凉面",
+							img: "9.jpg",
+							jiage: '￥15',
+							num: '0'
+						}, {
+							name: "小炒牦牛肉",
+							img: "3.jpg",
+							jiage: '￥32',
+							num: '0'
+						},  ]
+					}, {
+						type: '水饺',
+						list: [{
+							name: "雪菜水饺",
+							img: "0.jpg",
+							jiage: '￥2',
+							num: '0'
+						}, {
+							name: "羊肉包子",
+							img: "0.jpg",
+							jiage: '￥2',
+							num: '0'
+						}, ]
+					}, {
+						type: '流食',
+						list: [{
+							name: "南瓜山药粥",
+							img: "8.jpg",
+							jiage: '￥5',
+							num: '0'
+						}, {
+							name: "紫菜蛋花汤",
+							img: "8.jpg",
+							jiage: '￥5',
+							num: '0'
+						}, 
+						]
+					}, {
+						type: '热饮',
+						list: [{
+							name: "雪碧",
+							img: "4.jpg",
+							jiage: '￥11.8',
+							num: '0'
+						}, {
+							name: "可乐",
+							img: "6.jpg",
+							jiage: '￥11.8',
+							num: '0'
+						},
+						
+						{
+							name: "维他命",
+							img: "7.jpg",
+							jiage: '￥11.8',
+							num: '0'
+						},
+						{
+							name: "可乐",
+							img: "1.jpg",
+							jiage: '￥11.8',
+							num: '0'
+						},]
+					}, {
+						type: '糕点',
+						list: [{
+							name: "蛋糕",
+							img: "6.jpg",
+							jiage: '￥118',
+							num: '0'
+						}, {
+							name: "甜甜圈",
+							img: "7.jpg",
+							jiage: '￥10',
+							num: '0'
+						}]
+					}, {
+						type: '酒水',
+						list: [{
+							name: "可口可乐",
+							img: "4.jpg",
+							jiage: '￥11.8',
+							num: '0'
+						}, {
+							name: "维他奶",
+							img: "5.jpg",
+							jiage: '￥11.8',
+							num: '0'
+						}]
+					}, {
+						type: '零食',
+						list: [{
+							name: "三只松鼠",
+							img: "6.jpg",
+							jiage: '￥11.8',
+							num: '0'
+						}, {
+							name: "鸭脖",
+							img: "4.jpg",
+							jiage: '￥11.8',
+							num: '0'
+						}]
+					}, {
+						type: '快餐',
+						list: [{
+							name: "火锅",
+							img: "3.jpg",
+							jiage: '￥11.8',
+							num: '0'
+						}, {
+							name: "豆浆饮品",
+							img: "5.jpg",
+							jiage: '￥11.8',
+							num: '0'
+						}] 
+						}]
+					} 		
+				})
+//				methods:{
+//					
+//				},
+//				computed:{
+//					
+//				},
+//				watch:{
+//					
+//				},
+
+				
+	</script>
+</html>

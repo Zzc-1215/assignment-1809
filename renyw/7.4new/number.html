@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+    <style>
+        #app{
+            margin: 150px auto 0;
+            height: 150px;
+            width:300px;
+        }
+        .box{
+            width: 240px;
+            height: 60px;
+        }
+        .box *{
+            float: left;
+        }
+        .box span{
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            line-height: 30px;
+            text-align: center;
+            border: 1px solid orange;
+            font-size: 20px;
+            user-select: none;
+            cursor: pointer;
+        }
+        .prev{
+            color: orange;
+        }
+        .next{
+            background: orange;
+            color: #fff;
+        }
+        .int{
+            width: 80px;
+            height: 30px;
+            margin: 0 20px;
+            padding: 0 10px;
+        }
+        .show{
+            height: 40px;
+            line-height: 40px;
+            margin-left: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <bc-input-number v-model="value" :step="2" :max="10" :min="0"></bc-input-number>
+        <div class="show">{{value}}</div>
+    </div>
+    <template id="intNumber">
+        <div class="box">
+            <span class="prev" @click="prev">-</span>
+            <input type="text" class="int" v-model="v">
+            <span class="next" @click="next">+</span>
+        </div>
+    </template>
+    <script>
+        var component = Vue.component('bc-input-number',{
+            template:'#intNumber',
+            props:['value','step','max','min'],
+            data(){
+                return {
+                    v : this.value,
+                }
+            },
+            watch:{
+                v(val,oldvalue){
+                    if(val>=this.max){
+                        val = this.max
+                    }
+                    if(val<=this.min){
+                        val = this.min
+                    }
+                    this.$emit('input',val)
+                },
+            },
+            methods:{
+                next(){
+                    if(this.v>=this.max){
+                        this.v = this.max;
+                        return;
+                    }
+                    this.v += this.step || 1;
+                },
+                prev(){
+                    if(this.v<=this.min){
+                        this.v = this.min
+                        return;
+                    }
+                    this.v -= this.step || 1;
+                }
+            }
+        })
+
+        var vm = new Vue({
+            el:'#app',
+            data:{
+                value: 0,
+            },
+            methods:{
+               
+            }
+        })
+    </script>
+</body>
+</html>
