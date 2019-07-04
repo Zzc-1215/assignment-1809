@@ -19,11 +19,11 @@
 		<template id="shop">
 			<div class="box">
 				<ul class="list">
-					<li :class="num==index?'active':''" @click="num==index" v-for="(cont,index) in foods">{{cont.class}}</li>
+					<li :class="snum==index?'active':''" @click="snum=index" v-for="(cont,index) in shops">{{cont.class}}</li>
 				</ul>
 				<div class="cont">
-					<div v-if="num==i" v-for="(item,i) in foods">
-						{{num}}
+					<div v-if="snum==i" v-for="(item,i) in shops">
+						<!--{{num}}-->
 						<div class="content clearfix" v-for="(cont,i) in item.arr">
 							<div class="left">
 								<img :src="cont.img" />
@@ -46,8 +46,8 @@
 				template: '#shop',
 				data() {
 					return {
-						num: 0,
-						foods: [{
+						snum: 0,
+						shops: [{
 								class: '水饺',
 								arr: [{
 										name: '三鲜水饺',

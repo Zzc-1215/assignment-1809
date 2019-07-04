@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .el-input-number {
+            position: relative;
+            display: inline-block;
+            width: 150px;
+            line-height: 38px;
+        }
+
+        .el-input-number span {
+            position: absolute;
+            z-index: 1;
+            top: 1px;
+            width: 40px;
+            height: auto;
+            text-align: center;
+            background: #f5f7fa;
+            color: #FFF;
+            cursor: pointer;
+            font-size: 13px;
+            border-radius: 50%;
+            font-size: 20px;
+        }
+        .el-input-number span:nth-child(1){
+            border: solid 1px #43a5f5;
+            color: #000
+        }
+        .el-input-number span:nth-child(2){
+           background: #43a5f5;
+           color: #FFF;
+        }
+        .el-input input {
+            -webkit-appearance: none;
+            background-color: #fff;
+            background-image: none;
+            border-radius: 4px;
+            border: 1px solid #43a5f5;
+            box-sizing: border-box;
+            color: #606266;
+            display: inline-block;
+            font-size: inherit;
+            height: 40px;
+            line-height: 1;
+            outline: none;
+            padding: 0 40px 0 45px;
+            transition: border-color .2s cubic-bezier(.645, .045, .355, 1);
+            width: 100%;
+            border-radius: 20px;
+        }
+
+        .el-input-number__increase {
+            left: none;
+            right: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <bc-input-number v-model="value"  :max="10" :min="1"></bc-input-number>
+    </div>
+    <template id="inputNumber">
+        <div class="el-input-number">
+            <span @click="reduce" role="button" class="el-input-number__decrease is-disabled">
+                -<i class="el-icon-minus"></i>
+            </span>
+            <span @click="plus" role="button" class="el-input-number__increase">
+                +<i class="el-icon-plus"></i>
+            </span>
+            <div class="el-input">
+                <input type="text" :value="v" disabled>
+            </div>
+        </div>
+    </template>
+</body>
+<script src="vue.js"></script>
+<script>
+    // Vue.component('bc-input-number');
+    Vue.component('bc-input-number', {
+        template: '#inputNumber',
+         props:['value','max','min','step'],
+         data(){
+            return{
+                v:this.value
+            }
+         },
+         watch:{
+             v(val,oldvalue){
+                this.$emit('input',val)
+             }
+         },
+        methods:{
+            plus(){
+                if (this.v>=this.max) {
+                    return
+                }
+                this.v++
+            },
+            reduce(){
+                if (this.v<=this.min) {
+                    return
+                }
+                this.v--
+            },
+        }
+    })
+
+    // Vue.component('abc', {
+    //     template: '',
+    //     data() {
+    //         return {
+    //             abc: 1,
+    //         }
+    //     },
+    //     methods: {
+
+    //     }
+    // })
+
+
+    new Vue({
+        el: '#app',
+        data:{
+            value:1,
+        },
+    })
+
+</script>
+
+</html>
