@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+	*{
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		text-decoration: none;
+	}
+	#app{
+		width: 500px;
+		height: 300px;
+		overflow: hidden;
+		position: relative;
+	}
+	#app ul{
+		width: 3000px;
+		height: 300px;
+	}
+	#app ul li{
+		width: 500px;
+		height: 300px;
+		text-align: center;
+		line-height: 300px;
+		font-size: 30px;
+		float: left;
+		display: none;
+	}
+	#app ul li img{
+		width: 100%;
+		height: 100%;
+	}
+	#app ul li.block{
+		display: block;
+	}
+	.left_btn,.right_btn{
+		position: absolute;
+		top: 40%;
+		/*按钮样式*/
+		font-size: 30px;
+		width: 30px;
+		height: 30px;
+		line-height: 30px;
+		text-align: center;
+		color:#fff;
+		background-color: #000;
+		border-radius: 50%;
+		transform: scale(0);
+		transition: 1s;
+	}
+	.left_btn{
+		left: 0;
+	}
+	.right_btn{
+		right: 0;
+	}
+	p{
+		display: block;
+		width: 40px;
+		height: 20px;
+		text-align: center;
+		background-color: #fff;
+		position: absolute;
+		right: 2px;
+		bottom: 2px;
+
+	}
+	.btn_block{
+		
+		transform: scale(1);
+	}
+	</style>
+</head>
+<body>
+	<div id="app" v-move:a>
+		<a href="javaScript:;" class="left_btn" @click='left' :class="{btn_block:blocks}" ><</a>
+		<a href="javaScript:;" class="right_btn" @click='right' :class="{btn_block:blocks}" >></a>
+		<ul>
+			<li v-for='(item,index) in len' :class='{block:num==index}'>
+				<img :src="imgs[item]"alt="">
+			</li>
+		</ul>
+		<!--  展示目前是第几页  和  共几页 -->
+		<p><span>{{num+1}}</span>/{{len}}</p>
+	</div>
+	
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script>	
+		Vue.directive('move',function(el,binding){
+			if(binding.arg=='a'){
+				var left=document.getElementById('left');
+				var right=document.getElementById('right');
+			}	
+			el.onmouseover=function(){
+				vm.blocks=true;
+			}
+			el.onmouseout=function(){
+				vm.blocks=false;
+			}
+		})
+		var vm=new Vue({
+			el:'#app',
+			data(){
+				return{
+					// 存放图片
+					imgs:[
+					'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2856329142,1347550513&fm=26&gp=0.jpg', 
+					'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3132213195,2067636714&fm=26&gp=0.jpg', 
+					'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=848821488,3771646622&fm=26&gp=0.jpg', 
+					'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=458765403,2037417251&fm=26&gp=0.jpg', 
+					'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2152969308,1011739815&fm=26&gp=0.jpg', 
+					'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=4093392546,1776354355&fm=26&gp=0.jpg'],
+					show:true,
+					// 定义li长度
+					len:0,
+					// 定义点击次数·
+					num:0,
+					blocks:false
+				}
+			},
+			mounted: function() {
+				// 让li的长度 等于图片鸡的长度 
+				this.len = this.imgs.length 
+			},
+			methods:{
+				left(){
+					this.num--
+					if(this.num<0){
+						this.num=this.len-1
+					}
+					console.log(this.num,this.len)
+				},
+				right(){
+					this.num++
+					if(this.num>this.len-1){
+						this.num=0
+					}
+					console.log(this.num,this.len)
+				}
+			}
+		})
+	</script>
+</body>
+</html>
