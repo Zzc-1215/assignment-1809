@@ -38,7 +38,9 @@
 			position: absolute;
 			top: 0;
 			left: 0;
-	 		/*display: none;*/
+			text-align: center;
+			line-height: 54px;
+	 		display: none;
 	 	}
 	 	#app .protitle{
 	 		line-height: 26px;
@@ -80,17 +82,17 @@
 				<td style="width: 80px;">备注</td>
 			</tr>
 			<tr v-for="product in products">
-				<td>{{product.name}}
-					<input type="text" v-model="product.name" name="">
+				<td @click.self="showInput">{{product.name}}
+					<input type="text" v-model="product.name" name="" @blur="hideInput">
 				</td>
-				<td>{{product.price}}
-					<input type="text" v-model="product.price" name="">
+				<td @click.self="showInput">{{product.price}}
+					<input type="text" v-model="product.price" name="" @blur="hideInput">
 				</td>
-				<td>{{product.num}}
-					<input type="text" v-model="product.num" name="">
+				<td @click.self="showInput">{{product.num}}
+					<input type="text" v-model="product.num" name="" @blur="hideInput">
 				</td>
-				<td>{{product.beizhu}}
-					<input type="text" v-model="product.beizhu" name="">
+				<td @click.self="showInput">{{product.beizhu}}
+					<input type="text" v-model="product.beizhu" name="" @blur="hideInput">
 				</td>
 			</tr>
 			<tfoot>
@@ -142,14 +144,14 @@
 				return daxie;
 			}
 		},
-		// methods:{
-		// 	showInput(e){
-		// 		e.target.children[0].style.display = 'block'
-		// 	},
-		// 	hideInput(e){
-		// 		e.target.style.display = 'none'
-		// 	}
-		// },
+		methods:{
+			showInput(e){
+				e.target.children[0].style.display = 'block'
+			},
+			hideInput(e){
+				e.target.style.display = 'none'
+			}
+		},
 		computed:{
 			productsLength(){
 				return this.products.length
