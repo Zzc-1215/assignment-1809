@@ -1,0 +1,100 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <style>
+        #cc {
+            width: 40px;
+            height: 46px;
+            background: #e5e9f2;
+            float: left;
+            border: none;
+            border-radius: 10px 0 0 10px
+        }
+        
+        #cc1 {
+            width: 40px;
+            height: 46px;
+            background: lightblue;
+            float: left;
+            border: none;
+            border-radius: 0px 10px 10px 0px
+        }
+        
+        input {
+            width: 60px;
+            height: 42px;
+            text-align: center;
+            line-height: 41px;
+            float: left;
+            outline-style: none;
+            border: 1px solid #e5e9f2
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        {{msg}}
+        <el-input-number v-model="msg" @event-a="msg=$event" :disabled="false"></el-input-number>
+        <!-- <el-input-number v-model="msg" @event-a="msg=$event" :disabled="true"></el-input-number> -->
+    </div>
+</body>
+<script>
+    Vue.component('el-input-number', {
+        props: ['value', 'max', 'min', 'step', 'disabled'],
+        data() {
+            return {
+                msg: 10,
+                value1: this.value,
+                num: 5,
+                ma: 50,
+                mi: 0
+            }
+        },
+        watch: {
+            value1(value, oldvalue) {
+                this.$emit('event-a', value)
+            }
+        },
+        methods: {
+            jia() {
+                this.value1++
+                    this.value1 += this.step || 4;
+                if (this.value1 >= this.ma) {
+                    this.value1 = this.ma;
+                    return;
+                };
+
+            },
+            jian() {
+                this.value1--
+                    this.value1 -= this.step || 4;
+                if (this.value1 <= this.mi || 0) {
+                    this.value1 = this.mi || 0;
+                    return;
+                }
+            },
+        },
+        template: `
+        <div id="box">
+            <button @click="jian" id="cc" :disabled="disabled">-</button>
+            <input type="text" v-model="value1" :disabled="disabled">
+            <button @click="jia" id="cc1" :disabled="disabled">+</button>
+        </div>
+        `
+    })
+    new Vue({
+        data: {
+            msg: 10
+        },
+    }).$mount('#app')
+</script>
+
+</html>
