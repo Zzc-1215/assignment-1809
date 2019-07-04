@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<style>
+	*{
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+	}
+	.el-input-number {
+		position: relative;
+		display: inline-block;
+		width: 70px;
+	}
+	.el-input-number__decrease, .el-input-number__increase {
+		position: absolute;
+		z-index: 1;
+		width: 20px;
+		height: 20px;
+		border-radius: 50%;
+		text-align: center;
+		background: #00ffe7d4;
+		color: #000;
+		cursor: pointer;
+	}
+	.el-input-number__decrease{
+		left: 0;
+	}
+	.el-input-number__increase{
+		right: 0;
+	}
+	.el-input input {
+		text-align: center;
+		color: #606266;
+		display: inline-block;
+		height: 20px;
+		line-height: 20px;
+		outline: none;
+		border:none;
+		width: 100%;
+	}
+</style>
+</head>
+<body>
+	<div id="app">
+		<bc-input-number v-model='value' :max='10' :min='0' ></bc-input-number>
+	</div>
+	<template id="inputNumber">
+		<div class="el-input-number">
+			<span role="button" class="el-input-number__decrease" @click='jian()'>-</span>
+			<span role="button" class="el-input-number__increase" @click='jia()'>+</span>
+			<div class="el-input">
+				<input type="text" v-model='v'>
+			</div>
+		</div>
+	</template>
+	<script>
+		Vue.component('bcInputNumber',{
+			template:'#inputNumber',
+			props:['value','max','min'],
+			data(){
+				return{
+					v:this.value
+				}
+			},
+			watch:{
+				v(val,oldvalue){
+					this.$emit('input',val)
+					console.log(this.val)
+					// if(val>=this.max){val=this.max}
+					// if(val<=this.min){val=this.min}
+				}
+			},
+			methods:{
+				jia(){
+					if(this.v>=this.max) return
+					this.v ++
+				},
+				jian(){
+					if(this.v<=this.min) return
+					this.v --
+				}
+			}
+		})
+		var vm=new Vue({
+			el:'#app',
+			data(){
+				return{
+					value:'1'
+				}
+			}
+		})
+	</script>
+</body>
+</html>
