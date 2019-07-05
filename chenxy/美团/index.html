@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>美团订单</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="download/font_1274565_vedsi9g9ep/iconfont.css">
+    <script src="flexible/flexible.js"></script>
+    <script src="flexible/flexible_css.js"></script>
+</head>
+<body>
+    <div class="box">
+        <ul class="main">
+            <!-- 列表 -->
+            <ul class="list">
+                <li @click="qiehuan(index)" v-for="(i,index) in arr"><a href="javascript:;">{{i.feilei}}</a></li>
+            </ul>
+            <!-- 菜单 -->
+                <div class="mainRight">
+                    <zhu-ti v-for="(value,key) in arr" :key="key" :detial='value'>
+
+                    </zhu-ti>
+                </div>
+        </ul>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var component = Vue.component('zhu-ti',{
+            props:['detial'],
+            template:'<div class="item"><div class="img"><img :src="detial.xiangqing.img" alt=""/></div><div class="wen"><h3>{{detial.xiangqing.name}}</h3><p>{{detial.xiangqing.jieshao}}</p><span>￥{{detial.xiangqing.jg}}</span></div></div>'
+        })
+
+        new Vue({
+            el:'.box',
+            data(){
+                return{
+                    num:'',
+                    arr:[
+                        {
+                            feilei:'热销',
+                            xiangqing:{
+                                img:'1.jpg',
+                                name:'素三鲜水饺',
+                                jieshao:'面粉、水、素三鲜',
+                                jg:'15'
+                            }
+                        },
+                        {
+                            feilei:'盖饭',
+                            xiangqing:{
+                                img:'1.jpg',
+                                name:'盖饭',
+                                jieshao:'米饭、蔬菜、汤',
+                                jg:'15'
+                            } 
+                        },
+                        {
+                            feilei:'水果',
+                            xiangqing:{
+                                img:'1.jpg',
+                                name:'新鲜水果',
+                                jieshao:'苹果、柚子、油桃、西瓜',
+                                jg:'25'
+                            }
+                        },
+                        {
+                            feilei:'饮料',
+                            xiangqing:{
+                                img:'1.jpg',
+                                name:'鲜榨果汁',
+                                jieshao:'柠檬汁、蔬菜汁、西瓜汁',
+                                jg:'5'
+                            }
+                        }
+                    ]
+                }
+            },
+            methods:{
+                qiehuan(index){
+                    this.num = this.arr[index];
+                }
+            }
+        })
+
+    </script>
+</body>
+</html>

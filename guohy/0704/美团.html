@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="美团.css">
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script>
+		window.onload=function(){
+			document.documentElement.style.fontSize=document.documentElement.clientWidth/640*100+'px';
+			window.onresize=function(){
+				document.documentElement.style.fontSize=document.documentElement.clientWidth/640*100+'px'
+			}
+		}
+	</script>
+	
+	
+</head>
+<body>
+	<div id="app">
+		<bc-input-number></bc-input-number>	
+	</div>
+	<template id='layoutBox'>
+		<div class="layout">
+			<div class="header">
+				<img src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2640812315,2741774749&fm=26&gp=0.jpg" alt="">
+			</div>
+			<div class="cainter clearfix">
+				<ul class="fl">
+					<li v-for='(item,index) in foodsList
+					' :class="{'active':i==index}" @click='btn(index)' >{{foodsList[index].category}}</li>
+				</ul>
+				<div class="right fr">
+					<div class="content clearfix" v-for='(item,index) in foodsList[i].foods'>
+						<div class="img fl">
+							<img :src="item.img">
+						</div>
+						<div class="cont fr">
+							<h4>{{item.title}}</h4>
+							<p><span>{{item.price}}</span></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</template>
+	<script>
+		Vue.component('bcInputNumber',{
+			template:'#layoutBox',
+			data(){
+				return {
+					foodsList: [{
+						category: '热销',
+						foods: [{
+							img: 'http://img2.imgtn.bdimg.com/it/u=2739649437,183959597&fm=26&gp=0.jpg',
+							title: '猪肉大葱',
+							price: '￥8'
+						}, {
+							img: 'http://img2.imgtn.bdimg.com/it/u=2739649437,183959597&fm=26&gp=0.jpg',
+							title: '素三鲜',
+							price: '￥9'
+						}, {
+							img: 'http://img2.imgtn.bdimg.com/it/u=2739649437,183959597&fm=26&gp=0.jpg',
+							title: '茶鸡蛋',
+							price: '￥2'
+						},{
+							img: 'http://img2.imgtn.bdimg.com/it/u=2739649437,183959597&fm=26&gp=0.jpg',
+							title: '棒渣粥',
+							price: '￥2'
+						} ]
+					}, {
+						category: '水饺',
+						foods: [{
+							img: 'http://img3.imgtn.bdimg.com/it/u=3269436901,2466451758&fm=26&gp=0.jpg',
+							title: '猪肉白菜水饺',
+							price: '￥16'
+						}, {
+							img: 'http://img3.imgtn.bdimg.com/it/u=3269436901,2466451758&fm=26&gp=0.jpg',
+							title: '鱿鱼三鲜水饺',
+							price: '￥20'
+						}, {
+							img: 'http://img3.imgtn.bdimg.com/it/u=3269436901,2466451758&fm=26&gp=0.jpg',
+							title: '牛肉芹菜水饺',
+							price: '￥22'
+						},{
+							img: 'http://img3.imgtn.bdimg.com/it/u=3269436901,2466451758&fm=26&gp=0.jpg',
+							title: '虾仁三鲜水饺',
+							price: '￥22'
+						} ]
+					}, {
+						category: '包子',
+						foods: [{
+							img: 'http://img5.imgtn.bdimg.com/it/u=3244915043,2433641974&fm=26&gp=0.jpg',
+							title: '鲜虾菜心',
+							price: '￥9'
+						}, {
+							img: 'http://img5.imgtn.bdimg.com/it/u=3244915043,2433641974&fm=26&gp=0.jpg',
+							title: '猪肉大葱',
+							price: '￥8',
+						}, {
+							img: 'http://img5.imgtn.bdimg.com/it/u=3244915043,2433641974&fm=26&gp=0.jpg',
+							title: '素三鲜',
+							price: '￥9',
+						},{
+							img: 'http://img5.imgtn.bdimg.com/it/u=3244915043,2433641974&fm=26&gp=0.jpg',
+							title: '唐僧肉',
+							price: '￥99',
+						} ]
+					},{
+						category: '凉菜',
+						foods: [{
+							img: 'http://img0.imgtn.bdimg.com/it/u=343833200,2029305292&fm=26&gp=0.jpg',
+							title: '茶鸡蛋',
+							price: '￥2'
+						}, {
+							img: 'http://img0.imgtn.bdimg.com/it/u=343833200,2029305292&fm=26&gp=0.jpg',
+							title: '奥尔良鸡翅',
+							price: '￥23',
+						}, {
+							img: 'http://img0.imgtn.bdimg.com/it/u=343833200,2029305292&fm=26&gp=0.jpg',
+							title: '果仁菠菜',
+							price: '￥8',
+						},{
+							img: 'http://img0.imgtn.bdimg.com/it/u=343833200,2029305292&fm=26&gp=0.jpg',
+							title: '五香鸡爪',
+							price: '￥13',
+						} ]
+					}],
+					list:[],
+					i:0,
+					len:0,
+				}
+			},
+			// mounted: function() {
+			// 	this.len = this.foodsList.length 
+			// 	console.log(this.len)
+			// },
+			methods:{
+				btn(index){
+					this.i = index;
+				}
+			},
+		})
+		var vm= new Vue({
+			el:'#app',
+
+		})
+	</script>
+</body>
+</html>

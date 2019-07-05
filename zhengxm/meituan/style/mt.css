@@ -1,0 +1,70 @@
+* {
+  padding: 0;
+  margin: 0; }
+
+#container {
+  width: 640px; }
+
+#head {
+  width: 640px;
+  height: 150px;
+  background-color: black;
+  margin-bottom: 40px; }
+
+.header {
+  width: 640px;
+  height: 100px; }
+
+.img {
+  width: 100px;
+  height: 100px;
+  background-image: url("https://p1.meituan.net/waimaipoi/fe855c2d109af3e313202e20ea891a2635675.jpg");
+  background-size: 100%;
+  background-repeat: no-repeat;
+  margin-left: 10px; }
+
+.left {
+  width: 140px;
+  height: 700px;
+  margin-left: 10px;
+  background-color: antiquewhite;
+  float: left; }
+
+.left li {
+  margin-bottom: 10px;
+  line-height: 40px;
+  text-align: center;
+  background-color: coral; }
+
+.active {
+  background-color: aqua; }
+
+.right {
+  width: 400px;
+  float: left;
+  margin-left: 20px; }
+
+.right li {
+  min-height: 100px;
+  margin-bottom: 10px; }
+
+.right li img {
+  float: left;
+  width: 100px;
+  height: 100px; }
+
+.r {
+  float: left;
+  margin-left: 10px; }
+
+.r h1 {
+  font-size: 20px;
+  margin-bottom: 10px; }
+
+.r span {
+  font-size: 20px;
+  margin-bottom: 10px; }
+
+.r p {
+  width: 260px;
+  font-size: 12px; }

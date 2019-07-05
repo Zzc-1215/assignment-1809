@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+			user-select: none;
+		}
+		[v-cloak]{
+			display: none;
+		}
+		#app{
+			width: 200px;
+			height: 100px;
+			margin: 80px auto;
+		}
+		.el-input-number {
+		    position: relative;
+		    display: inline-block;
+		    width: 180px;
+		    line-height: 38px;
+		}
+		.el-input-number__decrease {
+		    left: 1px;
+		    /*border-radius: 4px 0 0 4px;*/
+		    background: #f5f7fa;
+		    border: 1px solid #dcdfe6;
+		}
+		.el-input-number__increase {
+		    right: 1px;
+		    /*border-radius: 0 4px 4px 0;*/
+		    background-color: #ff6;
+		}
+		.el-input-number__decrease, .el-input-number__increase {
+		    position: absolute;
+		    z-index: 1;
+		    top: 1px;
+		    width: 40px;
+		    height: 40px;
+		    text-align: center;
+		    color: #606266;
+		    cursor: pointer;
+		    font-size: 13px; 
+		    border-radius: 50%;
+		    font-size: 28px;
+		}
+		.el-input {
+		    position: relative;
+		    font-size: 14px;
+		    display: inline-block;
+		    width: 60px;
+		    margin-left: 60px;
+		}
+		.el-input-number .el-input__inner {
+		    -webkit-appearance: none;
+		    padding-left: 20px;
+		    padding-right: 20px;
+		    text-align: center;
+		}
+		.el-input__inner {
+		    -webkit-appearance: none;
+		    background-color: #fff;
+		    background-image: none;
+		    border-radius: 4px;
+		    /*border: 1px solid #dcdfe6;*/
+		    border: none;
+		    box-sizing: border-box;
+		    color: #606266;
+		    display: inline-block;
+		    font-size: inherit;
+		    height: 40px;
+		    line-height: 1;
+		    outline: none;
+		    padding: 0 15px;
+		    transition: border-color .2s cubic-bezier(.645,.045,.355,1);
+		    width: 100%;
+		}
+	</style>
+</head>
+<body>
+	<div id="app" v-cloak>
+		<bc-input-number v-model="value" :max='10' :min='0' :step="2"></bc-input-number>
+	</div>
+	<template id="inputNumber">
+		<div class="el-input-number">
+			<span @click="jia" role="button" class="el-input-number__decrease">
+				+
+			</span>
+			<span @click="jian" role="button" class="el-input-number__increase">
+				-
+			</span>
+			<div class="el-input">
+				<input type="text" v-model="v" readonly rows="2" max="Infinity" min="-Infinity" validateevent="true" class="el-input__inner">
+			</div>
+		</div>
+	</template>
+</body>
+<script type="text/javascript">
+	Vue.component('bcInputNumber',{
+		template:'#inputNumber',
+		props:['value','max','min','step'],
+		data(){
+			return{
+				v:this.value,
+			}
+		},
+		// computed:{
+		// 	v:{
+		// 		get(){
+		// 			return this.value;
+		// 		},
+		// 		set(){
+		// 			this.v1 = value;
+		// 		}
+		// 	}
+		// },
+		watch:{
+			v(val,oldvalue){
+				this.$emit('input',val)
+			}
+		},
+		methods:{
+			jia(){
+				if(this.v >= this.max) return
+				this.v += this.step || 1;
+			},
+			jian(){
+				if(this.v <= this.min) return 
+				this.v -= this.step || 1;
+			}
+		}
+	})
+
+	var vm = new Vue({
+		el:'#app',
+		data(){
+			return {
+				 value:1
+			}
+		}
+	})
+</script>
+</html>

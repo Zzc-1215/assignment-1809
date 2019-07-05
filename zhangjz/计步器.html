@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>计步器</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .content {
+            width: 100px;
+            margin: 50px auto;
+        }
+
+        button {
+            border: none;
+            width: 30px;
+            height: 30px;
+            outline: none;
+            cursor: pointer;
+        }
+
+        input {
+            width: 30px;
+            height: 30px;
+            box-sizing: border-box;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root">
+        <bc-input-number v-model="num" :max="10" :min="0" :step="2"></bc-input-number>
+        {{num}}
+    </div>
+
+    <template id="inputNumber">
+        <div class="content">
+            <button @click="sub()">-</button><input type="text" v-model="v" readonly><button @click="add()">+</button>
+        </div>
+    </template>
+</body>
+<script>
+    Vue.component('bcInputNumber', {
+        template: '#inputNumber',
+        props: ['value', 'max', 'min', 'step'],
+        data() {
+            return {
+                v: this.value,
+            }
+        },
+        //监听
+        watch: {
+            v(val, oldvalue) {
+                this.$emit('input', val)
+            }
+        },
+        methods: {
+            add() {
+                if (this.v >= this.max) return
+                this.v += this.step || 1;
+                // this.$emit('input', this.v)
+            },
+            sub() {
+                if (this.v <= this.min) return
+                this.v -= this.step || 1;
+                // this.$emit('input', this.v)
+            }
+        },
+    })
+    new Vue({
+        el: "#root",
+        data: {
+            //定义计数器
+            num: 0,
+        }
+    });
+</script>
+
+</html>

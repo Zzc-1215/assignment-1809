@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=620" />
+		<script src="mobile-util.js" type="text/javascript" charset="utf-8"></script>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<style type="text/css">
+			*{margin: 0;padding: 0;list-style: none;}
+			.box{
+				width: 100%;
+				min-height: 500px;
+			}
+			.z{
+				width: 25%;
+				min-height: 400px;
+				float: left;
+			}
+			.z li{
+				width: 100%;
+				height: 50px;
+				border: 1px solid #000;
+				box-sizing: border-box;
+				text-align: center;
+				line-height: 50px;
+			}
+			.ull{
+				width: 75%;
+				float: left;
+			}
+			.div{
+				width: 85%;
+				height: 100px;
+				padding: 20px;
+			}
+			.div img{
+				width: 100px;
+				height: 100px;
+				float: left;
+			}
+			.p1{
+				font-size: 20px;
+				font-weight: bold;
+				display: inline-block;
+				margin-left: 20px;
+			}
+			.p2{
+				font-size: 20px;
+				margin-left: 36%;
+			}
+			.p3{
+				font-size: 20px;
+				margin-left: 36%;
+				margin-top: 20px;
+				color: red;
+			}
+			.cur{
+				background: royalblue;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<aaa></aaa>
+		</div>
+
+
+		<template id="lko">
+			<div class="box">
+				<div class="z">
+					<ul>
+						<li @click="fff(index)"  v-for="itt,index in msg">{{itt}}</li>
+					</ul>
+					
+				</div>
+				<ul class="ull">
+					<li v-if="index==aa" v-for="(item,index) in content">
+					<div class="div" v-for="oo in item.name">
+						<img :src="oo.img" >
+						<p class="p1">	{{oo.name1}}</p>
+						<p class="p2">	{{oo.title}}</p>
+						<p class="p3">	{{oo.money}}</p>
+					</div>
+					 
+				</li>
+				</ul>
+				
+
+
+			</div>
+		</template>
+
+
+
+		<script src="vue.js"></script>
+		
+		<script type="text/javascript">
+			new Vue({
+				el: "#app",
+				components: {
+					"aaa": {
+						data() {
+							return {
+								aa: 0,
+								msg: ['水饺', '饮品', '包子'],
+								content: [{
+										name: [{
+												img: "http://img4.imgtn.bdimg.com/it/u=3344906949,987874169&fm=26&gp=0.jpg",
+												name1: '猪肉水饺',
+												title:'6个/份',
+												money: '$8'
+											}, {
+												img: "http://img4.imgtn.bdimg.com/it/u=3344906949,987874169&fm=26&gp=0.jpg",
+												name1: '羊肉水饺',
+												title:'8个/份',
+												money: '$8'
+											}, {
+												img: "http://img4.imgtn.bdimg.com/it/u=3344906949,987874169&fm=26&gp=0.jpg",
+												name1: '酸菜水饺',
+												title:'10个/份',
+												money: '$8'
+											}],
+										},{
+										name: [{
+												img: "http://img4.imgtn.bdimg.com/it/u=3344906949,987874169&fm=26&gp=0.jpg",
+												name1: '可乐',
+												title:'肥宅快乐水',
+												money: '$3'
+											}, {
+												img: "http://img4.imgtn.bdimg.com/it/u=3344906949,987874169&fm=26&gp=0.jpg",
+												name1: '雪碧',
+												title:'肥宅快乐水',
+												money: '$3'
+											}, {
+												img: "http://img4.imgtn.bdimg.com/it/u=3344906949,987874169&fm=26&gp=0.jpg",
+												name1: '芬达',
+												title:'肥宅快乐水',
+												money: '$3'
+											}],
+										}, {
+										name: [{
+											img: "http://img4.imgtn.bdimg.com/it/u=3344906949,987874169&fm=26&gp=0.jpg",
+											name1: '大包子',
+											title:'6个/份',
+											money: '$8'
+										}, {
+											img: "http://img4.imgtn.bdimg.com/it/u=3344906949,987874169&fm=26&gp=0.jpg",
+											name1: '中包子',
+											title:'6个/份',
+											money: '$8'
+										}, {
+											img: "http://img4.imgtn.bdimg.com/it/u=3344906949,987874169&fm=26&gp=0.jpg",
+											name1: '小包',
+											title:'6个/份',
+											money: '$8'
+										}],
+									}
+
+
+								]
+								
+
+							}
+						},
+						methods: {
+							fff(index) {
+								
+								this.aa = index
+							}
+						},
+						template: `#lko`,
+					},
+
+				},
+
+			})
+		</script>
+	</body>
+</html>

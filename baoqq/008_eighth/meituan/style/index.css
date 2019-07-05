@@ -1,0 +1,145 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-size: 3.125vw;
+}
+
+.clearfix:after, .clearfix:before {
+  content: "";
+  display: table;
+}
+
+.clearfix:after {
+  clear: both;
+}
+
+.fl {
+  float: left;
+}
+
+.fr {
+  float: right;
+}
+
+.toTop {
+  width: 15.625vw;
+  height: 15.625vw;
+  line-height: 15.625vw;
+  text-align: center;
+  border-radius: 50%;
+  background: cyan;
+  position: fixed;
+  bottom: 1.5625vw;
+  right: 3.125vw;
+}
+
+.toTop a {
+  text-decoration: none;
+}
+
+.container {
+  width: 100%;
+  height: auto;
+  background: #fff;
+}
+
+.container .head {
+  width: 100%;
+  height: 15.625vw;
+  font-size: 6.25vw;
+  line-height: 15.625vw;
+  padding-left: 4.6875vw;
+  box-sizing: border-box;
+  cursor: pointer;
+  background: cyan;
+}
+
+.content {
+  width: 100%;
+  height: auto;
+}
+
+.content .list ul {
+  height: 12.5vw;
+  line-height: 9.375vw;
+  overflow: hidden;
+  border: 2px dashed #000;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.content .list ul li {
+  width: 33.33333%;
+  float: left;
+  font-size: 4.6875vw;
+  text-align: center;
+}
+
+.content .contentList {
+  width: 100%;
+  height: auto;
+}
+
+.content .contentList .orderList_l {
+  width: 20%;
+}
+
+.content .contentList .orderList_l ul {
+  width: 100%;
+}
+
+.content .contentList .orderList_l ul li {
+  width: 100%;
+  height: 23.4375vw;
+  line-height: 23.4375vw;
+  text-align: center;
+  background: #ccc;
+  border: 1px solid #000;
+  box-sizing: border-box;
+}
+
+.content .contentList .orderList_l ul li:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.content .contentList .orderList_r {
+  width: 80%;
+}
+
+.orderList_r_item {
+  margin: 1.5625vw 0 3.125vw;
+}
+
+.orderList_r_item .orderList_r_item_top {
+  width: 100%;
+}
+
+.orderList_r_item .orderList_r_item_top .orderList_r_item_l {
+  width: 30%;
+  padding: 3.125vw;
+}
+
+.orderList_r_item .orderList_r_item_top .orderList_r_item_l img {
+  width: 80%;
+  height: 80%;
+}
+
+.orderList_r_item .orderList_r_item_top .orderList_r_item_r {
+  line-height: 7.8125vw;
+}
+
+.orderList_r_item .orderList_r_item_top .orderList_r_item_r p {
+  color: #ccc;
+}
+
+.orderList_r_item .orderList_r_item_bottom {
+  width: 100%;
+  height: 6.25vw;
+  line-height: 6.25vw;
+  padding-left: 4.6875vw;
+  box-sizing: border-box;
+}
+
+.orderList_r_item .orderList_r_item_bottom a {
+  text-decoration: none;
+}

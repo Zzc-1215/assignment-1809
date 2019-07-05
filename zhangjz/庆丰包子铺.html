@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            box-sizing: border-box;
+        }
+
+        .fl {
+            float: left;
+        }
+
+        .fr {
+            float: right;
+        }
+
+        .clearfix {
+            zoom: 1;
+        }
+
+        .clearfix::after,
+        .clearfix::before {
+            content: '';
+            display: block;
+            width: 0;
+            height: 0;
+            visibility: hidden;
+            clear: both;
+        }
+
+        .content {
+            width: 720px;
+            height: 1000px;
+            margin: 0 auto;
+            background: #fafafa;
+        }
+
+        .list1 {
+            width: 160px;
+        }
+
+        .list1 li {
+            height: 60px;
+            line-height: 60px;
+            text-align: center;
+            background: #ccc;
+            margin-right: 20px;
+            border-bottom: 1px solid #000;
+            cursor: pointer;
+        }
+
+        .list2 {
+            width: 500px;
+        }
+
+        .list2 li {
+            height: 200px;
+            padding-top: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .img_box {
+            width: 180px;
+            height: 180px;
+            border-radius: 5px;
+            background: #ccc;
+            margin-right: 10px;
+        }
+
+        .img_box img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .message {}
+
+        .tit {
+            font-size: 18px;
+            font-weight: bold;
+            padding: 5px 0;
+        }
+
+        .intro {
+            font-size: 14px;
+            color: #aaa;
+            padding: 10px 0;
+        }
+
+        .hot {
+            font-size: 14px;
+            color: #aaa;
+            padding-bottom: 20px;
+        }
+
+        .hot span {
+            padding: 0 5px;
+        }
+
+        .price {
+            color: #aaa;
+            font-size: 14px;
+        }
+
+        .price em {
+            font-size: 12px;
+            color: #df5531;
+        }
+
+        .price em i {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .price em i {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .aaa {
+            background: ;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root">
+        <list></list>
+    </div>
+    <template id="steamedBunRestaurant">
+        <div class="content clearfix">
+            <ul class="list1 fl">
+                <li v-for="(i,$index) in arr" @click='click($index)'
+                    :style="{'background':acitve==$index?'red':'#ccc'}">
+                    {{i.category}}</li>
+            </ul>
+            <ol class="list2 fl">
+                <li v-for="(i,$index) in int.food">
+                    <div class="img_box fl">
+                        <img :src="i.img" alt="">
+                    </div>
+                    <div class="message fl">
+                        <p class="tit">{{i.name}}</p>
+                        <p class="intro">{{i.intro}}</p>
+                        <p class="hot">月售:<span>{{i.sell}}</span>赞:<span>{{i.praise}}</span></p>
+                        <p class="price"><em>￥<i>{{i.price}}</i></em></p>
+                    </div>
+                </li>
+            </ol>
+        </div>
+    </template>
+</body>
+<script>
+    Vue.component('list', {
+        template: '#steamedBunRestaurant',
+        // props: ['num'],
+        data() {
+            return {
+                int: {
+                    category: '包子',
+                    food: [{
+                        name: '鲜虾菜心(6个)',
+                        img: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3344906949,987874169&fm=26&gp=0.jpg',
+                        intro: '虾仁一个,万年青菜',
+                        sell: 666,
+                        praise: 66,
+                        price: 9,
+                    },
+                    {
+                        name: '猪肉大葱(6个)',
+                        img: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1562263611276&di=ed65eab8b41b76d99d5bd8cdc354e8b0&imgtype=0&src=http%3A%2F%2Fimg22.hc360.cn%2F22%2Fbusin%2F157%2F825%2Fb%2F22-157825882.jpg',
+                        intro: '正宗非洲野猪肉,买不了吃亏买不了上当',
+                        sell: 222,
+                        praise: 44,
+                        price: 8,
+                    }],
+                },
+                acitve: 0,
+                arr: [{
+                    category: '包子',
+                    food: [{
+                        name: '鲜虾菜心(6个)',
+                        img: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3344906949,987874169&fm=26&gp=0.jpg',
+                        intro: '虾仁一个,万年青菜',
+                        sell: 666,
+                        praise: 66,
+                        price: 9,
+                    },
+                    {
+                        name: '猪肉大葱(6个)',
+                        img: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1562263611276&di=ed65eab8b41b76d99d5bd8cdc354e8b0&imgtype=0&src=http%3A%2F%2Fimg22.hc360.cn%2F22%2Fbusin%2F157%2F825%2Fb%2F22-157825882.jpg',
+                        intro: '正宗非洲野猪肉,买不了吃亏买不了上当',
+                        sell: 222,
+                        praise: 44,
+                        price: 8,
+                    }],
+                },
+                {
+                    category: '粥',
+                    food: [{
+                        name: '黑米粥',
+                        img: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1562263711109&di=6209d00062f989918f4964e933b9f3b2&imgtype=0&src=http%3A%2F%2Fi5.xiachufang.com%2Fimage%2F600%2Fae77c6f6a41011e38844b8ca3aeed2d7.jpg',
+                        intro: '发霉的米',
+                        sell: 444,
+                        praise: 4,
+                        price: 4,
+                    },
+                    {
+                        name: '小米粥',
+                        img: 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=269809177,1265328030&fm=26&gp=0.jpg',
+                        intro: '长大的螨虫,仔细看',
+                        sell: 333,
+                        praise: 44,
+                        price: 2,
+                    }],
+                }]
+            }
+        },
+        methods: {
+            click(i) {
+                this.int = this.arr[i]
+                this.acitve = i;
+                console.log(this.int)
+            }
+        }
+    })
+
+
+
+
+
+    new Vue({
+        el: "#root",
+        data: {
+            num: 0,
+        }
+    })
+</script>
+
+</html>
