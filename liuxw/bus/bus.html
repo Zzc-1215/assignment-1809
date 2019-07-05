@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>购物车</title>
+    <script src="http://g.tbcdn.cn/mtb/lib-flexible/0.3.4/??flexible_css.js,flexible.js"></script>
+    <link rel="stylesheet" href="./css/bus.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <style>
+    #active{
+        background: white;
+        color: red;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div class="main">
+            <ul class="left">
+                <e-lema @active="showactive" v-for="(item, index) in arr" :item="item"></e-lema>
+            </ul>
+            <ul class="right">
+                <my-ele v-for="(item, index) in arrdet[arrindex]" :todo="item">
+                </my-ele>
+            </ul>
+        </div>
+    </div>
+    <script>
+        var math = Vue.component("my-ele", {
+            props: ["todo"],
+            template: "<li><img class='pic' :src='todo.img'/><div class='rd'><p>{{todo.name}}</p><p>{{todo.det}}</p><p>{{todo.xiaoliang}}</p><p><span><span>¥</span>{{todo.price}}</span>/两</p></div></li>",
+        });
+        var fath = Vue.component("e-lema", {
+            data() {
+                return {
+                    arr: [],
+                    num: 0
+                }
+            },
+            props: ["item"],
+            template: "<li @click='send'>{{item}}</li>",
+            mounted() {
+                this.arr = document.querySelectorAll(".left li");
+                this.arr[0].id="active";
+            },
+            methods: {
+                send() {
+                    for (var i = 0; i < this.arr.length; i++) {
+                        if (this.arr[i] == this.$el) {
+                            this.n = i;
+                            break;
+                        }
+                    }
+                    for(var i=0;i<this.arr.length;i++){
+                        this.arr[i].id=""
+                    }
+                    this.$el.id="active";
+                    this.$emit("active", this.n);
+                }
+            },
+        });
+
+        var app = new Vue({
+            el: ".main",
+            data: {
+                arr: ["热销", "本店特色", "招牌包子", "营养粥品", "爽口小菜", "金牌饺子", "花样美食", "豆浆饮品", "超值套餐"],
+                arrindex: 0,
+                arrdet: [
+                    [{
+                        img: "http://pic39.nipic.com/20140321/18063302_210604412116_2.jpg",
+                        name: "鲜虾",
+                        det: "虾仁",
+                        xiaoliang: "月售32331",
+                        price: 1
+                    },
+                    {
+                        img: "http://pic39.nipic.com/20140321/18063302_210604412116_2.jpg",
+                        name: "鲜虾",
+                        det: "虾仁",
+                        xiaoliang: "月售32331",
+                        price: 1
+                    }, {
+                        img: "http://pic39.nipic.com/20140321/18063302_210604412116_2.jpg",
+                        name: "鲜虾",
+                        det: "虾仁",
+                        xiaoliang: "月售32331",
+                        price: 1
+                    },
+                    {
+                        img: "http://pic39.nipic.com/20140321/18063302_210604412116_2.jpg",
+                        name: "鲜虾",
+                        det: "虾仁",
+                        xiaoliang: "月售32331",
+                        price: 1
+                    }],
+                    [{
+                        img: "http://pic39.nipic.com/20140321/18063302_210604412116_2.jpg",
+                        name: "鲜虾",
+                        det: "虾仁",
+                        xiaoliang: "月售32331",
+                        price: 2
+                    },
+                    {
+                        img: "http://pic39.nipic.com/20140321/18063302_210604412116_2.jpg",
+                        name: "鲜虾",
+                        det: "虾仁",
+                        xiaoliang: "月售32331",
+                        price: 2
+                    }, {
+                        img: "http://pic39.nipic.com/20140321/18063302_210604412116_2.jpg",
+                        name: "鲜虾",
+                        det: "虾仁",
+                        xiaoliang: "月售32331",
+                        price: 2
+                    },
+                    {
+                        img: "http://pic39.nipic.com/20140321/18063302_210604412116_2.jpg",
+                        name: "鲜虾",
+                        det: "虾仁",
+                        xiaoliang: "月售32331",
+                        price: 2
+                    }],
+                    [{
+                        img: "http://pic39.nipic.com/20140321/18063302_210604412116_2.jpg",
+                        name: "鲜虾",
+                        det: "虾仁",
+                        xiaoliang: "月售32331",
+                        price: 3
+                    },
+                    {
+                        img: "http://pic39.nipic.com/20140321/18063302_210604412116_2.jpg",
+                        name: "鲜虾",
+                        det: "虾仁",
+                        xiaoliang: "月售32331",
+                        price: 3
+                    }, {
+                        img: "http://pic39.nipic.com/20140321/18063302_210604412116_2.jpg",
+                        name: "鲜虾",
+                        det: "虾仁",
+                        xiaoliang: "月售32331",
+                        price: 3
+                    },
+                    {
+                        img: "http://pic39.nipic.com/20140321/18063302_210604412116_2.jpg",
+                        name: "鲜虾",
+                        det: "虾仁",
+                        xiaoliang: "月售32331",
+                        price: 3
+                    }],
+                    [{
+                        img: "http://pic39.nipic.com/20140321/18063302_210604412116_2.jpg",
+                        name: "鲜虾",
+                        det: "虾仁",
+                        xiaoliang: "月售32331",
+                        price: 4
+                    },
+                    {
+                        img: "http://pic39.nipic.com/20140321/18063302_210604412116_2.jpg",
+                        name: "鲜虾",
+                        det: "虾仁",
+                        xiaoliang: "月售32331",
+                        price: 4
+                    }, {
+                        img: "http://pic39.nipic.com/20140321/18063302_210604412116_2.jpg",
+                        name: "鲜虾",
+                        det: "虾仁",
+                        xiaoliang: "月售32331",
+                        price: 4
+                    },
+                    {
+                        img: "http://pic39.nipic.com/20140321/18063302_210604412116_2.jpg",
+                        name: "鲜虾",
+                        det: "虾仁",
+                        xiaoliang: "月售32331",
+                        price: 4
+                    }],
+                    [{
+                        img: "http://pic39.nipic.com/20140321/18063302_210604412116_2.jpg",
+                        name: "鲜虾",
+                        det: "虾仁",
+                        xiaoliang: "月售32331",
+                        price: 5
+                    },
+                    {
+                        img: "http://pic39.nipic.com/20140321/18063302_210604412116_2.jpg",
+                        name: "鲜虾",
+                        det: "虾仁",
+                        xiaoliang: "月售32331",
+                        price: 5
+                    }, {
+                        img: "http://pic39.nipic.com/20140321/18063302_210604412116_2.jpg",
+                        name: "鲜虾",
+                        det: "虾仁",
+                        xiaoliang: "月售32331",
+                        price: 5
+                    },
+                    {
+                        img: "http://pic39.nipic.com/20140321/18063302_210604412116_2.jpg",
+                        name: "鲜虾",
+                        det: "虾仁",
+                        xiaoliang: "月售32331",
+                        price: 5
+                    }],
+                    [{
+                        img: "http://pic39.nipic.com/20140321/18063302_210604412116_2.jpg",
+                        name: "鲜虾",
+                        det: "虾仁",
+                        xiaoliang: "月售32331",
+                        price: 6
+                    },
+                    {
+                        img: "http://pic39.nipic.com/20140321/18063302_210604412116_2.jpg",
+                        name: "鲜虾",
+                        det: "虾仁",
+                        xiaoliang: "月售32331",
+                        price: 6
+                    }, {
+                        img: "http://pic39.nipic.com/20140321/18063302_210604412116_2.jpg",
+                        name: "鲜虾",
+                        det: "虾仁",
+                        xiaoliang: "月售32331",
+                        price: 6
+                    },
+                    {
+                        img: "http://pic39.nipic.com/20140321/18063302_210604412116_2.jpg",
+                        name: "鲜虾",
+                        det: "虾仁",
+                        xiaoliang: "月售32331",
+                        price: 6
+                    }],
+                    [{
+                        img: "http://pic39.nipic.com/20140321/18063302_210604412116_2.jpg",
+                        name: "鲜虾",
+                        det: "虾仁",
+                        xiaoliang: "月售32331",
+                        price: 7
+                    },
+                    {
+                        img: "http://pic39.nipic.com/20140321/18063302_210604412116_2.jpg",
+                        name: "鲜虾",
+                        det: "虾仁",
+                        xiaoliang: "月售32331",
+                        price: 7
+                    }, {
+                        img: "http://pic39.nipic.com/20140321/18063302_210604412116_2.jpg",
+                        name: "鲜虾",
+                        det: "虾仁",
+                        xiaoliang: "月售32331",
+                        price: 7
+                    },
+                    {
+                        img: "http://pic39.nipic.com/20140321/18063302_210604412116_2.jpg",
+                        name: "鲜虾",
+                        det: "虾仁",
+                        xiaoliang: "月售32331",
+                        price: 7
+                    }],
+                    [{
+                        img: "http://pic39.nipic.com/20140321/18063302_210604412116_2.jpg",
+                        name: "鲜虾",
+                        det: "虾仁",
+                        xiaoliang: "月售32331",
+                        price: 8
+                    },
+                    {
+                        img: "http://pic39.nipic.com/20140321/18063302_210604412116_2.jpg",
+                        name: "鲜虾",
+                        det: "虾仁",
+                        xiaoliang: "月售32331",
+                        price: 8
+                    }, {
+                        img: "http://pic39.nipic.com/20140321/18063302_210604412116_2.jpg",
+                        name: "鲜虾",
+                        det: "虾仁",
+                        xiaoliang: "月售32331",
+                        price: 8
+                    },
+                    {
+                        img: "http://pic39.nipic.com/20140321/18063302_210604412116_2.jpg",
+                        name: "鲜虾",
+                        det: "虾仁",
+                        xiaoliang: "月售32331",
+                        price: 8
+                    }],
+                    [{
+                        img: "http://pic39.nipic.com/20140321/18063302_210604412116_2.jpg",
+                        name: "鲜虾",
+                        det: "虾仁",
+                        xiaoliang: "月售32331",
+                        price: 9
+                    },
+                    {
+                        img: "http://pic39.nipic.com/20140321/18063302_210604412116_2.jpg",
+                        name: "鲜虾",
+                        det: "虾仁",
+                        xiaoliang: "月售32331",
+                        price: 9
+                    }, {
+                        img: "http://pic39.nipic.com/20140321/18063302_210604412116_2.jpg",
+                        name: "鲜虾",
+                        det: "虾仁",
+                        xiaoliang: "月售32331",
+                        price: 9
+                    },
+                    {
+                        img: "http://pic39.nipic.com/20140321/18063302_210604412116_2.jpg",
+                        name: "鲜虾",
+                        det: "虾仁",
+                        xiaoliang: "月售32331",
+                        price: 9
+                    }]
+                ]
+            },
+            methods: {
+                showactive(adve) {
+                    this.arrindex = adve;
+                },
+            },
+        });
+    </script>
+</body>
+
+</html>

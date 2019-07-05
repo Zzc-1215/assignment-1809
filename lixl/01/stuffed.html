@@ -1,13 +1,111 @@
 <!DOCTYPE html>
 <html>
+
 	<head>
 		<meta charset="UTF-8">
 		<title></title>
 		<script type="text/javascript" src="js/flexible_css.js"></script>
 		<script type="text/javascript" src="js/flexible.js"></script>
-		<link rel="stylesheet" type="text/css" href="css/stuffed.css"/>
+		<link rel="stylesheet" type="text/css" href="css/stuffed.css" />
 	</head>
+
 	<body>
-		
+		<div id="app" class="clearfix">
+			<!--<div class="box">-->
+
+			<test></test>
+			<!--</div>-->
+		</div>
+		<template id="shop">
+			<div class="box">
+				<ul class="list">
+					<li :class="snum==index?'active':''" @click="snum=index" v-for="(cont,index) in shops">{{cont.class}}</li>
+				</ul>
+				<div class="cont">
+					<div v-if="snum==i" v-for="(item,i) in shops">
+						<!--{{num}}-->
+						<div class="content clearfix" v-for="(cont,i) in item.arr">
+							<div class="left">
+								<img :src="cont.img" />
+							</div>
+							<div class="right">
+								<h3>{{cont.name}}</h3>
+								<p>{{cont.info}}</p>
+								<div class="counter clearfix">
+									<span class="pirce">{{cont.price}}</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</template>
+		<script type="text/javascript" src="js/vue.js"></script>
+		<script type="text/javascript">
+			var mv = Vue.component('test', {
+				template: '#shop',
+				data() {
+					return {
+						snum: 0,
+						shops: [{
+								class: '水饺',
+								arr: [{
+										name: '三鲜水饺',
+										img: 'img/8.png',
+										price: 20,
+										info: '月销量50',
+									},
+									{
+										name: '四喜丸子',
+										price: 20,
+										img: 'img/9.png',
+										info: '月销量50',
+									},
+									{
+										name: '猪头泡饼',
+										price: 20,
+										img: 'img/11.png',
+										info: '月销量50',
+									},
+								]
+							},
+							{
+								class: '食物',
+								arr: [{
+										name: '油焖大虾',
+										price: 20,
+										img: 'img/10.png',
+										info: '月销量50',
+									},
+									{
+										name: '猪肉大葱',
+										price: 20,
+										img: 'img/9.png',
+										info: '月销量50',
+									},
+									{
+										name: '小葱蘸酱',
+										price: 20,
+										img: 'img/8.png',
+										info: '月销量50',
+									},
+								]
+							},
+
+						]
+					}
+				},
+				methods: {
+					
+				}
+			})
+			var vm = new Vue({
+				el: '#app',
+				data: {
+					val: 0
+				}
+			})
+		</script>
 	</body>
+
 </html>

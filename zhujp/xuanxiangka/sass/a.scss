@@ -1,0 +1,38 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+.clearfix:before,.clearfix:after{
+	content: '';
+	display: table;
+}
+.clearfix:after{
+	clear: both;
+}
+.clearfix{
+	zoom:1;
+}
+$w:620px;
+$lw:200px;
+#app{
+	width:$w;
+	.left{
+		width:$lw;
+		background-color: #ccc;
+		float:left;
+		li{
+			padding:20px;
+			text-align:center;
+			line-height:40px;
+		}
+		.active{
+			background-color:yellow;
+		}
+	}
+	.right{
+		width: $w -$lw - 20px;
+		margin-left:20px;
+		height:560px;
+		float:left;
+	}
+}

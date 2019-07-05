@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>计步器</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            outline-style: none;
+        }
+
+        .box {
+            width: 110px;
+            height: 30px;
+            margin: 50px auto;
+        }
+
+        .box button {
+            width: 30px;
+            height: 30px;
+            border-style: none;
+            text-align: center;
+            line-height: 30px;
+            border-radius: 50%;
+            color: #fff;
+            font-size: 20px;
+            float: left;
+            background: rgb(107, 195, 253);
+        }
+
+        .box input {
+            width: 50px;
+            height: 30px;
+            display:block;
+            border-style: none;
+            float: left;
+            text-align: center;
+            background: #fff;
+        }
+
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none !important;
+        }
+
+        #mys {
+            height: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <bc-number :step='1' :max='20' :min="0"></bc-number>
+    </div>
+    <script>
+        Vue.component("bc-number", {
+            data() {
+                return {
+                    num: 0,
+                    add: "+",
+                    sub: "-",
+                    newnum: 0,
+                    step: 1,
+                    max: 10,
+                    min: 0
+                }
+            },
+            props: ["step", "max", "min"],
+            template: "<div><button step @click='msub'>{{sub}}</button><input disabled='true' type='text' class='inu' :value='num'><button step @click='madd'>{{add}}</button></div>",
+            methods: {
+                madd() {
+                    if (this.num == this.max) {
+                        this.$el.children[2].disabled = true;
+                    } else {
+                        this.num += this.step;
+                        this.newnum = this.num;
+                    }
+                },
+                msub() {
+                    if (this.num == this.min) {
+                        this.$el.children[0].disabled = true;
+                    } else {
+                        this.num -= this.step;
+                        this.newnum = this.num;
+                    }
+                }
+            },
+            computed: {
+                btrue() {
+                    return this.newnum == this.min;
+                },
+                bfalse() {
+                    return this.newnum == this.max;
+                }
+            },
+            mounted() {
+                this.max = this.$props.max ? this.$props.max : this.max;
+                this.min = this.$props.min ? this.$props.min : this.min;
+                if (this.$el.children[1].value == 0) {
+                    this.$el.children[0].disabled = true;
+                } else {
+                    this.$el.children[0].disabled = false;
+                }
+            },
+            updated() {
+                this.btrue ? this.$el.children[0].disabled = true : this.$el.children[0].disabled = false;
+                this.bfalse ? this.$el.children[2].disabled = true : this.$el.children[2].disabled = false;
+            },
+        })
+        new Vue({
+            el: ".box",
+        })
+    </script>
+</body>
+
+</html>

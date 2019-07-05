@@ -1,0 +1,145 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-size: 20px;
+}
+
+.clearfix:after, .clearfix:before {
+  content: "";
+  display: table;
+}
+
+.clearfix:after {
+  clear: both;
+}
+
+.fl {
+  float: left;
+}
+
+.fr {
+  float: right;
+}
+
+.toTop {
+  width: 100px;
+  height: 100px;
+  line-height: 100px;
+  text-align: center;
+  border-radius: 50%;
+  background: cyan;
+  position: fixed;
+  bottom: 10px;
+  right: 20px;
+}
+
+.toTop a {
+  text-decoration: none;
+}
+
+.container {
+  width: 100%;
+  height: auto;
+  background: #fff;
+}
+
+.container .head {
+  width: 100%;
+  height: 100px;
+  font-size: 40px;
+  line-height: 100px;
+  padding-left: 30px;
+  box-sizing: border-box;
+  cursor: pointer;
+  background: cyan;
+}
+
+.content {
+  width: 100%;
+  height: auto;
+}
+
+.content .list ul {
+  height: 80px;
+  line-height: 60px;
+  overflow: hidden;
+  border: 2px dashed #000;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.content .list ul li {
+  width: 33.33333%;
+  float: left;
+  font-size: 30px;
+  text-align: center;
+}
+
+.content .contentList {
+  width: 100%;
+  height: auto;
+}
+
+.content .contentList .orderList_l {
+  width: 20%;
+}
+
+.content .contentList .orderList_l ul {
+  width: 100%;
+}
+
+.content .contentList .orderList_l ul li {
+  width: 100%;
+  height: 150px;
+  line-height: 150px;
+  text-align: center;
+  background: #ccc;
+  border: 1px solid #000;
+  box-sizing: border-box;
+}
+
+.content .contentList .orderList_l ul li:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.content .contentList .orderList_r {
+  width: 80%;
+}
+
+.orderList_r_item {
+  margin: 10px 0 20px;
+}
+
+.orderList_r_item .orderList_r_item_top {
+  width: 100%;
+}
+
+.orderList_r_item .orderList_r_item_top .orderList_r_item_l {
+  width: 30%;
+  padding: 20px;
+}
+
+.orderList_r_item .orderList_r_item_top .orderList_r_item_l img {
+  width: 80%;
+  height: 80%;
+}
+
+.orderList_r_item .orderList_r_item_top .orderList_r_item_r {
+  line-height: 50px;
+}
+
+.orderList_r_item .orderList_r_item_top .orderList_r_item_r p {
+  color: #ccc;
+}
+
+.orderList_r_item .orderList_r_item_bottom {
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  padding-left: 30px;
+  box-sizing: border-box;
+}
+
+.orderList_r_item .orderList_r_item_bottom a {
+  text-decoration: none;
+}
