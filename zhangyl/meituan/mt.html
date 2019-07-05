@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/index.css">
+    <script src="js/flexible_css.js"></script>
+    <script src="js/flexible.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <meituan></meituan>
+    </div>
+    <template id="box">
+        <div class="lists clearfix">
+            <ul class="list">
+                <li class="litem" :class="type==index?'active':''" @click="type=index" v-for="(food,index) in foods">{{food.tes}}</li>
+            </ul>
+            <div class="product">
+                <div class="titlel">
+                    {{foods[type].tes}}
+                </div>
+                <div v-if="type==index" v-for="(item,index) in foods">
+                    <div class="content clearfix" v-for="n in item.food">
+                        <div class="img">
+                            <img :src='n.img'>
+                        </div>
+                        <div class="right">
+                            <p class="title">{{n.name}}</p>
+                            <p class="info">{{n.info}}</p>
+                            <div>
+                                <p class="price">￥{{n.price}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+    <script>
+        var component = Vue.component('meituan', {
+            template: '#box',
+            data() {
+                return {
+                    type: 0,
+                    foods: [
+                        {
+                            tes: '本店特色',
+                            food: [{
+                                name: '鲜虾菜心',
+                                price: '8',
+                                info: '虾仁一个，万年青菜',
+                                img: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1562255798314&di=65d96390961564d8dbf556d1b8c8f574&imgtype=0&src=http%3A%2F%2Fimg1.voc.com.cn%2FUpLoadFile%2F2016%2F08%2F25%2F201608250717393006.jpg'
+                            }, {
+                                name: '猪肉大葱',
+                                price: '9',
+                                info: '猪肉(肥瘦适中),大葱',
+                                img: 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1926447759,2383249261&fm=11&gp=0.jpg'
+                            }, {
+                                name: '素三鲜',
+                                price: '10',
+                                info: '香菇，木耳，鸡蛋',
+                                img: 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=24833232,650301067&fm=11&gp=0.jpg'
+                            }]
+                        }, {
+                            tes: '水饺',
+                            food: [{
+                                name: '猪肉白菜水饺',
+                                price: '12',
+                                info: '虾仁一个，万年青菜',
+                                img: 'https://f10.baidu.com/it/u=4282036640,831512286&fm=72'
+                            }, {
+                                name: '鲅鱼三鲜水饺',
+                                price: '8',
+                                info: '猪肉(肥瘦适中),大葱',
+                                img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3607722980,2957536157&fm=26&gp=0.jpg'
+                            }, {
+                                name: '牛肉芹菜水饺',
+                                price: '14',
+                                info: '香菇，木耳，鸡蛋',
+                                img: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3295395667,1755581435&fm=26&gp=0.jpg'
+                            }, {
+                                name: '虾仁三鲜水饺',
+                                price: '10',
+                                info: '香菇，木耳，鸡蛋',
+                                img: 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=129404797,970943927&fm=26&gp=0.jpg'
+                            }]
+                        }, {
+                            tes: '甜点',
+                            food: [{
+                                name: '楠舍烘焙',
+                                price: '30',
+                                info: '虾仁一个，万年青菜',
+                                img: 'https://img.meituan.net/msmerchant/56c631c7ac4b7a13901287d209dcf4d1108862.jpg@220w_125h_1e_1c'
+                            }, {
+                                name: '七星面包坊（幸福路店）',
+                                price: '25',
+                                info: '猪肉(肥瘦适中),大葱',
+                                img: 'http://p0.meituan.net/600.600/deal/3ec809d60aa66a0039eb20deb8ac273b269953.jpg@220w_125h_1e_1c'
+                            }, {
+                                name: '萨芙特烘焙',
+                                price: '50',
+                                info: '香菇，木耳，鸡蛋',
+                                img: 'http://p1.meituan.net/deal/873b64dd5c055d591b25a781bd844310274218.jpg@380w_214h_1e_1c'
+                            }, {
+                                name: '香贝旺烘焙',
+                                price: '35',
+                                info: '香菇，木耳，鸡蛋',
+                                img: 'http://p1.meituan.net/600.600/deal/67539dd82bcb767a1afe5c00effd105476389.jpg@220w_125h_1e_1c'
+                            }]
+                        }, {
+                            tes: '西餐',
+                            food: [{
+                                name: '喔德牛排',
+                                price: '40',
+                                info: '虾仁一个，万年青菜',
+                                img: 'http://p0.meituan.net/600.600/bbia/7b429bb3f30403eea7cbcc270c29d67b779749.jpg@220w_125h_1e_1c'
+                            }, {
+                                name: '东方豪客牛排',
+                                price: '60',
+                                info: '猪肉(肥瘦适中),大葱',
+                                img: 'http://p0.meituan.net/600.600/mogu/04bca39155b571fd5d90ff266abfd001657605.jpg@220w_125h_1e_1c'
+                            }, {
+                                name: '迪欧咖啡（烟台路店）',
+                                price: '50',
+                                info: '香菇，木耳，鸡蛋',
+                                img: 'http://p0.meituan.net/600.600/poi/94fcf416910d76c321363ee531ca0f0553350.jpg@220w_125h_1e_1c'
+                            }]
+                        }
+                    ]
+                }
+            }
+        })
+
+        var vm = new Vue({
+            el:'#app',
+            data:{
+                value: 0,
+            },
+        })
+    </script>
+</body>
+
+</html>
