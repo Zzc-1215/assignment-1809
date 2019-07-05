@@ -164,7 +164,25 @@
         // props: ['num'],
         data() {
             return {
-                int: '',
+                int: {
+                    category: '包子',
+                    food: [{
+                        name: '鲜虾菜心(6个)',
+                        img: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3344906949,987874169&fm=26&gp=0.jpg',
+                        intro: '虾仁一个,万年青菜',
+                        sell: 666,
+                        praise: 66,
+                        price: 9,
+                    },
+                    {
+                        name: '猪肉大葱(6个)',
+                        img: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1562263611276&di=ed65eab8b41b76d99d5bd8cdc354e8b0&imgtype=0&src=http%3A%2F%2Fimg22.hc360.cn%2F22%2Fbusin%2F157%2F825%2Fb%2F22-157825882.jpg',
+                        intro: '正宗非洲野猪肉,买不了吃亏买不了上当',
+                        sell: 222,
+                        praise: 44,
+                        price: 8,
+                    }],
+                },
                 acitve: 0,
                 arr: [{
                     category: '包子',
