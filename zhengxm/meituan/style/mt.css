@@ -33,11 +33,10 @@
 .left li {
   margin-bottom: 10px;
   line-height: 40px;
-  text-align: center;
-  background-color: coral; }
+  text-align: center; }
 
 .active {
-  background-color: aqua; }
+  background-color: coral; }
 
 .right {
   width: 400px;
