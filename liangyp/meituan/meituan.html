@@ -56,23 +56,24 @@
 				<!-- 种类 -->
 				<div class="discounts">
 					<ul>
-						<li :class="meanLenght==index?'active':''" @click="meanLenght=index" v-for="(item,index) in arr">{{item}}</li>
+						<li :class="{active:meanLenght==index}" @click="dj(index)" v-for="(item,index) in arr">{{item}}</li>
 					</ul>
 				</div>
 				<!-- 菜单 -->
 				<div class="milky">
-					<h4>{{arr[meanLenght].item}}</h4>
-					<div v-if="meanLenght=index" v-for="(item,index) in arr" class="meal">
-						<div class="fan" v-for="chi in item.foot">
+					<!-- <h4 v-for="(item,index) in arr">{{arr.meanLenght}}</h4> -->
+					<div v-if="meanLenght=index" v-for="(item,index) in shop[meanLenght]" class="meal">
+						{{item}}
+						<!-- <div class="fan">
 							<div class="breakfast">
-								<img :src="chi.img">
+								<img :src="item.img">
 							</div>
 							<div class="intro">
-								<h3>{{chi.name}}</h3>
-								<p class="info">{{chi.info}}</p>
-								<p class="price">{{chi.price}}</p>
+								<h3>{{item.name}}</h3>
+								<p class="info">{{item.info}}</p>
+								<p class="price">{{item.price}}</p>
 							</div>
-						</div>
+						</div> -->
 					</div>
 				</div>
 			</div>
@@ -293,7 +294,10 @@
 			}
 		},
 		methods:{
-
+			dj(index){
+				this.meanLenght =index;
+				console.log(index)
+			}
 		},
 		computed:{
 

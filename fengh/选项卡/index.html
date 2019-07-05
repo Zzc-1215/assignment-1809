@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="iconfont.css">
+    <script src="flexible_css.js"></script>
+    <script src="flexible.js"></script>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app" v-cloak>
+        <div class="hezi">
+            <fh-dd></qh-dd>
+        </div>
+    </div>
+    <template id="box-shop">
+        <div class="lists clearfix">
+            <ul class="list-hz">
+                <li class="litem" :class="dyindex==$index?'active':''" @click="dyindex=$index" v-for="(food,$index) in caixi">{{food.ltypes}}</li>
+            </ul>
+            <div class="right-box">
+                <div v-if="dyindex==$index" v-for="(ltypect,$index) in caixi">
+                    <div class="cnt-hz clearfix" v-for="cont in ltypect.food">
+                        <div class="imgbox">
+                            <img :src='cont.img' alt="">
+                        </div>
+                        <div class="bd-box">
+                            <p class="titles">{{cont.name}}</p>
+                            <div class="jsj clearfix">
+                                <p class="price">￥{{cont.price}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var component = Vue.component('fh-dd', {
+            template: '#box-shop',
+            data() {
+                return {
+                    dyindex: 0,
+                    caixi: [
+                        {
+                            ltypes: '高档菜系',
+                            food: [{
+                                name: '混凝吨牛排',
+                                price: '8000',
+                                img: 'img/1.jpg'
+                            }, {
+                                name: '狗不吃包子',
+                                price: '3200',
+
+                                img: 'img/3.jpg'
+                            }]
+                        }, {
+                            ltypes: '中系',
+                            food: [{
+                                name: '帝王蟹黄腿',
+                                price: '5000',
+
+                                img: 'img/4.jpg'
+                            },{
+                                name: '鸭肺',
+                                price: '2500',
+                                img: 'img/5.jpg'
+                            }]
+                        }, {
+                            ltypes: '日系',
+                            food: [{
+                                name: '酥焦鸡腿',
+                                price: '5000',
+
+                                img: 'img/6.jpg'
+                            }, {
+                                name: '寿司',
+                                price: '30000',
+
+                                img: 'img/7.jpg'
+                            }]
+                        }, {
+                            ltypes: '披萨',
+                            food: [{
+                                name: '五层地黄榴莲披萨',
+                                price: '4500',
+
+                                img: 'img/8.jpg'
+                            },{
+                                name: '羊肉串',
+                                price: '40',
+
+                                img: 'img/9.jpg'
+                            }]
+                        }
+                    ]
+                }
+            }
+        })
+       
+       
+        var vm = new Vue({
+            el:'#app',
+            data:{
+                value: 0,
+            },
+            methods:{
+               
+            }
+        })
+    </script>
+</body>
+
+</html>
