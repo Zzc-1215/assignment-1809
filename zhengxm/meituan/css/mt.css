@@ -33,11 +33,10 @@
 .left li {
   margin-bottom: 0.16129rem;
   line-height: 0.64516rem;
-  text-align: center;
-  background-color: coral; }
+  text-align: center; }
 
 .active {
-  background-color: aqua; }
+  background-color: coral; }
 
 .right {
   width: 6.45161rem;
