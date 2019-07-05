@@ -21,9 +21,9 @@
 				</span>
 		</div>
 		<div id="box">
-			<abc v-model="number"></abc>
+			<!-- <abc v-model="number"></abc> -->
+			<abc></abc>
 		</div>
-
 	</div>
 	<template id="abc">
 		<div class="content">
@@ -74,7 +74,7 @@
 	<script>
 		Vue.component('abc', {
 			template: '#abc',
-			props: ['number'],
+			// props: ['number'],
 			data() {
 				return {
 					num: '',
@@ -103,43 +103,43 @@
 								// 主要原料
 								'mainprincipal': '大米',
 								'price': 123
-							},{
+							}, {
 								'imgurl': 'img/meng.jpg',
 								'foodName': '小米粥',
 								// 主要原料
 								'mainprincipal': '大米',
 								'price': 123
-							},{
+							}, {
 								'imgurl': 'img/meng.jpg',
 								'foodName': '小米粥',
 								// 主要原料
 								'mainprincipal': '大米',
 								'price': 123
-							},{
+							}, {
 								'imgurl': 'img/meng.jpg',
 								'foodName': '小米粥',
 								// 主要原料
 								'mainprincipal': '大米',
 								'price': 123
-							},{
+							}, {
 								'imgurl': 'img/meng.jpg',
 								'foodName': '小米粥',
 								// 主要原料
 								'mainprincipal': '大米',
 								'price': 123
-							},{
+							}, {
 								'imgurl': 'img/meng.jpg',
 								'foodName': '小米粥',
 								// 主要原料
 								'mainprincipal': '大米',
 								'price': 123
-							},{
+							}, {
 								'imgurl': 'img/meng.jpg',
 								'foodName': '小米粥',
 								// 主要原料
 								'mainprincipal': '大米',
 								'price': 123
-							},{
+							}, {
 								'imgurl': 'img/meng.jpg',
 								'foodName': '小米粥',
 								// 主要原料
@@ -154,25 +154,25 @@
 								// 主要原料
 								'mainprincipal': '大米',
 								'price': 123
-							},{
+							}, {
 								'imgurl': 'img/meng.jpg',
 								'foodName': '盖饭',
 								// 主要原料
 								'mainprincipal': '大米',
 								'price': 123
-							},{
+							}, {
 								'imgurl': 'img/meng.jpg',
 								'foodName': '盖饭',
 								// 主要原料
 								'mainprincipal': '大米',
 								'price': 123
-							},{
+							}, {
 								'imgurl': 'img/meng.jpg',
 								'foodName': '盖饭',
 								// 主要原料
 								'mainprincipal': '大米',
 								'price': 123
-							},{
+							}, {
 								'imgurl': 'img/meng.jpg',
 								'foodName': '盖饭',
 								// 主要原料
@@ -187,19 +187,19 @@
 								// 主要原料
 								'mainprincipal': '大米',
 								'price': 123
-							},{
+							}, {
 								'imgurl': 'img/meng.jpg',
 								'foodName': '盖饭',
 								// 主要原料
 								'mainprincipal': '大米',
 								'price': 123
-							},{
+							}, {
 								'imgurl': 'img/meng.jpg',
 								'foodName': '盖饭',
 								// 主要原料
 								'mainprincipal': '大米',
 								'price': 123
-							},{
+							}, {
 								'imgurl': 'img/meng.jpg',
 								'foodName': '盖饭',
 								// 主要原料
@@ -212,21 +212,21 @@
 			},
 			methods: {
 				dianji(index) {
-					// alert(123)
-					arr: this.arr;
+					// alert(11111)
 					this.num = this.arr[index];
 					console.log(this.num);
+
 				}
 			}
 		})
 
 		new Vue({
-			el: '.container',
-			data() {
-				return {
-					number: 0
-				}
-			}
+			el: '.container'
+			// data () {
+			// 	return {
+			// 		// number:0,
+			// 	}
+			// }
 		})
 	</script>
 </body>
