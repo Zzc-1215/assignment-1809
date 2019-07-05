@@ -25,6 +25,8 @@
             </ul>
             <ul class="right">
                 <li v-for="(it,index) in shop[num]">
+                    <!-- {{it}} -->
+                    <!-- <h1 v-for="(item,index) in arr">{{item}}</h1> -->
                     <img :src="it.img">
                     <div class="r">
                         <h1>{{it.name}}</h1>{{it.name}}
@@ -252,7 +254,7 @@
             },
             methods:{
                 send(index) {
-                    var list = document.querySelectorAll('.left li');
+                    // var list = document.querySelectorAll('.left li');
                     this.num = index;
                 }
             },
