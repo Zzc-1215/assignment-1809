@@ -15,53 +15,38 @@
         <ul class="main">
             <!-- 列表 -->
             <ul class="list">
-                <li v-for="(i,index) in arr"><a href="javascript:;">{{i.feilei}}</a></li>
+                <li @click="qiehuan(index)" v-for="(i,index) in arr"><a href="javascript:;">{{i.feilei}}</a></li>
             </ul>
             <!-- 菜单 -->
-            <template id="zhuti">
                 <div class="mainRight">
-                    <div class="item">
-                        <div class="img">
-                            <img src="1.jpg" alt="">
-                        </div>
-                        <div class="wen">
-                            <h3>素三鲜水饺</h3>
-                            <p>素三鲜水饺吃了让你活力满满</p>
-    
-                            <span>￥70</span>
-                        </div>
-                    </div>
+                    <zhu-ti v-for="(value,key) in arr" :key="key" :detial='value'>
+
+                    </zhu-ti>
                 </div>
-            </template>
         </ul>
     </div>
 
 
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script>
-        var component = Vue.component('zhuti',{
-            template:'#zhuti',
-            props:['img','name','jieshao'],
-            data(){
-                return{
-                    img:this.img,
-                    name:this.name,
-                    jieshao:this.jieshao
-                }
-            }
+        var component = Vue.component('zhu-ti',{
+            props:['detial'],
+            template:'<div class="item"><div class="img"><img :src="detial.xiangqing.img" alt=""/></div><div class="wen"><h3>{{detial.xiangqing.name}}</h3><p>{{detial.xiangqing.jieshao}}</p><span>￥{{detial.xiangqing.jg}}</span></div></div>'
         })
 
         new Vue({
             el:'.box',
             data(){
                 return{
+                    num:'',
                     arr:[
                         {
                             feilei:'热销',
                             xiangqing:{
                                 img:'1.jpg',
                                 name:'素三鲜水饺',
-                                jieshao:'面粉、水、素三鲜'
+                                jieshao:'面粉、水、素三鲜',
+                                jg:'15'
                             }
                         },
                         {
@@ -69,7 +54,8 @@
                             xiangqing:{
                                 img:'1.jpg',
                                 name:'盖饭',
-                                jieshao:'米饭、蔬菜、汤'
+                                jieshao:'米饭、蔬菜、汤',
+                                jg:'15'
                             } 
                         },
                         {
@@ -77,7 +63,8 @@
                             xiangqing:{
                                 img:'1.jpg',
                                 name:'新鲜水果',
-                                jieshao:'苹果、柚子、油桃、西瓜'
+                                jieshao:'苹果、柚子、油桃、西瓜',
+                                jg:'25'
                             }
                         },
                         {
@@ -85,10 +72,16 @@
                             xiangqing:{
                                 img:'1.jpg',
                                 name:'鲜榨果汁',
-                                jieshao:'柠檬汁、蔬菜汁、西瓜汁'
+                                jieshao:'柠檬汁、蔬菜汁、西瓜汁',
+                                jg:'5'
                             }
                         }
                     ]
+                }
+            },
+            methods:{
+                qiehuan(index){
+                    this.num = this.arr[index];
                 }
             }
         })
