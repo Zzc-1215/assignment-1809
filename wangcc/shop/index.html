@@ -51,8 +51,8 @@
 				position: relative;
 			}
 			.right_varieties li img{
-				width: 25%;
-				height: 100%;
+				width:25%;
+				height:120px;
 				float: left;
 				margin-right:15px;
 			}
@@ -96,8 +96,8 @@
 					</div>
 					<div class="right_varieties">
 						<ul>
-							<li v-for="(item,index) in jon">
-								<img src="item.img" alt="">
+							<li v-for="(item,index) in str">
+								<img :src="item.img" alt="">
 								<h3>{{item.name}}</h3>
 								<p>{{item.price}}</p>
 								<!-- <div class="num_a">数量</div> -->
@@ -118,6 +118,33 @@
 					inda:0,
 					arr:['包子','水饺','流食','凉菜','饮料','庆丰新品','豆浆饮品'],
 					jon:[],
+					str:[{
+						shop:[{
+								name:'猪肉大葱',
+								img:'http://img4.imgtn.bdimg.com/it/u=2066561646,1904782894&fm=26&gp=0.jpg',
+								price:'￥8',
+							},
+							{
+								name:'猪肉大葱',
+								img:'http://img4.imgtn.bdimg.com/it/u=2066561646,1904782894&fm=26&gp=0.jpg',
+								price:'￥8',	
+							},
+							{
+								name:'猪肉大葱',
+								img:'http://img4.imgtn.bdimg.com/it/u=2066561646,1904782894&fm=26&gp=0.jpg',
+								price:'￥8',	
+							},
+							{
+								name:'猪肉大葱',
+								img:'http://img4.imgtn.bdimg.com/it/u=2066561646,1904782894&fm=26&gp=0.jpg',
+								price:'￥8',	
+							},
+							{
+								name:'猪肉大葱',
+								img:'http://img4.imgtn.bdimg.com/it/u=2066561646,1904782894&fm=26&gp=0.jpg',
+								price:'￥8',	
+							}],
+					}],
 					num:[{
 						//包子
 						shop:[
@@ -329,7 +356,8 @@
 					this.inda=index;
 					this.jon.shift();
 					this.jon.push(index=this.num[index])
-					console.log(this.jon)
+					this.str=this.jon[0].shop
+					console.log(this.str)
 				}
 			}
 		})
