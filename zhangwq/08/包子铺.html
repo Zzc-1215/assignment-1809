@@ -32,7 +32,7 @@
         .right {
             width: 4.4rem;
             height: 10rem;
-            background: #fff;
+            /* background: #fff; */
             float: left;
         }
 
@@ -79,10 +79,12 @@
             display: block;
             color: red;
         }
-        .active{
+
+        .active {
             background: orange;
         }
-        #ul{
+
+        #ul {
             display: none;
         }
     </style>
@@ -95,15 +97,16 @@
     <template id="con">
         <div>
             <ul class="left">
-                <li class="li" @click='click(index)' :class="{active:idx==index}" v-for="(item,index) in list">{{item}}</li>
+                <li class="li" @click='click(index)' :class="{active:i==index}" v-for="(item,index) in foods">
+                    {{foods[index].food}}</li>
             </ul>
             <div class="right">
                 <ul id="ul">
-                    <li v-for="(item,index) in foots" class="lis">
-                        <img :src="item[index].img" alt="">
-                        <h4>{{item[index].name}}</h4>
-                        <p>{{item[index].info}}</p>
-                        <span>￥{{item[index].price}}元</span>
+                    <li v-for='(item,index) in foods[i].meishi' class="lis">
+                        <img :src="item.img" alt="">
+                        <h4>{{item.name}}</h4>
+                        <p>{{item.info}}</p>
+                        <span>￥{{item.price}}元</span>
                     </li>
                 </ul>
             </div>
@@ -113,12 +116,12 @@
     <script>
         Vue.component('abc', {
             template: '#con',
-            data() {
-                return {
-                    idx:0,
-                    list: ['水饺', '凉菜', '流食', '饮料', '豆浆', '新品'],
-                    foots: [
-                        [
+            data(){
+                return{
+                    i:0,
+                    foods: [{
+                        food: '水饺',
+                        meishi: [
                             {
                                 name: '猪肉大葱馅饺子',
                                 img: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1769208920,1304930106&fm=26&gp=0.jpg',
@@ -131,20 +134,78 @@
                                 info: '简介',
                                 price: '10',
                             },
+                        ],
+                    }, {
+                        food: '凉菜',
+                        meishi: [
                             {
-                                name: '123',
+                                name: '猪aaaaaa肉大葱馅饺子',
+                                img: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1769208920,1304930106&fm=26&gp=0.jpg',
+                                info: '简介简介简介简介简介简介简介简介简介简介简介简介简介',
+                                price: '5',
+                            },
+                            {
+                                name: 'aaaaaaaaaaa',
                                 img: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1126716551,3134048915&fm=26&gp=0.jpg',
                                 info: '简介',
                                 price: '10',
                             },
                         ],
+                    }, {
+                        food: '新品',
+                        meishi: [
+                            {
+                                name: '新品',
+                                img: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1769208920,1304930106&fm=26&gp=0.jpg',
+                                info: '介绍',
+                                price: '5',
+                            },
+                            {
+                                name: '新品23',
+                                img: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1769208920,1304930106&fm=26&gp=0.jpg',
+                                info: '介绍',
+                                price: '5',
+                            },
+                        ],
+                    },{
+                        food: '流食',
+                        meishi: [
+                            {
+                                name: '流食1',
+                                img: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1769208920,1304930106&fm=26&gp=0.jpg',
+                                info: '介绍',
+                                price: '5',
+                            },
+                            {
+                                name: '流食2',
+                                img: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1769208920,1304930106&fm=26&gp=0.jpg',
+                                info: '介绍',
+                                price: '5',
+                            },
+                        ],
+                    },{
+                        food: '饮料',
+                        meishi: [
+                            {
+                                name: '饮料1',
+                                img: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1769208920,1304930106&fm=26&gp=0.jpg',
+                                info: '介绍',
+                                price: '5',
+                            },
+                            {
+                                name: '饮料2',
+                                img: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1769208920,1304930106&fm=26&gp=0.jpg',
+                                info: '介绍',
+                                price: '5',
+                            },
+                        ],
+                    }
                     ],
                 }
             },
-            methods:{
-                click(index){
-                    this.idx=index;
-                    ul.style.display='block'
+            methods: {
+                click(index) {
+                    this.i = index;
                 }
             }
         })
@@ -152,7 +213,7 @@
             el: '#app',
             data() {
                 return {
-                    foots:[]
+                    foots: []
                 }
             },
 
