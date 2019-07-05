@@ -1,0 +1,31 @@
+* {
+  margin: 0;
+  padding: 0; }
+
+.clearfix:before, .clearfix:after {
+  content: '';
+  display: table; }
+
+.clearfix:after {
+  clear: both; }
+
+.clearfix {
+  zoom: 1; }
+
+#app {
+  width: 10rem; }
+  #app .left {
+    width: 3.22581rem;
+    background-color: #ccc;
+    float: left; }
+    #app .left li {
+      padding: 0.32258rem;
+      text-align: center;
+      line-height: 0.64516rem; }
+    #app .left .active {
+      background-color: yellow; }
+  #app .right {
+    width: 6.45161rem;
+    margin-left: 0.32258rem;
+    height: 9.03226rem;
+    float: left; }

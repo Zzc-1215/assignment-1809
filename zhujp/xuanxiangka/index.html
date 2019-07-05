@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/a.css">
+	<script type="text/javascript" src="flexible/flexible.js"></script>
+	<script type="text/javascript" src="flexible/flexible_css.js"></script>
+</head>
+<body>
+	<div id="app">
+		<abc></abc>
+	</div>
+	<template id="list">
+		<div class="content clearfix">
+			<ul class="left">
+				<li v-for="(item,index) in arr" @click="dian(index)" :class="{active:currenyIndex == index}">{{item}}</li>
+			</ul>
+			<ul class="right">
+				<li v-for="(item,index) in list"></li>
+			</ul>
+		</div>
+	</template>
+	<script type="text/javascript">
+		var componet = Vue.component('abc',{
+			template:'#list',
+			data(){
+				return {
+					currenyIndex:0,
+					arr:['夏季特惠','吃货节特惠','惊喜特惠','大漠沙棘','小桃气','莓果恋人','鲜果鲜茶'],
+					list:[
+						[{
+							img:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1562253963055&di=b527bfb3b0056debcbf3d0006e803c1a&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fblog%2F201510%2F20%2F20151020193329_rjWfs.jpeg',
+							name:'饺子',
+							price:'8￥',
+							info:'蚵仔是高雄特产,是壳类海产的一种。先用线粉搅拌蚵仔,然后把鸡蛋打散放油煎,让鸡蛋包着蚵仔,像鸡蛋饼一样',
+						}],
+						[{
+							img:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1562253963055&di=b527bfb3b0056debcbf3d0006e803c1a&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fblog%2F201510%2F20%2F20151020193329_rjWfs.jpeg',
+							name:'饺子',
+							price:'8￥',
+							info:'蚵仔是高雄特产,是壳类海产的一种。先用线粉搅拌蚵仔,然后把鸡蛋打散放油煎,让鸡蛋包着蚵仔,像鸡蛋饼一样',
+						}],
+						[{
+							img:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1562253963055&di=b527bfb3b0056debcbf3d0006e803c1a&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fblog%2F201510%2F20%2F20151020193329_rjWfs.jpeg',
+							name:'饺子',
+							price:'8￥',
+							info:'蚵仔是高雄特产,是壳类海产的一种。先用线粉搅拌蚵仔,然后把鸡蛋打散放油煎,让鸡蛋包着蚵仔,像鸡蛋饼一样',
+						}],
+						[{
+							img:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1562253963055&di=b527bfb3b0056debcbf3d0006e803c1a&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fblog%2F201510%2F20%2F20151020193329_rjWfs.jpeg',
+							name:'饺子',
+							price:'8￥',
+							info:'蚵仔是高雄特产,是壳类海产的一种。先用线粉搅拌蚵仔,然后把鸡蛋打散放油煎,让鸡蛋包着蚵仔,像鸡蛋饼一样',
+						}]
+					]
+				}
+			},
+			methods:{
+				dian(index){
+					this.currenyIndex = index
+				},
+			},
+		})
+		var vm = new Vue({
+			el:'#app',
+			data(){
+				return {
+
+				}
+			}
+		})
+	</script>
+</body>
+</html>
