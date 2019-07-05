@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../assets/js/vue.js"></script>
+    <style>
+        .left{
+            float: left;
+            width: 30%;
+            background: red;
+            height: 100px;
+        }  
+        .right{
+            float: right;
+            width: 30%;
+            background: blue;
+            height: 100px;
+        }        
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- 
+            <bc-container>
+                <bc-header>
+                    < 庆丰包子店
+                </bc-header>
+                <bc-main>
+                    <meit></meit>
+                </bc-main>
+                <bc-footer>
+                    <total></total>
+                </bc-footer>
+            </bc-container>
+            
+            定义插槽： <slot name="default"></slot>
+            插槽插入内容： <template v-slot:default>内容</template>
+
+            slot内可包含任何模板代码，包括 HTML，其它的组件
+
+            slot: 内容插槽
+
+            默认内容会被放到slot里，如果没有slot，内容会丢失
+
+            默认插槽也是有名字的：default
+
+            命名插槽需要通过 :slot="插槽名" 来指定插入内容
+
+            v-slot指令在vue2.6.0+里使用，并且必需写在template上
+
+            <slot>默认数据</slot>： 后备内容、默认插槽内容
+         -->
+        <container>
+            <row>
+                <!-- <div slot="left">left</div> -->
+
+                <template v-slot:left>
+                    <div>left</div>
+                </template> 
+
+                <div slot="right">right</div>
+                <div slot="default">123</div>
+            </row>
+        </container>
+    </div>
+
+    <template id="container">
+        <div class="container">
+            <slot></slot>
+        </div>
+    </template>
+    <template id="row">
+            <div class="row">
+                <slot></slot>
+                <div class="left">
+                    <slot name="left">
+                        默认数据
+                    </slot>
+                </div>
+                <div class="right">
+                    <slot name="right"></slot>
+                </div>
+            </div>
+        </template>
+    <script>
+
+        Vue.component('container',{
+            template:'#container',
+        })
+        Vue.component('row',{
+            template:'#row',
+        })
+
+
+        new Vue({
+            el:'#app'
+        })
+    </script>
+</body>
+</html>
