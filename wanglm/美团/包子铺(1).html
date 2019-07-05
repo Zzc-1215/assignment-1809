@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=620" />
+		<script src="js/mobile-util(1).js" type="text/javascript" charset="utf-8"></script>
+		<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+				list-style: none;
+			}
+
+			.box {
+				width: 100%;
+				min-height: 500px;
+				background: url(https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=372887550,2980160972&fm=26&gp=0.jpg);
+				background-size:100% 100% ;
+			}
+
+			.z {
+				width: 23%;
+				min-height: 400px;
+				float: left;
+				
+			}
+
+			.z li {
+				width: 100%;
+				height: 50px;
+				border: 1px solid #000;
+				box-sizing: border-box;
+				text-align: center;
+				line-height: 50px;
+			}
+
+			.ull {
+				width: 75%;
+				float: left;
+			}
+
+			.div {
+				width: 310px;
+				height: 110px;
+
+				border: 1px solid blue;
+				margin-top: 10px;
+			}
+
+			.div img {
+				width: 100px;
+				height: 100px;
+				float: left;
+				margin-right: 20px;
+			}
+			
+			.p1 {
+				font-size: 30px;
+				font-weight: bold;
+				display: inline-block;
+				color: red;
+			}
+
+			.p2 {
+				font-size: 20px;
+				margin-left: 300px;
+			}
+
+			.p3 {
+				font-size: 20px;
+				margin-left: 40%;
+				margin-top: 20px;
+				color: red;
+			}
+
+			.cur {
+				background: royalblue;
+			}
+			#aoo{
+				width: 100%;
+				height: 50px;
+			
+				background-image: url(https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2796420027,1789795499&fm=26&gp=0.jpg);
+			
+				font-size: 25px;
+				color: white;
+				line-height: 50px;
+				
+			}
+			div .p1,.p2,.p3{
+				margin-left: 2px;
+			}
+			.z ul li{
+				width: 80px;
+				background: blue;
+				margin-top: 10px;
+				border-radius:30px ;
+				color: white;
+			}
+			.z ul li:hover{
+				background: red;
+				color: blue;
+			}
+			.p3{
+				color: #000;
+			}
+			#wid{
+				width: 100%;
+				height: 30px;
+				background: #4169E1;
+				display: flex;
+				justify-content: space-around;
+				align-items: center;
+				text-align: center;
+				line-height: 30px;
+			}
+			#wid span{
+				width: 50px;
+				height: 30px;
+				background: green;
+				border-radius: 10px;
+			}
+			#wid span:hover{
+				background: beige;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="aoo">
+			<p>庆丰包子铺</p>
+		</div>
+		<div id="wid">
+			<span>推荐</span>
+			<span>评论</span>
+			<span>新品</span>
+		</div>
+		<div id="app">
+			<aaa></aaa>
+		</div>
+
+
+		<template id="lko">
+			<div class="box">
+				<div class="z">
+					<ul>
+						<li @click="fff(index)" v-for="itt,index in msg">{{itt}}</li>
+						
+					</ul>
+				</div>
+				<ul class="ull">
+					<li v-if="index==aa" v-for="(item,index) in content">
+						<div class="div" v-for="oo in item.name">
+							<img :src="oo.img">
+							<p class="p1"> {{oo.name1}}</p>
+							<p class="p2"> {{oo.title}}</p>
+							<p class="p3"> {{oo.money}}</p>
+							
+							
+						</div>
+					</li>
+				</ul>
+			</div>
+		</template>
+		<script src="vue.js"></script>
+		<script type="text/javascript">
+			new Vue({
+				el: "#app",
+				components: {
+					"aaa": {
+						data() {
+							return {
+								aa: 0,
+								msg: ['水饺', '饮品', '包子','流食','凉菜','新品'],
+								content: [{
+									name: [{
+										img: "https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1864465756,3595288549&fm=26&gp=0.jpg",
+										name1: '水饺',
+										title: '6个/份',
+										money: '$8'
+									}, {
+										img: "https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1864465756,3595288549&fm=26&gp=0.jpg",
+										name1: '水饺',
+										title: '8个/份',
+										money: '$8'
+									}, {
+										img: "https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1864465756,3595288549&fm=26&gp=0.jpg",
+										name1: '水饺',
+										title: '10个/份',
+										money: '$8'
+									},
+									{
+										img: "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=4141733186,3685195681&fm=27&gp=0.jpg",
+										name1: '水饺',
+										title: '10个/份',
+										money: '$8'
+									},
+									{
+										img: "https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1864465756,3595288549&fm=26&gp=0.jpg",
+										name1: '水饺',
+										title: '10个/份',
+										money: '$8'
+									}],
+								}, {
+									name: [{
+											img: "https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1864465756,3595288549&fm=26&gp=0.jpg",
+name1: '可乐',
+										title: '饮品',
+										money: '$3'
+										}, {
+											img: "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=4141733186,3685195681&fm=27&gp=0.jpg",
+											name1: '可乐',
+											title: '饮品',
+											money: '$3'
+										}, {
+											img: "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=4141733186,3685195681&fm=27&gp=0.jpg",
+											name1: '可乐',
+											title: '饮品',
+											money: '$3'
+										},
+										{
+											img: "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=4141733186,3685195681&fm=27&gp=0.jpg",
+											name1: '可乐',
+											title: '饮品',
+											money: '$3'
+										},
+										{
+											img: "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=4141733186,3685195681&fm=27&gp=0.jpg",
+											name1: '可乐',
+											title: '饮品',
+											money: '$3'
+										}],
+									}, {
+										name: [{
+												img: "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=4141733186,3685195681&fm=27&gp=0.jpg",
+												name1: '可乐',
+												title: '饮品',
+												money: '$3'
+											}, {
+												img: "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=4141733186,3685195681&fm=27&gp=0.jpg",
+												name1: '可乐',
+												title: '饮品',
+												money: '$3'
+											}, {
+												img: "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=4141733186,3685195681&fm=27&gp=0.jpg",
+												name1: '可乐',
+												title: '饮品',
+												money: '$3'
+											},
+											{
+												img: "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=4141733186,3685195681&fm=27&gp=0.jpg",
+												name1: '可乐',
+												title: '饮品',
+												money: '$3'
+											},
+											{
+												img: "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=4141733186,3685195681&fm=27&gp=0.jpg",
+												name1: '可乐',
+												title: '饮品',
+												money: '$3'
+											}],
+										}, {
+											name: [{
+													img: "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1947564975,194260723&fm=27&gp=0.jpg",
+													name1: '水饺',
+													title: '6个/份',
+													money: '$8'
+												}, {
+													img: "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1947564975,194260723&fm=27&gp=0.jpg",
+													name1: '水饺',
+													title: '8个/份',
+													money: '$8'
+												}, {
+													img: "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1947564975,194260723&fm=27&gp=0.jpg",
+													name1: '水饺',
+													title: '10个/份',
+													money: '$8'
+												},
+												{
+													img: "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1947564975,194260723&fm=27&gp=0.jpg",
+													name1: '水饺',
+													title: '10个/份',
+													money: '$8'
+												},
+												{
+													img: "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1947564975,194260723&fm=27&gp=0.jpg",
+													name1: '水饺',
+													title: '10个/份',
+													money: '$8'
+												}],
+											}, {
+									name: [{
+										img: "https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1864465756,3595288549&fm=26&gp=0.jpg",
+										name1: '庆丰包子',
+										title: '6个/份',
+										money: '$8'
+									}, {
+										img: "https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1864465756,3595288549&fm=26&gp=0.jpg",
+										name1: '庆丰包子',
+										title: '6个/份',
+										money: '$8'
+									}, {
+										img: "https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1864465756,3595288549&fm=26&gp=0.jpg",
+										name1: '庆丰包子',
+										title: '6个/份',
+										money: '$8'
+									},
+									{
+										img: "https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1864465756,3595288549&fm=26&gp=0.jpg",
+										name1: '庆丰包子',
+										title: '6个/份',
+										money: '$8'
+									},
+									{
+										img: "https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1864465756,3595288549&fm=26&gp=0.jpg",
+										name1: '庆丰包子',
+										title: '6个/份',
+										money: '$8'
+									}],
+								}, {
+									name: [{
+										img: "https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1864465756,3595288549&fm=26&gp=0.jpg",
+										name1: '庆丰包子',
+										title: '6个/份',
+										money: '$8'
+									}, {
+										img: "https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1864465756,3595288549&fm=26&gp=0.jpg",
+										name1: '庆丰包子',
+										title: '6个/份',
+										money: '$8'
+									}, {
+										img: "https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1864465756,3595288549&fm=26&gp=0.jpg",
+										name1: '庆丰包子',
+										title: '6个/份',
+										money: '$8'
+									},
+									{
+										img: "https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1864465756,3595288549&fm=26&gp=0.jpg",
+										name1: '庆丰包子',
+										title: '6个/份',
+										money: '$8'
+									},
+									{
+										img: "https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1864465756,3595288549&fm=26&gp=0.jpg",
+										name1: '庆丰包子',
+										title: '6个/份',
+										money: '$8'
+									}],
+									
+								}],
+								
+							}
+						},
+						methods: {
+							fff(index) {
+								this.aa = index
+							}
+						},
+						template: `#lko`,
+					},
+
+				},
+
+			})
+		</script>
+	</body>
+</html>
