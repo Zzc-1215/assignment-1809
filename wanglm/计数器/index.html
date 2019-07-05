@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>vue计数器</title>
+		<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+		<style type="text/css">
+			.el-input-number {
+				position: relative;
+				display: inline-block;
+				width: 100px;
+				line-height: 38px;
+			}
+
+			
+
+			
+			.el-input-number__decrease,
+			.el-input-number__increase {
+				position: absolute;
+				z-index: 1;
+				top: 10px;
+				width: 20px;
+				height: 20px;
+				border-radius: 50%;
+				text-align: center;
+				background: blue;
+				color: #606266;
+				cursor: pointer;
+				font-size: 13px;
+			}
+
+			.el-input-number__increase {
+				right: 1px;
+			}
+
+			.el-input-number {
+				border: 1px solid block;
+				line-height: 38px;
+			}
+
+			.el-input__inner {
+				background-color: #fff;
+				border-radius: 4px;
+				border: none;
+				box-sizing: border-box;
+				color: #606266;
+				display: inline-block;
+				font-size: inherit;
+				height: 40px;
+				line-height: 40px;
+				outline: none;
+				padding: 0 42px;
+				transition: border-color .2s cubic-bezier(.645, .045, .355, 1);
+				width: 100%;
+				text-align: center;
+			}
+		</style>
+
+
+	</head>
+	<body>
+
+
+
+		<div id="app">
+			<bc-input-number v-model="value" :max='10' :min='0'></bc-input-number>
+		</div>
+	 <template id="input"> 
+			<div class="el-input-number">
+				<span @click="jian" role="button" class="el-input-number__decrease is-disabled">
+					<i class="el-icon-minus">-</i>
+				</span>
+				<span @click="jia" role="button" class="el-input-number__increase">
+					<i class="el-icon-plus">+</i>
+				</span>
+				<div class="el-input">
+					<input type="text" class="el-input__inner" :value="v" >
+				</div>
+			</div>
+			</template>
+			<script type="text/javascript">
+				
+				Vue.component('bcInputNumber',{
+					template:'#input',
+					props:['value','max','min','step'],
+					data(){
+						return{
+							v:this.value,
+						}
+					},
+					watch:{
+						v(val,oldvalue){
+							this.$emit('input',val)
+						}
+					},
+					methods:{
+						jia(){
+							if (this.v>=this.max) {
+								return
+							}
+							this.v++;
+						
+						},
+						jian(){
+							if (this.v<=this.min) {
+								return
+							}
+							this.v--;
+							
+						}
+					}
+				})
+				
+			new Vue({
+					el: '#app',
+					data:{
+						value:1,
+					}
+				})
+			</script>
+	</body>
+</html>
