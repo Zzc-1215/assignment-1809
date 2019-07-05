@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			#box{
+				width: 300px;
+				height: 50px;
+				margin: 100px auto;
+			}
+			#box button{
+				width: 100px;
+				height: 40px;
+				text-align: center;
+				line-height: 40p;
+				font-size:20px;
+				background-color: #ffff;
+			}
+			#box input{
+				width:50px;
+				height:32px;
+				font-size: 20px;
+				text-align:center;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box">
+			<bc-input-number v-model="value" :max="10" :min="0"></bc-input-number>
+			{{value}}
+		</div>
+		<template id="abs">
+			<div>
+				<button @click="jian" id="j">-</button>
+				<input type="text" v-model="num"> 
+				<button @click="jia" id="a">+</button>
+			</div>
+		</template>
+	</body>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script type="text/javascript">
+		Vue.component('bcInputNumber',{
+			template:"#abs",
+			props:['value','max','min'],
+			data(){
+				return{
+					num:this.value,
+				}
+			},
+			watch:{
+				num(val,oldvalue){
+					this.$emit('input',val)
+				}
+			},
+			methods:{
+				jian(){
+					if(this.num<=this.min) return;
+					
+					this.num--;
+					
+//stamp.disabled=true;
+//按钮变为不可点击
+//按钮变为可以点击
+//stamp.disabled=false
+				},
+				jia(){
+					if(this.num>=this.max) return;
+					
+					
+					
+					this.num++;
+					
+				}
+			}
+		})
+		var vm=new Vue({
+			el:"#box",
+			data(){
+				return{
+					value:0,
+				}
+			}
+		})
+	</script>
+</html>

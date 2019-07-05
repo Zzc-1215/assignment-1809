@@ -1,0 +1,21 @@
+@font-face {font-family: "iconfont";
+  src: url('iconfont.eot?t=1562241339300'); /* IE9 */
+  src: url('iconfont.eot?t=1562241339300#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('data:application/x-font-woff2;charset=utf-8;base64,d09GMgABAAAAAAQ8AAsAAAAACDgAAAPuAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHEIGVgCCcAqERIN5ATYCJAMICwYABCAFhG0HMBsfB1GU7U2D7CMxdh6FIYxGZQtFaNKF9C0enr+Xnfvea42B+ea5LUogjcp4g6aBTfA/yKamZaN2Mbbf06k6tE6fcjGvXM2Ai8vkfw6XNp8HNj9QLnMP6gUYBxSFY+wbdJToHciB+V6Gd2KrDvI0gUajvAi2UrKKgFgBkwJxp1LUA3FGoTTgQr24tmJlEU+gRn16EF4GPAYfH38CQkxSk0HW7m1yE4j7dsEobHTbaJceAjCn00FZR8YyoBCHlYZtWBRYhmm0DDYmm8uL4NulrfIYm/3CI4haIGjmscOMa2JS1qUKktitoA7v98AalEVdv59X1y74oM1BFi5l9+GgvUdDTt/udvtOMfu0lH1eyt8r50o4LsOy0O5kinT1/vWrp67deNBFejrONL/b+dtF3J7FbPaV4gvsND6Tz71WyhfdflIylcsYQE0eWrqLD7XaL7oVKluzZsOBaYc2rXOV7bnRw0zsYf3ZYraIsli6mW4XmRYQZtk0e56XWa2lFpPJTExji1muvXWRHccVWUwt5vUebSZk06yCRbyv1VJskWOJLWyP0WZZ95mCpdy3BXhcecKaZmFqXpMQ9cb7O07qFrM8eQSRmI8h1aMK1Ay1cPvw7liOPAMm1NWg0N+b3/jhOwtN7nbupsKduN/35t+hRkGlO/VLcMgQ5mAljjl94puTM4hvA2VlhPstlCY35/4Vx5z06FgjHleIeRikO+Z5+ir7JWHZwuS+CZfLS5rHpk7I6YLJl4wDy8YtkWNdcsyhY5vLSx70ScCShdn9kj6ucv2FRg/PiSpMgU2FuOwsNMOYZmusOdIV/aqtRbYoNSxTORsvbIIh0YXDc+Z2HPcyVOetTZRsGi2QPEuc5KUCt5os29CXv2tchSmek3uW4H6TJNFLC+IAVP/5U+76qz/H57QLDrUdo36KZQV8JUkjA1v1X0A3E1D/QozBj2V2bCg2G5SpmMzKSPIO6l4YrxHdVMDS6dFQUw+Q6EK9yuQhqTMCWb1pZMEuQ40mK1Cr3io0WpK6vkkXBBOlAYsmcBDabYOk1Qdk7a4gC/Yh1Oj1EWq1BwaNjqPrjk1mQyVNRGQ9QzbBhiFQ1UjrKaJmpGF6AakYoK1HaXaALyGRUeWG/j5++XAqqSfRFHOMAxUBDENBCtE6mMKdR2q1NDQgWk02Mj5KhjFE+PpSVW/k00jrgNQmhFSPQWoCNRgCUmlE06O81gxp4f0LkBQG0KqHGupalCVIiJGqc8ifD78OyFSBvlPdrbzGaCCFAAwGBaIgNB0ohdORtBigQYbqYWqkRgwfygE+gwi+QjOqq8BneZHu7bZBI5CmwEFZ7U1DPT1UBQAAAA==') format('woff2'),
+  url('iconfont.woff?t=1562241339300') format('woff'),
+  url('iconfont.ttf?t=1562241339300') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
+  url('iconfont.svg?t=1562241339300#iconfont') format('svg'); /* iOS 4.1- */
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 30px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-_baozi:before {
+  content: "\e826";
+}
+
