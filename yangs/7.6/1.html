@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <script src="js/flexible.js"></script>
+    <script src="js/flexible_css.js"></script>
+    <link rel="stylesheet" href="css/1.css" />
+    <script src="http://g.tbcdn.cn/mtb/lib-flexible/0.3.4/??flexible_css.js,flexible.js"></script>
+    <link rel="stylesheet" href="css/iconfont.css">
+</head>
+
+<body>
+    <div class="container" id="app">
+        <bc-input-number></bc-input-number>	
+    </div>
+    <template id="selectGoods">
+        <div>
+            <header class="header clearfix">
+                <span class="iconfont icon-arrow-ios-back-outline"></span>
+                <h2>庆丰包子铺（窦店）</h2>
+                <span class="iconfont icon-search-outline"></span>
+                <span class="iconfont icon-external-link-outline"></span>
+            </header>
+            <div class="lie">
+                <ul class="clearfix">
+                    <li><span>点餐</span></li>
+                    <li><span>评价</span></li>
+                    <li><span>商家</span></li>
+                </ul>
+            </div>
+            <main class="content clearfix">
+                <ul class="nav">
+                    <li class="t_li" v-for="item,index in arr" :class="{active:i==index}" @click="classadd(index)">
+                        {{item.type}}</li>
+                </ul>
+                <div class="list">
+                    <div class="item clearfix" v-for="item,index in arr[i].list">
+                        <div class="image">
+                            <img :src="item.img" alt="">
+                        </div>
+                        <div class="neirong">
+                            <h2>{{item.text}}</h2>
+                            <p>{{item.text}}</p>
+                            <p>月售<span>1011</span> 赞<span>99</span></p>
+                            <p class="button">
+                                <span class="rmb">￥{{item.price}}</span>
+                                <span class="jian" @click="delCart(item)">-</span>
+                                <span class="num">{{item.num || 0}}</span>
+                                <span class="jia" @click="addCart(item)">+</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            <footer>
+                ￥{{total}}
+                <button>去结算</button>
+            </footer>
+        </div>
+    </template>
+</body>
+
+<script>
+    Vue.component('bcInputNumber', {
+        template: '#selectGoods',
+        data() {
+            return{
+                arr: [
+                {
+                    type: '热销',
+                    list: [
+                        {
+                            img: "images/5ea65e7ed74a2b1cb9f71aa819b90f1_03.png",
+                            text: "啥JB没有包子1",
+                            price: 1,
+                        }, {
+                            img: "images/5ea65e7ed74a2b1cb9f71aa819b90f1_03.png",
+                            text: "啥JB没有包子2",
+                            price: 2,
+                        }, {
+                            img: "images/5ea65e7ed74a2b1cb9f71aa819b90f1_03.png",
+                            text: "啥JB没有包子2",
+                            price: 3,
+                        }
+                    ]
+                }, {
+                    type: '推荐',
+                    list: [
+                        {
+                            img: "images/5ea65e7ed74a2b1cb9f71aa819b90f1_03.png",
+                            text: "啥JB没有包子3",
+                            price: 4,
+                        }, {
+                            img: "images/5ea65e7ed74a2b1cb9f71aa819b90f1_03.png",
+                            text: "啥JB没有包子4",
+                            price: 5,
+                        }, {
+                            img: "images/5ea65e7ed74a2b1cb9f71aa819b90f1_03.png",
+                            text: "啥JB没有包子2",
+                            price: 6,
+                        }
+                    ]
+                }, {
+                    type: '蔬菜',
+                    list: [
+                        {
+                            img: "images/5ea65e7ed74a2b1cb9f71aa819b90f1_03.png",
+                            text: "啥JB没有包子5",
+                            price: 7,
+                        }, {
+                            img: "images/5ea65e7ed74a2b1cb9f71aa819b90f1_03.png",
+                            text: "啥JB没有包子6",
+                            price: 8,
+                        }, {
+                            img: "images/5ea65e7ed74a2b1cb9f71aa819b90f1_03.png",
+                            text: "啥JB没有包子2",
+                            price: 9,
+                        }
+                    ]
+                }, {
+                    type: '肉类',
+                    list: [
+                        {
+                            img: "images/5ea65e7ed74a2b1cb9f71aa819b90f1_03.png",
+                            text: "啥JB没有包子7",
+                            price: 10,
+                        }, {
+                            img: "images/5ea65e7ed74a2b1cb9f71aa819b90f1_03.png",
+                            text: "啥JB没有包子8",
+                            price: 11,
+                        }, {
+                            img: "images/5ea65e7ed74a2b1cb9f71aa819b90f1_03.png",
+                            text: "啥JB没有包子2",
+                            price: 12,
+                        }
+                    ]
+                }, {
+                    type: '凉菜',
+                    list: [
+                        {
+                            img: "images/5ea65e7ed74a2b1cb9f71aa819b90f1_03.png",
+                            text: "啥JB没有包子9",
+                            price: 13,
+                        }, {
+                            img: "images/5ea65e7ed74a2b1cb9f71aa819b90f1_03.png",
+                            text: "啥JB没有包子10",
+                            price: 14,
+                        }, {
+                            img: "images/5ea65e7ed74a2b1cb9f71aa819b90f1_03.png",
+                            text: "啥JB没有包子2",
+                            price: 15,
+                        }
+                    ]
+                }, {
+                    type: '粥类',
+                    list: [
+                        {
+                            img: "images/5ea65e7ed74a2b1cb9f71aa819b90f1_03.png",
+                            text: "啥JB没有包子11",
+                            price: 11,
+                        }, {
+                            img: "images/5ea65e7ed74a2b1cb9f71aa819b90f1_03.png",
+                            text: "啥JB没有包子12",
+                            price: 12,
+                        }, {
+                            img: "images/5ea65e7ed74a2b1cb9f71aa819b90f1_03.png",
+                            text: "啥JB没有包子2",
+                            price: 2,
+                        }
+                    ]
+                }
+            ], 
+            i:0,
+        } 
+    },
+    methods: {
+        classadd(index) {
+            this.i = index;
+        },
+        addCart(item) {
+            if(item.num){
+                item.num++;
+            }else{
+                Vue.set(item,'num',1);
+            }
+        },
+        delCart(item) {
+            if(item.num){
+                if(item.num==0) return;
+                item.num--;
+            }
+        },
+    },
+    computed:{
+        selectList(){
+            var arr1=[];
+            this.arr.forEach(element => {
+                if(element.list && element.list.length>0)
+                    element.list.forEach(el=>{
+                        if(el.num){
+                            arr1.push(el);
+                        }
+                    })
+            });
+            return arr1;
+        },
+        total(){
+            var n=0;
+            this.selectList.forEach(element=>{
+                n+=element.price*element.num;
+            });
+            return n.toFixed(2);
+        },
+    },
+})
+var vm = new Vue({
+    el: '#app',
+})
+</script>
+</script>
+
+</html>
