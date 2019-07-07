@@ -71,7 +71,7 @@
             display: block;
         }
 
-        span {
+        .span {
             height: 50px;
             font-size: 20px;
             line-height: 50px;
@@ -82,6 +82,76 @@
 
         .active {
             background: orange;
+        }
+
+        .el-input-number {
+            position: relative;
+            display: inline-block;
+            width: 180px;
+            line-height: 38px;
+        }
+
+        .el-input-number__decrease {
+            left: 1px;
+            border-radius: 4px 0 0 4px;
+            border-right: 1px solid #dcdfe6;
+        }
+
+        .el-input-number__increase {
+            right: 1px;
+            border-radius: 0 4px 4px 0;
+            border-left: 1px solid #dcdfe6;
+        }
+
+        .el-input-number .el-input {
+            display: block;
+        }
+
+        .el-input {
+            position: relative;
+            font-size: 14px;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .el-input-number .el-input__inner {
+            -webkit-appearance: none;
+            padding-left: 50px;
+            padding-right: 50px;
+            text-align: center;
+        }
+
+        .el-input__inner {
+            -webkit-appearance: none;
+            background-color: #fff;
+            background-image: none;
+            border-radius: 4px;
+            border: 1px solid #dcdfe6;
+            box-sizing: border-box;
+            color: #606266;
+            display: inline-block;
+            font-size: inherit;
+            height: 40px;
+            line-height: 40px;
+            outline: none;
+            padding: 0 15px;
+            transition: border-color .2s cubic-bezier(.645, .045, .355, 1);
+            width: 100%;
+            text-align: center;
+        }
+
+        .el-input-number__decrease,
+        .el-input-number__increase {
+            position: absolute;
+            z-index: 1;
+            top: 1px;
+            width: 40px;
+            height: auto;
+            text-align: center;
+            background: #f5f7fa;
+            color: #606266;
+            cursor: pointer;
+            font-size: 24px;
         }
     </style>
 </head>
@@ -102,9 +172,19 @@
                         <img :src="item.img" alt="">
                         <h4>{{item.name}}</h4>
                         <p>{{item.info}}</p>
-                        <span>￥{{item.price}}元</span>
+                        <span class="span">￥{{item.price}}元</span>
+                        <bc-input-number v-model="value" :disabled="false" :min="0"></bc-input-number>
                     </li>
                 </ul>
+            </div>
+        </div>
+    </template>
+    <template id="input">
+        <div class="el-input-number">
+            <span role="button" @click="jian" class="el-input-number__decrease">-</span>
+            <span role="button" @click="jia" class="el-input-number__increase is-disabled">+</span>
+            <div class="el-input">
+                <input type="text" disabled class="el-input__inner" :value="v">
             </div>
         </div>
     </template>
@@ -112,9 +192,11 @@
     <script>
         Vue.component('abc', {
             template: '#con',
-            data(){
-                return{
-                    i:0,
+            props: ['value', 'max', 'min', 'disabled'],
+            data() {
+                return {
+                    v: this.value,
+                    i: 0,
                     foods: [{
                         food: '水饺',
                         meishi: [
@@ -136,13 +218,13 @@
                         meishi: [
                             {
                                 name: '猪aaaaaa肉大葱馅饺子',
-                                img: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1769208920,1304930106&fm=26&gp=0.jpg',
+                                img: 'http://img2.imgtn.bdimg.com/it/u=1328546880,2773908740&fm=11&gp=0.jpg',
                                 info: '简介简介简介简介简介简介简介简介简介简介简介简介简介',
                                 price: '5',
                             },
                             {
                                 name: 'aaaaaaaaaaa',
-                                img: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1126716551,3134048915&fm=26&gp=0.jpg',
+                                img: 'http://img0.imgtn.bdimg.com/it/u=3758523016,981768066&fm=26&gp=0.jpg',
                                 info: '简介',
                                 price: '10',
                             },
@@ -152,45 +234,45 @@
                         meishi: [
                             {
                                 name: '新品',
-                                img: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1769208920,1304930106&fm=26&gp=0.jpg',
+                                img: 'http://img5.imgtn.bdimg.com/it/u=2296700971,3288969902&fm=26&gp=0.jpg',
                                 info: '介绍',
                                 price: '5',
                             },
                             {
                                 name: '新品23',
-                                img: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1769208920,1304930106&fm=26&gp=0.jpg',
+                                img: 'http://img2.imgtn.bdimg.com/it/u=1711473572,2015742870&fm=26&gp=0.jpg',
                                 info: '介绍',
                                 price: '5',
                             },
                         ],
-                    },{
+                    }, {
                         food: '流食',
                         meishi: [
                             {
                                 name: '流食1',
-                                img: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1769208920,1304930106&fm=26&gp=0.jpg',
+                                img: 'http://img4.imgtn.bdimg.com/it/u=4215327506,2234283864&fm=26&gp=0.jpg',
                                 info: '介绍',
                                 price: '5',
                             },
                             {
                                 name: '流食2',
-                                img: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1769208920,1304930106&fm=26&gp=0.jpg',
+                                img: 'http://img2.imgtn.bdimg.com/it/u=1589670425,3911533009&fm=26&gp=0.jpg',
                                 info: '介绍',
                                 price: '5',
                             },
                         ],
-                    },{
+                    }, {
                         food: '饮料',
                         meishi: [
                             {
                                 name: '饮料1',
-                                img: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1769208920,1304930106&fm=26&gp=0.jpg',
+                                img: 'http://img0.imgtn.bdimg.com/it/u=2807060300,2636460224&fm=26&gp=0.jpg',
                                 info: '介绍',
                                 price: '5',
                             },
                             {
                                 name: '饮料2',
-                                img: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1769208920,1304930106&fm=26&gp=0.jpg',
+                                img: 'http://img4.imgtn.bdimg.com/it/u=2695066744,1919411014&fm=26&gp=0.jpg',
                                 info: '介绍',
                                 price: '5',
                             },
@@ -202,6 +284,32 @@
             methods: {
                 click(index) {
                     this.i = index;
+                },
+            },
+        })
+        var componet2 = Vue.component('bc-input-number',{
+            template: '#input',
+            props: ['value','min','disabled'],
+            data() {
+                return {
+                    v:this.value
+                }
+            },
+            watch:{
+                v(value,oldvalue){
+                   this.$emit('input',value); 
+                }
+            },
+            methods:{
+                jia(){
+                    if(this.disabled) return;
+                    if(this.v>=this.max) return;
+                    this.v+=this.step || 1;
+                },
+                jian(){
+                    if(this.disabled) return;
+                    if(this.v<=this.min) return;
+                    this.v-=this.step || 1;
                 }
             }
         })
@@ -209,7 +317,7 @@
             el: '#app',
             data() {
                 return {
-                    foots: []
+                    value: 0,
                 }
             },
 
