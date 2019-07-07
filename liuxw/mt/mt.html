@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/mt.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="http://g.tbcdn.cn/mtb/lib-flexible/0.3.4/??flexible_css.js,flexible.js"></script>
+    <style>
+        @font-face {
+            font-family: 'iconfont';
+            src: url('https://at.alicdn.com/t/font_1279204_0fkm2d77y2l.eot');
+            src: url('https://at.alicdn.com/t/font_1279204_0fkm2d77y2l.eot?#iefix') format('embedded-opentype'),
+                url('https://at.alicdn.com/t/font_1279204_0fkm2d77y2l.woff2') format('woff2'),
+                url('https://at.alicdn.com/t/font_1279204_0fkm2d77y2l.woff') format('woff'),
+                url('https://at.alicdn.com/t/font_1279204_0fkm2d77y2l.ttf') format('truetype'),
+                url('https://at.alicdn.com/t/font_1279204_0fkm2d77y2l.svg#iconfont') format('svg');
+        }
+        #active{
+        background: white;
+        /* color: red; */
+    }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <bc-header></bc-header>
+        <div class="main">
+            <ul class="list">
+                <e-lema @active="showactive" v-for="(item, index) in arr" :item="item"></e-lema>
+            </ul>
+            <div class='detail'>
+                <my-ele v-for="(item, index) in arrdet[arrindex]" :todo="item">
+                </my-ele>
+            </div>
+        </div>
+        <bc-footer></bc-footer>
+    </div>
+    <script>
+        var bheader = Vue.component("bc-header", {
+            template: "<header class='header'><span class='iconfont'>&#xe641;</span><p class='p1'>庆丰包子铺(窦店)</p><div class='other'><span class='iconfont'>&#xe613;</span><span class='iconfont'>&#xe624;</span></div></header>"
+        });
+        var math = Vue.component("my-ele", {
+            props: ["todo"],
+            template: "<div class='right'><img :src='todo.img'/><div class='r-right'><p class='rp1'>{{todo.name}}</p><p class='rp2'>{{todo.det}}</p><p class='rp3'>¥{{todo.price}}</p><a href='javascript:;' class='add'>+</a></div>",
+        });
+        var fath = Vue.component("e-lema", {
+            data() {
+                return {
+                    arr: [],
+                    num: 0
+                }
+            },
+            props: ["item"],
+            template: "<li @click='send'>{{item}}</li>",
+            mounted() {
+                this.arr = document.querySelectorAll(".list li");
+                this.arr[0].id = "active";
+            },
+            methods: {
+                send() {
+                    for (var i = 0; i < this.arr.length; i++) {
+                        if (this.arr[i] == this.$el) {
+                            this.n = i;
+                            break;
+                        }
+                    }
+                    for (var i = 0; i < this.arr.length; i++) {
+                        this.arr[i].id = ""
+                    }
+                    this.$el.id = "active";
+                    this.$emit("active", this.n);
+                }
+            },
+        });
+        var footer = Vue.component("bc-footer", {
+            template: "<footer class='footer'><div class='che'><span class='iconfont'>&#xe63a;</span></div><div class='total'><span>¥<span>63</span></span><span>另需配送费6元</span></div><button class='ok'>去结算</button></footer>"
+        })
+        new Vue({
+            el: ".box",
+            data: {
+                arr: ["水饺", "流食", "凉菜", "包子", "庆丰福粽", "庆丰特色冷饮", "豆浆饮品"],
+                arrindex: 0,
+                arrdet: [
+                    [{
+                        img: "http://pic39.nipic.com/20140321/18063302_210604412116_2.jpg",
+                        name: "猪肉白菜水饺",
+                        xiaoliang: "月售18 好评率100%",
+                        price: 16
+                    },
+                    {
+                        img: "http://pic39.nipic.com/20140321/18063302_210604412116_2.jpg",
+                        name: "鲅鱼三鲜水饺",
+                        xiaoliang: "月售18 好评100%",
+                        price: 20
+                    }, {
+                        img: "http://pic39.nipic.com/20140321/18063302_210604412116_2.jpg",
+                        name: "虾仁三鲜水饺",
+                        xiaoliang: "月售19 好评率100%",
+                        price: 25
+                    },
+                    {
+                        img: "http://pic39.nipic.com/20140321/18063302_210604412116_2.jpg",
+                        name: "南瓜皮菌菇三鲜猪肉...",
+                        xiaoliang: "月售4份 好评率100%",
+                        price: 24
+                    }
+                    ],
+                    [{
+                        img: "http://pic39.nipic.com/20140321/18063302_210604412116_2.jpg",
+                        name: "流1",
+                        xiaoliang: "月售31",
+                        price: 22
+                    },
+                    {
+                        img: "http://pic39.nipic.com/20140321/18063302_210604412116_2.jpg",
+                        name: "流2",
+                        xiaoliang: "月售32",
+                        price: 24
+                    }, {
+                        img: "http://pic39.nipic.com/20140321/18063302_210604412116_2.jpg",
+                        name: "流3",
+                        xiaoliang: "月售31",
+                        price: 25
+                    },
+                    {
+                        img: "http://pic39.nipic.com/20140321/18063302_210604412116_2.jpg",
+                        name: "流4",
+                        xiaoliang: "月售3",
+                        price: 22
+                    }],
+                    [{
+                        img: "http://pic39.nipic.com/20140321/18063302_210604412116_2.jpg",
+                        name: "凉凉",
+                        xiaoliang: "月售31",
+                        price: 13
+                    },
+                    {
+                        img: "http://pic39.nipic.com/20140321/18063302_210604412116_2.jpg",
+                        name: "凉凉",
+                        xiaoliang: "月售331",
+                        price: 32
+                    }, {
+                        img: "http://pic39.nipic.com/20140321/18063302_210604412116_2.jpg",
+                        name: "凉凉",
+                        xiaoliang: "月售31",
+                        price: 33
+                    },
+                    {
+                        img: "http://pic39.nipic.com/20140321/18063302_210604412116_2.jpg",
+                        name: "凉凉",
+                        xiaoliang: "月售331",
+                        price: 13
+                    }],
+                    [{
+                        img: "http://pic39.nipic.com/20140321/18063302_210604412116_2.jpg",
+                        name: "包4",
+                        xiaoliang: "月售31",
+                        price:24
+                    },
+                    {
+                        img: "http://pic39.nipic.com/20140321/18063302_210604412116_2.jpg",
+                        name: "包3",
+                        xiaoliang: "月售31",
+                        price: 34
+                    }, {
+                        img: "http://pic39.nipic.com/20140321/18063302_210604412116_2.jpg",
+                        name: "包2",
+                        xiaoliang: "月售331",
+                        price: 24
+                    },
+                    {
+                        img: "http://pic39.nipic.com/20140321/18063302_210604412116_2.jpg",
+                        name: "包1",
+                        xiaoliang: "月售31",
+                        price: 14
+                    }],
+                    [{
+                        img: "http://pic39.nipic.com/20140321/18063302_210604412116_2.jpg",
+                        name: "粽4",
+                        xiaoliang: "月售31",
+                        price: 25
+                    },
+                    {
+                        img: "http://pic39.nipic.com/20140321/18063302_210604412116_2.jpg",
+                        name: "粽3",
+                        xiaoliang: "月售31",
+                        price: 15
+                    }, {
+                        img: "http://pic39.nipic.com/20140321/18063302_210604412116_2.jpg",
+                        name: "粽2",
+                        xiaoliang: "月售31",
+                        price: 25
+                    },
+                    {
+                        img: "http://pic39.nipic.com/20140321/18063302_210604412116_2.jpg",
+                        name: "粽1",
+                        xiaoliang: "月售1",
+                        price: 15
+                    }],
+                    [{
+                        img: "http://pic39.nipic.com/20140321/18063302_210604412116_2.jpg",
+                        name: "特2",
+                        xiaoliang: "月售3",
+                        price: 16
+                    },
+                    {
+                        img: "http://pic39.nipic.com/20140321/18063302_210604412116_2.jpg",
+                        name: "特3",
+                        xiaoliang: "月售3",
+                        price: 26
+                    }, {
+                        img: "http://pic39.nipic.com/20140321/18063302_210604412116_2.jpg",
+                        name: "特4",
+                        xiaoliang: "月售32",
+                        price: 26
+                    },
+                    {
+                        img: "http://pic39.nipic.com/20140321/18063302_210604412116_2.jpg",
+                        name: "特1",
+                        xiaoliang: "月售1",
+                        price: 36
+                    }],
+                    [{
+                        img: "http://pic39.nipic.com/20140321/18063302_210604412116_2.jpg",
+                        name: "水4",
+                        xiaoliang: "月售31",
+                        price: 12
+                    },
+                    {
+                        img: "http://pic39.nipic.com/20140321/18063302_210604412116_2.jpg",
+                        name: "水3",
+                        xiaoliang: "月售32",
+                        price: 32
+                    }, {
+                        img: "http://pic39.nipic.com/20140321/18063302_210604412116_2.jpg",
+                        name: "水2",
+                        xiaoliang: "月售23",
+                        price: 21
+                    },
+                    {
+                        img: "http://pic39.nipic.com/20140321/18063302_210604412116_2.jpg",
+                        name: "水1",
+                        xiaoliang: "月售31",
+                        price: 17
+                    }]
+                ]
+            },
+            // },
+            methods: {
+                showactive(adve) {
+                    this.arrindex = adve;
+                },
+            },
+            // component:{sele}
+        })
+    </script>
+</body>
+
+</html>
