@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>包子铺</title>
+		<link rel="stylesheet" href="css.css">
+		<!-- <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" /> -->
+	</head>
+	<body>
+		<div id="box">
+			<bc-container></bc-container>
+		</div>
+		<!-- <template>
+			
+		</template> -->
+				<!-- 头部 -->
+                <!-- <bc-header>
+					<template v-slot:hed>
+						<p><span><</span> 庆丰包子铺 (窦店)</p>
+						<img src="images/7_03.jpg" alt="">
+					</template>
+                </bc-header> -->
+				<!-- 内容 -->
+                <!-- <bc-main> -->
+					<!-- 分类 -->
+					<!-- <template v-slot:left>
+						<div class="classification">
+							<ul>
+								<li v-for="(item,index) in arr">{{item.name}}</li>
+							</ul>
+						</div>
+					</template> -->
+					<!-- 口味商品 -->
+					<!-- <template v-slot:right>
+						<div class="right_food">
+							<ul>
+								<li>
+									<img src="http://img0.imgtn.bdimg.com/it/u=2094916694,2327566598&fm=26&gp=0.jpg" alt="">
+									<p>猪肉大葱</p>
+									<p><span>好评100%</span> &nbsp;&nbsp;<span>月收入￥1500</span></p>
+									<font></font>
+									<div class="number_food">数量</div>
+								</li>
+							</ul>
+						</div>
+					</template>
+                </bc-main> -->
+				<!-- 尾部 -->
+              <!--  <bc-footer>
+					<template v-slot:footer_max>
+						<div class="footer_total">
+							<div class="shopping">
+								<img src="images/logo.jpg" alt="">
+								<span>0</span>
+							</div>
+							<div class="f_num">
+								<p>￥0</p>
+								<p>另需配送费8元</p>
+							</div>
+							<div class="payment">
+								去结算
+							</div>
+						</div>
+					</template>
+                </bc-footer> -->
+		
+		<template id="peripheral">
+			<div class="neirong">
+			
+			 <bc-header>
+				<template v-slot:hed>
+					<p><span><</span> 庆丰包子铺 (窦店)</p>
+					<img src="images/7_03.jpg" alt="">
+				</template>
+			</bc-header>
+			<!-- 内容 -->
+			<bc-main>
+				<!-- 分类 -->
+				<template v-slot:left>
+					<div class="classification">
+						<ul>
+							<li v-for="(item,index) in arr" :class="{tips:ind==index}" @click="effect(index)">{{arr[index].name}}</li>
+						</ul> 
+					</div>
+				</template>
+				<!-- 口味商品 -->
+				<template v-slot:right>
+					<div class="right_food">
+						<ul>
+							<li v-for="(item,index) in arr[ind].food">
+								<img :src="item.img" alt="">
+								<p>{{item.title}}</p>
+								<p><span>好评100%</span> &nbsp;&nbsp;<span>月收入￥1500</span></p>
+								<font>￥{{item.price}}</font>
+								<div class="number_food">
+									<button @click="jian(item)">-</button>
+									<span>{{item.num || 0}}</span>
+									<button @click="jia(item)">+</button>
+								</div>
+							</li>
+							<li></li>
+						</ul>
+					</div>
+				</template>
+			</bc-main>
+			<!-- 尾部 -->
+			<bc-footer>
+				<template v-slot:footer_max>
+					<div class="footer_total">
+						<div class="shopping">
+							<img src="images/logo.jpg" alt="">
+							<span>{{geshu}}</span>
+						</div>
+						<div class="f_num">
+							<p>￥{{zongjia}}</p>
+							<p>另需配送费8元</p>
+						</div>
+						<div class="payment">
+							去结算
+						</div>
+					</div>
+				</template>
+			</bc-footer>
+			</div>		
+		</template>
+		<!-- 头部 -->
+		<template id="header">
+			<div class="header">
+				<slot name="hed"></slot>
+			</div>
+		</template>
+		<!-- 内容 -->
+		<template id="main">
+			<div class="main_box">
+				<div class="l">
+					<slot name="left"></slot>
+				</div>
+				<div class="r">
+					<slot name="right"></slot>
+				</div>
+			</div>
+		</template>
+		<!-- 尾部 -->
+		<template id="footer">
+			<div class="footer_m" :class="{oheight:true}">
+				<slot name="footer_max"></slot>
+			</div>
+		</template>
+	</body>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script>
+		Vue.component('bc-container',{
+			template:"#peripheral",
+			data(){
+				return {
+					ind:0,
+					// otru:true,
+					arr:[{
+						name:'包子',
+						food:[
+							{
+								img:'https://f11.baidu.com/it/u=1178551780,1459728369&fm=72',
+								title:'狗不理包子',
+								price:10,
+								
+							},{
+								img:'http://img2.imgtn.bdimg.com/it/u=1411261894,2348508676&fm=26&gp=0.jpg',
+								title:'胡萝卜粉丝素包子',
+								price:15,
+							},{
+								img:'http://img3.imgtn.bdimg.com/it/u=199262054,2864225185&fm=26&gp=0.jpg',
+								title:'青椒腐竹包子',
+								price:10,
+							},{
+								img:'http://img5.imgtn.bdimg.com/it/u=1685482696,241458409&fm=26&gp=0.jpg',
+								title:'肉包子',
+								price:12,
+							},{
+								img:'http://img1.imgtn.bdimg.com/it/u=1242536900,627599873&fm=26&gp=0.jpg',
+								title:'青椒火腿包',
+								price:10,
+							},{
+								img:'http://img2.imgtn.bdimg.com/it/u=1225428694,2258010160&fm=26&gp=0.jpg',
+								title:'猪肉大葱',
+								price:12,
+							}
+						]},
+						{name:'水饺',
+						food:[
+							{
+								img:'http://img2.imgtn.bdimg.com/it/u=657349104,858706076&fm=26&gp=0.jpg',
+								title:'猪肉馅',
+								price:15,
+							},
+							{
+								img:'http://img4.imgtn.bdimg.com/it/u=2904278983,3626440963&fm=26&gp=0.jpg',
+								title:'素菜馅',
+								price:12,
+							},
+							{
+								img:'http://img5.imgtn.bdimg.com/it/u=2626099047,4120611468&fm=26&gp=0.jpg',
+								title:'鱼肉馅',
+								price:14,
+							},
+							{
+								img:'http://img1.imgtn.bdimg.com/it/u=3544106245,2978055436&fm=26&gp=0.jpg',
+								title:'牛肉馅',
+								price:13,
+							},
+							{
+								img:'http://img2.imgtn.bdimg.com/it/u=3959660564,2118687358&fm=26&gp=0.jpg',
+								title:'韭菜虾仁馅',
+								price:16,
+							},
+							{
+								img:'http://img5.imgtn.bdimg.com/it/u=2309261746,3633547985&fm=26&gp=0.jpg',
+								title:'番茄鸡蛋陷',
+								price:10,
+							}
+						]},
+						{name:'流食',
+						food:[
+							{
+								img:'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2604646081,3654803969&fm=26&gp=0.jpg',
+								title:'豆浆',
+								price:3,
+							},
+							{
+								img:'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=4148552665,698840881&fm=26&gp=0.jpg',
+								title:'清鸡汤',
+								price:15,
+							},
+							{
+								img:'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2236939239,2781314567&fm=26&gp=0.jpg',
+								title:'酸奶',
+								price:5,
+							},
+							{
+								img:'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=528902683,2666127046&fm=26&gp=0.jpg',
+								title:'杏仁茶',
+								price:6,
+							},
+							{
+								img:'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1529139586,2709470470&fm=26&gp=0.jpg',
+								title:'蒸蛋羹',
+								price:8,
+							},
+							{
+								img:'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1965313764,1149501436&fm=26&gp=0.jpg',
+								title:'蛋花汤',
+								price:5,
+							}
+						]},
+						{name:'凉菜',
+						food:[
+							{
+								img:'https://ali.xinshipu.cn/20100506/original/1273134309828.jpg@196w_126h_99q_1e_1c.jpg',
+								title:'拍黄瓜',
+								price:12,
+							},
+							{
+								img:'https://ali.xinshipu.cn/20100325/original/1269479861348.jpg@196w_126h_99q_1e_1c.jpg',
+								title:'家常凉菜',
+								price:12,
+							},
+							{
+								img:'https://ali.xinshipu.cn/20130304/original/1362403945040.jpg@196w_126h_99q_1e_1c.jpg',
+								title:'青椒拌丝',
+								price:12,
+							},
+							{
+								img:'https://ali.xinshipu.cn/20120629/original/1340972766107.jpg@196w_126h_99q_1e_1c.jpg',
+								title:'浇汁豆腐',
+								price:13,
+							},
+							{
+								img:'https://ali.xinshipu.cn/20130310/original/1362909645233.jpg@196w_126h_99q_1e_1c.jpg',
+								title:'韩式泡菜虾',
+								price:15,
+							},
+							{
+								img:'https://ali.xinshipu.cn/20100325/original/1269482494395.jpg@196w_126h_99q_1e_1c.jpg',
+								title:'凉拌三丝',
+								price:10,
+							}
+						]},
+						{name:'饮料',
+						food:[
+							{
+								img:'https://f12.baidu.com/it/u=4050384683,3739724936&fm=72',
+								title:'冰糖雪梨',
+								price:5,
+							},
+							{
+								img:'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3312374290,3194997361&fm=26&gp=0.jpg',
+								title:'西瓜汁',
+								price:6,
+							},
+							{
+								img:'https://f10.baidu.com/it/u=211705315,1494710411&fm=72',
+								title:'可乐',
+								price:4,
+							},
+							{
+								img:'http://img1.imgtn.bdimg.com/it/u=2851374011,1876830024&fm=26&gp=0.jpg',
+								title:'冰淇淋',
+								price:6,
+							},
+							{
+								img:'https://f11.baidu.com/it/u=1819639529,1282140839&fm=72',
+								title:'鸡尾酒',
+								price:8,
+							},
+							{
+								img:'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3174579618,174874212&fm=27&gp=0.jpg',
+								title:'芬达',
+								price:3,
+							}
+						]},
+						{name:'庆丰新品',
+						food:[
+							{
+								img:'http://img5.imgtn.bdimg.com/it/u=1569928405,267468490&fm=26&gp=0.jpg',
+								title:'红烧肉',
+								price:20,
+							},
+							{
+								img:'https://f12.baidu.com/it/u=2232372916,81023114&fm=72',
+								title:'可乐鸡翅',
+								price:15,
+							},
+							{
+								img:'http://img2.imgtn.bdimg.com/it/u=2812152628,3882236474&fm=26&gp=0.jpg',
+								title:'回锅肉',
+								price:40,
+							},
+							{
+								img:'http://img2.imgtn.bdimg.com/it/u=1334839850,772317072&fm=26&gp=0.jpg',
+								title:'红烧排骨',
+								price:30,
+							},
+							{
+								img:'http://img5.imgtn.bdimg.com/it/u=2895926431,3852773906&fm=11&gp=0.jpg',
+								title:'糖醋排骨',
+								price:25,
+							},
+							{
+								img:'http://img2.imgtn.bdimg.com/it/u=1062159642,2611190726&fm=26&gp=0.jpg',
+								title:'酸菜鱼',
+								price:20,
+							}
+						]},
+						{name:'豆浆饮品',
+						food:[
+							{
+								img:'http://img5.imgtn.bdimg.com/it/u=3108429164,2577537583&fm=26&gp=0.jpg',
+								title:'豆浆大米粥',
+								price:9,
+							},
+							{
+								img:'http://img0.imgtn.bdimg.com/it/u=2804069121,2386298977&fm=26&gp=0.jpg',
+								title:'黄豆酱',
+								price:9,
+							},
+							{
+								img:'http://img4.imgtn.bdimg.com/it/u=2313717995,701456765&fm=26&gp=0.jpg',
+								title:'芝麻黒豆浆',
+								price:9,
+							},
+							{
+								img:'http://img4.imgtn.bdimg.com/it/u=3257548152,2879981822&fm=26&gp=0.jpg',
+								title:'绿豆浆',
+								price:9,
+							},
+							{
+								img:'http://img2.imgtn.bdimg.com/it/u=2604646081,3654803969&fm=26&gp=0.jpg',
+								title:'豆浆',
+								price:9,
+							},
+							{
+								img:'http://img3.imgtn.bdimg.com/it/u=3212754352,1354506471&fm=26&gp=0.jpg',
+								title:'花生豆奶 ',
+								price:9,
+							}
+						]},
+					]
+				}
+			},
+			computed:{
+				//计数器对应的数据添加数量
+				addnum(){
+					var arr=[];
+					this.arr.forEach(element => {
+						element.food.forEach(el=>{
+							if(el.num){
+								arr.push(el);
+							}
+						})
+					});
+					return arr;
+				},
+				//总价（用个数乘价格)
+				zongjia(){
+					var n=0;
+					this.addnum.forEach(element=>{
+						n+=element.price*element.num;
+					});
+					return n.toFixed(0);
+				},
+				//个数(每个的数组的num个数相加)
+				geshu(){
+					var m=0;
+					this.addnum.forEach(element=>{
+						m+=element.num;
+					});
+					return m;
+				}
+			},
+			methods:{
+				//提示效果
+				effect(index){
+					this.ind=index;
+				},
+				//减
+				jian(item){
+					if(item.num){
+						if(item.num==0){
+							this.otru=false;
+							return;
+						}
+						item.num--;
+					}
+					
+				},
+				//加
+				jia(item){
+					if(item.num){
+						item.num++;
+					}else{
+						Vue.set(item,'num',1)
+					}
+				}
+			}
+		})
+		//头部
+		Vue.component('bc-header',{
+			template:"#header",
+		})
+		//内容
+		Vue.component('bc-main',{
+			template:"#main",
+			
+		})
+		//结尾
+		Vue.component('bc-footer',{
+			template:"#footer",
+		})
+		new Vue({
+			el:"#box",
+		})
+	</script>
+	<script type="text/javascript">
+		window.onload = function () {
+			document.documentElement.style.fontSize = document.documentElement.clientWidth/750 * 100 + 'px';
+			window.onresize = function () {
+				document.documentElement.style.fontSize = document.documentElement.clientWidth/ 750 * 100 + 'px';
+			}
+		}
+	
+	</script>
+</html>

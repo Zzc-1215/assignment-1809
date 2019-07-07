@@ -49,12 +49,14 @@
 				list-style: none;
 				margin-bottom:15px;
 				position: relative;
+				padding: 10px 0;
 			}
 			.right_varieties li img{
 				width:25%;
 				height:120px;
 				float: left;
 				margin-right:15px;
+				margin-left: 15px;
 			}
 			.right_varieties li h3{
 				font-size: 25px;
@@ -64,7 +66,7 @@
 				font-size:20px;
 				color: #ccc;
 				position: absolute;
-				left:27%;
+				left:28%;
 				bottom:5px;
 			}
 			.num_a{
@@ -77,6 +79,18 @@
 			}
 			.hovere{
 				background:cadetblue;
+			}
+			#box button{
+				text-align: center;
+				line-height: 40p;
+				font-size:20px;
+				background-color: #ffff;
+			}
+			#box input{
+				width:50px;
+				height:100%;
+				font-size: 20px;
+				text-align:center;
 			}
 		</style>
 		<link rel="stylesheet" type="text/css" href="font_fcro4z5294d/iconfont.css"/>
@@ -100,17 +114,52 @@
 								<img :src="item.img" alt="">
 								<h3>{{item.name}}</h3>
 								<p>{{item.price}}</p>
-								<!-- <div class="num_a">数量</div> -->
+								<div class="num_a">
+									<bc-input-number v-model="value" :max="10" :min="0"></bc-input-number>
+								</div>
 							</li>
 						</ul>
 					</div>
 				</div>
 			</div>
 		</template>
+		<!-- 计数器数量 -->
+		<template id="abs">
+			<div>
+				<button @click="jian" id="j">-</button>
+				<input type="text" v-model="num"> 
+				<button @click="jia" id="a">+</button>
+			</div>
+		</template>
 	</body>
 	<script type="text/javascript" src="font_fcro4z5294d/iconfont.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 	<script>
+		Vue.component('bc-input-number',{
+					template:"#abs",
+					props:['value','max','min'],
+					data(){
+						return{
+							num:this.value,
+						}
+					},
+					watch:{
+						num(val,oldvalue){
+							this.$emit('input',val)
+						}
+					},
+					methods:{
+						jian(){
+							if(this.num<=this.min) return;
+							this.num--;
+						},
+						jia(){
+							if(this.num>=this.max) return;
+							this.num++;
+							
+						}
+					}
+				})
 		Vue.component('shopStaple',{
 			template:"#mian_div",
 			data(){
@@ -352,12 +401,10 @@
 			}, */
 			methods:{
 				indx(index){	
-					console.log(this.str)
 					this.inda=index;
 					this.jon.shift();
 					this.jon.push(index=this.num[index])
 					this.str=this.jon[0].shop
-					console.log(this.str)
 				}
 			}
 		})
