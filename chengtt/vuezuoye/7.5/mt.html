@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="css/iconfont.css"/>
+    <link rel="stylesheet" type="text/css" href="css/index.css"/>
+</head>
+
+<body>
+    <div id="app">
+		<bc-input-number></bc-input-number>	
+	</div>
+	<template id="selectGoods">
+		<div>
+			<header>
+				<div class="header"><span><</span>庆丰包子铺(窦店) <a href="jacascript:;"><i class="iconfont search">&#xe601;</i></a>
+                <a href="jacascript:;"><i class="iconfont fx">&#xe66d;</i></a></div>
+				<div class="nav">
+					<ul>
+						<li style="position: relative;">
+							<a href="#" class="border">点餐</a>
+							<span >{{nums}}</span>
+						</li>
+						<li><a href="#">顾客评价</a></li>
+						<li><a href="#">商家</a></li>
+					</ul>
+				</div>
+			</header>
+			<main>
+				<ul>
+					<li v-for="item,index in foodsList" @click="classify(index)" :class="{'active':i==index}">{{item.category}}
+					</li>
+				</ul>
+				<ol>
+					<li class="clearfix" v-for="item,index in foodsList[i].foods">
+						<div class="img"><img :src="item.img" alt=""></div>
+						<h4>{{item.title}}</h4>
+						<h6>{{item.introduction}}</h6>
+						<div class="bottom">
+							<i>￥{{item.price}}</i>
+							<span @click="delCart(item)">-</span>
+							<span>{{item.num || 0}}</span>
+							<span @click="addCart(item)">+</span>
+						</div>
+					</li>
+				</ol>
+			</main>
+			<footer class="clearfix">
+				<div class="footer_img fl">
+					
+					<span>{{nums}}</span>
+				</div>
+				<div class="footer_center fl">
+					￥{{total}}
+					<p>配送费￥100</p>
+				</div>
+				
+				<button class="fr">去结算</button>
+			</footer>
+		</div>
+	</template>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    
+    <script>
+        Vue.component('bcInputNumber',{
+			template: '#selectGoods',
+			data(){
+				return {
+					foodsList:[
+					{
+						category:'热销',
+						foods:[
+						{
+							img:'img/0.jpg',
+							introduction:'月售18份 好评率100%',
+							title:'猪肉大葱',
+							price:10,
+						},{
+							img:'img/2.jpg',
+							introduction:'月售18份 好评率100%',
+							title:'鸡蛋',
+							price:15,
+						},{
+							img:'img/2.jpg',
+							introduction:'月售18份 好评率100%',
+							title:'鸡蛋饼',
+							price:18,
+						},{
+							img: 'img/8.jpg',
+							introduction:'月售18份 好评率100%',
+							title: '南瓜',
+							price: 4,
+						}]
+					},{
+						category:'水饺', 
+						foods:[
+						{
+							img:'img/3.jpg',
+							introduction:'月售18份 好评率100%',
+							title:'猪肉白菜水饺',
+							price:6,
+						},{
+							img:'img/3.jpg',
+							introduction:'月售18份 好评率100%',
+							title:'三鲜水饺',
+							price:16,
+						},{
+							img:'img/3.jpg',
+							introduction:'月售18份 好评率100%',
+							title:'芹菜水饺',
+							price:6,
+						},{
+							img: 'img/3.jpg',
+							introduction:'月售18份 好评率100%',
+							title: '虾仁三鲜水饺',
+							price: 21
+						}]
+					},{
+						category:'包子',
+						foods:[
+						{
+							img:'img/3.jpg',
+							introduction:'月售18份 好评率100%',
+							title:'菜色随意',
+							price:55,
+						},{
+							img:'img/7.jpg',
+							introduction:'月售18份 好评率100%',
+							title:'巧克力',
+							price:'15元',
+						},{
+							img:'img/3.jpg',
+							introduction:'月售18份 好评率100%',
+							title:'菜色随意',
+							price:100,
+						},
+						]
+					},
+					{
+						category: '杂七杂八',
+						foods: [{
+							img: 'img/3.jpg',
+							introduction:'月售18份 好评率100%',
+							title: '凉面',
+							price: 10
+						}, {
+							img: 'img/7.jpg',
+							introduction:'月售18份 好评率100%',
+							title: '甜甜圈',
+							price: 15,
+						}, {
+							img: 'img/6.jpg',
+							introduction:'月售18份 好评率100%',
+							title: '蛋糕',
+							price: '108',
+						},{
+							img: 'img/3.jpg',
+							introduction:'月售18份 好评率100%',
+							title: '火锅',
+							price: 88,
+						} ],
+					
+				},
+				{
+						category: '饮料',
+						foods: [{
+							img: 'img/1.jpg',
+							introduction:'月售18份 好评率100%',
+							title: '百世可乐',
+							price: 4
+						}, {
+							img: 'img/3.jpg',
+							introduction:'月售18份 好评率100%',
+							title: '甜甜圈',
+							price: '10',
+						}, {
+							img: 'img/4.jpg',
+							introduction:'月售18份 好评率100%',
+							title: '可口可乐',
+							price: 4,
+						},{
+							img: 'img/5.jpg',
+							introduction:'月售18份 好评率100%',
+							title: '维他奶',
+							price: '5',
+						} ],
+					
+				}
+					],
+					i: 0,
+				}
+			},
+			methods: {
+				classify(index) {
+					this.i = index;
+				},
+				addCart(item) {
+					if(item.num){
+						item.num++;
+					}else{
+						Vue.set(item,'num',1);
+					}
+				},
+				delCart(item) {
+					if(item.num){
+						if(item.num==0) return;
+						item.num--;
+					}
+				},
+			},
+			computed:{
+				selectList(){
+					var arr=[];
+					this.foodsList.forEach(element => {
+						if(element.foods && element.foods.length>0)
+							element.foods.forEach(el=>{
+								if(el.num){
+									arr.push(el);
+								}
+							})
+					});
+					return arr;
+				},
+				// 购买总价
+				total(){
+					var n=0;
+					this.selectList.forEach(element=>{
+						n+=element.price*element.num;
+					});
+					return n.toFixed(2);
+				},
+				// 购买个数
+				nums(){
+					var m=0;
+					this.selectList.forEach(element=>{
+						m+=element.num;
+
+					});
+					// 判断购买个数是否为0 
+					if(m!==0){
+						document.querySelector('footer').style.opacity='1'
+					}
+					return m;
+				}
+			},
+		})
+		var vm = new Vue({
+			el: '#app',
+		})
+    </script>
+</body>
+
+</html>
