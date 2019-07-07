@@ -7,7 +7,7 @@ sass.compiler = require('node-sass');
 let cleanCSS = require('gulp-clean-css');
 
 var op = {
-  rootValue: 72,
+  rootValue: 75,
   unitPrecision: 5,
   propertyBlackList: ['font-size'],
   propertyWhiteList: [],
