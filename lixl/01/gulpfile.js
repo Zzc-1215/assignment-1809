@@ -10,7 +10,7 @@ function sb() {
 	})
 }
 var op = {
-rootValue: 108,
+rootValue: 75,
 unitPrecision: 5,
 propertyBlackList: [],
 propertyWhiteList: [],
