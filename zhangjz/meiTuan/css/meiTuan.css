@@ -47,39 +47,128 @@ input {
 
 .iconfont {
   font-family: "iconfont" !important;
-  font-size: 0.22222rem;
+  font-size: 0.21333rem;
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; }
 
-.search_box {
+.header {
   width: 10rem;
-  padding: 0.38889rem 0.69444rem 0.38889rem 0.97222rem;
-  text-align: center; }
-  .search_box input {
-    background: #e8e8e8;
-    width: 6.02778rem;
-    height: 0.83333rem;
-    border-radius: 0.41667rem;
-    padding-left: 0.27778rem;
-    font-size: 0.27778rem; }
-  .search_box span {
-    height: 0.83333rem;
-    line-height: 0.83333rem;
-    font-size: 0.72222rem; }
-  .search_box i {
-    padding-left: 0.16667rem;
-    font-size: 0.44444rem; }
-  .search_box em {
-    padding-left: 0.27778rem;
-    font-size: 0.44444rem; }
-  .search_box p {
-    margin-top: -0.41667rem;
-    margin-left: -1.94444rem;
-    width: 6.02778rem;
-    line-height: 1px; }
-    .search_box p b {
-      font-size: 0.38889rem;
-      padding-right: 0.06944rem;
-      margin-top: 0.27778rem;
-      color: #5f5f5f; }
+  height: 1.33333rem;
+  padding: 0 0.45333rem;
+  border-bottom: 1px solid #e2e2e2; }
+  .header .header_tit {
+    height: 1.33333rem;
+    line-height: 1.33333rem;
+    font-size: 0.42667rem;
+    font-weight: 600; }
+    .header .header_tit span {
+      padding-right: 0.49333rem;
+      font-size: 0.42667rem;
+      color: #2895d7; }
+  .header .header_font {
+    height: 1.33333rem;
+    line-height: 1.33333rem; }
+    .header .header_font span {
+      padding: 0 0.13333rem;
+      font-size: 0.50667rem; }
+    .header .header_font .search {
+      color: #2895d7;
+      font-weight: 600; }
+
+.options {
+  width: 10rem;
+  margin-bottom: 0.13333rem; }
+  .options .option_list li {
+    float: left;
+    width: 3.33333rem;
+    text-align: center; }
+    .options .option_list li a {
+      display: inline-block;
+      width: 0.8rem;
+      padding: 0.29333rem 0;
+      color: #7a7a7a;
+      box-sizing: border-box; }
+    .options .option_list li .active {
+      border-bottom: 0.05333rem solid #2895d7;
+      font-weight: 600;
+      color: #000; }
+
+.tabs .tabs_list {
+  width: 2.04rem;
+  margin-right: 0.29333rem; }
+  .tabs .tabs_list li {
+    height: auto;
+    padding: 0.53333rem 0;
+    background: #f8f8f8;
+    padding-left: 0.21333rem;
+    color: #888; }
+  .tabs .tabs_list .aaa {
+    background: #fff; }
+
+.tabs .food_list {
+  width: 7.66667rem; }
+  .tabs .food_list .food {
+    height: 2.53333rem;
+    margin-bottom: 0.54667rem; }
+    .tabs .food_list .food .food_img {
+      width: 2.53333rem;
+      height: 2.53333rem;
+      background: firebrick;
+      margin-right: 0.26667rem; }
+      .tabs .food_list .food .food_img img {
+        width: 100%;
+        height: 100%; }
+    .tabs .food_list .food .food_message .food_tit {
+      padding-bottom: 0.21333rem;
+      font-size: 0.37333rem; }
+    .tabs .food_list .food .food_message .food_sales {
+      font-size: 0.18667rem;
+      color: #a8a8a8;
+      padding-bottom: 1.01333rem; }
+    .tabs .food_list .food .food_message .price_box {
+      width: 4.4rem; }
+      .tabs .food_list .food .food_message .price_box .food_price {
+        color: #f85b4b;
+        font-size: 0.34667rem;
+        font-weight: bold;
+        margin-top: 0.06667rem; }
+      .tabs .food_list .food .food_message .price_box .counter {
+        margin-top: -0.06667rem; }
+        .tabs .food_list .food .food_message .price_box .counter .sub, .tabs .food_list .food .food_message .price_box .counter .add {
+          display: inline-block;
+          width: 0.58667rem;
+          height: 0.58667rem;
+          font-size: 0.4rem;
+          line-height: 0.50667rem;
+          text-align: center;
+          border-radius: 50%;
+          color: #2a93ff;
+          font-weight: 800;
+          border: 1px solid #2a93ff; }
+        .tabs .food_list .food .food_message .price_box .counter .add {
+          background: #2a93ff;
+          color: #fff; }
+        .tabs .food_list .food .food_message .price_box .counter .amount {
+          width: 0.66667rem;
+          height: 0.58667rem;
+          line-height: 0.58667rem;
+          display: inline-block;
+          text-align: center;
+          vertical-align: top; }
+
+.foot {
+  width: 10rem;
+  height: 1.33333rem;
+  background: blue;
+  position: absolute;
+  text-align: center;
+  line-height: 1.33333rem;
+  font-size: 0.32rem;
+  font-weight: bold;
+  color: #fff;
+  bottom: 0; }
+  .foot button {
+    height: 1.33333rem;
+    border: none;
+    width: 2rem; }
