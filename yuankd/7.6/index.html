@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="js/flexible_css.js"></script>
+    <script src="js/flexible.js"></script>
+    <link rel="stylesheet" href="css/1.css">
+    <link rel="stylesheet" href="font/iconfont.css">
+</head>
+
+<body>
+    <div id="app">
+        <bc-container>
+            {{allconut}}
+            <!-- 顶部 -->
+            <bc-header></bc-header>
+            <!-- 内容 -->
+            <bc-content :data="infor" @numbtn="allconut=$event" @numbtns="sum=$event">
+
+            </bc-content>
+            <!-- 底部 -->
+            <bc-footer>
+                <div :key="1" class="foot clearfix" v-show="!allconut==0">
+                    <div class="foot-price">
+                        <div class="foot-pri clearfix">
+                            <div class="foot-icon">
+                                <span class="iconfont">&#xe600;</span>
+                                <i>{{sum}}</i>
+                            </div>
+                            <div class="money">
+                                <p>&yen;{{allconut}}</p>
+                                <p>另需配送费8元</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="foot-pay">
+                        <button>去结算</button>
+                    </div>
+                </div>
+            </bc-footer>
+
+        </bc-container>
+    </div>
+
+
+    <template id="container">
+        <div class="container">
+            <slot></slot>
+        </div>
+    </template>
+
+    <template id="header">
+        <div class="header">
+
+            <div class="head">
+                <div class="head-tit clearfix">
+                    <h3><span class="iconfont back">&#xe65b;</span>庆丰包子铺(窦店)</h3>
+                    <div class="head-icon">
+                        <span class="iconfont search">&#xe613;</span>
+                        <span class="iconfont share">&#xe623;</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="content">
+        <div class="content">
+            <ul class="head-list clearfix">
+                <li><a href="javascript:;">点餐</a></li>
+                <li><a href="javascript:;">评价</a></li>
+                <li><a href="javascript:;">商家</a></li>
+            </ul>
+            <div class="cont-text">
+                <ul>
+                    <li @click="num=index" v-for="(item,index) in foods" :class="num==index?'active':''">
+                        {{item.classify}}</li>
+                </ul>
+                <div class="content-text clearfix" v-if="num==index" v-for="(item,index) in foods">
+                    <div class="food-text clearfix" v-for="ele in item.arr">
+                        <div class="food-img">
+                            <img :src="ele.img">
+                        </div>
+                        <div class="food-contnet">
+                            <div class="content-introduce">
+                                <p>{{ele.name}}</p>
+                                <span>{{ele.info}}</span><span>{{ele.eval}}%</span>
+                            </div>
+                            <div class="content-price">
+                                <i>&yen;{{ele.price}}</i>
+                                <bc-input-number v-model="ele.val" :min="0"></bc-input-number>
+                                <!-- {{ele.v}} -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+    <template id="contBtn">
+        <div class="el-input-number">
+            <span @click="reduce" role="button" class="el-input-number__decrease is-disabled">
+                -<i class="el-icon-minus"></i>
+            </span>
+            <span @click="plus" role="button" class="el-input-number__increase">
+                +<i class="el-icon-plus"></i>
+            </span>
+            <div class="el-input">
+                <input type="text" v-model="v" disabled>
+            </div>
+        </div>
+    </template>
+    <template id="footer">
+        <div class="footer">
+            <transition-group tag="div">
+                <slot></slot>
+            </transition-group>
+        </div>
+    </template>
+</body>
+<script src="vue.js"></script>
+<script>
+    Vue.component('bc-container', {
+        template: '#container'
+    })
+    Vue.component('bc-header', {
+        template: '#header'
+    })
+    Vue.component('bc-content', {
+        template: '#content',
+        props: ['data'],
+        data() {
+            return {
+                value: 0,
+                num: 0,
+                foods: this.data
+            }
+        },
+        watch: {
+            snum(val, oldval) {
+                this.$emit('numbtn', val)
+            },
+            sgoods(val, oldval) {
+                this.$emit('numbtns', val)
+            }
+        },
+        computed: {
+            snum() {
+                var allprice = 0;
+                this.foods.forEach(item => {
+                    item.arr.forEach(cont => {
+                        allprice += (cont.val || 0) * cont.price;
+                    })
+                })
+                return allprice;
+            },
+            sgoods() {
+                var sum = 0;
+                this.foods.forEach(item => {
+                    item.arr.forEach(cont => {
+                        sum += cont.val || 0
+                    })
+                })
+                return sum;
+            }
+        }
+    })
+    Vue.component('bc-input-number', {
+        template: '#contBtn',
+        props: ['value', 'max', 'min', 'step'],
+        data() {
+            return {
+                v: this.value || 0,
+            }
+        },
+        watch: {
+            v(val, oldvalue) {
+                if (val >= this.max) {
+                    val = this.max
+                }
+                if (val <= this.min) {
+                    val = this.min
+                }
+                this.$emit('input', val)
+            }
+        },
+        methods: {
+            plus() {
+                if (this.v >= this.max) {
+                    this.v = this.max
+                    return
+                }
+                this.v += this.step || 1
+            },
+            reduce() {
+                if (this.v <= this.min) {
+                    this.v = this.min
+                    return
+                }
+                this.v -= this.step || 1
+            },
+        }
+    })
+    var component = Vue.component('bc-content-cont', {
+        template: '#content-cont'
+    })
+
+    Vue.component('bc-footer', {
+        template: '#footer',
+        methods: {
+
+        }
+    })
+    // var component = Vue.component('bc-content-cont', {
+    //     template: '#contentNav',
+    //     // props: ['data'],
+
+    // })
+
+
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            allconut: 0,
+            sum: 0,
+            infor: [
+                {
+                    classify: '热销',
+                    arr: [
+                        {
+                            img: 'img/1.jpg',
+                            name: '三鲜水饺',
+                            price: 20,
+                            info: '月销量50',
+                            eval: '好评率：50%'
+                        },
+                        {
+                            img: 'img/1.jpg',
+                            name: 'gdsajf',
+                            price: 50,
+                            info: '月销量90',
+                            eval: '好评率：50%'
+                        },
+                        {
+                            img: 'img/1.jpg',
+                            name: 'sgseags',
+                            price: 30,
+                            info: '月销量100',
+                            eval: '好评率：50%'
+                        },
+                        {
+                            img: 'img/1.jpg',
+                            name: '鸡蛋汤',
+                            price: 30,
+                            info: '月销量60',
+                            eval: '好评率：50%'
+                        },
+                    ]
+                },
+                {
+                    classify: '水饺',
+                    arr: [
+                        {
+                            img: 'img/1.jpg',
+                            name: 'hdsdikdbnsj',
+                            price: 40,
+                            info: '月销量50',
+                            eval: '好评率：50%'
+                        },
+                        {
+                            img: 'img/1.jpg',
+                            name: 'gdsajf',
+                            price: 30,
+                            info: '月销量50',
+                            eval: '好评率：50%'
+                        },
+                        {
+                            img: 'img/1.jpg',
+                            name: 'sgseags',
+                            price: 10,
+                            info: '月销量50',
+                            eval: '好评率：50%'
+                        },
+                    ]
+                },
+                {
+                    classify: '流食',
+                    arr: [
+                        {
+                            img: 'img/1.jpg',
+                            name: '猪肉大葱包子',
+                            price: 30,
+                            info: '月销量50',
+                            eval: '好评率：50%'
+                        },
+                        {
+                            img: 'img/1.jpg',
+                            name: '韭菜盒子',
+                            price: 15,
+                            info: '月销量50',
+                            eval: '好评率：50%'
+                        },
+                        {
+                            img: 'img/1.jpg',
+                            name: '猪肉玉米包子',
+                            price: 10,
+                            info: '月销量50',
+                            eval: '好评率：50%'
+                        },
+                    ]
+                },
+                {
+                    classify: '凉菜',
+                    arr: [
+                        {
+                            img: 'img/1.jpg',
+                            name: '皮蛋瘦肉粥',
+                            price: 30,
+                            info: '月销量50',
+                            eval: '好评率：50%'
+                        },
+                        {
+                            img: 'img/1.jpg',
+                            name: '小米粥',
+                            price: 15,
+                            info: '月销量50',
+                            eval: '好评率：50%'
+                        },
+                        {
+                            img: 'img/1.jpg',
+                            name: '大米粥',
+                            price: 10,
+                            info: '月销量50',
+                            eval: '好评率：50%'
+                        },
+                    ]
+                },
+                {
+                    classify: '包子',
+                    arr: [
+                        {
+                            img: 'img/1.jpg',
+                            name: '皮蛋瘦肉粥',
+                            price: 30,
+                            info: '月销量50',
+                            eval: '好评率：50%'
+                        },
+                        {
+                            img: 'img/1.jpg',
+                            name: '小米粥',
+                            price: 15,
+                            info: '月销量50',
+                            eval: '好评率：50%'
+                        },
+                        {
+                            img: 'img/1.jpg',
+                            name: '大米粥',
+                            price: 10,
+                            info: '月销量50',
+                            eval: '好评率：50%'
+                        },
+                    ]
+                },
+                {
+                    classify: '饮料',
+                    arr: [
+                        {
+                            img: 'img/1.jpg',
+                            name: '皮蛋瘦肉粥',
+                            price: 30,
+                            info: '月销量50',
+                            eval: '好评率：50%'
+                        },
+                        {
+                            img: 'img/1.jpg',
+                            name: '小米粥',
+                            price: 15,
+                            info: '月销量50',
+                            eval: '好评率：50%'
+                        },
+                        {
+                            img: 'img/1.jpg',
+                            name: '大米粥',
+                            price: 10,
+                            info: '月销量50',
+                            eval: '好评率：50%'
+                        },
+                    ]
+                },
+                {
+                    classify: '庆丰新品',
+                    arr: [
+                        {
+                            img: 'img/1.jpg',
+                            name: '皮蛋瘦肉粥',
+                            price: 30,
+                            info: '月销量50',
+                            eval: '好评率：50%'
+                        },
+                        {
+                            img: 'img/1.jpg',
+                            name: '小米粥',
+                            price: 15,
+                            info: '月销量50',
+                            eval: '好评率：50%'
+                        },
+                        {
+                            img: 'img/1.jpg',
+                            name: '大米粥',
+                            price: 10,
+                            info: '月销量50',
+                            eval: '好评率：50%'
+                        },
+                    ]
+                },
+                {
+                    classify: '豆浆饮品',
+                    arr: [
+                        {
+                            img: 'img/1.jpg',
+                            name: '皮蛋瘦肉粥',
+                            price: 30,
+                            info: '月销量50',
+                            eval: '好评率：50%'
+                        },
+                        {
+                            img: 'img/1.jpg',
+                            name: '小米粥',
+                            price: 15,
+                            info: '月销量50',
+                            eval: '好评率：50%'
+                        },
+                        {
+                            img: 'img/1.jpg',
+                            name: '大米粥',
+                            price: 10,
+                            info: '月销量50',
+                            eval: '好评率：50%'
+                        },
+                    ]
+                }
+            ]
+        }
+    })
+
+</script>
+
+</html>
