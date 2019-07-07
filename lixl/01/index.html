@@ -1,178 +1,358 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html>
 
 	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
-		<title>Document</title>
-		<link rel="stylesheet" type="text/css" href="font/demo.css"/>
-		<link rel="stylesheet" type="text/css" href="font/iconfont.css"/>
-		<style type="text/css">
-			@font-face {
-			  font-family: 'iconfont';
-			  src: url('iconfont.eot');
-			  src: url('iconfont.eot?#iefix') format('embedded-opentype'),
-			      url('iconfont.woff2') format('woff2'),
-			      url('iconfont.woff') format('woff'),
-			      url('iconfont.ttf') format('truetype'),
-			      url('iconfont.svg#iconfont') format('svg');
-			}
-			
-			.iconfont {
-				font-family: "iconfont" !important;
-				font-size: 16px;
-				font-style: normal;
-				-webkit-font-smoothing: antialiased;
-				-moz-osx-font-smoothing: grayscale;
-			}
-			
-			* {
-				margin: 0;
-				padding: 0;
-				list-style: none;
-			}
-			
-			.g-box {
-				width: 400px;
-				margin: auto;
-				background: #ccc;
-				color: yellow;
-			}
-			
-			ul li span,
-			i {
-				float: right;
-				font-style: normal;
-				margin: 0 5px;
-				border: solid 1px;
-				cursor: pointer;
-				padding: 0 5px;
-			}
-			
-			ul li {
-				height: 23px;
-				text-shadow: 0 0 5px blue;
-			}
-			
-			ul li span:hover {
-				background: white;
-				color: blueviolet;
-			}
-			
-			ul li i:hover {
-				background: black;
-				color: white;
-			}
-			
-			#list {
-				min-height: 200px;
-				border-bottom: dashed 1px;
-			}
-			
-			#list1 {
-				min-height: 200px;
-			}
-		</style>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript" src="js/flexible_css.js"></script>
+		<script type="text/javascript" src="js/flexible.js"></script>
+		<link rel="stylesheet" type="text/css" href="font/demo.css" />
+		<link rel="stylesheet" type="text/css" href="font/iconfont.css" />
+		<link rel="stylesheet" type="text/css" href="css/stuffed.css" />
 	</head>
 
 	<body>
-		<div class="g-box" id="bigbox">
-			<div class="g-title">
-				<h3 style="text-align: center;font-size: 26px; font-weight: normal; ">Hello ToDoList</h3>
-			</div>
-			<div class="g-search">
-				<input type="text" placeholder="添加待办事项" id="m-searchinp" style="width: 99%;height: 40px;" v-model="val" />
-				<button id="m-searchbtn" style="width: 100%;height: 36px;" v-if="val" v-on:click="add">添加待办事项</button>
-			</div>
-			<div class="g-unfinished">
-				<p style="color: red;">未完成</p>
-				<ul id="list">
-					<div style="color: aqua;font-size: 16px;text-align: center;" v-if="!unfinished.length">
-						还未添加事项
-					</div>
-					<li v-else v-for="(cont,i) in unfinished">
-						{{cont}}
-						<i v-on:click="del(i)" class="iconfont">&#xe63c;</i>
-						<span v-on:click="accomplishbtn(cont,i)" class="iconfont">&#xe600;</span>
-					</li>
-				</ul>
-			</div>
-			<div class="g-accomplish">
-				<p style="color: green;" >完成</p>
-				<ul id="list1">
-					<li v-for="(cont,index) in accomplish">
-						{{cont}}
-						<i v-on:click="delet(index8)" class="iconfont">&#xe63c;</i>
-						<span v-on:click="unfinishedbtn(cont,index)" class="iconfont">&#xe6e4;</span>
-					</li>
-					<!--<transition name="red"><div v-show="show" class="red"></div></transition>-->
-				</ul>
-			</div>
+		<div id="app">
+			<!--{{allnum}}-->
+			<bc-container>
+				<bc-header>
+				</bc-header>
+				<bc-main>
+					<meit :data="foods" @total="allnum=$event" @totals="allsnum=$event"></meit>
+				</bc-main>
+				<bc-footer>
+					<total :key="1" v-show="!allnum==0">
+						<div class="foot clearfix">
+							<div class="footleft clearfix">
+								<div class="shopcart">
+									<span class="iconfont">&#xe611;</span>
+									<i>{{allsnum}}</i>
+								</div>
+								<div class="total">
+									<h4>￥{{allnum}}</h4>
+									<p>另需配送费8元</p>
+								</div>
+							</div>
+							<div class="footright">
+								<button>去结算</button>
+							</div>
+						</div>
+					</total>
+				</bc-footer>
+			</bc-container>
 		</div>
+		<template id="bc-container">
+			<div class="box">
+				<slot></slot>
+			</div>
+		</template>
+		<template id="bc-header">
+			<div class="header clearfix">
+				<span class="iconfont">&#xe60e;</span>
+				<p>庆丰包子铺(窦店镇)</p>
+				<span class="iconfont">&#xe62b;</span>
+				<span class="iconfont">&#xe608;</span>
+			</div>
+		</template>
+		<template id="bc-main">
+			<div class="cont">
+				<ul class="shop clearfix">
+					<li><span class="active">点赞</span></li>
+					<li><span>评价</span></li>
+					<li><span>商家</span></li>
+				</ul>
+				<slot></slot>
+			</div>
+		</template>
+		<template id="meit">
+			<div class="content clearfix">
+				<div class="contleft">
+					<ul>
+						<li :class="numIndex==index?'active':''" @click="numIndex=index" v-for="(cont,index) in food">{{cont.class}}</li>
+					</ul>
+				</div>
+				<div class="contright">
+					<div v-if="numIndex==index" v-for="(item,index) in food">
+						<div class="text clearfix" v-for="cont in item.arr">
+							<div class="left">
+								<img :src="cont.img" />
+							</div>
+							<div class="right">
+								<h3 class="title">{{cont.name}}</h3>
+								<p class="info">{{cont.info}}</p>
+								<div class="counter clearfix">
+									<span class="pirce">{{cont.price}}</span>
+									<bc-input-number v-model="cont.vals" :disabled="true" :step="1" :min="0"></bc-input-number>
+								</div>
+							</div>
+							<!--{{totalPrice}}
+							{{cont.val}}-->
+						</div>
+					</div>
+				</div>
+			</div>
+		</template>
+		<template id="inputNumber">
+			<div class="el-input-number">
+				<span v-if="!va==0" @click="jian" role="button" class="el-input-number__decrease is-disabled">
+					<i class="el-icon-minus iconfont">&#xe619;</i>
+				</span>
+				<span @click="plus" role="button" class="el-input-number__increase">
+					<i class="el-icon-plus iconfont">&#xe60d;</i>
+				</span>
+				<div v-if="!va==0 || !va==undefined" class="el-input">
+					<input type="text" v-model="va" disabled>
+				</div>
+			</div>
+		</template>
+		<template id="bc-footer">
+			<div class="footer">
+				<transition-group tag="div" name="btn">
+					<slot></slot>
+				</transition-group>
+			</div>
+		</template>
+		<template id="total">
+			<div class="foots">
+				<slot></slot>
+			</div>
+		</template>
 		<script type="text/javascript" src="js/vue.js"></script>
 		<script type="text/javascript">
-			var mvc = new Vue({
-				el: '#bigbox',
+			Vue.component('bc-container', {
+				template: '#bc-container',
 				data() {
 					return {
-						val: '',
-						unfinished: [],
-						accomplish: [],
-					}
-				},
-				methods: {
-					add() {
-						this.unfinished.push(this.val)
-						this.val = ''
-					},
-					accomplishbtn(cont, i) {
-						this.unfinished.splice(i, 1)
-						this.accomplish.push(cont)
-					},
-					unfinishedbtn(cont, index) {
-						this.accomplish.splice(index, 1)
-						this.unfinished.push(cont)
-					},
-					del(i) {
-						this.unfinished.splice(i, 1)
-					},
-					delet(index) {
-						this.accomplish.splice(index, 1)
+
 					}
 				},
 			})
+			Vue.component('bc-header', {
+				template: '#bc-header',
+				data() {
+					return {
 
-			//		var str=''
-			//		$('#m-searchinp').on('change',function(){
-			//			str=$(this).val()
-			////			console.log(str)
-			//			$(this).val('')
-			//		})
-			//		$('#m-searchbtn').on('click',function(){
-			//			if (str!='') {
-			//				var oLi=$('<li>'+str+'<span>完成</span></li>')
-			//				$('#list').prepend(oLi)
-			//				$('#list').children('div').remove()
-			//			}
-			//		})
-			//		$('#list').on('click','span',function(){
-			//			var newstr=$(this).parent().html().split('<')[0]
-			//			$(this).parent().remove()
-			//			var oLi=$('<li>'+newstr+'<i>删除</i><span>未完成</span></li>')
-			//			$('#list1').prepend(oLi)
-			////			console.log(newstr)
-			//		})
-			//		$('#list1').on('click','span',function(){
-			//			var newstr=$(this).parent().html().split('<')[0]
-			//			$(this).parent().remove()
-			//			var oLi=$('<li>'+newstr+'<span>完成</span></li>')
-			//			$('#list').prepend(oLi)
-			////			console.log(newstr)
-			//		})
-			//		$('#list1').on('click','i',function(){
-			//			$(this).parent().remove()
-			//		})
+					}
+				},
+			})
+			Vue.component('bc-main', {
+				template: '#bc-main',
+				data() {
+					return {}
+				},
+			})
+			Vue.component('bc-footer', {
+				template: '#bc-footer',
+				data() {
+					return {}
+				},
+			})
+			Vue.component('total', {
+				template: '#total',
+				//				props: ['data'],
+				data() {
+					return {
+						//						allsnum: this.data
+					}
+				},
+			})
+			Vue.component('meit', {
+				template: '#meit',
+				props: ['data'],
+				data() {
+					return {
+						numIndex: 0,
+						value: 0,
+						food: this.data
+					}
+				},
+				watch: {
+					totalPrice(val, oldval) {
+						this.$emit('total', val)
+					},
+					totalQuantity(val,oldval){
+						this.$emit('totals', val)
+					}
+				},
+				computed: {
+					totalPrice() {
+						var totalprice = 0;
+						this.food.forEach(item => {
+							item.arr.forEach(cont => {
+								totalprice += (cont.vals || 0) * cont.price;
+							})
+						})
+						//						for(var i = 0; i < this.food.length; i++) {
+						//							for(var j = 0; j < this.food[i].arr.length; j++) {
+						//								totalprice += (this.food[i].arr[j].val || 0) * this.food[i].arr[j].price
+						//							}
+						//						}
+						return totalprice
+					},
+					totalQuantity(){
+						var totalquantity = 0;
+						this.food.forEach(item => {
+							item.arr.forEach(cont => {
+								totalquantity += cont.vals || 0;
+							})
+						})
+						return totalquantity
+					}
+
+				}
+			})
+			Vue.component('bc-input-number', {
+				template: '#inputNumber',
+				props: ['value', 'max', 'min', 'step', 'disabled'],
+				data() {
+					return {
+						va: this.value || 0,
+					}
+				},
+				watch: {
+					va(val, oldvalue) {
+						if(val >= this.max) {
+							val = this.max
+						}
+						if(val <= this.min) {
+							val = this.min
+						}
+						this.$emit('input', val)
+					},
+				},
+				methods: {
+					plus() {
+						if(!this.disabled) return
+						if(this.va >= this.max) return
+						this.va += this.step || 1
+					},
+					jian() {
+						if(!this.disabled) return
+						if(this.va <= this.min) return
+						this.va -= this.step || 1
+					}
+				}
+			})
+			var vm = new Vue({
+				el: '#app',
+				data: {
+					allsnum:0,
+					//					value: 0,
+					allnum: 0,
+					foods: [{
+							class: '水饺',
+							arr: [{
+									name: '猪肉白菜水饺',
+									img: 'img/8.png',
+									price: 16,
+									info: '月销量18份 100%好评',
+								},
+								{
+									name: '鱿鱼三鲜水饺',
+									price: 20,
+									img: 'img/9.png',
+									info: '月销量18份 100%好评',
+								},
+								{
+									name: '虾仁三鲜水饺',
+									price: 25,
+									img: 'img/10.png',
+									info: '月销量18份 100%好评',
+								},
+							]
+						},
+						{
+							class: '流食',
+							arr: [{
+									name: '鲜肉混沌',
+									price: 6,
+									img: 'img/10.png',
+									info: '月销量18份 100%好评',
+								},
+								{
+									name: '荠菜混沌',
+									price: 10,
+									img: 'img/9.png',
+									info: '月销量18份 100%好评',
+								},
+								{
+									name: '紫菜蛋花汤',
+									price: 5,
+									img: 'img/8.png',
+									info: '月销量18份 100%好评',
+								},
+							]
+						},
+						{
+							class: '凉菜',
+							arr: [{
+									name: '酱牛肉',
+									price: 33,
+									img: 'img/11.png',
+									info: '月销量18份 100%好评',
+								},
+								{
+									name: '爽口木耳',
+									price: 8,
+									img: 'img/10.png',
+									info: '月销量18份 100%好评',
+								},
+								{
+									name: '猪皮冻',
+									price: 10,
+									img: 'img/9.png',
+									info: '月销量18份 100%好评',
+								},
+							]
+						},
+						{
+							class: '包子',
+							arr: [{
+									name: '虾仁菜心包',
+									price: 9,
+									img: 'img/11.png',
+									info: '月销量18份 100%好评',
+								},
+								{
+									name: '冬笋酱肉包',
+									price: 10,
+									img: 'img/10.png',
+									info: '月销量18份 100%好评',
+								},
+								{
+									name: '素三鲜包',
+									price: 9,
+									img: 'img/9.png',
+									info: '月销量18份 100%好评',
+								},
+							]
+						},
+						{
+							class: '饮料',
+							arr: [{
+									name: '波蕊口乐',
+									price: 4.5,
+									img: 'img/11.png',
+									info: '月销量18份 100%好评',
+								},
+								{
+									name: '北冰洋',
+									price: 5,
+									img: 'img/10.png',
+									info: '月销量18份 100%好评',
+								},
+								{
+									name: '胡萝卜苹果汁',
+									price: 10,
+									img: 'img/9.png',
+									info: '月销量18份 100%好评',
+								},
+							]
+						},
+
+					]
+				}
+			})
 		</script>
 	</body>
 
