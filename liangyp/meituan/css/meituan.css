@@ -1,0 +1,233 @@
+* {
+  margin: 0;
+  padding: 0;
+  user-select: none; }
+
+[v-cloak] {
+  display: none; }
+
+a {
+  text-decoration: none; }
+
+#app {
+  width: 10rem;
+  min-height: auto; }
+  .container {
+    width: 10rem;
+    height: auto; }
+    .header {
+      width: 10rem;
+      height: 1.33333rem;
+      box-sizing: border-box;
+      border-bottom: solid 1px #ccc; }
+      .header .back {
+        width: 10rem;
+        height: 1.33333rem; }
+        .header .back i {
+          font-size: 0.53333rem;
+          line-height: 1.33333rem; }
+        .header .back span {
+          line-height: 1.33333rem;
+          font-size: 0.48rem;
+          color: #000; }
+        .header .back .help {
+          width: 2.66667rem;
+          height: 1.33333rem;
+          float: right; }
+          .header .back .help a {
+            text-decoration: none; }
+            .header .back .help a i {
+              display: block;
+              padding: 0 0.08rem; }
+    .content {
+      width: 10rem;
+      min-height: 10.66667rem;
+      box-sizing: border-box; }
+      .content .ul {
+        width: 10rem;
+        height: 1.06667rem; }
+        .content .ul ul {
+          width: 10rem;
+          height: 1.06667rem;
+          display: flex; }
+          .content .ul ul li {
+            flex: 1;
+            line-height: 0.98667rem;
+            height: 0.98667rem;
+            text-align: center;
+            list-style: none;
+            font-size: 0.45333rem;
+            color: #bbb; }
+          .content .ul ul li:hover {
+            color: #000; }
+          .content .ul ul li:hover span {
+            width: 1.06667rem;
+            height: 0.05333rem;
+            background: #77bbe7;
+            margin: 0 auto;
+            display: block; }
+          .content .ul ul li:first-child {
+            color: #000; }
+          .content .ul ul li:first-child span {
+            width: 1.06667rem;
+            height: 0.05333rem;
+            background: #77bbe7;
+            margin: 0 auto;
+            display: block; }
+      .content .menu {
+        width: 10rem;
+        min-height: 9.33333rem; }
+        .content .menu .discounts {
+          width: 2.04rem;
+          float: left; }
+          .content .menu .discounts ul {
+            width: 2.04rem; }
+            .content .menu .discounts ul li {
+              list-style: none;
+              width: 2.04rem;
+              height: 1.10667rem;
+              line-height: 1.10667rem;
+              text-align: center;
+              font-size: 0.42667rem;
+              background: #f8f8f8;
+              color: #888; }
+            .content .menu .discounts ul li.active {
+              background: #fff; }
+        .content .menu .milky {
+          margin-left: 0.29333rem;
+          width: 7.66667rem;
+          float: left; }
+          .content .menu .milky .meal {
+            width: 7.96rem;
+            min-height: 8rem; }
+            .content .menu .milky .meal .fan {
+              width: 7.96rem;
+              height: 2.54667rem;
+              margin: 0.26667rem 0; }
+              .content .menu .milky .meal .fan .breakfast {
+                width: 2.54667rem;
+                height: 2.54667rem;
+                float: left; }
+                .content .menu .milky .meal .fan .breakfast img {
+                  width: 2.54667rem;
+                  height: 2.54667rem; }
+              .content .menu .milky .meal .fan .intro {
+                width: 5.14667rem;
+                height: 2.54667rem;
+                margin-left: 0.26667rem;
+                float: left;
+                overflow: hidden;
+                position: relative; }
+                .content .menu .milky .meal .fan .intro h3 {
+                  line-height: 0.61333rem;
+                  font-size: 0.48rem; }
+                .content .menu .milky .meal .fan .intro .info {
+                  line-height: 0.48rem;
+                  font-size: 0.34667rem;
+                  color: #a8a8a8; }
+                .content .menu .milky .meal .fan .intro .price {
+                  line-height: 0.53333rem;
+                  font-size: 0.4rem;
+                  color: #fa5b4b;
+                  position: absolute;
+                  left: 0.05333rem;
+                  bottom: 1px; }
+                  .content .menu .milky .meal .fan .intro .price .el-input-number {
+                    position: relative;
+                    display: inline-block;
+                    width: 1.86667rem;
+                    line-height: 0.50667rem; }
+                    .content .menu .milky .meal .fan .intro .price .el-input-number .el-input-number__decrease {
+                      right: 1px;
+                      background: #2096fd;
+                      color: #fff;
+                      border: 1px solid #dcdfe6; }
+                    .content .menu .milky .meal .fan .intro .price .el-input-number .el-input-number__increase {
+                      left: 1px;
+                      background-color: #fff;
+                      border: 1px solid #2096fd; }
+                    .content .menu .milky .meal .fan .intro .price .el-input-number .el-input-number__decrease, .content .menu .milky .meal .fan .intro .price .el-input-number .el-input-number__increase {
+                      position: absolute;
+                      z-index: 1;
+                      top: 1px;
+                      width: 0.53333rem;
+                      height: 0.53333rem;
+                      text-align: center;
+                      color: #606266;
+                      cursor: pointer;
+                      font-size: 0.17333rem;
+                      border-radius: 50%;
+                      font-size: 0.37333rem; }
+                    .content .menu .milky .meal .fan .intro .price .el-input-number .el-input {
+                      position: relative;
+                      font-size: 0.18667rem;
+                      display: inline-block;
+                      width: 0.8rem;
+                      margin-left: 0.53333rem; }
+                      .content .menu .milky .meal .fan .intro .price .el-input-number .el-input .el-input__inner {
+                        text-align: center;
+                        background-color: #fff;
+                        border-radius: 0.05333rem;
+                        border: none;
+                        box-sizing: border-box;
+                        color: #606266;
+                        display: inline-block;
+                        font-size: inherit;
+                        height: 0.53333rem;
+                        line-height: 1;
+                        outline: none;
+                        padding: 0 0.10667rem;
+                        transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+                        width: 100%; }
+    .footer {
+      width: 10rem;
+      height: 1.29333rem;
+      position: fixed;
+      left: 0;
+      bottom: 0; }
+      .footer .shopping {
+        width: 10rem;
+        height: 1.29333rem;
+        position: relative; }
+        .footer .shopping .car {
+          width: 7.73333rem;
+          height: 1.29333rem;
+          background: #515154;
+          float: left; }
+          .footer .shopping .car span {
+            position: absolute;
+            width: 1.2rem;
+            height: 1.2rem;
+            border-radius: 50%;
+            margin-top: -0.4rem;
+            margin-left: 0.4rem;
+            background: #43474d;
+            padding: 0.13333rem; }
+            .footer .shopping .car span i {
+              display: block;
+              width: 1.2rem;
+              height: 1.2rem;
+              background: #3291ea;
+              border-radius: 50%;
+              color: #fff;
+              font-size: 0.66667rem;
+              text-align: center;
+              line-height: 1.2rem; }
+          .footer .shopping .car h4 {
+            color: #fff;
+            font-size: 0.48rem;
+            padding-left: 2.32rem; }
+          .footer .shopping .car p {
+            color: #888;
+            font-size: 0.26667rem;
+            padding-left: 2.32rem; }
+        .footer .shopping .account {
+          width: 2.26667rem;
+          height: 1.29333rem;
+          background: #37cb72;
+          float: right; }
+          .footer .shopping .account p {
+            line-height: 1.29333rem;
+            text-align: center;
+            font-size: 0.45333rem;
+            color: #fff; }

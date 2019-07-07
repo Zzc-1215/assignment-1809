@@ -1,69 +1,70 @@
 <!DOCTYPE html>
-<html lang="zh-CN" style="font-size: 100px;">
+<html lang="zh-CN">
 <head>
 	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scaleable=no">
-	<title>Document</title>
-	<script type="text/javascript">
-		window.onload = function(){
-			document.documentElement.style.fontSize = document.documentElement.clientWidth*640 / 100 + 'px';
-			window.onresize = function(){
-				document.documentElement.style.fontSize = document.documentElement.clientWidth*640 / 100 + 'px';
-			}
-		}
-	</script>
+	<title>美团</title>
+	<script type="text/javascript" src="font/iconfont.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
-	<!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
 	<script type="text/javascript" src="jquery.js"></script>
-
-	<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-	<link rel="stylesheet" type="text/css" href="meituan.css">
+	<script type="text/javascript" src="flexible/flexible.js"></script>
+	<script type="text/javascript" src="flexible/flexible_css.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/meituan.css">
 	<link rel="stylesheet" type="text/css" href="font/iconfont.css">
-	
-
 </head>
 <body>
-	<div class="container" v-cloak>
-		<!-- 店铺 -->
-		<!-- <div class="header">
-			<div class="back">
-				<i class="iconfont">&#xe60e;</i>
-			</div>
-			<div class="shop">
-				<div class="logo">
-				
-				</div>
-				<div class="map">
-					<span>美团专送</span>
-					<p class="minter">30分钟 | 1.8km</p>
-					<p class="gong">公告： 欢迎光临，很高兴为您服务</p>
-				</div>
-			</div>
-		</div> -->
-		<bc-menu></bc-menu>
+	<div id="app" v-cloak>
+		<div class="container">
+			<menu-head>庆丰包子铺(窦店)</menu-head>
+			<menu-main>
+				<qf-shop></qf-shop>
+			</menu-main>
+			<menu-money>
+				<template v-slot:"money">
+					
+				</template>
+			</menu-money>
+		</div>
 	</div>
-	<template id="foots">
+	<!-- 店铺名 -->
+	<template id="store">
+		<div class="header">
+			<div class="back">
+				<i class="iconfont" style="margin-left: 34px;">&#xe60e;</i>
+				<span>
+					<slot></slot>
+				</span>
+				<div class="help">
+					<a href="" style="float: right;color: #ccc;"><i class="iconfont">&#xe60f;</i></a>
+					<a href="" style="float: right;color: lightblue;"><i class="iconfont">&#xe63d;</i></a>
+				</div>
+			</div>
+		</div>
+	</template>
+	<!-- 菜单组件 -->
+	<template id="foods">
 		<div class="content">
 			<div class="ul">
 				<ul> 
-					<li>点菜</li>
-					<li>评价</li>
-					<li>商家</li>
+					<li>点菜
+						<span></span>
+					</li>
+					<li>评价
+						<span></span>
+					</li>
+					<li>商家
+						<span></span>
+					</li>
 				</ul>
 			</div>
 			<div class="menu">
 				<!-- 种类 -->
 				<div class="discounts">
 					<ul>
-						<li :class="{active:meanLenght==index}" @click="dj(index)" v-model="" v-for="(item,index) in shop">{{item.arrname}}</li>
+						<li :class="{active:meanLenght==index}" @click="dj(index)" v-for="(item,index) in shop">{{item.arrname}}</li>
 					</ul>
 				</div>
 				<!-- 菜单 -->
 				<div class="milky">
-					<h4>{{this.arrname}}</h4>
 					<div v-if="meanLenght==index" v-for="(item,index) in shop" class="meal">
 						<!-- {{item}} -->
 						<div class="fan" v-for="(i,index) in item.food">
@@ -74,7 +75,8 @@
 							<div class="intro">
 								<h3>{{i.name}}</h3>
 								<p class="info">{{i.info}}</p>
-								<p class="price">{{i.price}}</p>
+								<div class="price">{{i.price}}
+									<bc-input-number v-model="v" :min='0' ></bc-input-number></div>
 							</div>
 						</div>
 					</div>
@@ -82,9 +84,48 @@
 			</div>
 		</div>
 	</template>
+	<!-- 加减 -->
+	<template id="inputNumber">
+		<div class="el-input-number">
+			<span @click="jian" role="button" class="el-input-number__increase">
+				-
+			</span>
+			<span @click="jia" role="button" class="el-input-number__decrease">
+				+
+			</span>
+			
+			<div class="el-input">
+				<input type="text" v-model="v" readonly rows="2" :min="0" validateevent="true" class="el-input__inner">
+			</div>
+		</div>
+	</template>
+	<!-- 尾部 -->
+	<template id="money">
+		<div class="footer">
+			<div class="shopping">
+				<div class="car">
+					<span><i class="iconfont">&#xe600</i></span>
+					<h4>￥<slot name="money"></slot></h4>
+					<p>另需配送费8元</p>
+				</div>
+				<div class="account">
+					<p>去结算</p>
+				</div>
+			</div>
+		</div>
+	</template>
 </body>
 <script type="text/javascript">
-	Vue.component('bcMenu',{
+	// 头部
+	Vue.component('menuHead',{
+		template:'#store'
+	})
+	Vue.component('menuMain',{
+		template:'<div class="content"><slot></slot></div>'
+	})
+
+	// 菜单组件
+	Vue.component('qf-shop',{
 		template:'#foods',
 		data(){
 			return{
@@ -328,12 +369,47 @@
 		computed:{
 
 		}
+	}) 
+	
+	//加减
+	Vue.component('bcInputNumber',{
+		template:'#inputNumber',
+		props:['value','min'],
+		data(){
+			return{
+				v:this.value || 0,
+			}
+		},
+		watch:{
+			v(val,oldvalue){
+				if (val <= this.min) {
+                    val = this.min
+                }
+				this.$emit('input',value)
+			}
+		},
+		methods:{
+			jia(){
+				if(this.v >= this.max) return
+				this.v += this.step || 1;
+			},
+			jian(){
+				if(this.v <= this.min) return 
+				this.v -= this.step || 1;
+			}
+		}
 	})
+
+	// 尾部
+	Vue.component('menuMoney',{
+		template:'#money'
+	})
+
 	var vm = new Vue({
-		el:'.container',
+		el:'#app',
 		data(){
 			return {
-				value:0,
+				value: 0
 			}
 		}
 	})

@@ -1,0 +1,233 @@
+* {
+  margin: 0;
+  padding: 0;
+  user-select: none; }
+
+[v-cloak] {
+  display: none; }
+
+a {
+  text-decoration: none; }
+
+#app {
+  width: 750px;
+  min-height: auto; }
+  .container {
+    width: 750px;
+    height: auto; }
+    .header {
+      width: 750px;
+      height: 100px;
+      box-sizing: border-box;
+      border-bottom: solid 1px #ccc; }
+      .header .back {
+        width: 750px;
+        height: 100px; }
+        .header .back i {
+          font-size: 40px;
+          line-height: 100px; }
+        .header .back span {
+          line-height: 100px;
+          font-size: 36px;
+          color: #000; }
+        .header .back .help {
+          width: 200px;
+          height: 100px;
+          float: right; }
+          .header .back .help a {
+            text-decoration: none; }
+            .header .back .help a i {
+              display: block;
+              padding: 0 6px; }
+    .content {
+      width: 750px;
+      min-height: 800px;
+      box-sizing: border-box; }
+      .content .ul {
+        width: 750px;
+        height: 80px; }
+        .content .ul ul {
+          width: 750px;
+          height: 80px;
+          display: flex; }
+          .content .ul ul li {
+            flex: 1;
+            line-height: 74px;
+            height: 74px;
+            text-align: center;
+            list-style: none;
+            font-size: 34px;
+            color: #bbb; }
+          .content .ul ul li:hover {
+            color: #000; }
+          .content .ul ul li:hover span {
+            width: 80px;
+            height: 4px;
+            background: #77bbe7;
+            margin: 0 auto;
+            display: block; }
+          .content .ul ul li:first-child {
+            color: #000; }
+          .content .ul ul li:first-child span {
+            width: 80px;
+            height: 4px;
+            background: #77bbe7;
+            margin: 0 auto;
+            display: block; }
+      .content .menu {
+        width: 750px;
+        min-height: 700px; }
+        .content .menu .discounts {
+          width: 153px;
+          float: left; }
+          .content .menu .discounts ul {
+            width: 153px; }
+            .content .menu .discounts ul li {
+              list-style: none;
+              width: 153px;
+              height: 83px;
+              line-height: 83px;
+              text-align: center;
+              font-size: 32px;
+              background: #f8f8f8;
+              color: #888; }
+            .content .menu .discounts ul li.active {
+              background: #fff; }
+        .content .menu .milky {
+          margin-left: 22px;
+          width: 575px;
+          float: left; }
+          .content .menu .milky .meal {
+            width: 597px;
+            min-height: 600px; }
+            .content .menu .milky .meal .fan {
+              width: 597px;
+              height: 191px;
+              margin: 20px 0; }
+              .content .menu .milky .meal .fan .breakfast {
+                width: 191px;
+                height: 191px;
+                float: left; }
+                .content .menu .milky .meal .fan .breakfast img {
+                  width: 191px;
+                  height: 191px; }
+              .content .menu .milky .meal .fan .intro {
+                width: 386px;
+                height: 191px;
+                margin-left: 20px;
+                float: left;
+                overflow: hidden;
+                position: relative; }
+                .content .menu .milky .meal .fan .intro h3 {
+                  line-height: 46px;
+                  font-size: 36px; }
+                .content .menu .milky .meal .fan .intro .info {
+                  line-height: 36px;
+                  font-size: 26px;
+                  color: #a8a8a8; }
+                .content .menu .milky .meal .fan .intro .price {
+                  line-height: 40px;
+                  font-size: 30px;
+                  color: #fa5b4b;
+                  position: absolute;
+                  left: 4px;
+                  bottom: 1px; }
+                  .content .menu .milky .meal .fan .intro .price .el-input-number {
+                    position: relative;
+                    display: inline-block;
+                    width: 140px;
+                    line-height: 38px; }
+                    .content .menu .milky .meal .fan .intro .price .el-input-number .el-input-number__decrease {
+                      right: 1px;
+                      background: #2096fd;
+                      color: #fff;
+                      border: 1px solid #dcdfe6; }
+                    .content .menu .milky .meal .fan .intro .price .el-input-number .el-input-number__increase {
+                      left: 1px;
+                      background-color: #fff;
+                      border: 1px solid #2096fd; }
+                    .content .menu .milky .meal .fan .intro .price .el-input-number .el-input-number__decrease, .content .menu .milky .meal .fan .intro .price .el-input-number .el-input-number__increase {
+                      position: absolute;
+                      z-index: 1;
+                      top: 1px;
+                      width: 40px;
+                      height: 40px;
+                      text-align: center;
+                      color: #606266;
+                      cursor: pointer;
+                      font-size: 13px;
+                      border-radius: 50%;
+                      font-size: 28px; }
+                    .content .menu .milky .meal .fan .intro .price .el-input-number .el-input {
+                      position: relative;
+                      font-size: 14px;
+                      display: inline-block;
+                      width: 60px;
+                      margin-left: 40px; }
+                      .content .menu .milky .meal .fan .intro .price .el-input-number .el-input .el-input__inner {
+                        text-align: center;
+                        background-color: #fff;
+                        border-radius: 4px;
+                        border: none;
+                        box-sizing: border-box;
+                        color: #606266;
+                        display: inline-block;
+                        font-size: inherit;
+                        height: 40px;
+                        line-height: 1;
+                        outline: none;
+                        padding: 0 8px;
+                        transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+                        width: 100%; }
+    .footer {
+      width: 750px;
+      height: 97px;
+      position: fixed;
+      left: 0;
+      bottom: 0; }
+      .footer .shopping {
+        width: 750px;
+        height: 97px;
+        position: relative; }
+        .footer .shopping .car {
+          width: 580px;
+          height: 97px;
+          background: #515154;
+          float: left; }
+          .footer .shopping .car span {
+            position: absolute;
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            margin-top: -30px;
+            margin-left: 30px;
+            background: #43474d;
+            padding: 10px; }
+            .footer .shopping .car span i {
+              display: block;
+              width: 90px;
+              height: 90px;
+              background: #3291ea;
+              border-radius: 50%;
+              color: #fff;
+              font-size: 50px;
+              text-align: center;
+              line-height: 90px; }
+          .footer .shopping .car h4 {
+            color: #fff;
+            font-size: 36px;
+            padding-left: 174px; }
+          .footer .shopping .car p {
+            color: #888;
+            font-size: 20px;
+            padding-left: 174px; }
+        .footer .shopping .account {
+          width: 170px;
+          height: 97px;
+          background: #37cb72;
+          float: right; }
+          .footer .shopping .account p {
+            line-height: 97px;
+            text-align: center;
+            font-size: 34px;
+            color: #fff; }
