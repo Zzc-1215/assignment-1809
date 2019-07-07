@@ -4,11 +4,12 @@ var browserSync = require('browser-sync').create();
 var reload = browserSync.reload;
 var sass = require('gulp-sass');
 sass.compiler = require('node-sass');
+// let cleanCSS = require('gulp-clean-css');
 
 var op = {
   rootValue: 75,
   unitPrecision: 5,
-  propertyBlackList: [],
+  propertyBlackList: ['font-size'],
   propertyWhiteList: [],
   replace: true,
   // mediaQuery: false,
@@ -28,6 +29,12 @@ function pxrem(d){
     .pipe(gulp.dest('./css'));
 
     d();
+}
+//压缩css
+function minicss(){
+	return gulp.src('./css/*.css')
+    // .pipe(cleanCSS({compatibility: 'ie8'}))
+    .pipe(gulp.dest('./dist'));
 }
 //刷新
 function bs() {
@@ -53,6 +60,7 @@ function watch(){
 }
 
 gulp.task('px', watch);
+gulp.task('minicss', minicss);
 
 
 

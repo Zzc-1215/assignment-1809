@@ -86,7 +86,7 @@
 
 <body>
     <div id="box">
-        <abc></abc>
+        <abc :data="arr"></abc>
     </div>
     <template id="abc">
         <div class="clearfix">
@@ -113,10 +113,23 @@
     <script>
         Vue.component('abc', {
             template: '#abc',
-            props: ['num1'],
+            props: ['data'],
             data() {
                 return {
                     num: '',
+                    arr:this.data
+                }
+            },
+            methods: {
+                dianji(index) {
+                    this.num = this.arr[index]
+                }
+            }
+        })
+        var vm = new Vue({
+            el: '#box',
+            data() {
+                return {
                     arr: [{
                         fenlei: '热面',
                         shiwu: [{
@@ -144,6 +157,7 @@
                             name: '土豆盖饭',
                             img: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2964210048,198674735&fm=26&gp=0.jpg',
                             jiage: '$10',
+                            // jieshao:''h
                         },
                         {
                             name: '豆腐盖饭',
@@ -159,20 +173,6 @@
                             jiage: '$10',
                         }]
                     }],
-
-                }
-            },
-            methods: {
-                dianji(index) {
-                    this.num = this.arr[index]
-                }
-            }
-        })
-        var vm = new Vue({
-            el: '#box',
-            data() {
-                return {
-                    // num1: 0,
                 }
             }
         })
