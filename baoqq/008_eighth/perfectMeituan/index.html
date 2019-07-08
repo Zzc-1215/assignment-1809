@@ -167,9 +167,10 @@
 
 		})
 
+		// 内容
 		var conponent = Vue.component('abc', {
 			template: '#abc',
-			props: ['data', 'value', 'max', 'min', 'step', 'disabled'],
+			props: ['data', 'value', 'min', 'step', 'disabled'],
 			data() {
 				return {
 					num: '',
@@ -191,11 +192,11 @@
 					return arr;
 				},
 				maxnum() {
-					var ar = 0;
-					this.add.forEach(element => {
-						ar += element.price * element.num
+					var myprice = 0;
+					this.add.forEach(el => {
+						myprice += el.price * el.num
 					})
-					return ar.toFixed(0);
+					return myprice.toFixed(0);
 				},
 			},
 			methods: {
@@ -219,7 +220,7 @@
 				// 减
 				jian(items) {
 					if (items.num <= 0) return;
-					items.num--
+					items.num--;
 					// 	if (!this.disabled) return;
 					// 	if (this.v <= this.min) return;
 					// 	this.v -= this.step || 1;
@@ -412,8 +413,8 @@
 								'mainprincipal': '大米',
 								'price': 12
 							}, {
-								'imgurl': 'img/meng.jpg',
-								'foodName': 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2061884906,3147719733&fm=26&gp=0.jpg',
+								'imgurl': 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2061884906,3147719733&fm=26&gp=0.jpg',
+								'foodName': '有机海带',
 								// 主要原料
 								'mainprincipal': '大米',
 								'price': 12

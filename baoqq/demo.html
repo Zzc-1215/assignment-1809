@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+
+    <!-- 
+            
+            6、写出vue里定义在过渡、动画组件里特有10个属性？（10分）
+      
+            
+
+
+            v-xxx:xxx="xxx"  => binding
+
+            object array
+         -->
+    <!-- 
+
+        描述<template v-slot:aaa=”bbb”>ccc</template>的作用？
+        
+        ccc放到aaa里面，bbb去接收aaa暴露出来的数据
+    
+    -->
+
+
+
+
+
+
+
+    <!-- <div id="app"> -->
+    <!--  8、描述<template v-slot:aaa=”bbb”>ccc</template>的作用？ -->
+    <!-- <test>
+            <template v-slot:aaa="bbb">{{bbb}}</template>
+        </test>
+
+    </div>
+    <script>
+        Vue.component('test', {
+            template: `<h1>
+                    <slot name='aaa' :abc="user" :user='"hello"'></slot>
+                </h1>`,
+            data() {
+                return {
+                    user: {
+                        x: 1,
+                        y: 2,
+                    },
+                }
+            },
+        });
+        new Vue({
+            el: '#app',
+            data: {
+                msg: 'hello'
+            }
+        })
+    </script>
+
+ -->
+
+
+
+
+
+
+
+
+
+
+    <!-- 10、描述Activated/deactivated两个生命周期的触发条件？（10分） -->
+    <div id="app">
+        <!-- 2、自定义一个全局指令，并打印出指令的参数描述？ -->
+        <div v-dname></div>
+        <!-- 第十题 -->
+        <button @click="dianji">run</button>
+        <keep-alive>
+
+            <test v-if="isshow">
+                <template v-slot:aaa="bbb">
+                    {{bbb}}
+                </template>
+            </test>
+        </keep-alive>
+    </div>
+
+    <template id="abcd">
+        <div style="height: 100px;border: 3px solid #ccc;overflow: auto;">{{msg}}---{{data}}
+            <!-- 第八题 -->
+            <slot name="aaa" :data='12345' :fn="p" :adc="user"></slot>
+        </div>
+    </template>
+
+    <script>
+        // 第二题
+        Vue.directive('dname', function (el, binding, vnode, oldVnode) {
+            console.log(el);
+            console.log(binding.name);
+            console.log(binding.arg);
+            console.log(binding.expresion);
+            console.log(binding.value);
+            console.log(binding.oldValue);
+            console.log(binding.modifiers);
+
+            // bind,inserted,update,componentUpdated,unbind
+        })
+        function P(a) {
+            this.a = a;
+        }
+        Vue.component('test', {
+            template: '#abcd',
+            data() {
+                return {
+
+                    p: new P(1),
+                    msg: 'hello',
+                    // 第八题
+                    user: {
+                        x: 13,
+                        y: 14,
+                    },
+                }
+            },
+            props: {
+                // 第七题
+                data: {
+                    required: true,//定义必须传入的属性
+                    default: function () {
+                        return [1, 2, 3];
+                    }
+                },
+                fn: P,//定义传入的构造函数
+                data: [String, Number],
+                // text: {
+                // type: String,//  传入的类型
+                // default: '123',//默认的值
+                // required: false,
+                // validator: function (v) { //验证的函数
+                // if (v === 'hahaha') {
+                // return true;
+                // } else {
+                // return false;
+                // }
+                // // this.a xx
+                // }
+                // }
+            },
+            created() {
+                console.log('created');
+            },
+            activated() {
+                console.log('激活');
+            },
+            deactivated() {
+                console.log('停用');
+            },
+
+        })
+        new Vue({
+            el: '#app',
+
+            data() {
+                return {
+                    isshow: true,
+                }
+            },
+            methods: {
+                dianji() {
+                    console.log(this.isshow);
+                    this.isshow = !this.isshow
+                }
+            }
+        })
+    </script>
+
+
+
+    <!--  <div class="box">
+        第一题 
+        {{'12323435667689' | showBox}}
+    </div>
+-->
+    <!-- <script>
+        
+        // 1、自定义一个把‘1-9’数字转换成大写‘一到九’的全局过滤器？（10分）
+
+        Vue.filter('showBox', function (string) {
+            var arr = ['', '一', '二', '三', '四', '五', '六', '七', '八'];
+            var str = '';
+            for (var i = 0; i < string.length; i++) {
+                for (var j = 0; j < arr.length; j++) {
+                    if (arr[parseInt(string[i])]) {
+                        str += arr[parseInt(string[i])];
+                        break;
+                    }
+                }
+            }
+            return str;
+        })
+
+        new Vue({
+            el: '.box'
+        })
+    </script> -->
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>
