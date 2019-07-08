@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="container">
+        <p>{{'15639929361' | chinese}}</p>
+    </div>
+
+    <script>
+        Vue.filter('chinese', function (val) {
+            var arr = ['', '壹', '贰', '叁', '肆', '伍', '陆', '柒', '捌', '玖'];
+            var str = '';
+            for (var i = 0; i < val.length; i++) {
+                for (var j = 0; j < arr.length; i = j++) {
+                    str += arr[val[i]]
+                    break;
+                }
+            }
+            return str
+        })
+
+        new Vue({
+            el: '#container',
+        })
+    </script>
+</body>
+
+</html>
