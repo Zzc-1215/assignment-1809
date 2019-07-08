@@ -297,25 +297,7 @@
             </footer>
         </div>
     </template>
-    <template id="shoppingCart">
-        <div>
-            <div class="fanhui"><router-link to="selectGoods"><</router-link></div>
-            <div class="foot">
-                <ul>
-                    <li v-for="item in arr1">
-                        <div class="img"><img :src="item.img" alt=""></div>
-                        <span>{{item.title}}</span>
-                        <span>x{{item.num}}</span>
-                        <span>￥{{(item.num*item.price).toFixed(2)}}</span>
-                    </li>
-                </ul>
-            </div>
-            <footer>
-                一共{{total}}
-                <button>去支付</button>
-            </footer>
-        </div>
-    </template>
+    
     <script>
         var shoppingCart={
             template:'#shoppingCart',
