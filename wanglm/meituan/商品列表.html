@@ -79,6 +79,7 @@
             padding: 0 11px;
             box-sizing: border-box;
             display: inline-block;
+			margin-left: 10px;
         }
 
         .nav ul li:nth-of-type(1) {
@@ -104,7 +105,10 @@
             color: #666;
             cursor: pointer;
         }
-
+		.list ul li:hover{
+			background: red;
+			color: white;
+		}
         .list ol {
             width: 208px;
             height: auto;
@@ -278,9 +282,9 @@
                     style="float: right;"></i></div>
             <div class="nav">
                 <ul>
-                    <li style="border-right: 1px solid #ccc">热场新品</li>
-                    <li>综合排序</li>
-                    <li>按价格<i class="iconfont icon-shangxiajiantou"></i></li>
+                    <li style="border-right: 1px solid #ccc">点餐</li>
+                    <li>评论</li>
+                    <li>商家<i></i></li>
                     <li>分类</li>
                 </ul>
             </div>
@@ -331,53 +335,53 @@
                 return {
                     goodsList:[
                         {
-                            category:'新鲜水果',
+                            category:'饺子',
                             goods:[
                                 {
                                     img:"https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1964588475,3443442286&fm=26&gp=0.jpg",
-                                    title:'优选水果',
+                                    title:'猪肉大葱',
                                     price:10.8,
                                 },{
                                     img:"https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1964588475,3443442286&fm=26&gp=0.jpg",
-                                    title:'优选水',
+                                    title:'猪肉大葱',
                                     price:10.8,
                                 },{
                                     img:"https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1964588475,3443442286&fm=26&gp=0.jpg",
-                                    title:'优选水果',
+                                    title:'猪肉大葱',
                                     price:10.8,
                                 },
                             ]
                         },{
-                            category:'卤味熟食', 
+                            category:'庆丰包子', 
                             goods:[
                                 {
                                     img:'https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1559218135&di=d52b1133f769391ce12a7bd746f8e6f5&src=http://img.redocn.com/sheying/20140910/taiwanhongshushaolurou_3044437.jpg',
-                                    title:'卤味熟食',
+                                    title:'庆丰包子',
                                     price:66,
                                 },{
                                     img:'https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1559218135&di=d52b1133f769391ce12a7bd746f8e6f5&src=http://img.redocn.com/sheying/20140910/taiwanhongshushaolurou_3044437.jpg',
-                                    title:'卤味熟食',
+                                    title:'庆丰包子',
                                     price:66,
                                 },{
                                     img:'https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1559218135&di=d52b1133f769391ce12a7bd746f8e6f5&src=http://img.redocn.com/sheying/20140910/taiwanhongshushaolurou_3044437.jpg',
-                                    title:'卤味熟食',
+                                    title:'庆丰包子',
                                     price:66,
                                 },
                             ]
                         },{
-                            category:'饮料酒水',
+                            category:'庆丰凉菜',
                             goods:[
                                 {
                                     img:'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3102216276,2912118974&fm=15&gp=0.jpg',
-                                    title:'饮料酒水',
+                                    title:'庆丰凉菜',
                                     price:100,
                                 },{
                                     img:'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3102216276,2912118974&fm=15&gp=0.jpg',
-                                    title:'饮料酒水',
+                                    title:'庆丰凉菜',
                                     price:100,
                                 },{
                                     img:'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3102216276,2912118974&fm=15&gp=0.jpg',
-                                    title:'饮料酒水',
+                                    title:'庆丰凉菜',
                                     price:100,
                                 },
                             ]
