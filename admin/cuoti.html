@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>错题</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+
+<body>
+    <!-- 1、自定义一个把‘1-9’数字转换成大写‘一到九’的全局过滤器？（10分） -->
+    <!-- <div class="box">
+        {{"8232342323423423423431424241341343444" | dshow}}
+    </div> -->
+    <!-- 2、自定义一个全局指令，并打印出指令的参数描述？ -->
+        <!-- <div class="box">
+            <p v-你是傻逼="123">eifuweahfalskfjashdnflkdsjfbasdndkasjhgfasdkfnaes</p>
+        </div> -->
+     <!-- 6、写出vue里定义在过渡、动画组件里特有10个属性？（10分） -->
+     <!-- <div class="box"> 
+        
+     </div> -->
+    <!-- 7、列出组件prop的四种验证方式并描述？（10分） -->
+        <div class="box">
+            <zujian></zujian>
+        </div>
+    <!--8、描述<template v-slot:aaa=”bbb”>ccc</template>的作用？ -->
+    <!-- 10、描述Activated/deactivated两个生命周期的触发条件？（10分） -->
+    <!-- <div class="box">
+        <keep-alive>
+
+            <box-yes></box-yes>
+        </keep-alive>
+    </div> -->
+    <script>
+        Vue.component("zujian",{
+            inheritAttrs:false,
+            template:"<div>{{a}}</div>",
+            data() {
+                return {
+                    a:123
+                }
+            },
+            props:{
+                data:[String,Number],//数据类型 
+                date:{
+                    required:true
+                }
+            },
+            text:{
+                type:String,
+                default:"哈哈哈",
+                required:false,
+                validator:function(v){
+                    if(v==="哈哈哈"){
+                        return true;
+                    }else{
+                        return "嘿嘿嘿";
+                    }
+                }
+            }
+        })
+        // Vue.component("box-yes",{
+        //     data() {
+        //         return {
+        //             msg:"我是神"
+        //         }
+        //     },
+        //     template:"<p style='height:50px;border:1px solid red;'>{{msg}}</p>",
+        //     created() {
+        //         console.log("创建完成");
+        //     },
+        //     activated() {
+        //         console.log("我已激活");
+        //     },
+        //     deactivated() {
+        //         console.log("我已停用");
+        //     },
+        // })
+        // Vue.filter("dshow", function (val) {
+        //     var arr = ["", "一", "二", "三", "四", "五", "六", "七", "八", "九"];
+        //     var str = "";
+        //     for (var i = 0; i < val.length; i++) {
+        //         for (var j = 0; j < arr.length; j++) {
+        //             if (arr[parseInt(val[i])]) {
+        //                 str += arr[parseInt(val[i])];       
+        //                 break;
+        //             }
+        //         }
+        //     }
+        //     return str;
+        // })
+        // Vue.directive("你是傻逼",function(el,bind,vnode,oldVnode){
+        //     console.log(bind.value)
+        //     console.log(bind.name)
+        //     console.log(bind.expression)
+        //     console.log(bind.arg)
+        //     console.log(bind.oldValue)
+        //     console.log(bind.modifiers)
+        //     console.log(vnode)
+        //     console.log(oldVnode)
+        // })
+        new Vue({
+            el: ".box"
+        })
+    </script>
+</body>
+
+</html>
