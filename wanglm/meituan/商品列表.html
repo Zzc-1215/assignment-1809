@@ -256,6 +256,15 @@
         .foot ul li span:nth-of-type(3){
             font-weight: bold;
         }
+		#con{
+			float: right;
+			width: 50px;
+			height: 30px;
+			background: greenyellow;
+			text-align: center;
+			line-height: 30px;
+			margin-top: 5px;
+		}
     </style>
 </head>
 
@@ -293,7 +302,7 @@
             </div>
             <footer>
                 一共{{total}}
-                <router-link :to="{name:'shoppingCart',params:{selectList}}">去结算</router-link>
+                <div id="con">结算</div>
             </footer>
         </div>
     </template>
