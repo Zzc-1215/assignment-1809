@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<!-- 1.自定义一个把‘1-9’数字转换成大写‘一到九’的全局过滤器 -->
+		<!-- <div id="box">
+		<h1 v-if='flag'>不能再输入了</h1>
+		<h1 v-if='flag'><button @click='shutDown'>关闭</button></h1>
+		<input type="text" v-model='inputVal'>
+		{{inputVal | toChies}} -->
+		<!-- <script>
+		var app = new Vue({
+			el:"#box",
+			data:{
+				inputVal:'',
+				flag:false,
+				values:''
+			},
+			filters:{
+				toChies:function(values){
+					let len=values.length
+					let arr=[];
+					let chin_list=['零','壹','贰','叁','肆','伍','陆','柒','捌','玖']
+					let chin_lisp=['仟','佰','拾','亿','仟','佰','拾','万','仟','佰','拾']
+					for(let i=0;i<len;i++){
+						arr.push(parseInt(values[i]));
+						arr[i]=chin_list[arr[i]]			
+					}
+					for(let i=len-1,j=1;i>0;i--){
+						arr.splice(i,0,chin_lisp[chin_lisp.length-j++])	
+					}
+					console.log(arr)
+					arr=arr.join('')
+					if(len>=1){
+						arr+='元整'
+					}
+					return arr
+				}
+			},
+			watch:{
+				inputVal(newVal,oldVal){
+					if(newVal.length==13){
+						this.inputVal=oldVal
+						this.flag=true
+					}
+				}
+			},
+			methods:{
+				shutDown(){
+					this.flag=false
+				},
+				to_ch(){
+					console.log(this.inputVal)
+					this.inputVal=this.values
+				}
+			}
+		})
+	</script> -->
+		<!-- 2.自定义全局指令 -->
+		<!-- <div v-color:red.self="isshow">自定义全局指令</div>
+		 <script type="text/javascript">
+			 Vue.directive('color', {
+			    bind(el, binding, vnode, oldVnode) { //绑定上就触发
+			        console.log(el) //绑定的dom元素
+			        console.log(binding) //绑定指令的相关信息
+			        console.log(vnode) //更改之后的数据
+			        console.log(oldVnode) //更改之前的数据
+			    },
+			    inserted(el, binding) { //插入到真正的dom中触发
+			        console.log(binding.name) //指令的名字
+			        console.log(binding.arg) //指令的参数 :后面的
+			        console.log(binding.expression) //表达式 =""
+			        console.log(binding.value) //表达式的值
+			        console.log(binding.modifiers) //修饰符  是一个对象
+			    },
+			    update() {
+			        console.log('update') //组件中只要有更新就触发
+			    },
+			    componentUpdated() {
+			        console.log('componentUpdated') //更新全部完成后触发
+			    }
+			})
+		</script> -->
+		<!-- 6.动画属性 -->
+		<!--    <button @click="isshow=!isshow">点我</button>
+        <!-- <transition name="cc" duration="5000">
+            <div class="box" v-show="isshow"></div>
+        </transition> -->
+		<!-- <transition-group name="group" mode="out-in">
+            <div key="1" style="width:100px;height:100px;background:green;float: left;" v-show="isshow"></div>
+            <div key="2" style="width:100px;height:100px;background:blue;float: left;" v-show="isshow"></div>
+        </transition-group> -->
+		<!-- 7、列出组件prop的四种验证方式并描述？ -->
+		<!-- <test class="abc" data-a="1"></test> -->
+		<!-- <script type="text/javascript">
+			function Person(a) {
+				this.a = a
+			}
+			Vue.component('test', {
+				inheritAttrs: false,
+				template: '<h1 class="ddd">{{test}}</h1>',
+				data() {
+					return {
+						a: 1,
+					}
+				},
+				props: {
+					data: [Symbol, Number],
+					fn: Person,
+					date: {
+						required: true,
+					},
+					text: {
+						type: String,
+						default: '123',
+						required: false,
+						validator: function(v) {
+							if (v === 'hahaha') {
+								return true
+							} else {
+								return false
+							}
+						}
+					}
+				}
+			})
+		</script> -->
+		<!-- 8、描述<template v-slot:aaa=”bbb”>ccc</template>的作用 -->
+		 <!-- <test>
+            <template v-slot:aaa="bbb">
+                {{bbb}}
+            </template>
+        </test> -->
+		<!-- <script type="text/javascript">
+			Vue.component('test', {
+             template:`<h1>
+                 <slot name="aaa" :abc="user" :user="'hello'"></slot>
+             </h1>`,
+             data(){
+                 return{
+                     user:{
+                         x:1,
+                         y:2,
+                     },
+                 }
+             },
+         })
+         new Vue({
+             el:'#box',
+             data:{
+                 msg:'hello'
+             }
+         })
+		</script> -->
+		<!-- 10、描述Activated/deactivated两个生命周期的触发条件 -->
+		 <!-- <keep-alive>
+            <test></test>
+        </keep-alive> -->
+		<!-- <script type="text/javascript">
+			Vue.component('test', {
+             data(){
+                 return{
+                     msg:'hello'
+                 }
+             },
+             props:{
+                 data:{
+                     default:function(){
+                         return [1,2,3]
+                     },
+                 }
+             },
+             template:'<div style="height:100px;border:1px solid;overflow:auto;">{{msg}}---{{data}}</div>',
+             created() {
+                 console.log('created');
+             },
+             activated() {
+                 console.log('激活');
+             },
+             deactivated() {
+                 console.log('停用')
+             },
+         })
+		</script> -->
+	</body>
+</html>
