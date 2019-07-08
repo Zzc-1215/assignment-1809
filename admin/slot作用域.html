@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../assets/js/vue.js"></script>
+</head>
+<body>
+    <!-- 
+
+
+        
+
+        描述<template v-slot:aaa=”bbb”>ccc</template>的作用？
+     -->
+
+
+
+
+
+
+
+     <div id="app">
+
+        <test>
+            <template v-slot:aaa="bbb">{{bbb}}</template>
+        </test>
+
+     </div>
+
+
+
+     <script>
+
+         Vue.component('test',{
+             template: `<h1>
+                <slot name='aaa' :abc="user" :user='"hello"'></slot>
+            </h1>`,
+            data() {
+                return {
+                    user:{
+                        x:1,
+                        y:2,
+                    },
+                }
+            },
+         });
+
+
+         new Vue({
+             el:'#app',
+             data:{
+                msg:'hello'
+             }
+         })
+     </script>
+</body>
+</html>
