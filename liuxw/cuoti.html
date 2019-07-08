@@ -28,21 +28,9 @@
         </!--> -->
     <!--8、描述<template v-slot:aaa=”bbb”>ccc</template>的作用？ -->
     <div class="box">
-        <template id="contain">
-            <div class="contain"></div>
-            <slot></slot>
-        </template>
-        <template id="row">
-            <slot></slot>
-            <div class="left">
-                <slot name="left">
-                    默认数据
-                </slot>
-            </div>
-            <div class="right">
-                <slot name="right"></slot>
-            </div>
-        </template>
+        <span>
+            <template v-slot:aaa="bbb">{{ccc}}</template>
+        </span>
     </div>
     <!-- 10、描述Activated/deactivated两个生命周期的触发条件？（10分） -->
     <!-- <div class="box">
@@ -52,12 +40,19 @@
         </keep-alive>
     </div> -->
     <script>
-        Vue.component("contain",{
-            template:"#contain"
-        })
-        Vue.component("row",{
-            template:"#row"
-        })
+        Vue.component('abs',{
+             template: `<span>
+                <slot name='aaa' :abc="user" :user='"hello"'></slot>
+            </span>`,
+            data() {
+                return {
+                    user:{
+                        x:1,
+                        y:2,
+                    },
+                }
+            },
+         });
         // Vue.component("zujian",{
         //     inheritAttrs:false,
         //     template:"<div>{{a}}</div>",
