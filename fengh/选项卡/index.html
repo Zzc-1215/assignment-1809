@@ -61,9 +61,9 @@
 <body>
     <div id="app" v-cloak>
         <div class="hezi">
-            <fh-dd></qh-dd>
+            <fh-dd></fh-dd>
      </div>
-    <template id="box-shop">
+    <template id="xxk-cnt">
         <div class="lists clearfix">
             <div class="head_tb">
                 <p class="youjian"><</p>
@@ -79,11 +79,11 @@
             </div>
   
             <ul class="list-hz">
-                <li class="litem" :class="dyindex==$index?'active':''" @click="dyindex=$index" v-for="(food,$index) in caixi">{{food.ltypes}}</li>
+                <li class="litem" v-for="(food,$index) in caixi" :class="indexs==$index?'active':''" @click="indexs=$index" >{{food.ltypes}}</li>
             </ul>
 
             <div class="right-box">
-                <div v-if="dyindex==$index" v-for="(ltypect,$index) in caixi"><!-- 遍历的所有菜系 -->
+                <div v-if="indexs==$index" v-for="(ltypect,$index) in caixi"><!-- 遍历的所有菜系 -->
                     <div class="cnt-hz clearfix" v-for="cont in ltypect.food">
                         <div class="imgbox">
                             <img :src='cont.img' alt="">
@@ -92,7 +92,7 @@
                             <p class="titles">{{cont.name}}</p>
                             <div class="jsj clearfix">
                                 <p class="price">￥{{cont.price}}</p>
-                                <bc-input-number v-model="cont.num" :min="0"></bc-input-number><!-- 购物车商品数量 -->
+                               <!--  <bc-input-number v-model="cont.num" :min="0"></bc-input-number> --><!-- 购物车商品数量 -->
                             </div>
                         </div>
                     </div>
@@ -103,24 +103,24 @@
     </template>
 
      <!-- 计数器组件 -->
-    <template id="jishuqi">
+    <!-- <template id="jishuqi">
         <div class="box">
             <span v-show="shuliang" class="prev" @click="prev">-</span>
             <input v-show="shuliang" type="text" class="int" v-model="shuliang">
             <span class="next" @click="next">+</span>
         </div>
-    </template>
+    </template> -->
 
 
 
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script>
+<script type="text/javascript">
         //选项卡
-        var component = Vue.component('fh-dd', {
-            template: '#box-shop',
+        Vue.component('fh-dd', {
+            template: '#xxk-cnt',
             data() {
                 return {
-                    dyindex: 0,
+                    indexs: 0,
                     caixi: [
                         {
                             ltypes: '高档菜系',
@@ -314,83 +314,48 @@
                                 img: 'img/7.jpg'
                             }]
                         }
-                    ],
-                    data() {
-                        return {
-                            typeInx: 0,
-                            value: 0,
-                            foods: this.sp//在定义sp里面的根实例foods的数据
-                        }
-                    },
-                    watch: {
-                        total(val, oldval) { //监听总价格的变化 暴露给父组件(根实例)
-                            this.$emit('ttchange', val)
-                        },
-                        allnum(val, oldval) {
-                            this.$emit('numchange', val)
-                        }
-                    },
-                    computed: {
-                        total() { //商品总价格
-                            var total = 0;
-                            this.foods.forEach(item => {
-                                item.food.forEach(cont => {
-                                    total += (cont.num || 0) * cont.price;
-                                })
-                            })
-                            return total;
-                    },
-                    allnum() { //商品总数量
-                        var allnum = 0;
-                        this.foods.forEach(item => {
-                            item.food.forEach(cont => {
-                                allnum += (cont.num || 0);
-                            })
-                        })
-                        return allnum;
-                    }
-                }
+                    ]
+             }
             }
-        }
         })
 
-         //计数器组件
-        var component2 = Vue.component('bc-input-number', {
-            template: '#jishuqi',
-            props: ['value', 'step', 'max', 'min'],
-            data() {
-                return {
-                    shuliang: this.value || 0,
-                }
-            },
-            watch: {
-                v(val, oldvalue) { //监听v的变化 暴露给父组件(要更改value值)
-                    if (val >= this.max) {
-                        val = this.max
-                    }
-                    if (val <= this.min) {
-                        val = this.min
-                    }
-                    this.$emit('input', val)//第一个参数：事件名，第二个参数：传递的事件参数，用$event来接收，或者方法的第一个参数。
-                },
-            },
-            methods: {
-                next() { //点击加
-                    if (this.shuliang >= this.max) {
-                        this.shuliang = this.max;
-                        return;
-                    }
-                    this.shuliang += this.step || 1;
-                },
-                prev() { //点击减
-                    if (this.shuliang <= this.min) {
-                        this.shuliang= this.min
-                        return;
-                    }
-                    this.shuliang -= this.step || 1;
-                }
-            }
-        })
+         //计数器
+        // Vue.component('bc-input-number', {
+        //     template: '#jishuqi',
+        //     props: ['value', 'step', 'max', 'min'],
+        //     data() {
+        //         return {
+        //             shuliang: this.value || 0,
+        //         }
+        //     },
+        //     watch: {
+        //         shuliang(val, oldvalue) { 
+        //             if (val >= this.max) {
+        //                 val = this.max
+        //             }
+        //             if (val <= this.min) {
+        //                 val = this.min
+        //             }
+        //             this.$emit('input', val)//第一个参数：事件名，第二个参数：传递的事件参数，用$event来接收，或者方法的第一个参数。
+        //         },
+        //     },
+        //     methods: {
+        //         next() {
+        //             if (this.shuliang >= this.max) {
+        //                 this.shuliang = this.max;
+        //                 return;
+        //             }
+        //             this.shuliang += this.step || 1;
+        //         },
+        //         prev() {
+        //             if (this.shuliang <= this.min) {
+        //                 this.shuliang= this.min;
+        //                 return;
+        //             }
+        //             this.shuliang -= this.step || 1;
+        //         }
+        //     }
+        // })
        
         var vm = new Vue({
             el:'#app',
@@ -401,7 +366,7 @@
                
             }
         })
-    </script>
+</script>
 </body>
 
 </html>

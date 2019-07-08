@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	 <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+</head>
+<body>
+	<div id="app">
+		<test v-if="show">111</test>
+	</div>
+	<script>
+		Vue.component('test',{
+            data() {
+                return {
+                    message:'hello'
+                }
+            },
+            template:'<div>{{message}}</div>',
+        })
+		var vm = new Vue({
+	        el:'#app',
+	        data() {
+	            return {
+	                show:true,
+	            }
+	        },
+	    })
+	</script>
+</body>
+</html>
