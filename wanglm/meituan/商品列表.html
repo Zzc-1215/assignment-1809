@@ -256,6 +256,15 @@
         .foot ul li span:nth-of-type(3){
             font-weight: bold;
         }
+		#con{
+			float: right;
+			width: 50px;
+			height: 30px;
+			background: greenyellow;
+			text-align: center;
+			line-height: 30px;
+			margin-top: 5px;
+		}
     </style>
 </head>
 
@@ -293,29 +302,11 @@
             </div>
             <footer>
                 一共{{total}}
-                <router-link :to="{name:'shoppingCart',params:{selectList}}">去结算</router-link>
+                <div id="con">结算</div>
             </footer>
         </div>
     </template>
-    <template id="shoppingCart">
-        <div>
-            <div class="fanhui"><router-link to="selectGoods"><</router-link></div>
-            <div class="foot">
-                <ul>
-                    <li v-for="item in arr1">
-                        <div class="img"><img :src="item.img" alt=""></div>
-                        <span>{{item.title}}</span>
-                        <span>x{{item.num}}</span>
-                        <span>￥{{(item.num*item.price).toFixed(2)}}</span>
-                    </li>
-                </ul>
-            </div>
-            <footer>
-                一共{{total}}
-                <button>去支付</button>
-            </footer>
-        </div>
-    </template>
+    
     <script>
         var shoppingCart={
             template:'#shoppingCart',
