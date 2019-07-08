@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+	<div id="app">
+		<keep-alive>
+			<test></test>
+		</keep-alive>
+	</div>
+</body>
+<script>
+	Vue.component('test',{
+        activated(){
+            console.log('激活');
+        },
+        deactivated(){
+            console.log('停用');
+        }
+    })
+</script>
+</html>

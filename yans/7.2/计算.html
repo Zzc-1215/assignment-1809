@@ -148,11 +148,12 @@
 			filters:{
 				'chinese':function(val){
 					var list1=['零','壹','贰','叁','肆','伍','陆','柒','捌','玖','零']
-					var list2=['元整','拾','佰','仟','万','拾','佰','仟','亿']
+					// var list2=['元整','拾','佰','仟','万','拾','佰','仟','亿']
 					var str=val.toString()
 					var daxie=''
 					for (var i=0;i<str.length;i++) {
-						daxie+=list1[Number(str.charAt(i))]+list2[str.length-i-1]
+						daxie+=list1[Number(str.charAt(i))]
+						// +list2[str.length-i-1]
 					}
 					return daxie
 				}
