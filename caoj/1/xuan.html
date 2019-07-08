@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<!--<link rel="stylesheet" type="text/css" href="font/iconfont.css"/>-->
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+				list-style: none;
+				text-decoration: none;
+			}
+			[v-cloak]{
+				display: none;
+			}
+			.box{
+				width: 600px;
+				height: 500px;
+				border: 1px solid #CCCCCC;
+				box-sizing: border-box;
+				margin: auto;
+				position: relative;
+			}
+			.head{
+				width: 100%;
+				height: 50px;
+				border: 1px solid #CCCCCC;
+				position: relative;
+			}
+			.dizhi{
+				line-height: 50px;
+				text-align: center;
+				/*user-select:none;*/
+				position: relative;
+			}
+			.dizhi span{
+				font-size: 20px;
+				color: black;
+			}
+			.icon1{
+				font-size: 18px;
+				color: #CCCCCC;
+				cursor: pointer;
+			}
+			.icon2{
+				font-size: 24px;
+				color: #CCCCCC;
+				position: absolute;
+				right: 20px;
+				top: 2px;
+				cursor: pointer;
+			}
+			.content{
+				width: 100%;
+				border: 1px solid #CCCCCC;
+			}
+			.c-left{
+				width: 30%;
+				float: left;
+			}
+			.c-left ul li{
+				border: 1px solid #CCCCCC;
+				height: 40px;
+				line-height: 35px;
+				text-align: center;
+				color: black;
+				font-size: 18px;
+				font-family: "微软雅黑";
+				font-weight: 100;
+			}
+			.c-left ul li:hover{
+				background-color:cornflowerblue ;
+				color: #fff;
+			}
+			.c-right{
+				width: 70%;
+				float: left;
+			}
+			.c-right ul li{
+				border: 1px solid #CCCCCC;
+				height: 80px;
+			}
+			.liSpan span{
+				padding-left: 60px;
+			}
+			.dli-l{
+				float: left;
+				width: 30%;
+				height: 100%;
+			}
+			.dli-l img{
+				width: 80%;
+				height: 90%;
+				margin-left: 5%;
+				margin-top: 5%;
+			}
+			.dli-r{
+				float: right;
+				width: 70%;
+				height: 100%;
+			}
+			.dli-r p{
+				font-size: 16px;
+				font-weight: 100;
+			}
+			.dli-r span:nth-child(2){
+				color: orange;
+				font-size: 14px;
+				display: inline-block;
+				margin-top: 15px;
+			}
+			.one{
+				float: right;
+				margin: 0 20px;
+			}
+			.one button{
+				width: 30px;
+				height: 20px;
+			}
+			.foot{
+				width: 100%;
+				height: 60px;
+				border: 1px solid #CCCCCC;
+				position: absolute;
+				bottom: 0;
+			}
+			.foot dl{
+				width: 20%;
+				float: left;
+				margin-left:5%;
+			}
+			.foot dl dt{
+				font-size: 28px;
+				color: #CCCCCC;
+			}
+			.foot dl dd{
+				font-size: 16px;
+				color: black;
+			}
+			.zongji{
+				width: 100%;
+				height: 60px;
+				background-color: #CCCCCC;
+			}
+			.zongji p{
+				display: inline-block;
+				color: black;
+				padding: 20px 20px;
+			}
+			.zongji a{
+				width: 100px;
+				height: 100%;
+				background-color: orange;
+				float: right;
+				line-height: 60px;
+				text-align: center;
+			}
+			.s_box{
+				width: 600px;
+				height: 700px;
+				border: 1px solid #CCCCCC;
+				box-sizing: border-box;
+				margin: auto;
+				/*position: relative;*/
+			}
+			.s_box a{
+				display: block;
+				text-decoration: none;
+				width: 100%;
+				height: 60px;
+				border: 1px solid #CCCCCC;
+				font-size: 24px;
+				color: black;
+				line-height: 60px;
+			}
+			.s_wupin{
+				width: 100%;
+				height:120px;
+				border: 1px solid #CCCCCC;
+			}
+			.s_img img{
+				float: left;
+				width: 150px;
+				height: 100px;
+				margin: 10px;
+			}
+			.s_p{
+				font-size: 24px;
+				color: black;
+			}
+			.s_span{
+				color: orange;
+				float: right;
+				padding: 30px;
+			}
+			.s_zj{
+				width: 80%;
+				height: 40px;
+				border-bottom: 1px solid #CCCCCC;
+				float: right;
+				line-height: 30px;
+				text-align: right;
+			}
+			.s_zj span{
+				font-size: 26px;
+				color: orange;
+				margin-right: 10px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app" v-cloak>
+			<router-view></router-view>
+		</div>
+		<template id="gowu">
+			<div>
+				<div class="box">
+				<div class="head">
+					<div class="dizhi">
+						<a href="javascript:;" style="position: absolute;left:50px;"><</a>
+						<span>派送至:</span>
+						<span>现代管理大学</span>
+						
+					</div>
+				</div>
+				<div class="content">
+					<div class="c-left">
+						<ul>
+							<li style="height: 60px;line-height: 60px;">热销新品</li>
+							<li @click="arr=index" v-for="(i,index) in arr2" :key="index">{{i.type}}</li>
+						</ul>
+					</div>
+					<div class="c-right">
+						<ul>
+							<li class="liSpan" style="height: 60px;line-height: 60px;">
+								<span>综合排序</span>
+								<span>按价格</span>
+								<span>分类</span>
+							</li>
+							<div v-if="arr == index"  v-for="(o,index) in arr2" :key="index">
+								<li class="dli" v-for="(i,index) in o.list" :key="index">
+									<div class="dli-l"><img :src="i.img"/></div>
+									<div class="dli-r">
+										<p>{{i.name}}</p>
+										<span>￥</span>	<span style="color: orange;">{{i.jiage}}</span>
+										<div class="one">
+											<button @click="reduce(i)">-</button>
+											<span>{{i.num || 0}}</span>
+											<button @click="plus(i)">+</button>
+										</div>
+									</div>
+								</li>
+							</div>
+							
+						</ul>
+					</div>
+				</div>
+				<div class="foot">
+					<div class="zongji">
+						<p>总计:<span>{{total}}</span></p>
+						<router-link :to="{name:'gocar',params:{arrList,total}}">去结算</router-link>
+					</div>
+					
+				</div>
+			</div>
+			</div>
+		</template>
+		
+		<template id="shopping">
+			<div class="s_box">
+				<!--{{$route.params}}-->
+				<!--<div class="fanhui"><</div>-->
+				<router-link to="/"><</router-link>
+				<div class="s_wupin" v-for="i in $route.params.arrList">
+					<li class="s_li" >
+						<div class="s_img">
+							<img :src="i.img" alt="" />
+						</div>
+						<p class="s_p">{{i.name}}</p>
+						<span class="s_span">{{(i.jiage*i.num).toFixed(2)}}</span>
+						
+					</li>
+				</div>
+				<div class="s_zj">
+					总计:<span>{{$route.params.total}}</span>
+				</div>
+			</div>
+		</template>
+		<script src="vue.js"></script>
+		<script src="vue-router.js"></script>
+		<script type="text/javascript">
+			var gowu=Vue.component('gowu',{
+				template:'#gowu',
+				data(){
+					return{
+						arr:0,
+						num:'',
+						arr2:[{
+							type:'水饺',
+							list: [{
+		                        name: "水饺水饺水饺水饺水饺水饺",
+		                        img: "img/01.jpg",
+		                        jiage: '10',
+		                    }, {
+		                        name: "水饺水饺水饺水饺水饺水饺",
+		                        img: "img/02.jpg",
+		                        jiage: '10',
+		                    },]	
+						},{
+							type:'流食',
+		                    list: [{
+		                        name: "流食流食流食流食流食流食流食",
+		                        img: "img/01.jpg",
+		                        jiage: '10',
+		                    }, {
+		                        name: "流食流食流食流食流食流食流食",
+		                        img: "img/02.jpg",
+		                        jiage: '10',
+		                    }, ]
+		                },{
+		                	type:'凉菜',
+		                    list: [{
+		                        name: "凉菜凉菜凉菜凉菜凉菜凉菜",
+		                        img: "img/01.jpg",
+		                        jiage: '10',
+		                    }, {
+		                        name: "凉菜凉菜凉菜凉菜凉菜凉菜",
+		                        img: "img/02.jpg",
+		                        jiage: '10',
+		                    }, ]
+		                },{
+		                	type:'包子',
+		                	list:[{
+		                		name: "包子包子包子包子包子包子",
+		                        img: "img/01.jpg",
+		                        jiage: '10',
+		                	},{
+		                		name: "包子包子包子包子包子包子",
+		                        img: "img/02.jpg",
+		                        jiage: '10',
+		                	},]
+		                },{
+		                	type:'饮品',
+		                	list:[{
+		                		name: "饮品饮品饮品饮品饮品饮品",
+		                        img: "img/01.jpg",
+		                        jiage: '10',
+		                	},{
+		                		name: "冰激淋冰激淋冰激淋冰激淋",
+		                        img: "img/02.jpg",
+		                        jiage: '10',
+		                	}]
+		                },{
+		                	type:'小菜',
+		                	list:[{
+		                		name: "小菜小菜小菜小菜小菜小菜小菜",
+		                        img: "img/01.jpg",
+		                        jiage: '10',
+		                	},{
+		                		name: "小菜小菜小菜小菜小菜小菜小菜",
+		                        img: "img/02.jpg",
+		                        jiage: '10',
+		                	}]
+		                },
+					]
+					}
+				},
+				computed:{
+					alist(){
+						return this.arr2[0].list.length;
+					},
+					arrList(){
+						var larr=[];
+						this.arr2.forEach(element=>{
+							if (element.list&&element.list.length>0) {
+								element.list.forEach(el=>{
+									if (el.num) {
+										larr.push(el);
+									}
+								})
+							}
+						})
+						return larr;
+					},
+					total(){
+						var n=0;
+						this.arrList.forEach(element=>{
+							n+=element.jiage * element.num
+						});
+						return n.toFixed(2);
+					}
+				},
+				watch:{
+					arrList(v1){
+						console.log(v1)
+					}
+				},
+				filters:{
+					jiage(value){
+						return '￥'+value;	
+					}
+				},
+				methods:{
+					plus(i){
+                    	if (i.num) {
+                    		i.num++;
+                    	}else{
+                    		Vue.set(i,'num',1)
+                    	}
+           			},
+					reduce(i){
+						if (i.num) {
+							if(i.num==0) return 
+							i.num--;
+						}
+					}
+				}
+			})
+			var shopping=Vue.component('shopping',{
+				template:'#shopping'
+			})
+			const router=new VueRouter({
+				routes:[
+					{
+						path:'/',
+						component:gowu
+					},
+					{
+						path:'/gocar',
+						name:'gocar',
+						component:shopping
+					}
+				]
+			})
+			var vm=new Vue({
+				el:'#app',
+				router,
+				data:{}
+			})
+		</script>
+	</body>
+</html>
