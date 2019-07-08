@@ -143,7 +143,13 @@ new Vue({
 			imgsrc:'img/4.jpg',
 			msg:'新鲜柠檬500g/盒新鲜特价新鲜特价',
 			price:'￥10.8'
-		},]
+		},
+		{
+			title:'冰激凌',
+			imgsrc:'img/4.jpg',
+			msg:'新鲜柠檬500g/盒新鲜特价新鲜特价',
+			price:'￥10.8'
+		}]
 	},
 	methods:{
 		tab(a){
