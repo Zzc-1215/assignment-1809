@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>props</title>
+    <script src="../assets/js/vue.js"></script>
+</head>
+<body>
+    <!-- 
+
+        [
+            {
+                a:'',
+                b:[]
+            }
+        ]
+        Prop验证
+
+        1， 验证props之前，子组件的所有数据都还没初始化
+
+            注意那些 prop 会在一个组件实例创建之前进行验证，所以实例的属性 (如 data、computed 等) 在 default 或 validator 函数中是不可用的。
+
+        2、 支持类型检测：String、Number、Boolean、Function、Object、Array、Date、Symbol、自定义的构造函数
+
+        3、 可以通过[String,Number,...] 来定义多个支持类型
+     
+        4、 required 定义必须、非必须传入属性
+
+        5、 default 默认数据
+
+        6、 validator自定义验证函数，参数就是咱们要验证的数据
+    
+            
+        组件属性特性
+        1、子组件使用自定义属性会被覆盖
+        2、class 、 style 是会被合并
+        3、inheritAttrs阻止不明属性传入
+    -->
+    <div id="app">
+        <test class="abc" data-a="1"></test>
+        <!-- <test :data="abc" :fn="p" date="123" :text="'hahaha1'"></test> -->
+    </div>
+    <script>
+        function Preson(a){
+            this.a = a
+        }
+
+        Vue.component('test',{
+            inheritAttrs: false,
+            template: '<h1 class="ddd">{{text}}</h1>',
+            data() {
+                return {
+                    a:1,
+                }
+            },
+            props:{
+                data: [Symbol,Number],
+                fn: Preson,
+                date: {
+                    required: true,
+                },
+                text:{
+                    type: String,
+                    default: '123',
+                    required: false,
+                    validator: function(v){
+                        if(v === 'hahaha'){
+                            return true;
+                        }else{
+                            return false;
+                        }
+                        // this.a xx
+                    }
+                }
+            }
+        });
+
+
+        new Vue({
+            el:'#app',
+            data:{
+                abc:Symbol(),
+                p: new Preson(1),
+            }
+        })
+    </script>
+</body>
+</html>
