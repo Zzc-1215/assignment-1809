@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    .v-enter,
+    .v-leave-to {
+        position: fixed;
+        left: 0;
+        top: 0;
+    }
+
+    .v-enter-active,
+    .v-leave-active {
+        transition: all 0.5s;
+    }
+
+    .v-enter-to,
+    .v-leave {
+        position: fixed;
+        left: 300px;
+        top: 0;
+    }
+</style>
+
+<body>
+    <div id="app">
+        <!-- 1.过滤 -->
+        <!-- <div>{{value | abc}}</div> -->
+
+        <!-- 2.自定义指令 -->
+        <!-- <div v-dname></div> -->
+
+        <!-- 6.过度动画 -->
+        <!-- <button @click="isshow=!isshow">运动</button> -->
+        <!-- <transition>
+            <div v-show="isshow" :key='2' style="height: 150px;width:150px;background: #ccc"></div>
+        </transition> -->
+        <!-- <transition appear :duration="3000" mode="out-in">
+            <div :key='2' style="height: 150px;width:150px;background: #ccc"></div>
+        </transition> -->
+        <!-- 7.组件props -->
+        <!-- <test class="abc" data-a="1"></test> -->
+
+        <!-- 8.template -->
+        <!-- <test>
+            <template v-slot:aaa="bbb">{{bbb}}</template>
+        </test> -->
+
+        <!-- 10.activated/deactivated -->
+            <button @click="show=!show">按钮</button>
+        <keep-alive>
+            <test v-if="show"></test>
+
+        </keep-alive>
+    </div>
+</body>
+<script src="vue.js"></script>
+<script>
+    //  1、自定义一个把‘1-9’数字转换成大写‘一到九’的全局过滤器？（10分）
+    // Vue.filter('abc',function(val){
+    //     var arr=['一','二','三','四','五','六','七','八','九']
+    //     var Newarr="";
+    //     for (var i = 0; i < arr.length; i++) {
+    //         Newarr += arr[i]
+    //     }
+    //     return Newarr
+    // })
+    // new Vue({
+    //     el: '#app',
+    //     data: {
+    //       value:[1,2,3,4,5,6,7,8,9]
+    //     }
+    // })
+
+    // 2、自定义一个全局指令，并打印出指令的参数描述？
+    // Vue.directive('dname',{
+    //     inserted:function(el,binding,vnode,oldVnode){
+    //         el.dname()
+    //         console.log(el);
+    //         console.log(binding);
+    //         console.log(vnode);
+    //         console.log(oldVnode);
+    //         binding.name//指令所绑定的元素 可以直接操作dom
+    //         binding.arg//
+    //         binding.expresion//字符串形式的指令表达式
+    //         binding.value,//新数值
+    //         binding.oldValue,//旧数值
+    //         binding.modifiers//
+    //     }
+    //     // bind,inserted,update,componentUpdated,unbind
+    // })
+
+    // 6、写出vue里定义在过渡、动画组件里特有10个属性？（10分）
+    // new Vue({
+    //     el: '#app',
+    //     data() {
+    //         return {
+    //             isshow: false
+    //         }
+    //     }
+    // })
+
+    // 7、列出组件prop的四种验证方式并描述？（10分）
+    // function Preson(a) {
+    //     this.a = a
+    // }
+
+    // Vue.component('test', {
+    //     inheritAttrs: false,
+    //     template: '<h1 class="ddd">{{text}}</h1>',
+    //     data() {
+    //         return {
+    //             // a: 1,
+    //         }
+    //     },
+    //     props: {
+    //         data: [Symbol, Number],
+    //         fn: Preson,
+    //         date: {
+    //             required: true,
+    //         },
+    //         text: {
+    //             type: String,
+    //             default: '123',
+    //             required: false,
+    //             validator: function (v) {
+    //                 if (v === 'hahaha') {
+    //                     return true;
+    //                 } else {
+    //                     return false;
+    //                 }
+    //                 // this.a xx
+    //             }
+    //         }
+    //     }
+    // });
+    // new Vue({
+    //     el: '#app',
+    //     data: {
+    //         abc: Symbol(),
+    //         p: new Preson(1),
+    //     }
+    // })
+    // 8、描述<template v-slot:aaa=”bbb”>ccc</template>的作用？
+    // Vue.component('test', {
+    //     template: `<h1>
+    //                 <slot name="aaa" :abc="user" :user='"hello"'></slot>
+    //             </h1>`,
+    //     data() {
+    //         return {
+    //             user: {
+    //                 x: 1,
+    //                 y: 2,
+    //             }
+    //         }
+    //     }
+    // })
+
+    // new Vue({
+    //     el: "#app",
+    //     data() {
+    //         return {
+    //             msg: "hello"
+    //         }
+    //     }
+    // })
+
+
+    // 10、描述Activated/deactivated两个生命周期的触发条件？（10分）
+    Vue.component('test', {
+        template: '<div style="height:100px;border:1px solid;width:300px;">{{msg}}</div>',
+        data() {
+            return {
+                msg: 'sfhjssdffa'
+            }
+        },
+        created() {
+            console.log('创建')
+        },
+        activated() {
+            console.log('激活')
+        },
+        deactivated() {
+            console.log('停用')
+        }
+    })
+    var vm = new Vue({
+        el: '#app',
+        data() {
+            return {
+                show: true,
+            }
+        },
+        // change(){
+        //     this.show==!show
+        // }
+    })
+
+
+
+</script>
+
+</html>
