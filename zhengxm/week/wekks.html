@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        .zl{
+            width: 200px;
+            height: 100px;
+            background-color: antiquewhite;
+        }
+        .color{
+            color: burlywood;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="box">
+            {{value | fname}}
+        </div>
+        <div v-dname class="zl"></div>
+        <test>
+            <template v-slot:aaa="bbb">{{bbb}}ccc</template>
+        </test>
+        <!-- 7. -->
+        <!-- <text class="aaa" data-a="1"></!--> --> -->
+        <button @click="show=!show">show</button>
+        <keep-alive>
+            <jh v-if="show"></jh>
+        </keep-alive>
+    </div>
+    <script>
+        // 1.自定义一个把‘1-9’数字转换成大写‘一到九’的全局过滤器？
+        Vue.filter("fname",function (val) {
+            var arr = ['零','壹','贰','叁','肆','伍','陆','柒','捌','玖'];
+            var str = "";
+            for (var i = 0; i < val.length; i++) {
+                for (var j = 0; j < arr.length; j++) {
+                    str += arr[val[i]];
+                    break;
+                }
+            }
+            return str;
+        })
+        // 2.自定义一个全局指令，并打印出指令的参数描述
+            Vue.directive('dname',function(el,binding,vnode,oldVnode){
+                console.log(el);
+                console.log(binding.name);
+                console.log(binding.arg);
+                console.log(binding.expresion);
+                console.log(binding.value);
+                console.log(binding.oldValue);
+                console.log(binding.modifiers);
+                console.log(vnode);
+                console.log(oldVnode)
+            })
+        // 6.写出vue里定义在过渡，动画组件里特有10个属性
+
+        // 7.列出组件prop的四种 验证方式并描述
+        // function pos(a){
+        //     this.a = a
+        // }
+        // Vue.component('text',{
+        //     inheritAttrs: false,
+        //     template:'<p class="col">{{te}}</p>',
+        //     data() {
+        //         return {
+        //             // msg:'hello'
+        //         }
+        //     },
+        //     props:{
+        //         data:[Symbol,Number],
+        //         fn:pos,
+        //         date:{
+        //             required:true,
+                    
+        //         },
+        //         te:{
+        //             type:String,
+        //             default:'123',
+        //             required:false,
+        //             validator:function(valu){
+        //                 if(valu === '111'){
+        //                     return true
+        //                 }else{
+        //                     return false
+        //                 }
+        //             }
+        //         }
+
+        //     },
+        //     template:'<div style="height:100px;border:1px solid;overflow:auto;">{{msg}}---{{data}}</div>',
+        //     created() {
+        //         console.log('created');
+        //     },
+        //     activated(){
+        //         console.log('激活');
+        //     },
+        //     deactivated(){
+        //         console.log('停用');
+        //     }
+        // })
+        // 8、描述<template v-slot:aaa=”bbb”>ccc</template>的作用？
+        Vue.component('test',{
+            template:`<p class="color"><slot name="aaa" :bbb="user"></slot></p>`,
+            data(){
+                return{
+                    user:{
+                        x:1,
+                        y:2
+                    }
+                }
+            }
+        })
+        // 10、描述Activated/deactivated两个生命周期的触发条件？
+        Vue.component('jh', {
+            template: '<div style="height:100px;border:1px solid;width:300px;">{{msg}}</div>',
+            data() {
+                return {
+                    msg: 'hello'
+                }
+            },
+            created() {
+                console.log('created')
+            },
+            activated() {
+                console.log('激活')
+            },
+            deactivated() {
+                console.log('停用')
+            }
+        })
+        var vm = new Vue({
+            el:'#app',
+            data(){
+                return {
+                    show:true,
+                    value:[0,1,2,3,4,5,6,7,8,9],
+                    aaa:Symbol(),
+                }
+            }
+        })
+    </script>
+</body>
+</html>
