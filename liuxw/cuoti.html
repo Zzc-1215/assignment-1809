@@ -23,10 +23,27 @@
         
      </div> -->
     <!-- 7、列出组件prop的四种验证方式并描述？（10分） -->
-        <div class="box">
+        <!-- <div class="box">
             <zujian></zujian>
-        </div>
+        </!--> -->
     <!--8、描述<template v-slot:aaa=”bbb”>ccc</template>的作用？ -->
+    <div class="box">
+        <template id="contain">
+            <div class="contain"></div>
+            <slot></slot>
+        </template>
+        <template id="row">
+            <slot></slot>
+            <div class="left">
+                <slot name="left">
+                    默认数据
+                </slot>
+            </div>
+            <div class="right">
+                <slot name="right"></slot>
+            </div>
+        </template>
+    </div>
     <!-- 10、描述Activated/deactivated两个生命周期的触发条件？（10分） -->
     <!-- <div class="box">
         <keep-alive>
@@ -35,33 +52,39 @@
         </keep-alive>
     </div> -->
     <script>
-        Vue.component("zujian",{
-            inheritAttrs:false,
-            template:"<div>{{a}}</div>",
-            data() {
-                return {
-                    a:123
-                }
-            },
-            props:{
-                data:[String,Number],//数据类型 
-                date:{
-                    required:true
-                }
-            },
-            text:{
-                type:String,
-                default:"哈哈哈",
-                required:false,
-                validator:function(v){
-                    if(v==="哈哈哈"){
-                        return true;
-                    }else{
-                        return "嘿嘿嘿";
-                    }
-                }
-            }
+        Vue.component("contain",{
+            template:"#contain"
         })
+        Vue.component("row",{
+            template:"#row"
+        })
+        // Vue.component("zujian",{
+        //     inheritAttrs:false,
+        //     template:"<div>{{a}}</div>",
+        //     data() {
+        //         return {
+        //             a:123
+        //         }
+        //     },
+        //     props:{
+        //         data:[String,Number],//数据类型 
+        //         date:{
+        //             required:true
+        //         }
+        //     },
+        //     text:{
+        //         type:String,
+        //         default:"哈哈哈",
+        //         required:false,
+        //         validator:function(v){
+        //             if(v==="哈哈哈"){
+        //                 return true;
+        //             }else{
+        //                 return "嘿嘿嘿";
+        //             }
+        //         }
+        //     }
+        // })
         // Vue.component("box-yes",{
         //     data() {
         //         return {
