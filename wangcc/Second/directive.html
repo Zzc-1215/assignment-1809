@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="box">
+			<span v-zwq:a>{{123}}</span>
+		</div>
+	</body>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script type="text/javascript">
+		Vue.directive('zwq',function(el,binding){
+			console.log(binding)
+			console.log(binding.name)
+			console.log(binding.arg)
+			console.log(binding.value)
+			console.log(binding.oldvalue)
+			console.log(binding.expression)
+			console.log(binding.modifiers)
+		})
+		new Vue({
+			el:'#box'
+		})	
+	</script>
+</html>
