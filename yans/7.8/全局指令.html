@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+	<script>
+		vue.directive('demo',{
+			bind(el,binding,vnode,oldvnode){
+				//binding属性
+				name:指令名,
+				value:指令的绑定值,
+				oldvalue:制定绑定的前一个值,
+				expression:字符串形式的指令表达式，
+				arg：传给指令的参数，
+				modifiers：一个包含修饰符的对象
+			}
+		})
+		//bind,inserted,update,componentUpdated,unbind
+	</script>
+</body>
+</html>

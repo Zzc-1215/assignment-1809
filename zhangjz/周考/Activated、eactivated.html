@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <keep-alive>
+            <abc v-if='isshow'></abc>
+        </keep-alive>
+    </div>
+</body>
+<script>
+    Vue.component('abc', {
+        data() {
+            return {
+                msg: 'hello'
+            }
+        },
+        template: '<span>aasad</span>',
+        created() {
+            console.log('created')
+        },
+        activated() {
+            console.log('激活')
+        },
+        deactivated() {
+            console.log('停')
+        }
+    })
+
+    var vm = new Vue({
+        el: "#root",
+        data: {
+            isshow: true,
+        }
+    })
+</script>
+
+</html>

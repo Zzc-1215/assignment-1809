@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	</head>
+	<body>
+		<!-- 10、描述Activated/deactivated两个生命周期的触发条件？（10分） -->
+		<!-- <div id='app'>
+		<keep-alive>
+			<abc v-if='isshow'></abc>
+		</keep-alive>
+	</div>
+	<script type="text/javascript">
+		Vue.component('abc',{
+			data() {
+			    return {
+			        msg:'hello'
+			    }
+			},
+			template:'<a>link</a>',
+			created() {
+			    console.log('created');
+			},
+			activated(){
+				console.log('激活');
+			},
+			deactivated(){
+				console.log('停用');
+			}
+		})
+		var vm=new Vue({
+			el:'#app',
+			data(){
+				return{
+					isshow:true,
+				}
+			},
+		})
+	</script> -->
+		<!-- 1、自定义一个把‘1-9’数字转换成大写‘一到九’的全局过滤器？（10分） -->
+		<!-- <div id='app'>
+			{{'123456789' | filters}}
+		</div>
+		<script type="text/javascript">
+			Vue.filter('filters', function(value) {
+				var arr = ['', '一', '二', '三', '四', '五', '六', '七', '八', '九'];
+				var str = '';
+				for (var i = 0; i < value.length; i++) {
+					for (var j = 0; j < arr.length; j++) {
+							str += arr[value[i]];
+							break;
+					}
+				}
+				return str;
+			})
+			var vm = new Vue({
+				el: '#app',
+			})
+		</script> -->
+		
+		<!-- 2、自定义一个全局指令，并打印出指令的参数描述？ -->
+		<!-- <div id='app'>
+			<div v-dname></div>
+		</div>
+		<script>
+			Vue.directive('dname', function(el, binding, vnode, oldVnode) {
+				console.log(el);
+				console.log(binding.name);
+				console.log(binding.arg);
+				console.log(binding.expresion);
+				console.log(binding.value);
+				console.log(binding.oldValue);
+				console.log(binding.modifiers)
+			})
+			var vm = new Vue({
+				el: '#app',
+			})
+		</script> -->
+		
+		<!-- 8、描述<template v-slot:aaa=”bbb”>ccc</template>的作用？ -->
+		<!-- <div id='app'>
+			  <test>
+				  <template v-slot:aaa='bbb'>{{bbb}}</template>
+			  </test>
+		  </div>
+		  <script type="text/javascript">
+		  	Vue.component('test',{
+				template:`<h1><slot name='aaa' :abc='user' :user='"hello"'></slot></h1>`,
+				data(){
+					return{
+						user:{
+							x:1,
+							y:2,
+						},
+					}
+				},
+			});
+			new Vue({
+			    el:'#app',
+			    data:{
+			       msg:'hello'
+			    }
+			})
+		  </script> -->
+		  
+		  <!-- 6、写出vue里定义在过渡、动画组件里特有10个属性？（10分） -->
+		  
+		  
+		  
+		  
+		  
+		  
+		  <!-- 7、列出组件prop的四种验证方式并描述？（10分） -->
+				<div id="app">
+				    <test class="abc" data-a="1"></test>
+				    <!-- <test :data="abc" :fn="p" date="123" :text="'hahaha1'"></test> -->
+				</div>
+				<script>
+				    function Preson(a){
+				        this.a = a
+				    }
+				    Vue.component('test',{
+				        inheritAttrs: false,
+				        template: '<h1 class="ddd">{{text}}</h1>',
+				        data() {
+				            return {
+				                a:1,
+				            }
+				        },
+				        props:{
+				            data: [Symbol,Number],
+				            fn: Preson,
+				            date: {
+				                required: true,
+				            },
+				            text:{
+				                type: String,
+				                default: '123',
+				                required: false,
+				                validator: function(v){
+				                    if(v === 'hahaha'){
+				                        return true;
+				                    }else{
+				                        return false;
+				                    }				                   
+				                }
+				            }
+				        }
+				    });
+				    new Vue({
+				        el:'#app',
+				        data:{
+				            abc:Symbol(),
+				            p: new Preson(1),
+				        }
+				    })
+				</script>
+
+	</body>
+</html>

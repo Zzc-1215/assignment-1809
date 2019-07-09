@@ -75,6 +75,7 @@
                 <li><a href="javascript:;">评价</a></li>
                 <li><a href="javascript:;">商家</a></li>
             </ul>
+            <!-- 选项卡 -->
             <div class="cont-text">
                 <ul>
                     <li @click="num=index" v-for="(item,index) in foods" :class="num==index?'active':''">
@@ -88,10 +89,11 @@
                         <div class="food-contnet">
                             <div class="content-introduce">
                                 <p>{{ele.name}}</p>
-                                <span>{{ele.info}}</span><span>{{ele.eval}}%</span>
+                                <span>{{ele.info}}</span><span>{{ele.eval}}</span>
                             </div>
                             <div class="content-price">
                                 <i>&yen;{{ele.price}}</i>
+                                <!-- {{ele}} -->
                                 <bc-input-number v-model="ele.val" :min="0"></bc-input-number>
                                 <!-- {{ele.v}} -->
                             </div>

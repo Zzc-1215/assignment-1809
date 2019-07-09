@@ -70,7 +70,7 @@
                     {{foods[typeInx].ltypes}}
                 </div> -->
                 <div v-if="typeInx==$index" v-for="(ltypect,$index) in foods">
-                    <div class="babycont clearfix" v-for="cont in ltypect.food">
+                    <div class="babycont clearfix" v-for="(cont,i) in ltypect.food" :key="i+$index+'cont'">
                         <div class="imgbox">
                             <img :src='cont.img' alt="">
                         </div>
@@ -161,6 +161,7 @@
                     var total = 0;
                     this.foods.forEach(item => {
                         item.food.forEach(cont => {
+                            // cont.num = 0;
                             total += (cont.num || 0) * cont.price;
                         })
                     })
