@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+		<script>
+			window.onload = function() {
+				document.documentElement.style.fontSize = document.documentElement.clientWidth / 1080 * 100 + 'px';
+				window.onresize = function() {
+					document.documentElement.style.fontSize = document.documentElement.clientWidth / 1080 * 100 + 'px';
+				}
+			}
+		</script>
+		<title>Document</title>
+		<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+		<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+		<style>
+			
+			* {
+				margin: 0;
+				padding: 0;
+				list-style: none;
+				text-decoration: none;
+			}body,
+html {
+	height: 90%;
+}
+			
+			#app {
+				height: 90%;
+			}
+			
+			.container {
+				width: 100%;
+				height: 137%;
+				overflow: hidden;
+				position: relative;
+			}
+			
+			.commodity-header {
+				width: 100%;
+				height: 40px;
+				line-height: 40px;
+			}
+			
+			.commodity-header div {
+				width: 100%;
+				height: 40px;
+				padding-left: 20px;
+				font-size: 12px;
+				color: black;
+			}
+			
+			.commodity-main {
+				width: 100%;
+				height: 100%;
+			}
+			
+			.commodity-leftnav {
+				width: 2.22rem;
+				background: lightblue;
+				float: left;
+			}
+			
+			.commodity-leftnav div {
+				width: 100%;
+				height: 40px;
+				text-align: center;
+				line-height: 40px;
+				border-bottom: 1px #ccc solid;
+				cursor: pointer;
+				font-size: 12px;
+			}
+			
+			.commodity-leftnav .active {
+				border-left: 2px orange solid;
+				box-sizing: border-box;
+			}
+			
+			.commodity-list {
+				float: left;
+				width: 8.58rem;
+				padding: 0 0.3rem;
+				box-sizing: border-box;
+			}
+			
+			.commodity-list .item {
+				width: 100%;
+				height: 2.74rem;
+				padding: 10px 0;
+				box-sizing: border-box;
+			}
+			
+			.commodity-list .img {
+				width: 2.7rem;
+				height: 100%;
+				float: left;
+				margin-right: 0.3rem;
+				box-sizing: border-box;
+			}
+			
+			.commodity-list .img img {
+				width: 100%;
+				height: 100%;
+			}
+			
+			.commodity-list .content {
+				width: 4.9rem;
+				float: left;
+				height: 100%;
+				box-sizing: border-box;
+				position: relative;
+			}
+			
+			.commodity-list .content p {
+				height: 45px;
+				width: 100%;
+				font-size: 14px;
+			}
+			
+			.commodity-list .bottom {
+				position: absolute;
+				bottom: 0;
+				width: 100%;
+				height: 25px;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				font-size: 16px;
+			}
+			
+			.commodity-list .bottom>span {
+				color: orange;
+			}
+			
+			.commodity-list .btn-box>i {
+				font-size: 16px;
+			}
+			
+			.commodity-footer,
+			.account-footer {
+				width: 100%;
+				height: 50px;
+				position: absolute;
+				bottom: 0;
+				background: #333;
+				display: flex;
+				align-items: center;
+				padding-left: 20px;
+				box-sizing: border-box;
+				font-size: 16px;
+				color: #fff;
+				justify-content: space-between;
+			}
+			
+			.commodity-footer a,
+			.account-footer a {
+				text-decoration: none;
+				color: #fff;
+				height: 100%;
+				padding: 0 30px;
+				background: #05ec66;
+				line-height: 50px;
+				font-size: 18px;
+			}
+			
+			.account-head {
+				width: 100%;
+				height: 50px;
+				border-bottom: 1px #333 solid;
+				font-size: 20px;
+				display: flex;
+				align-items: center;
+			}
+			
+			.account-head span {
+				margin-left: 15px;
+			}
+			
+			.account-head span:nth-of-type(1) a {
+				color: black;
+				font-size: 30px;
+			}
+			
+			.account-main {
+				width: 100%;
+				height: 100%;
+				padding: 0 10px;
+				box-sizing: border-box;
+			}
+			
+			.account-main ul li {
+				width: 100%;
+				height: 1.75rem;
+				display: flex;
+				align-items: center;
+				padding: 20px;
+				box-sizing: border-box;
+			}
+			
+			.account-list .img {
+				width: 1.06rem;
+				height: 1.06rem;
+				margin-right: 10px;
+			}
+			
+			.account-list .img img {
+				width: 100%;
+				height: 100%;
+			}
+			
+			.account-list .content {
+				width: 8rem;
+				display: flex;
+				justify-content: space-between;
+				font-size: 16px;
+			}
+			
+			.account-list .content p {
+				width: 2.5rem;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="app">
+			<router-view></router-view>
+		</div>
+		<template id="account">
+			<div class="container">
+				<div class="account-head">
+					<span><router-link to="/"><</router-link></span>
+					<span>确认订单</span>
+				</div>
+				<div class="account-main">
+					<ul class="account-list">
+						<li v-for="item,i in arr">
+							<div class="img">
+								<img :src="item.img">
+							</div>
+							<div class="content">
+								<p>{{item.text}}</p>
+								<span>x{{item.quantity}}</span>
+								<span>￥{{(item.quantity*item.price).toFixed(1)}}</span>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<div class="account-footer">
+					<div>￥<span>{{totalPrices}}</span></div>
+					<a>去支付</a>
+				</div>
+			</div>
+		</template>
+		<script src="commodity.js"></script>
+		<script>
+			var account = Vue.extend({
+				template: '#account',
+				data() {
+					return {
+						arr: this.$route.params.calculate || [],
+					}
+				},
+				computed: {
+					totalPrices() {
+						var num = 0;
+						this.arr.forEach(item => {
+							num += item.price * item.quantity;
+						})
+						return num.toFixed(1);
+					}
+				},
+			})
+			const router = new VueRouter({
+				routes: [{
+					path: '/',
+					component: commodity,
+				}, {
+					name: 'account',
+					path: '/account',
+					component: account,
+				}, ]
+			})
+			var vm = new Vue({
+				el: '#app',
+				router,
+			})
+		</script>
+	</body>
+
+</html>

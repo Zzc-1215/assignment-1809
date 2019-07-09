@@ -14,13 +14,13 @@
             outline-style: none;
         }
 
-        .box {
+        .box1 {
             width: 110px;
             height: 30px;
             margin: 50px auto;
         }
 
-        .box button {
+        .box1 button {
             width: 30px;
             height: 30px;
             border-style: none;
@@ -33,7 +33,7 @@
             background: rgb(107, 195, 253);
         }
 
-        .box input {
+        .box1 input {
             width: 50px;
             height: 30px;
             display:block;
@@ -55,7 +55,7 @@
 </head>
 
 <body>
-    <div class="box">
+    <div class="box1">
         <bc-number :step='1' :max='20' :min="0"></bc-number>
     </div>
     <script>
@@ -114,7 +114,7 @@
             },
         })
         new Vue({
-            el: ".box",
+            el: ".box1",
         })
     </script>
 </body>
