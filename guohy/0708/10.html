@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>激活&&停用</title>
+</head>
+<body>
+	<div id="app">
+		<keep-alive>
+			<bc-button-input></bc-button-input>	
+		</keep-alive>
+	</div>
+	<template id="box">
+		<div>
+			<button @click='btn()'>点击</button>
+			<div class="hidden" v-if='show'>
+				hello
+			</div>
+		</div>
+	</template>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script>
+
+		Vue.component('bcButtonInput',{
+			template:'#box',
+			data(){
+				return{
+					show:true
+				}
+			},
+			methods:{
+				btn(){
+					this.show = !this.show;
+				},
+			},
+			created() {
+                console.log('created');
+            },
+			activated(){
+				console.log('激活');
+			},
+			deactivated(){
+				console.log('停用');
+			}
+		})
+
+
+
+		var vm=new Vue({
+			el:'#app',
+			
+		})
+	</script>
+</body>
+</html>
