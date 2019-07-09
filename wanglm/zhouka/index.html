@@ -44,16 +44,9 @@
 			// Vue.filter('haun', function(a) {
 			// 	var arr = ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九']
 			// 	var str = ''
-			// 	for(var i = 0; i < a.length; i++) {
-			// 		for(var b = 0; b < arr.length; b++) {
-			// 			if(arr[parseInt(a[i])]) {
-			// 				str += arr[parseInt(a[i])];
-			// 				break;
-			// 			}
-			// 			//							
-			// 		}
+			// 	for
 			// 	}
-			// 	return str;
+			// 
 			// })
 			
 			
@@ -109,19 +102,32 @@
 			
 			
 		<!-- 描述<template v-slot:aaa=”bbb”>ccc</template>的作用？ -->
-			 Vue.component('test', {
-			    template: `<h1>
-			            <slot name='aaa' :abc="user" :user='"hello"'></slot>
-			        </h1>`,
-			    data() {
-			        return {
-			            user: {
-			                x: 1,
-			                y: 2,
-			            },
-			        }
-			    },
-			});
+			  Vue.component('test',{
+			     inheritAttrs: false,
+			     template: '<h1 class="ddd">{{text}}</h1>',
+			     data() {
+			         return {
+			             a:1, }
+			     },
+			     props:{
+			         data: [Symbol,Number],
+			         fn: Preson,
+			         date: {required: true,},
+			         text:{
+			             type: String,
+			             default: '123',
+			             required: false,
+			             validator: function(v){
+			                 if(v === 'hahaha'){
+			                     return true;
+			                 }else{
+			                     return false;
+			                 }
+			                 
+			             }
+			         }
+			     }
+			 });
 			
 			//描述Activated/deactivated两个生命周期的触发条件
 		 Vue.component('test',{

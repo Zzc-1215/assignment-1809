@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div id="app">
+		<abc>
+			<template v-slot:aaa="bbb">{{bbb}}</template>
+		</abc>
+	</div>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script>
+		Vue.component('abc',{
+			template: `<h1>
+			<slot name='aaa' :abc='user'  :user='"hello"'></slot>
+			</h1>`,
+			data() {
+				return {
+					user:{
+						x:5,
+						y:15,
+					},
+				}
+			},
+		});
+		var vm=new Vue({
+			el:'#app',
+		})
+	</script>
+</body>
+</html>

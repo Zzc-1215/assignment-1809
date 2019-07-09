@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div id="app">
+		<ac :fn='p' date="123" :text="'hehe'"></ac>
+	</div>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script>
+		function Preson(a){
+			this.a = a
+		}
+		Vue.component('ac',{
+			inheritAttrs: false,
+			template: '<h1 class="ddd">{{text}}</h1>',
+			data() {
+				return {
+					a:1,
+				}
+			},
+			props:{
+				data: [String,Number],
+				fn: Preson,
+				date: {
+					required: true,
+				},
+				text:{
+					type: String,
+					default: 'abc',
+					required: false,
+					validator: function(v){
+						if(v === 'hehe'){
+							return true;
+						}else{
+							return false;
+						}
+					}
+				}
+			}
+		});
+		var vm=new Vue({
+			el:'#app',
+			data(){
+				return{
+					 p: new Preson(1),
+				}
+			}
+		})
+	</script>
+</body>
+</html>
