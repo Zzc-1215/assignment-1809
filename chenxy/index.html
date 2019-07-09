@@ -19,6 +19,7 @@
             <template v-slot:aaa="bbb">{{bbb}}</template>
         </teat>
         <!-- 10、 -->
+            <!-- 组件之间切换的时候都会请求一些请求过的数据，每次请求都会导致重复渲染影响性能。这些数据可以存到缓存。此时使用keep-alive将组建包裹起来。但这样以上八种生命周期钩子将失效。取而代之的时activate和deactivated。activate：是在被包裹组建被激活的状态下使用的生命周期钩子;deactivated：在被包裹组件停止使用时调用 -->
         <keep-alive>
             <test v-if="show"></test>
         </keep-alive>
