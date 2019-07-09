@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		.box {
+			width: 300px;
+			height: 200px;
+			background-color: orange;
+			opacity: 0;
+		}
+		.box-enter {
+			opacity: 0;
+			transform: translateY(0);
+		}
+		.box-enter-active {
+			transition: 2s;
+		}
+		.box-enter-to {
+			opacity: 1;
+			transform: translateY(100px);
+		}
+		.box-leave {
+			opacity: 0;
+			transform: rotateZ(45deg);
+		}
+		.box-leave-active {
+			transition:1s;
+		}
+	.box-leave-to {
+		opacity: 1;
+		transform: rotateZ(90deg);
+	}
+	.group-enter {
+		transform: scale(1);
+	}
+	.group-enter-active {
+		transition: 2s;
+	}
+	.group-enter-to {
+		transform: scale(2);
+	}
+</style>
+</head>
+<body>
+	<div id="app">
+		<button @click="show=!show">点我呀</button>
+        <transition name="box" duration="5000">
+            <div class="box" v-show="show"></div>
+        </transition>
+       <!--  <transition-group name="group" mode="out-in">
+        	<div key="1" style="width:100px;height:100px;background:#000;" v-show="show"></div>
+        	<div key="2" style="width:100px;height:100px;background:green;" v-show="show"></div>
+        </transition-group> -->
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+
+    	var vm=new Vue({
+    		el:'#app',
+    		data(){
+    			return{
+    				show:true
+    			}
+    		}
+    	})
+    </script>
+</body>
+</html>

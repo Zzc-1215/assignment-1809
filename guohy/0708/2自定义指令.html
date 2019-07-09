@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>全局自定义指令</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <p v-color:green>绿</p>
+    </div>
+
+    <script>
+     Vue.directive('color', {
+            // bind表示这个自定义指令一绑定到dom上，就开始自动执行
+           bind(el,binding) {
+               if(binding.arg){
+                    el.style.color=binding.arg;
+                }
+                 console.log(el)
+                // 指令名
+                console.log(binding.name)
+                console.log(binding.arg)
+            },
+            // 表示dom插入到页面上的时候自动执行
+            // 这些函数都有两个参数，一个是el(使用自定义指令的元素), 一个是binding(记录自定义指令信息的对象)
+            inserted(el, binding) {
+                console.log('inserted');
+                console.log(el);
+                console.log(binding);
+                el.focus()
+           },
+           // 表示自定义指令后面的值更新的时候，自动执行
+           update() {
+                console.log('update');
+            }
+        })
+
+        var vm = new Vue({
+            el:'#app',
+            data() {
+                return {
+
+                }
+            },
+        })  
+    var vm = new Vue({
+        el:'#app',
+        data() {
+            return {
+
+            }
+        },
+    })
+    </script>
+</body>
+</html>
