@@ -1,0 +1,151 @@
+--基本指令--
+	V-text
+	V-html
+	V-show
+	V-if v-else v-else-if ： 结构必须相邻
+	v-for
+	V-on(@)
+	V-bind(:)
+	V-model => @input + :value
+	V-cloak
+	V-once: 渲染一次，低开销
+--vue事件--
+	V-on 简写 （@click）
+	V-on:click
+	事件对象event
+	事件修饰符（可以串联）
+		Stop（阻止传播）.prevent .capture .self .once  .passive
+	v-model  .number .lazy .trim
+	v-on:keyup.13
+	了解 事件捕捉、事件冒泡（事件委托原理）
+	StopPropagation（阻止事件捕获）   preventDetault（阻止事件冒泡）
+	事件委托：点击子元素给父级绑定事件
+	原生事件方法attachEvent()采用冒泡方式，而addEventListener()可以采用冒泡或事件捕获方式。
+	addEventListen（'事件类型'，'回调函数'，'是否捕获 默认为false'）
+--computed--
+	计算属性缓存vs方法
+    		计算属性是基于它们的响应式依赖进行缓存的只在相关响应式依赖发生改变时它们才会重新求值。相比之下，每当触发重新渲染时，调用方法将总会再次执行函数。
+	计算属性的setter
+    		两个钩子函数 get(),set()   
+		set定义一个参数是set值
+
+--watch--
+	    回调参数（newValue，oldValue）
+	    监听对象、数组，handle、deep参数
+	    监听对象属性 对象键路径必须加上引号（’obj.name’）
+	    通过实例方法$watch 来监听数据
+		vm.$watch('expOrFn',callback,[options])
+--数组更新--
+	Vue.set(vm.items, indexOfItem, newValue);
+	vm.$set(vm.items, indexOfItem, newValue);
+	vm.items.splice(indexOfItem, 1, newValue)
+--对象更新--
+	Vue.set(vm.obj, key, newValue)；
+	Vue.delete(target,key);
+	Object.assign({}, vm.obj, newObj);
+--自定义指令--
+    	全局注册/局部注册
+    	Vue.directive(‘focus’, {钩子函数})
+    	directives: { focus: {钩子函数}}
+    	Directive
+    	钩子函数
+    	    bind;inserted;update;componentUpdated;unbind
+    	钩子函数参数
+        		el;binding(name、value、oldValue、expression、arg、modifiers);vnode;oldVnode
+    	钩子函数简写（bind+update）
+--过滤器--
+	  管道符：|
+	   过滤器定义：
+	全局定义：Vue.filter('过滤器名字'，function（）｛｝)
+	局部定义：filters｛'过滤器名字'：function（）｛｝｝
+	    过滤器的第一个参数是，要过滤的值	
+	    过滤器的第二个参数是，过滤器的第一个参数,以此类推
+	    可以用在双花括号插值和?v-bind?表达式
+	    过滤器 可以链式调用
+	    过滤器参数： data | filterA (arg1,arg2)
+	    过滤器更像是‘一对多’的计算熟悉 vs 计算属性 一对一
+	    vue1.X的内置过滤器：（了解，2.x版本已经移除这些过滤器），
+		Capitalize、uppercase、lowercase、currency、pluralize、debounce、limitBy、filterBy、orderBy
+
+--生命周期--
+beforeCreate
+	数据还没有监听，没有绑定到vue对象实例，同时也没有挂载对象
+created
+	数据已经绑定到了对象实例，但是还没有挂载对象
+beforeMount
+	模板已经编译好了，根据数据和模板已经生成了对应的元素对象，将数据对象关联到了对象的 $el属性，$el属性是一个HTMLElement对象，也就是这个阶段，vue实例通过原生的createElement等方	法来创建这个html片段，准备注入到我们vue实例指明的el属性所对应的挂载点
+Mounted
+	将$el的内容挂载到了el，相当于我们在jquery执行了$(el).html($el),生成页面上真正的dom，上面我们就会发现dom的元素和我们$el的元素是一致的。在此之后，我们能够用方法来获取到el元素下的	dom对象，并进 行各种操作
+beforeUpdate
+	数据更新到dom之前，我们可以看到$el对象已经修改，但是我们页面上dom的数据还没有发生改变
+Updated
+	dom结构会通过虚拟dom的原则，找到需要更新页面dom结构的最小路径，将改变更新到dom上面，完成更新
+beforeDestroy
+Destroyed
+	实例的销毁，vue实例还是存在的，只是解绑了事件的监听还有watcher对象数据与view的绑定，即数据驱动
+	Activated/deactivated   组件激活、停用
+
+---过渡、动画---
+	1、单元素、动态组件过渡 <transition>
+	2、过渡类名（过渡、动画）
+	3、钩子函数（参数）
+	4、appear属性,duraction
+	5、多个元素过渡必须要绑定key，过渡模式（mode out-in in-out）
+
+	6、列表过渡<transition-group> 、 key（必须） tag属性（默认span）
+	7、动态过渡 :name
+	8、v-move
+
+--组件基础--
+	1、组件是可复用的 Vue 实例，且带有一个名字，（所以它接收相同的选项	）
+	2、全局注册和局部注册
+	3、data必须是一个函数，（返回独立拷贝对象，避免指向同一个data影响其他实例）
+	4、向子组件传值，prop  （对象）
+	5、组件模板必须是单个根元素，DOM模板
+		1、template，写在选项里
+		2、<template>标签的模版	
+		3、<script type="x-template">标签里的模版（不推荐）
+	6、父组件通过 v-on 监听子组件实例的任意自定义事件，来接受	信息。
+	7、$emit(arg1，arg2)，第一个参数：事件名，第二个参数：传递的事件参数,用$event来接受，或者方法的第一个参数
+	8、组件上使用 v-model （:value + @input）;
+	9、使用组件名（字母全小写且必须包含一个连字符），避免冲突
+	    定义组件名，kebab-case或者PascalCase，但是使用时只有 kebab-case 是有效的
+	10、prop命名：kebab-case或者PascalCase 使用：kebab-case（同组件名规则）
+
+
+
+        全局注册过滤器 
+	        Vue.filter('filterName',function(val){
+	            return val;
+	        });
+
+        必须有 return
+
+        参数：1：过滤的值，2：过滤器的第一个参数，以此类推
+
+        过滤器可以串联使用
+
+        只可以用在双花括号插值和?v-bind?表达式e
+
+Prop验证
+
+        1， 验证props之前，子组件的所有数据都还没初始化
+
+            注意那些 prop 会在一个组件实例创建之前进行验证，所以实例的属性 (如 data、computed 等) 在 default 或 validator 函数中是不可用的。
+
+        2、 支持类型检测：String、Number、Boolean、Function、Object、Array、Date、Symbol、自定义的构造函数
+
+        3、 可以通过[String,Number,...] 来定义多个支持类型
+     
+        4、 required 定义必须、非必须传入属性
+
+        5、 default 默认数据
+
+        6、 validator自定义验证函数，参数就是咱们要验证的数据
+    
+            
+        组件属性特性
+	        1、子组件使用自定义属性会被覆盖	
+	        2、class 、 style 是会被合并
+	        3、inheritAttrs阻止不明属性传入
+    -->
