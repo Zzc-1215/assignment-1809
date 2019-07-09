@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <p>页面载入时，input 元素自动获取焦点：</p>
+        <!-- <input v-focus> -->
+        <div v-read></div>
+    </div>
+
+    <script>
+        // 注册一个全局自定义指令 v-focus
+        // Vue.directive('focus', {
+        //     // 当绑定元素插入到 DOM 中。
+
+        //     // inserted: function (el) {
+        //     //     // 聚焦元素
+        //     //     el.focus()
+        //     //     console.log('inserted')
+        //     // },
+
+        //     //只调用一次 绑定到元素时调用
+
+        //     // bind: function (el) {
+        //     //     el.focus()
+        //     //     console.log('bind')
+        //     // },
+        // })
+        Vue.directive('read', function (el, bind, name, arg, expresion, vnode, oldVnode) {
+            el.innerHTML = 'aaa'
+            console.log(el);
+            console.log(bind.name);
+            console.log(bind.arg);
+            console.log(bind.expresion);
+            console.log(bind.value);
+            console.log(bind.oldValue);
+        })
+        // 创建根实例
+        new Vue({
+            el: '#app'
+        })
+    </script>
+</body>
+
+</html>

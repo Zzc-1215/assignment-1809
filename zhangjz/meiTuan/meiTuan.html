@@ -44,7 +44,8 @@
             <div class="tabs clearfix">
                 <!-- 列表 -->
                 <ul class="tabs_list fl">
-                    <li v-for="(i,$index) in arr" @click="style($index)" :style="{background:i==$index? '#ccc':''}">
+                    <li v-for="(i,$index) in arr" @click="style($index)"
+                        :style="{'background':active==$index?'#fff':''}">
                         {{i.category}}</li>
                     <!-- <li>流食</li>
                     <li>凉菜</li>
@@ -91,6 +92,7 @@
         data() {
             return {
                 i: 0,
+                active: 0,
                 arr: [{
                     category: '热销',
                     food: [{
@@ -138,6 +140,7 @@
         methods: {
             style(i) {
                 this.i = i;
+                this.active = i;
             },
             add(i) {
                 if (i.number) {

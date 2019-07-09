@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+	<div id="app">
+		<input type="text" v-model='name1'>
+		<div id="box">{{name1 | dax}}</div>
+	</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+	new Vue({
+		el:'#app',
+		data:{
+			name1: ""
+		},
+		filters:{
+			'dax':function(val){
+				var str=['','一','二','三','四','五','六','七','八','九']
+				var str1=val.toString()
+				var daxie=''
+				for(var i=0;i<str1.length;i++){
+					daxie+=str[Number(str1.charAt(i))]
+				}
+				return daxie
+			}
+		}
+	})
+</script>
+</html>

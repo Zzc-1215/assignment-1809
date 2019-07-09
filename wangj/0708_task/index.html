@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+</head>
+
+<body>
+
+    <div id="box">
+        <!-- 1 -->
+        <!-- <div>
+            <input type="text" v-model="ipt">
+            {{ipt | chinese}}
+        </div> -->
+
+        <!-- 6 -->
+        <!-- <transition type="transition" name="fade" appear enter-active-class="animated swing fade-enter-active"
+            leave-active-class="animated shake fade-leave-active" appear-active-class="animated swing">
+            <div v-if="show">hello world</div>
+        </transition>
+        <button @click="handleClick">toggle</button> -->
+
+        <!-- 7 -->
+        <!-- <test class="abc" data-a="1"></test> -->
+
+        <!-- 8 -->
+        <!-- <test>
+            <template v-slot:aaa="bbb">
+                {{bbb}}
+            </template>
+        </test> -->
+
+        <!-- 10 -->
+        <!-- <keep-alive>
+            <test></test>
+        </keep-alive> -->
+    </div>
+
+    <script>
+        // 1
+        // new Vue({
+        //     el:'#box',
+        //     data(){
+        //         ipt:''
+        //     },
+        //     filters:{
+        //         'chinese':function(val){
+        //             var list = ['一','二','三','四','五','六','七','八','九']
+        //             var str = val.length
+        //             var arr = []
+        //             for (let i = 0; i < str.length; i++) {
+        //                 arr.push(parseInt(val[i]))
+        //                 arr[i] = list[arr[i]]
+        //             }
+        //             return arr
+        //         }
+        //     },
+        // })
+
+        // 2
+        // Vue.directive('dname', function(el,binding,vnode,oldVnode){
+        //     console.log(el);
+        //     console.log(binding.name);
+        //     console.log(binding.arg);
+        //     console.log(binding.expression);
+        //     console.log(binding.value);
+        //     console.log(binding.oldValue);
+        //     console.log(binding.modifiers);
+        //     console.log(vnode);
+        //     console.log(oldVnode);
+        // })
+
+        // 6
+        // var vm = new Vue({
+        //     el: '#box',
+        //     data: {
+        //         show: true,
+        //     },
+        //     methods: {
+        //         handleClick: function () {
+        //             this.show = (this.show === true ? false : true)
+        //         }
+        //     },
+        // })
+
+
+        // 7
+        // function Person(a){
+        //     this.a = a
+        // }
+
+        // Vue.component('test', {
+        //     inheritAttrs:false,
+        //     template:'<h1 class="ddd">{{test}}</h1>',
+        //     data(){
+        //         return{
+        //             a:1,
+        //         }
+        //     },
+        //     props:{
+        //         data:[Symbol,Number],
+        //         fn:Person,
+        //         date:{
+        //             required:true,
+        //         },
+        //         text:{
+        //             type:String,
+        //             default:'123',
+        //             required:false,
+        //             validator:function(v){
+        //                 if (v === 'hahaha') {
+        //                     return true
+        //                 } else {
+        //                     return false
+        //                 }
+        //             }
+        //         }
+        //     }
+        // })
+
+
+        // 8
+        // Vue.component('test', {
+        //     template:`<h1>
+        //         <slot name="aaa" :abc="user" :user="'hello'"></slot>
+        //     </h1>`,
+        //     data(){
+        //         return{
+        //             user:{
+        //                 x:1,
+        //                 y:2,
+        //             },
+        //         }
+        //     },
+        // })
+
+        // new Vue({
+        //     el:'#box',
+        //     data:{
+        //         msg:'hello'
+        //     }
+        // })
+
+        // 10
+        // Vue.component('test', {
+        //     data(){
+        //         return{
+        //             msg:'hello'
+        //         }
+        //     },
+        //     props:{
+        //         data:{
+        //             default:function(){
+        //                 return [1,2,3]
+        //             },
+        //         }
+        //     },
+        //     template:'<div style="height:100px;border:1px solid;overflow:auto;">{{msg}}---{{data}}</div>',
+        //     created() {
+        //         console.log('created');
+        //     },
+        //     activated() {
+        //         console.log('激活');
+        //     },
+        //     deactivated() {
+        //         console.log('停用')
+        //     },
+        // })
+    </script>
+</body>
+
+</html>

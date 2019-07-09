@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>错题</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+</head>
+<body>
+    <!-- 1、自定义一个把‘1-9’数字转换成大写‘一到九’的全局过滤器？（10分）
+    2、自定义一个全局指令，并打印出指令的参数描述？
+    
+    6、写出vue里定义在过渡、动画组件里特有10个属性？（10分）
+    7、列出组件prop的四种验证方式并描述？（10分）
+    8、描述<template v-slot:aaa=”bbb”>ccc</template>的作用？
+    10、描述Activated/deactivated两个生命周期的触发条件？（10分） -->
+    <!-- <div class="box">
+       {{"123456789" | nShow}}
+    </div> -->
+
+    <!-- <div class="box">
+        <p v-dname='46'>老夫聊发少年狂，三百年，九芝堂。</p>
+    </div> -->
+    
+    <!-- <div class="box">
+        <test class="abc" data-a="1"></test>
+    </div> -->
+
+    <div class="box">
+        <test></test>
+
+        <test></test> 
+        <test></test> 
+    </div>
+    <script>
+        // Vue.filter("nShow",function(val){
+        //     var arr=['',"一", "二", "三", "四", "五", "六", "七", "八", "九"];
+        //     var str='';
+        //     for(var i=0;i<val.length;i++){
+        //         for(var j=0;j<arr.length;j++){
+        //             if(arr[parseInt(val[i])]){
+        //                 str+=arr[parseInt(val[i])];
+        //                 break;
+        //             }
+        //         }
+        //     }
+        //     return str;
+        // })
+        
+
+        // Vue.directive('dname',function(el,bind,vnode,oldVnode){
+        //     console.log(bind.name);
+        //     console.log(bind.arg);
+        //     console.log(bind.expresion);
+        //     console.log(bind.value);
+        //     console.log(oldVnode);
+        //     console.log(vnode);
+        //     console.log(bind.modifiers);
+        
+        // })
+
+        // function Preson(a){
+        //     this.a=a
+        // }
+        // Vue.component('test',{
+        //     inheritAttrs:false,
+        //     template:'<h1 class="ddd">{{text}}</h1>',
+        //     data(){
+        //         return{
+        //             a:1,
+        //         }
+        //     },
+        //     props:{
+        //         data:[Symbol,Number],
+        //         fn:Preson,
+        //         date:{
+        //             required:true,
+        //         },
+        //         text:{
+        //             type:String,
+        //             default:'123',
+        //             required:false,
+        //             validator:function(v){
+        //                 if(v==='hahaha'){
+        //                     return true;
+        //                 }else{
+        //                     return false;
+        //                 }
+        //             }
+        //         }
+        //     }
+        // });
+
+        Vue.component('test',{
+            data(){
+                return{
+                    msg:'hello'
+                }
+            },
+
+            props:{
+                data:{
+                    default:function(){
+                        return[1,2,3];
+                    },
+                }
+            },
+            template:'<div style="height:100px;border:1px solid;overflow:auto;">{{msg}}---{{data}}</div>',
+            creatad(){
+                console.log('created');
+            },
+            activated(){
+                console.log('激活');
+            },
+            deactivated(){
+                console.log('激活');
+            },
+        })
+
+
+
+
+
+        new Vue({
+            el:'.box',
+        })
+
+        // new Vue({
+        //     el:'.box',
+        //     data:{
+        //         abc:Symbol(),
+        //         p:new Preson(1),
+        //     }
+        // })
+    </script>
+    
+    
+
+
+
+
+
+
+</body>
+</html>

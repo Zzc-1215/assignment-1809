@@ -65,10 +65,9 @@
 				</div>
 				<!-- 菜单 -->
 				<div class="milky">
-					<div v-if="meanLenght==index" v-for="(item,index) in shop" class="meal">
+					<div v-if="meanLenght==index" v-for="(item,index) in shop" class="meal" :key="index">
 						<!-- {{item}} -->
 						<div class="fan" v-for="(i,index) in item.food">
-							<!-- {{i}} -->
 							<div class="breakfast">
 								<img :src="i.img">
 							</div>
@@ -76,7 +75,9 @@
 								<h3>{{i.name}}</h3>
 								<p class="info">{{i.info}}</p>
 								<div class="price">{{i.price}}
+
 									<bc-input-number v-model="v" :min='0' ></bc-input-number></div>
+									}
 							</div>
 						</div>
 					</div>
@@ -405,13 +406,15 @@
 		template:'#money'
 	})
 
+	var list = document.querySelectorAll('.ul ul li');
+
 	var vm = new Vue({
 		el:'#app',
 		data(){
 			return {
 				value: 0
 			}
-		}
+		},
 	})
 </script>
 </html>

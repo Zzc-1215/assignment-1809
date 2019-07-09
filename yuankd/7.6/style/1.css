@@ -176,31 +176,18 @@
     right: 0;
 }
 
-.v-enter{
+.v-enter, .v-leave-to{
     position: fixed;
     left: 0;
     bottom: -130px;
 }
-.v-enter-active{
+.v-enter-active, .v-leave-active{
     transition: all 0.5s;
 }
-.v-enter-to{
+.v-enter-to, .v-leave{
     position: fixed;
     left: 0;
     bottom: 0;
-}
-.v-leave{
-    position: fixed;
-    left: 0;
-    bottom: 0;
-}
-.v-leave-active{
-    transition: all 0.5s;
-}
-.v-leave-to{
-    position: fixed;
-    left: 0;
-    bottom: -130px;
 }
 /* .foot{
     position: fixed;

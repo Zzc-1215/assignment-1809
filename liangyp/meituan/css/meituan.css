@@ -1,7 +1,8 @@
 * {
   margin: 0;
   padding: 0;
-  user-select: none; }
+  user-select: none;
+  }
 
 [v-cloak] {
   display: none; }
@@ -172,7 +173,7 @@ a {
                         box-sizing: border-box;
                         color: #606266;
                         display: inline-block;
-                        font-size: inherit;
+                        font-size: 0.36rem;
                         height: 0.53333rem;
                         line-height: 1;
                         outline: none;

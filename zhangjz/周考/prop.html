@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>列出组件prop的四种验证方式并描述？</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+
+<body>
+    <div id="root">
+        <test class="abc" data-a="1"></test>
+    </div>
+
+</body>
+<script>
+    function Person(a) {
+        this.a = a
+    }
+
+    Vue.component('test', {
+        inheritAttrs: false,
+        template: '<h1 class="ddd">{{test}}</h1>',
+        data() {
+            return {
+                a: 1,
+            }
+        },
+        props: {
+            data: [Symbol, Number],
+            fn: Person,
+            date: {
+                required: true,
+            },
+            text: {
+                type: String,
+                default: '123',
+                required: false,
+                validator: function (v) {
+                    if (v === 'hahaha') {
+                        return true
+                    } else {
+                        return false
+                    }
+                }
+            }
+        }
+    })
+    new Vue({
+        el: '#root',
+
+    })
+</script>
+
+</html>
