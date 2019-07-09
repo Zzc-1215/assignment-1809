@@ -14,6 +14,7 @@
         <div v-global>123</div>
         <!-- 7、 -->
         <abc class="abc" data-a="1"></abc>
+        <!-- <abc :data="abc" :fn="p" date="123" :text="'hahaha1'"></abc> -->
         <!-- 8、 -->
         <teat>
             <template v-slot:aaa="bbb">{{bbb}}</template>
@@ -60,7 +61,7 @@
         }
         Vue.component('abc',{
             inheritAttrs: false,
-            template: '<p class="ddd">{{text}}</p>',
+            template: '<h1 class="ddd">{{text}}</h1>',
             data() {
                 return {
                     a:1,
@@ -69,10 +70,8 @@
             props:{
                 data: [Symbol,Number],
                 fn: Preson,
-                date(){
-                    return{
-                        required: true,
-                    }
+                date:{
+                    required: true,
                 },
                 text:{
                     type: String,
