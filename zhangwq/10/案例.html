@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .v-enter{
+           opacity: 0;
+       }
+       .v-enter-active{
+           transition: 1s;
+       }
+       .v-enter-to{
+            opacity: 1;
+       }
+       .v-leave{
+           opacity: 1;
+       }
+       .v-leave-active{
+           transition: 1s;
+       }
+       .v-leave-to{
+            opacity: 0;
+       }
+    </style>
+</head>
+<body>
+    
+
+    <div id="app">
+        {{ape | names(arr)}}
+    <div v-zl></div>
+
+    <button @click="isshows=!isshows">点击</button>
+    <transition appear>
+        <h1 v-show="isshows">h1标签</h1>
+    </transition>
+    
+
+    <abc>
+        <template v-slot:aaa="bbb">{{bbb}}</template>
+    </abc>
+
+    <test :fn="p" date="1111" :text="'hahaha'"></test>
+
+    <ac  :fn="p" date="123" :text="'hehe'"></ac>
+
+    <keep-alive>
+        <test v-if="isshow"></test>
+    </keep-alive>
+
+
+    
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+
+        // 1、自定义一个把‘1-9’数字转换成大写‘一到九’的全局过滤器？（10分）
+        Vue.filter('names',function(val,arg){
+            var arr1=[];
+            arg.forEach(element => {
+                // console.log(element)
+                arr1.push(element);
+            });
+            arr1.splice(0,9,'一','二','三','四','五','六','七','八','九');
+            return arr1;
+        });
+
+
+        // 2、自定义一个全局指令，并打印出指令的参数描述 ？
+        Vue.directive('zl',function(el,binding){
+            // console.log(el);
+            console.log(binding);
+            console.log(binding.name);
+            console.log(binding.arg);
+            console.log(binding.expresion);
+            console.log(binding.value);
+            console.log(binding.oldValue);
+            console.log(binding.modifiers);
+        })
+
+        //6、写出vue里定义在过渡、动画组件里特有10个属性？（10分）
+        
+
+
+        // 7、列出组件prop的四种验证方式并描述？（10分）
+        function Preson(a){
+            this.a = a
+        }
+
+        Vue.component('ac',{
+            inheritAttrs: false,
+            template: '<h1 class="ddd">{{text}}</h1>',
+            data() {
+                return {
+                    a:1,
+                }
+            },
+            props:{
+                data: [String,Number],
+                fn: Preson,
+                date: {
+                    required: true,
+                },
+                text:{
+                    type: String,
+                    default: 'abc',
+                    required: false,
+                    validator: function(v){
+                        if(v === 'hehe'){
+                            return true;
+                        }else{
+                            return false;
+                        }
+                    }
+                }
+            }
+        });
+
+       
+
+        
+        // 8、描述<template v-slot:aaa=”bbb”>ccc</template>的作用？
+        Vue.component('abc',{
+             template: `<h1>
+                <slot name='aaa' :abc='user'  :user='"hello"'></slot>
+            </h1>`,
+            data() {
+                return {
+                    user:{
+                        x:5,
+                        y:15,
+                    },
+                }
+            },
+         });
+
+
+        // 10、描述Activated/deactivated两个生命周期的触发条件？（10分）
+        Vue.component('test',{
+            template:'<button v-if="isshow">aaaa</button>',
+            data(){
+                return{
+                    isshow:true,
+                }
+            },
+            created() {
+                console.log('created');
+            },
+            activated(){
+                console.log('激活');
+            },
+            deactivated(){
+                console.log('停用');
+            }
+        })
+
+
+        var vm = new Vue({
+            el:'#app',
+            data(){
+                return{
+                    isshow:true,
+                    ape:'',
+                    arr:[1,2,3,4,5,6,7,8,9],
+                    p: new Preson(1),
+                    isshows:true,
+                }
+            },
+        })
+    </script>
+</body>
+</html>

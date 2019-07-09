@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+	</head>
+	<body>
+		<!--7、列出组件prop的四种验证方式并描述？（10分）-->
+		<div id="app">
+			<div v-dname></div>
+			<keep-alive>
+			<test v-if="show"></test></keep-alive>
+		</div>
+		<script type="text/javascript">
+			Vue.directive('dname',function(el,binding){
+				console.log(el);
+				binding.name
+				binding.arg
+				binding.expresion
+				binding.value
+				binding.oldValue
+				binding.modifiers
+			})
+			Vue.component('test',{
+				data(){
+					return{
+						msg:'hello'
+					}
+				},
+				props:{
+					data:{
+						type:Object,
+						require:true,
+						validator:funtion(val){
+							return true;
+						},
+						default:'123',
+					}
+				}
+				template:'<div style='height:100px;border:1px solid'>123</div>',
+				created(){
+					console.log('created');
+				},
+				activated(){
+					console.log('激活');
+				},
+				deactivated(){
+					console.log('停用');
+				}
+			})
+			var vm=new Vue({
+				el:'#app',
+				data(){
+					return{
+						show:true,
+					}
+				}
+			})
+		</script>
+	</body>
+</html>
