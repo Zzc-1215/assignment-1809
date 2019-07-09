@@ -69,8 +69,10 @@
             props:{
                 data: [Symbol,Number],
                 fn: Preson,
-                date: {
-                    required: true,
+                date(){
+                    return{
+                        required: true,
+                    }
                 },
                 text:{
                     type: String,
