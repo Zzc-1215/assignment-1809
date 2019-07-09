@@ -6,28 +6,24 @@
 	</head>
 	<body>
 		<div id="box">
-			{{n | to(arr)}}
+			{{'123213' | to}}
 		</div>
 	</body>
 	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 	<script>
 		Vue.filter('to',function(val,arg1){
-			var a=[];
-			arg1.forEach(element=>{
-				a.push(element)
-			})
-			a.splice(0,9,'一','二','三','四','五','六','七','八','九')
-			console.log(a)
-			return a
+			var a=['','一','二','三','四','五','六','七','八','九'];
+			var num='';
+			for(var i=0;i<val.length;i++){
+				for(var j=0;j<a.length;j++){
+					num+=a[val[i]];
+					break;
+				}
+			}
+			return num;
 		})
 		var vm=new Vue({
 			el:'#box',
-			data(){
-				return{
-					n:'',
-					arr:[1,2,3,4,5,6,7,8,9],
-				}
-			}
 		})
 	</script>
 </html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="box">
+			<zwq-s>
+				<!-- 把ccc 放到aaa里面 bbb 是用来接收aaa暴露出来的参数值 -->
+				<template v-slot:aaa="bbb">{{bbb}}</template>
+			</zwq-s>
+		</div>
+		
+	</body>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script>
+		Vue.component('zwq-s',{
+			template:`<span>
+				<slot name="aaa" :aa="num"></slot>
+			</span>`,
+			data(){
+				return{
+					num:{
+						a:1,
+					},
+				}
+			},
+		})
+		new Vue({
+			el:"#box",
+		})
+	</script>
+</html>

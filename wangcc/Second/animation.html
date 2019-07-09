@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			.v-enter{
+				opacity: 0;
+			}
+			.v-enter-active{
+				transition: 1s;
+			}
+			.v-enter-to{
+				opacity: 1;
+			}
+			.v-leave{
+				opacity: 1;
+			}
+			.v-leave-active{
+				transition: 1s;
+			}
+			.v-leave-to{
+				opacity: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box">
+			<button @click="isshows=!isshows">点击</button>
+			<transition>
+				<h1 v-show="isshows">h1标签</h1>
+			</transition>
+		</div>
+	</body>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script>
+		new Vue({
+			el:"#box",
+			data:{
+				isshows:true,
+			}
+		})
+	</script>
+</html>

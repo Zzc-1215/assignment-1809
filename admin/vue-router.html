@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../assets/js/vue.js"></script>
+    <script src="../assets/js/vue-router.js"></script>
+    <style>
+    
+        .router-link-active{
+            color:red;
+        }
+    </style>
+</head>
+<body>
+    <!-- 
+
+        1/ 引入、安装 vue-router.js
+
+        2/ 放置router-view组件（自定义标签）
+
+        3/ new Router 实例对象 => router
+
+        4/ 配置构建选项，routes、mode...
+
+        5/ 把router实例注册到vue根实例上
+
+
+
+        路由跳转：
+        router-link  to属性 
+
+
+        redirect: 重定向  （匹配到的地址重新跳转到另一个路由下）
+
+        alias: 路径的别名 （多个路径跳转到一个路由下）
+
+
+        如果要通过params来路由传参，必须使用name跳转路由
+
+
+        路由跳转： router-link   $router.push('');
+
+        $router: VueRouter实例对象
+        $route: 路由信息   => $router.currentRoute
+        路由信息： 
+            fullPath: ""
+            hash: ""
+            matched: [{…}]
+            meta: {}
+            name: ""
+            params: {}
+            path: ""
+            query: {}
+
+
+     -->
+    <div id="app">
+        <!-- <a href="#/hello">hello</a> -->
+        <h1 @click="tiao">jump</h1>
+        <router-link :to="{name:'abc'}">abc</router-link>
+        <router-link :to="{name:'hello',params:{user:'laoli'}}">hello</router-link>
+        <router-view></router-view>
+        <!-- <component is="a"></component> -->
+    </div>
+    <script>
+
+
+
+        
+    console.log(VueRouter);
+
+    // var abc = Vue.component('abc',{
+    //     template:'<h1>abc</h1>'
+    // });
+
+    // var abc = {
+    //     template:'<h1>abc</h1>'
+    // }
+
+    var abc = Vue.extend({
+        template:'<h1>abc<router-view></router-view></h1>'
+    });
+    var hello = Vue.extend({
+        template:'<h1>hello--{{data.user}}</h1>',
+        created() {
+            console.log(this.$router);
+            console.log(this.$route);
+        },
+        data() {
+            return {
+                data:this.$route.params
+            }
+        },
+        // watch: {
+        //     [this.$route](v){
+        //         console.log(v)
+        //     }
+        // },
+    });
+    var silingsi = Vue.extend({
+        template:'<h1>404</h1>'
+    });
+
+    var router = new VueRouter({
+        routes:[
+            {
+                path: '/abc',
+                component: abc,
+                name: 'abc',
+                alias: ['/test1','/test2'],
+
+                children: [ {
+                    path: 'children',
+                    component: hello,
+                }],
+            },{
+                path: '/hello',
+
+                name:'hello',
+                component: hello,
+                props:{
+                    x:1,
+                    y:2
+                }
+            },
+            // {
+            //     path: '/*/*',
+            //     redirect: '/silingsi', 
+            // },
+            // {
+            //     path: '/silingsi',
+            //     component: silingsi,
+            // },
+        ]
+    });
+
+
+
+
+
+
+    new Vue({
+        router:router,
+        methods: {
+            tiao(){
+                this.$router.push('/abc');
+            }
+        },
+    }).$mount('#app');
+    </script>
+</body>
+</html>
