@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div class="box">
+        <!-- 1、 -->
+        {{'123456789' | zh}}
+        <!-- 2、 -->
+        <div v-global>123</div>
+        <!-- 7、 -->
+        <abc class="abc" data-a="1"></abc>
+        <!-- 8、 -->
+        <teat>
+            <template v-slot:aaa="bbb">{{bbb}}</template>
+        </teat>
+        <!-- 10、 -->
+        <keep-alive>
+            <test v-if="show"></test>
+        </keep-alive>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        // 1、
+        Vue.filter('zh',function(value){
+            var arr = ['','一','二','三','四','五','六','七','八','九']
+            var str = '';
+            for(var j=0;j<value.length;j++){
+                for(var i=0;i<arr.length;i++){
+                    str += arr[value[j]];
+                    break;
+                }
+            }
+            return str;
+        })
+
+        // 2、
+        // bind,inserted,update,componentUpdated,unbind
+        Vue.directive('global',{
+            bind(el,binding){
+                console.log(el);
+                console.log(binding);
+            },
+            inserted(el,binding){
+                console.log(el);
+                console.log(binding);
+            },
+            update(){
+
+            }
+        })
+
+        // 7、
+        function Preson(a){
+            this.a = a
+        }
+        Vue.component('abc',{
+            inheritAttrs: false,
+            template: '<p class="ddd">{{text}}</p>',
+            data() {
+                return {
+                    a:1,
+                }
+            },
+            props:{
+                data: [Symbol,Number],
+                fn: Preson,
+                date: {
+                    required: true,
+                },
+                text:{
+                    type: String,
+                    default: '123',
+                    required: false,
+                    validator: function(v){
+                        if(v === 'hahaha'){
+                            return true;
+                        }else{
+                            return false;
+                        }                       
+                    }
+                }
+            }
+        });
+        // 8、
+        Vue.component('teat',{
+            template:`<p><slot name='aaa' :xingming="name" :user='"hello"'></slot></p>`,
+            data(){
+                return{
+                    name:'cxy'
+                }
+            }
+        })
+
+        // 10、
+        Vue.component('test',{
+            data(){
+                return{
+                    name:'cxy'
+                }
+            },
+            template:'<div style="width:300px;height:100px;border:1px solid;overflow:auto;">{{name}}</div>',
+            created(){
+                console.log('created');
+            },
+            activated(){
+                console.log('激活');
+            },
+            deactivated(){
+                console.log('停用');
+            }
+        })
+
+        var vm=new Vue({
+            el:'.box',
+            data(){
+                return{
+                    show:true
+                }
+            }
+        })
+    </script>
+</body>
+</html>
