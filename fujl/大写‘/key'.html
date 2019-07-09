@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+    <style>
+        .box {
+            width: 300px;
+            height: 200px;
+            background: pink;
+            border: 1px solid #ccc;
+            opacity: 0;
+        }
+
+        .cc-enter {
+            opacity: 0;
+            transform: translateX(0);
+        }
+
+        .cc-enter-active {
+            transition: 2s;
+        }
+
+        .cc-enter-to {
+            opacity: 1;
+            transform: translateX(300px);
+        }
+
+        .cc-leave {
+            opacity: 0;
+            transform: rotate(45deg);
+        }
+
+        .cc-leave-active {
+            transition: 2s;
+        }
+
+        .cc-leave-to {
+            opacity: 1;
+            transform: rotate(90deg);
+        }
+
+        .group-enter {
+            transform: scale(1);
+        }
+
+        .group-enter-active {
+            transition: 2s;
+        }
+
+        .group-enter-to {
+            transform: scale(2);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+   
+        <div>{{num | Upper}}</div>
+ 
+        <div v-color:red.self="isshow">自定义全局指令</div>
+ 
+   
+        <test :date="'nihao'" :info='true'></test>
+        <test :date="'nihao'" :info='true'></test>
+
+        <!-- 8.插槽作用域 -->
+
+        <yw-area>
+            <template v-slot:aaa="json" v-if="isshow">
+                {{json}}
+            </template>
+        </yw-area>
+        <!-- 10.激活停用的触发条件 -->
+        <keep-alive>
+            <yw-area v-if="isshow"></yw-area>
+        </keep-alive>
+    </div>
+    <script>
+        // 1
+        Vue.filter('Upper', function (val) {
+            var arr = ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九']
+            var str = '';
+            for (var i = 0; i < val.length; i++) {
+                str += arr[Number(val.charAt(i))]
+            }
+            return str;
+        })
+
+        // 2
+        Vue.directive('color', {
+            bind(el, binding, vnode, oldVnode) { 
+                console.log(el) 
+                console.log(binding) 
+                console.log(vnode) 
+                console.log(oldVnode) 
+            },
+            inserted(el, binding) { 
+                console.log(binding.name) 
+                console.log(binding.arg) 
+                console.log(binding.expression) 
+                console.log(binding.value) 
+                console.log(binding.modifiers) 
+            },
+            update() {
+                console.log('update') 
+            },
+            componentUpdated() {
+                console.log('componentUpdated') 
+            }
+        })
+
+        // 7
+        Vue.component('test', {
+            template: '<h1>{{fn}}</h1>',
+            props: {
+                date: [String, Number],
+                info: {
+                    type: Boolean,
+                    required: true,
+                    validator: function (val) {
+                        if (val == true) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    }
+                },
+                fn: {
+                    default: function () {
+                        return [1, 2, 3]
+                    }
+                }
+
+            }
+        })
+
+        // 8
+        Vue.component('yw-area', {
+            template: '<h3><slot name="aaa"></slot></h3>',
+            prop: [this.msg, this.fn],
+            data() {
+                return {
+                    msg: '子组件',
+                    fn: {
+                        x: 1,
+                        y: 2
+                    }
+                }
+            },
+             // 10
+            created(){
+                console.log('created');
+            },
+            activated() {
+                console.log('激活');
+            },
+            deactivated() {
+                console.log('停用');
+            }
+        })
+
+       
+        var vm = new Vue({
+            el: '#app',
+            data() {
+                return {
+                    num: '852852151055',
+                    isshow: true,
+                    msg: 'hello'
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
