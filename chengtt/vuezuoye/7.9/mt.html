@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript">
+        window.onload = function () {
+            document.documentElement.style.fontSize = document.documentElement.clientWidth / 640 * 100 + 'px';
+            window.onresize = function () {
+                document.documentElement.style.fontSize = document.documentElement.clientWidth / 640 * 100 + 'px';
+            }
+        }
+   		 </script>
+   		 <link rel="stylesheet" type="text/css" href="mt.css"/>
+    
+	</head>
+	<body>
+		<div id="app">
+			<router-view ref=''></router-view>
+		</div>
+		<template id="goods">
+			<div>
+				<div class="box">
+					<!--头-->
+					<header class="header">
+						<h1>&lt 庆丰包子铺</h1>
+					</header>
+					<!--下内-->
+					<div class="content clearfix">
+						<ol class="prod">
+							<li @click="xian(index)" v-for="item,index in arr" :class="{'active':i==index}">
+								{{item.type}}
+							</li>
+						</ol>
+						<div class="inform">
+							<div class="nav">
+								<ul class="list">
+									<li> </li>
+									<li>点餐</li>
+									<li>评价</li>
+									<li>商家</li>
+								</ul>
+							</div>
+							<div class="item-box clearfix" v-for='item,index in list'>
+								<div class="img">
+									<img :src="item.img" />
+								</div>
+								<div class="text">
+									<h3>{{item.text}}</h3>
+									<div class="bt">
+										<span class="info">
+											{{item.info}}
+										</span>
+										<span class="price">
+											{{item.price}}
+										</span>
+										
+										 <p>
+	                                        <span class='jian' @click='del(item)'>-</span>
+	                                        {{item.num || 0}}
+	                                        <span class='jia' @click='add(item)'>+</span>
+	                                    </p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<footer class="footer" style="opacity: 1;">
+						总价：{{total}}元
+						<router-link :to="{name:'shoppingCart',params:{selectList}}">去结算</router-link>
+							
+					</footer>
+				</div>
+			</div>
+		</template>
+		<template id="shoppingCart">
+			<div>
+				<div class="qzf">
+						<span><router-link to="/"><</router-link></span>
+                	    <span>确认订单</span>
+					</div>
+				<div class="jiesuan" v-for='item in goodlist'>
+					
+					<div class="img">
+						<img :src="item.img" />
+					</div>
+					<div class="bt">
+						<span class='text'>{{item.text}}</span>
+						<span class='price'>{{item.price}}</span>
+                        <!--<p>
+                            <span class='jian' @click='del(item)'>-</span>
+                            {{item.num || 0}}
+                            <span class='jia' @click='add(item)'>+</span>
+                        </p>-->
+					</div>
+				</div>
+				<footer class="footer" style="opacity: 1;">
+					总价：{{totalPrices}}元
+					<a href="jacascript:;">去支付</a>
+				</footer>
+			</div>
+			
+		</template>
+		<script type="text/javascript" src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+		<script src="js/vue-router.js"></script>
+		<script>
+			var goods={
+				template: '#goods',
+				data(){
+					return{
+						 currentCategory: 0,
+						 arr:[{
+						 	type:'热销商品',
+						 	code:[{
+						 		img:'http://i1.chuimg.com/453ba994882b11e6a9a10242ac110002_4912w_3264h.jpg@2o_50sh_1pr_1l_215w_136h_1c_1e_90q_1wh',
+						 		text:'泡椒肉丝',
+						 		info:'猪肉丝、黄灯笼辣椒酱、小米椒、泡椒、尖椒',
+						 		price:'￥18',
+						 		
+						 	},
+						 	{
+						 		img:'http://i2.chuimg.com/a54a487c86fa11e6a9a10242ac110002_600w_400h.jpg?imageView2/1/w/215/h/136/interlace/1/q/90',
+						 		text:'秘制红烧肉',
+						 		info:'五花肉、蒜蓉、酱油、糖、盐、水',
+						 		price:'￥20',
+						 		
+						 	},
+						 	{
+						 		img:'http://i2.chuimg.com/9b9901a4875111e6b87c0242ac110003_2543w_1944h.jpg?imageView2/1/w/215/h/136/interlace/1/q/90',
+						 		text:'麻油醉酒鸡',
+						 		info:'糯米酒、鸡、生姜、麻油、白胡椒粉、粗',
+						 		price:'￥35',
+						 		
+						 	},
+						 	{
+						 		img:'http://i2.chuimg.com/5a5550d088a011e6a9a10242ac110002_900w_600h.jpg?imageView2/1/w/215/h/136/interlace/1/q/90',
+						 		text:'蜜豆年糕',
+						 		info:'糯米、红豆、红枣、糖、水',
+						 		price:'￥15',
+						 		
+						 	},
+						 	{
+						 		img:'http://i2.chuimg.com/debf4ff023914bab8de63cdd341156b3_2448w_3264h.jpg?imageView2/1/w/215/h/136/interlace/1/q/90',
+						 		text:'冬菇花胶焖鸡',
+						 		info:'野生冬菇、小号花胶、土鸡肉、葱、姜',
+						 		price:'￥30',
+						 		
+						 	}]
+						 	
+						 },
+						 {
+						 	type:'独家配方',
+						 	code:[{
+						 		img:'http://i2.chuimg.com/df8ad1fc8a4f11e6b87c0242ac110003_1080w_607h.jpg?imageView2/1/w/215/h/136/interlace/1/q/90',
+						 		text:'秘制猪蹄',
+						 		info:'猪蹄、大红袍花椒、水、面粉、盐、醋、',
+						 		price:'￥35',
+						 		
+						 	},
+						 	{
+						 		img:'http://i2.chuimg.com/2d7bc530886e11e6b87c0242ac110003_4288w_2848h.jpg?imageView2/1/w/215/h/136/interlace/1/q/90',
+						 		text:'罗宋汤',
+						 		info:'土豆、卷心菜、肉糜、大香肠、梅林牌番茄',
+						 		price:'￥20',
+						 		
+						 	},
+						 	{
+						 		img:'http://i2.chuimg.com/214ae20a871511e6b87c0242ac110003_335w_500h.jpg?imageView2/1/w/215/h/136/interlace/1/q/90',
+						 		text:'菠萝鸡翅',
+						 		info:'鸡翅、菠萝、红彩椒、料酒、生抽、葱',
+						 		price:'￥45',
+						 		
+						 	},
+						 	{
+						 		img:'http://i1.chuimg.com/37e40754870511e6a9a10242ac110002_450w_677h.jpg@2o_50sh_1pr_1l_215w_136h_1c_1e_90q_1wh',
+						 		text:'普洱茶香排',
+						 		info:'排骨、普洱茶散茶、酱油、冰糖',
+						 		price:'￥35',
+						 		
+						 	},
+						 	{
+						 		
+						 		img:'http://i1.chuimg.com/37e40754870511e6a9a10242ac110002_450w_677h.jpg@2o_50sh_1pr_1l_215w_136h_1c_1e_90q_1wh',
+						 		text:'糯米鱿鱼卷',
+						 		info:'鱿鱼、糯米、洋葱、杏鲍菇、蚝油、料',
+						 		price:'￥15',
+						 		
+						 	},
+						 	{
+						 		img:'http://i1.chuimg.com/37e40754870511e6a9a10242ac110002_450w_677h.jpg@2o_50sh_1pr_1l_215w_136h_1c_1e_90q_1wh',
+						 		text:'普洱茶香排',
+						 		info:'排骨、普洱茶散茶、酱油、冰糖',
+						 		price:'￥35',
+						 		
+						 	},
+						 	{
+						 		img:'http://i2.chuimg.com/604fb164874311e6a9a10242ac110002_2507w_1667h.jpg?imageView2/1/w/215/h/136/interlace/1/q/90',
+						 		text:'川香麻辣烤肉',
+						 		info:'猪肉、豆瓣油、干辣椒面、香油、盐、',
+						 		price:'￥35',
+						 		
+						 	}],
+						 },
+						  {
+						 	type:'来点甜点',
+						 	code:[{
+						 		img:'http://i2.chuimg.com/f7ee4cb431f5454788c6b8c761020008_1280w_1024h.jpg?imageView2/1/w/215/h/136/interlace/1/q/90',
+						 		text:'秒杀哈根达斯无冰渣冰激凌',
+						 		info:'淡奶油、',
+						 		price:'￥35',
+						 		
+						 	},
+						 	{
+						 		img:'http://i2.chuimg.com/2bc96a728aca11e6a9a10242ac110002_1242w_1221h.jpg?imageView2/1/w/215/h/136/interlace/1/q/90',
+						 		text:'雪媚娘',
+						 		info:'糯米粉、玉米淀粉、细砂糖、牛奶、',
+						 		price:'￥20',
+						 		
+						 	},
+						 	{
+						 		img:'http://i2.chuimg.com/dd016f3c872911e6a9a10242ac110002_690w_458h.jpg?imageView2/1/w/215/h/136/interlace/1/q/90',
+						 		text:'椰奶冻',
+						 		info:'椰浆、牛奶、淡奶油、吉利丁片、绵白糖',
+						 		price:'￥45',
+						 		
+						 	},
+						 	{
+						 		img:'http://i2.chuimg.com/d182de1e86fe11e6b87c0242ac110003_500w_750h.jpg?imageView2/1/w/215/h/136/interlace/1/q/90',
+						 		text:'草莓大福',
+						 		info:'草莓、糯米面、豆沙、玉米淀粉、水、植',
+						 		price:'￥35',
+						 		
+						 	},
+						 	{
+						 		
+						 		img:'http://i2.chuimg.com/c236791e870011e6a9a10242ac110002_490w_732h.jpg?imageView2/1/w/215/h/136/interlace/1/q/90',
+						 		text:'芒果班戟',
+						 		info:'牛奶、芒果、黄油、鸡蛋、低粉、糖粉',
+						 		price:'￥15',
+						 		
+						 	
+						 		
+						 	}],
+						 },
+						  {
+						 	type:'独家配方',
+						 	code:[{
+						 		img:'http://i2.chuimg.com/df8ad1fc8a4f11e6b87c0242ac110003_1080w_607h.jpg?imageView2/1/w/215/h/136/interlace/1/q/90',
+						 		text:'秘制猪蹄',
+						 		info:'猪蹄、大红袍花椒、水、面粉、盐、醋、',
+						 		price:'￥35',
+						 		
+						 	},
+						 	{
+						 		img:'http://i2.chuimg.com/2d7bc530886e11e6b87c0242ac110003_4288w_2848h.jpg?imageView2/1/w/215/h/136/interlace/1/q/90',
+						 		text:'罗宋汤',
+						 		info:'土豆、卷心菜、肉糜、大香肠、梅林牌番茄',
+						 		price:'￥20',
+						 		
+						 	},
+						 	{
+						 		img:'http://i2.chuimg.com/214ae20a871511e6b87c0242ac110003_335w_500h.jpg?imageView2/1/w/215/h/136/interlace/1/q/90',
+						 		text:'菠萝鸡翅',
+						 		info:'鸡翅、菠萝、红彩椒、料酒、生抽、葱',
+						 		price:'￥45',
+						 		
+						 	},
+						 	{
+						 		img:'http://i1.chuimg.com/37e40754870511e6a9a10242ac110002_450w_677h.jpg@2o_50sh_1pr_1l_215w_136h_1c_1e_90q_1wh',
+						 		text:'普洱茶香排',
+						 		info:'排骨、普洱茶散茶、酱油、冰糖',
+						 		price:'￥35',
+						 		
+						 	},
+						 	{
+						 		
+						 		img:'http://i1.chuimg.com/37e40754870511e6a9a10242ac110002_450w_677h.jpg@2o_50sh_1pr_1l_215w_136h_1c_1e_90q_1wh',
+						 		text:'糯米鱿鱼卷',
+						 		info:'鱿鱼、糯米、洋葱、杏鲍菇、蚝油、料',
+						 		price:'￥15',
+						 		
+						 	},
+						 	{
+						 		img:'http://i2.chuimg.com/064b071e874211e6a9a10242ac110002_384w_512h.jpg?imageView2/1/w/215/h/136/interlace/1/q/90',
+						 		text:'普洱茶香排',
+						 		info:'排骨、普洱茶散茶、酱油、冰糖',
+						 		price:'￥35',
+						 		
+						 	},
+						 	{
+						 		img:'http://i1.chuimg.com/37e40754870511e6a9a10242ac110002_450w_677h.jpg@2o_50sh_1pr_1l_215w_136h_1c_1e_90q_1wh',
+						 		text:'普洱茶香排',
+						 		info:'排骨、普洱茶散茶、酱油、冰糖',
+						 		price:'￥35',
+						 		
+						 	},
+						 	{
+						 		img:'http://i2.chuimg.com/604fb164874311e6a9a10242ac110002_2507w_1667h.jpg?imageView2/1/w/215/h/136/interlace/1/q/90',
+						 		text:'川香麻辣烤肉',
+						 		info:'猪肉、豆瓣油、干辣椒面、香油、盐、',
+						 		price:'￥35',
+						 		
+						 	}],
+						 },
+						 {
+						 	type:'顾家私房菜',
+						 	code:[{
+						 		img:'http://i1.chuimg.com/79953e8e88e011e6a9a10242ac110002_1122w_840h.jpg@2o_50sh_1pr_1l_215w_136h_1c_1e_90q_1wh',
+						 		text:'蟹黄豆腐',
+						 		info:'内脂豆腐、火腿、咸鸭蛋、香葱',
+						 		price:'￥30',
+						 		
+						 	},
+						 	{
+						 		img:'http://i1.chuimg.com/5286f096872b11e6a9a10242ac110002_499w_667h.jpg@2o_50sh_1pr_1l_215w_136h_1c_1e_90q_1wh',
+						 		text:'炸鲜奶',
+						 		info:"牛奶、玉米淀粉、低筋粉、白糖、炼乳、清水",
+						 		price:'￥15',
+						 		
+						 	},
+						 	{
+						 		img:'http://i2.chuimg.com/e7300527df904503989c9329ea103ef5_1224w_918h.jpg?imageView2/1/w/215/h/136/interlace/1/q/90',
+						 		text:'土豆虎皮鹌鹑蛋',
+						 		info:'鹌鹑蛋、土豆、虫草花、蚝油、葱花、辣椒',
+						 		price:'￥35',
+						 		
+						 	},
+						 	{
+						 		img:'http://i2.chuimg.com/b10cf3cc892911e6b87c0242ac110003_900w_500h.jpg?imageView2/1/w/215/h/136/interlace/1/q/90',
+						 		text:'蒜香柠檬虾',
+						 		info:'大头虾、西芹叶、什香草、橄榄油、',
+						 		price:'￥55',
+						 		
+						 	},
+						 	{
+						 		img:'http://i2.chuimg.com/2c8d279e89a011e6a9a10242ac110002_772w_515h.jpg?imageView2/1/w/215/h/136/interlace/1/q/90',
+						 		text:'黑椒香烤龙利鱼 ',
+						 		info:'龙利鱼、黑胡椒汁、现磨黑胡椒、盐、油、',
+						 		price:'￥25',
+						 		
+						 	}]
+						 },
+						 ],
+						 list:[],
+						 i:0,
+					}
+				},
+				methods:{
+					xian(index){
+						this.list=this.arr[index].code;
+						this.i=index;
+					},
+					del(item){
+						if (item.num) {
+							if (item.num == 0) return
+							item.num--;
+						}
+					},
+					add(item) {
+	                    console.log(item)
+	                    if (item.num) {
+	                        item.num++;
+	                    } else {
+	                        Vue.set(item, 'num', 1);
+	                    }
+	                }
+					
+				},
+				computed:{
+					selectList(){
+						var array=[];
+						this.arr.forEach(element=>{
+							if (element.code && element.code.length > 0) {
+	                            element.code.forEach(el => {
+	                                if (el.num) {
+	                                    array.push(el);
+	                                }
+	                            });
+	                        }
+						})
+						return array;
+					},
+					total(){
+						var n=0;
+						 this.selectList.forEach(element => {
+	                        console.log((element.price).split('￥')[1]);
+	                         n += (element.price).split('￥')[1] * element.num;
+	                    });
+	                    return n.toFixed(2);
+					}
+					
+				},
+				
+				watch: {
+	                selectList(v1) {
+	                    console.log(v1);
+	                }
+	           }
+			}
+			var shoppingCart={
+				 template:'#shoppingCart',
+				 data(){
+				 	return {
+	                    goodlist: this.$route.params.selectList||[]                  
+	                }
+				 },
+				 computed:{
+				 	totalPrices(){
+						var n = 0;
+	                    this.goodlist.forEach(element => {
+	                        n += (element.price).split('￥')[1]* element.num;
+	                    })
+	                    return n.toFixed(2);
+					}
+				},
+			}
+			const router = new VueRouter({
+	            routes: [
+	                {
+	                    path: '/',
+	                    component: goods
+	                }, {
+	                    path: '/shoppingCart',
+	                    name: 'shoppingCart',
+	                    component: shoppingCart
+	                }
+	            ]
+	        })
+			var vm = new Vue({
+	            router,
+	            el: '#app',
+	        })
+
+		</script>
+	</body>
+</html>
