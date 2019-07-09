@@ -303,6 +303,7 @@
 				<!-- 底部 -->
 				<transition>
 					<bc-footer v-show="num!=0">
+						<!-- <foot></foot> -->
 						<div class='foot'>
 							<div slot:num>
 								<i class="iconfont imgs">&#xe603;</i>
@@ -367,7 +368,19 @@
 			</div>
 		</template>
 
-		
+		<!-- <template id="foot">
+        <div class='foot'>
+            <div slot:num>
+                <img class="imgs" src="http://img5.imgtn.bdimg.com/it/u=1816948731,4203604980&fm=26&gp=0.jpg" alt="">
+                <p class="nums">{{num}}</p>
+            </div>
+            <p class="money" slot='total'>￥<span>{{total}}</span></p>
+            <p class="xiaofei">另需配送费8元</p>
+            <button id="btn">去结算</button>
+        </div>
+    </template> -->
+
+		<!-- 计时器 -->
 		<template id="input">
 			<div class="el-input-number">
 				<span role="button" @click="jian" class="jian" id="jian">-</span>
@@ -392,7 +405,11 @@
 			var componet = Vue.component('bc-footer', {
 				template: '#footer',
 			})
-			
+
+			// var componet = Vue.component('foot',{
+			//     template:'#foot',
+			// })
+
 			// 计数器
 			Vue.component('bc-input-number', {
 				template: '#input',
@@ -443,37 +460,37 @@
 							meishi: [{
 									name: '猪肉白菜饺子',
 									img: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1769208920,1304930106&fm=26&gp=0.jpg',
-									info: '月售180份 好评率100%',
+									info: '月售18份 好评率100%',
 									price: '16',
 								},
 								{
 									name: '鲍鱼三鲜水饺',
 									img: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1126716551,3134048915&fm=26&gp=0.jpg',
-									info: '月售180份 好评率100%',
+									info: '月售18份 好评率100%',
 									price: '20',
 								},
 								{
 									name: '虾仁三鲜水饺',
 									img: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1126716551,3134048915&fm=26&gp=0.jpg',
-									info: '月售190份 好评率100%',
+									info: '月售19份 好评率100%',
 									price: '25',
 								},
 								{
 									name: '南瓜皮菌菇三鲜猪肉',
 									img: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1126716551,3134048915&fm=26&gp=0.jpg',
-									info: '月售40份 好评率100%',
+									info: '月售4份 好评率100%',
 									price: '24',
 								},
 								{
 									name: '绿豆粥',
 									img: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1126716551,3134048915&fm=26&gp=0.jpg',
-									info: '月售17份 好评率100%',
+									info: '月售19份 好评率100%',
 									price: '3',
 								},
 								{
 									name: '鲜肉馄饨',
 									img: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1126716551,3134048915&fm=26&gp=0.jpg',
-									info: '月售46份 好评率100%',
+									info: '月售4份 好评率100%',
 									price: '24',
 								},
 							],
@@ -482,17 +499,17 @@
 							meishi: [{
 									name: '流食',
 									img: 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3716393435,1524772302&fm=27&gp=0.jpg',
-									info: '月售47份 好评率100%',
+									info: '月售4份 好评率100%',
 									price: '25',
 								},
 								{
-									name: '粥',
+									name: '黄华粥',
 									img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2490086519,109233460&fm=27&gp=0.jpg',
 									info: '简介',
 									price: '10',
 								},
 								{
-									name: '粥',
+									name: '小米粥',
 									img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=216001766,135511315&fm=27&gp=0.jpg',
 									info: '简介',
 									price: '10',
@@ -509,25 +526,25 @@
 							meishi: [{
 									name: '皮蛋豆腐',
 									img: 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2444627476,2419153242&fm=27&gp=0.jpg',
-									info: '月售12份 好评率100%',
+									info: '月售19份 好评率100%',
 									price: '14',
 								},
 								{
 									name: '双椒小皮蛋',
 									img: 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2444627476,2419153242&fm=27&gp=0.jpg',
-									info: '月售19份 好评率100%',
+									info: '月售190份 好评率100%',
 									price: '18',
 								},
 								{
 									name: '红油百叶',
 									img: 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1639588884,687309324&fm=27&gp=0.jpg',
-									info: '月售108份 好评率100%',
+									info: '月售10份 好评率100%',
 									price: '30',
 								},
 								{
 									name: '老虎菜',
 									img: 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2351494982,3969292653&fm=27&gp=0.jpg',
-									info: '月售900份 好评率100%',
+									info: '月售90份 好评率100%',
 									price: '14',
 								},
 							],
@@ -536,31 +553,31 @@
 							meishi: [{
 									name: '猪肉大葱包子',
 									img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=112266687,2282386620&fm=27&gp=0.jpg',
-									info: '月售290份 好评率100%',
+									info: '月售90份 好评率100%',
 									price: '20',
 								},
 								{
 									name: '韭菜鸡蛋包子',
 									img: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=4280109844,2692783196&fm=27&gp=0.jpg',
-									info: '月售390份 好评率100%',
+									info: '月售30份 好评率100%',
 									price: '15',
 								},
 								{
 									name: '韭菜鸡蛋包子',
 									img: 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2094916694,2327566598&fm=27&gp=0.jpg',
-									info: '月售302份 好评率100%',
+									info: '月售30份 好评率100%',
 									price: '15',
 								},
 								{
 									name: '鸡蛋包子',
 									img: 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2776260043,3233574466&fm=27&gp=0.jpg',
-									info: '月售330份 好评率100%',
+									info: '月售30份 好评率100%',
 									price: '15',
 								},
 								{
 									name: '韭菜包子',
 									img: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=4014752796,2639250726&fm=27&gp=0.jpg',
-									info: '月售150份 好评率100%',
+									info: '月售30份 好评率100%',
 									price: '15',
 								},
 							],
@@ -569,25 +586,25 @@
 							meishi: [{
 									name: '肉粽子',
 									img: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3032129891,3777653743&fm=27&gp=0.jpg',
-									info: '月售220份 好评率100%',
+									info: '月售20份 好评率100%',
 									price: '10',
 								},
 								{
 									name: '咸粽子',
 									img: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=113208759,494844991&fm=27&gp=0.jpg',
-									info: '月售389份 好评率100%',
+									info: '月售30份 好评率100%',
 									price: '7',
 								},
 								{
 									name: '甜粽子',
 									img: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=113208759,494844991&fm=27&gp=0.jpg',
-									info: '月售400份 好评率100%',
+									info: '月售40份 好评率100%',
 									price: '7',
 								},
 								{
 									name: '粽子',
 									img: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2813046704,3071241019&fm=27&gp=0.jpg',
-									info: '月售160份 好评率100%',
+									info: '月售60份 好评率100%',
 									price: '5',
 								},
 							],
@@ -596,37 +613,37 @@
 							meishi: [{
 									name: '面条',
 									img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1571368620,1430783511&fm=27&gp=0.jpg',
-									info: '月售450份 好评率100%',
+									info: '月售30份 好评率100%',
 									price: '15',
 								},
 								{
 									name: '新品95',
 									img: 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1316276433,2743067049&fm=27&gp=0.jpg',
-									info: '月售46份 好评率100%',
+									info: '月售6份 好评率100%',
 									price: '40',
 								},
 								{
 									name: '炸肉',
 									img: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1797247435,1559901856&fm=27&gp=0.jpg',
-									info: '月售169份 好评率100%',
+									info: '月售10份 好评率100%',
 									price: '25',
 								},
 								{
 									name: '大杂碗',
 									img: 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1241047131,4285806200&fm=27&gp=0.jpg',
-									info: '月售89份 好评率100%',
+									info: '月售20份 好评率100%',
 									price: '20',
 								},
 								{
 									name: '肉',
 									img: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=782150095,2393170450&fm=27&gp=0.jpg',
-									info: '月售120份 好评率100%',
+									info: '月售30份 好评率100%',
 									price: '5',
 								},
 								{
 									name: '新品',
 									img: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=169948917,1679189798&fm=27&gp=0.jpg',
-									info: '月售380份 好评率100%',
+									info: '月售30份 好评率100%',
 									price: '5',
 								},
 							],
@@ -635,23 +652,23 @@
 							meishi: [{
 									name: '豆浆',
 									img: 'http://img5.imgtn.bdimg.com/it/u=2296700971,3288969902&fm=26&gp=0.jpg',
-									info: '月售309份 好评率100%',
+									info: '月售30份 好评率100%',
 									price: '5',
 								},
 								{
-									name: '汤',
+									name: '鸡蛋汤',
 									img: 'http://img2.imgtn.bdimg.com/it/u=1711473572,2015742870&fm=26&gp=0.jpg',
-									info: '月售89份 好评率100%',
+									info: '月售30份 好评率100%',
 									price: '4',
 								},
 								{
-									name: '粥',
+									name: '小米粥',
 									img: 'http://img2.imgtn.bdimg.com/it/u=1711473572,2015742870&fm=26&gp=0.jpg',
-									info: '月售16份 好评率100%',
+									info: '月售50份 好评率100%',
 									price: '8',
 								},
 								{
-									name: '汤',
+									name: '绿豆汤',
 									img: 'http://img2.imgtn.bdimg.com/it/u=1711473572,2015742870&fm=26&gp=0.jpg',
 									info: '月售60份 好评率100%',
 									price: '6',
@@ -669,7 +686,16 @@
 					}
 				},
 				computed: {
-					
+					//价格
+					total() {
+						var jiage = 0;
+						this.foods.forEach(element => {
+							element.meishi.forEach(element => {
+								jiage += element.price * (element.num || 0);
+							});
+						});
+						return jiage;
+					},
 					//商品总数量
 					num() {
 						var num = 0;
@@ -695,6 +721,7 @@
 					return {
 						total: 0,
 						num: 0,
+						// isshow:0,
 					}
 				},
 			})
