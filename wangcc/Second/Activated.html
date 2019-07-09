@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="box">
+			<keep-alive>
+				 <num v-if="show"></num>
+			</keep-alive>
+		</div>
+		
+	</body>
+	 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	 <script>
+		 Vue.component('num',{
+			 template:'<div>{{msg}}</div>',
+			 data() {
+			     return {
+			         msg:'hello',
+			     }
+			 },
+			created() {
+			    console.log('created');
+			},
+			activated(){
+			    console.log('激活');
+			},
+			deactivated(){
+			    console.log('停用');
+			}
+		 })
+		 var vm=new Vue({
+		 	el:"#box",
+			data:{
+				show:true,
+			}
+		 })
+	 </script>
+</html>
