@@ -109,19 +109,32 @@
 			
 			
 		<!-- 描述<template v-slot:aaa=”bbb”>ccc</template>的作用？ -->
-			 Vue.component('test', {
-			    template: `<h1>
-			            <slot name='aaa' :abc="user" :user='"hello"'></slot>
-			        </h1>`,
-			    data() {
-			        return {
-			            user: {
-			                x: 1,
-			                y: 2,
-			            },
-			        }
-			    },
-			});
+			  Vue.component('test',{
+			     inheritAttrs: false,
+			     template: '<h1 class="ddd">{{text}}</h1>',
+			     data() {
+			         return {
+			             a:1, }
+			     },
+			     props:{
+			         data: [Symbol,Number],
+			         fn: Preson,
+			         date: {required: true,},
+			         text:{
+			             type: String,
+			             default: '123',
+			             required: false,
+			             validator: function(v){
+			                 if(v === 'hahaha'){
+			                     return true;
+			                 }else{
+			                     return false;
+			                 }
+			                 
+			             }
+			         }
+			     }
+			 });
 			
 			//描述Activated/deactivated两个生命周期的触发条件
 		 Vue.component('test',{
