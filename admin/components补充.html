@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../assets/js/vue.js"></script>
+</head>
+<body>
+
+    <!-- 
+
+        1/ 动态组件 <component>   通过is属性来改变渲染的组件
+
+        2/ is属性可以绑定组件名，和组件选项对象
+            
+        3/ 理解Vue.extend函数 {}=>组件子构造函数
+
+        4/ 理解keep-alive的使用，缓存组件
+            
+
+
+        访问父级组件实例 ，访问根实例
+        $root  $children $ parent
+
+
+        // ref : 绑定在普通上时，指向信息是当前dom对象，
+                 绑定在组件上时，指向信息是子组件实例
+
+        递归组件/组件之间的循环引用： 树形结构
+        
+     -->
+    <div id="app">
+        <div ref="div"></div>
+
+        <button v-once @click="change">{{change1}}</button>
+        <!-- <keep-alive>
+            <component v-bind:is="obj"></component>
+        </keep-alive>
+        <abc ref="abc"></abc> -->
+
+
+        <ddd :size="3"></ddd>
+        
+    </div>
+    <template>
+        
+    </template>
+
+    <script type="X-Template">
+        <div>
+            
+        </div>
+    </script>
+    <script>
+
+
+
+        
+        // 1.
+        var obj = {
+            template:'<h1>obj</h1>'
+        }
+        // 2/
+        var o = Vue.extend(obj);
+
+        // 3/
+        // 如果要全局、局部注册组件，相当于给组件起一个名字
+        // Vue.component('',{}),
+        // components:{
+        //     "name1":o,
+        // }
+
+        Vue.component('ddd',Vue.extend({
+            template:`
+                <h1>
+                    1
+                    <abc v-if="size>0" :size="size-1"></abc>
+                </h1>
+            `,
+            props:['size']
+        }));
+
+
+
+       var vm1 =  Vue.component('abc',{
+            template:'<h1>22<ddd v-if="size>0" :size="size-1"></ddd></h1>',
+            props:['size'],
+            data() {
+                return {
+                    msg:'hello',
+                }
+            },
+        });
+
+        var vm = new Vue({
+            el:'#app',
+            data() {
+                return {
+                    componentName: 'abc',
+                    o: o,
+                    obj: obj,
+                    change1:1,
+                }
+            },
+            mounted() {
+                console.log(this.$refs);
+            },
+            methods: {
+                change(){
+                    this.change1++;
+                }
+            },
+        })
+
+
+        // console.log(vm.$children[0]);
+        // console.log(vm1.$root);
+        vm.$on('haha',function(){
+
+        })
+    </script>
+</body>
+</html>
