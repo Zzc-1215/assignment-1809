@@ -159,9 +159,10 @@
             color:#7f7f7f;
         }
         .imgs{
-            width: 0.8rem;
-            height: 0.8rem;
+            width: 0.84rem;
+            height: 0.84rem;
             font-size: 0.84rem;
+            line-height: 0.84rem;
             border-radius: 50%;
             background: #fff;
             color: #2d92e9;
@@ -183,8 +184,6 @@
         .jian {
             left: 1px;
             border-radius: 4px 0 0 4px;
-            /* display: none; */
-            opacity: 0;
         }
 
         .jia {
@@ -236,6 +235,7 @@
             top: 0.01rem;
             width: 0.5rem;
             height: 0.5rem;
+            line-height: 0.5rem;
             border-radius: 50%;
             text-align: center;
             background: #f5f7fa;
@@ -346,7 +346,7 @@
             </ul>
             <div class="right">
                 <ul id="ul">
-                    <li v-for='(item,index) in foods[i].meishi' class="lis" :key="item">
+                    <li v-for='(item,index) in foods[i].meishi' class="lis" :key="i+index">
                         <img :src="item.img" alt="">
                         <p class="biaoti">{{item.name}}</p>
                         <p class="info">{{item.info}}</p>
@@ -373,7 +373,7 @@
     <!-- 计时器 -->
     <template id="input">
         <div class="el-input-number">
-            <span role="button" @click="jian" class="jian" id="jian">-</span>
+            <span role="button" v-show="v>0" @click="jian" class="jian" id="jian">-</span>
             <span role="button" @click="jia" class="jia" id="jia">+</span>
             <div class="el-input">
                 <input type="text" disabled class="input" :value="v">
@@ -394,6 +394,7 @@
         })
         var componet = Vue.component('bc-footer', {
             template: '#footer',
+            // props:['total'],
         })
 
         // var componet = Vue.component('foot',{
@@ -407,18 +408,16 @@
             data() {
                 return {
                     v:this.value || 0,
+                    isshow:false,
                 }
             },
             watch:{
                 v(value,oldvalue){
-                   var jian= document.getElementById('jian');
                    if(value!=0){
-                        jian.style.opacity='1';
+                        this.isshow=true;
                     }else{
-                        jian.style.opacity='0'; 
+                        this.isshow=false;
                     }
-                    // console.log(value);
-                    // console.log(oldvalue);
                     this.$emit('input',value);
                 },
                 
@@ -720,7 +719,6 @@
                 return{
                     total:0,
                     num:0,
-                    // isshow:0,
                 }
             },
         })
