@@ -99,118 +99,267 @@ var commodity = Vue.extend({
                     img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2676343009,1944317430&fm=11&gp=0.jpg',
                     text: '优选水果',
                     price: 10.8,
-                }],
-            }, {
-                type: '卤味熟食',
-                list: [{
-                    img: 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=411535005,2239393545&fm=26&gp=0.jpg',
-                    text: '卤味熟食',
+                },{
+                    img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2676343009,1944317430&fm=11&gp=0.jpg',
+                    text: '优选水果',
                     price: 10.8,
                 }, {
-                    img: 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=411535005,2239393545&fm=26&gp=0.jpg',
-                    text: '卤味熟食',
+                    img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2676343009,1944317430&fm=11&gp=0.jpg',
+                    text: '优选水果',
                     price: 10.8,
-                }],
-            }, {
-                type: '牛奶面包',
-                list: [{
-                    img: 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=547626741,3664254765&fm=26&gp=0.jpg',
-                    text: '牛奶面包',
+                },{
+                    img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2676343009,1944317430&fm=11&gp=0.jpg',
+                    text: '优选水果',
                     price: 10.8,
                 }, {
-                    img: 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=547626741,3664254765&fm=26&gp=0.jpg',
-                    text: '牛奶面包',
+                    img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2676343009,1944317430&fm=11&gp=0.jpg',
+                    text: '优选水果',
                     price: 10.8,
                 }],
             }, {
-                type: '热饮',
+                type: '优选水果',
                 list: [{
-                    img: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3209462403,3801079367&fm=26&gp=0.jpg',
-                    text: '热饮',
+                    img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2676343009,1944317430&fm=11&gp=0.jpg',
+                    text: '优选水果',
                     price: 10.8,
                 }, {
-                    img: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3209462403,3801079367&fm=26&gp=0.jpg',
-                    text: '热饮',
+                    img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2676343009,1944317430&fm=11&gp=0.jpg',
+                    text: '优选水果',
+                    price: 10.8,
+                },{
+                    img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2676343009,1944317430&fm=11&gp=0.jpg',
+                    text: '优选水果',
+                    price: 10.8,
+                }, {
+                    img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2676343009,1944317430&fm=11&gp=0.jpg',
+                    text: '优选水果',
+                    price: 10.8,
+                },{
+                    img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2676343009,1944317430&fm=11&gp=0.jpg',
+                    text: '优选水果',
+                    price: 10.8,
+                }, {
+                    img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2676343009,1944317430&fm=11&gp=0.jpg',
+                    text: '优选水果',
                     price: 10.8,
                 }],
             }, {
-                type: '冰淇淋',
+                type: '优选水果',
                 list: [{
-                    img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1112536199,1625697658&fm=26&gp=0.jpg',
-                    text: '冰淇淋',
+                    img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2676343009,1944317430&fm=11&gp=0.jpg',
+                    text: '优选水果',
                     price: 10.8,
                 }, {
-                    img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1112536199,1625697658&fm=26&gp=0.jpg',
-                    text: '冰淇淋',
+                    img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2676343009,1944317430&fm=11&gp=0.jpg',
+                    text: '优选水果',
+                    price: 10.8,
+                },{
+                    img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2676343009,1944317430&fm=11&gp=0.jpg',
+                    text: '优选水果',
+                    price: 10.8,
+                }, {
+                    img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2676343009,1944317430&fm=11&gp=0.jpg',
+                    text: '优选水果',
+                    price: 10.8,
+                },{
+                    img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2676343009,1944317430&fm=11&gp=0.jpg',
+                    text: '优选水果',
+                    price: 10.8,
+                }, {
+                    img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2676343009,1944317430&fm=11&gp=0.jpg',
+                    text: '优选水果',
                     price: 10.8,
                 }],
             }, {
-                type: '饮料酒水',
+                type: '优选水果',
                 list: [{
-                    img: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=979102686,3511629738&fm=26&gp=0.jpg',
-                    text: '饮料酒水',
+                    img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2676343009,1944317430&fm=11&gp=0.jpg',
+                    text: '优选水果',
                     price: 10.8,
                 }, {
-                    img: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=979102686,3511629738&fm=26&gp=0.jpg',
-                    text: '饮料酒水',
+                    img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2676343009,1944317430&fm=11&gp=0.jpg',
+                    text: '优选水果',
+                    price: 10.8,
+                },{
+                    img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2676343009,1944317430&fm=11&gp=0.jpg',
+                    text: '优选水果',
+                    price: 10.8,
+                }, {
+                    img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2676343009,1944317430&fm=11&gp=0.jpg',
+                    text: '优选水果',
+                    price: 10.8,
+                },{
+                    img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2676343009,1944317430&fm=11&gp=0.jpg',
+                    text: '优选水果',
+                    price: 10.8,
+                }, {
+                    img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2676343009,1944317430&fm=11&gp=0.jpg',
+                    text: '优选水果',
                     price: 10.8,
                 }],
             }, {
-                type: '休闲食品',
+                type: '优选水果',
                 list: [{
-                    img: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=884279678,1014790896&fm=26&gp=0.jpg',
-                    text: '休闲食品',
+                    img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2676343009,1944317430&fm=11&gp=0.jpg',
+                    text: '优选水果',
                     price: 10.8,
                 }, {
-                    img: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=884279678,1014790896&fm=26&gp=0.jpg',
-                    text: '休闲食品',
+                    img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2676343009,1944317430&fm=11&gp=0.jpg',
+                    text: '优选水果',
+                    price: 10.8,
+                },{
+                    img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2676343009,1944317430&fm=11&gp=0.jpg',
+                    text: '优选水果',
+                    price: 10.8,
+                }, {
+                    img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2676343009,1944317430&fm=11&gp=0.jpg',
+                    text: '优选水果',
+                    price: 10.8,
+                },{
+                    img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2676343009,1944317430&fm=11&gp=0.jpg',
+                    text: '优选水果',
+                    price: 10.8,
+                }, {
+                    img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2676343009,1944317430&fm=11&gp=0.jpg',
+                    text: '优选水果',
                     price: 10.8,
                 }],
             }, {
-                type: '方便速食',
+                type: '优选水果',
                 list: [{
-                    img: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1465297987,570030747&fm=26&gp=0.jpg',
-                    text: '方便速食',
+                    img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2676343009,1944317430&fm=11&gp=0.jpg',
+                    text: '优选水果',
                     price: 10.8,
                 }, {
-                    img: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1465297987,570030747&fm=26&gp=0.jpg',
-                    text: '方便速食',
+                    img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2676343009,1944317430&fm=11&gp=0.jpg',
+                    text: '优选水果',
+                    price: 10.8,
+                },{
+                    img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2676343009,1944317430&fm=11&gp=0.jpg',
+                    text: '优选水果',
+                    price: 10.8,
+                }, {
+                    img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2676343009,1944317430&fm=11&gp=0.jpg',
+                    text: '优选水果',
+                    price: 10.8,
+                },{
+                    img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2676343009,1944317430&fm=11&gp=0.jpg',
+                    text: '优选水果',
+                    price: 10.8,
+                }, {
+                    img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2676343009,1944317430&fm=11&gp=0.jpg',
+                    text: '优选水果',
                     price: 10.8,
                 }],
             }, {
-                type: '数码家电',
+                type: '优选水果',
                 list: [{
-                    img: 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3522765762,3537431987&fm=26&gp=0.jpg',
-                    text: '数码家电',
+                    img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2676343009,1944317430&fm=11&gp=0.jpg',
+                    text: '优选水果',
                     price: 10.8,
                 }, {
-                    img: 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3522765762,3537431987&fm=26&gp=0.jpg',
-                    text: '数码家电',
+                    img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2676343009,1944317430&fm=11&gp=0.jpg',
+                    text: '优选水果',
+                    price: 10.8,
+                },{
+                    img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2676343009,1944317430&fm=11&gp=0.jpg',
+                    text: '优选水果',
+                    price: 10.8,
+                }, {
+                    img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2676343009,1944317430&fm=11&gp=0.jpg',
+                    text: '优选水果',
+                    price: 10.8,
+                },{
+                    img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2676343009,1944317430&fm=11&gp=0.jpg',
+                    text: '优选水果',
+                    price: 10.8,
+                }, {
+                    img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2676343009,1944317430&fm=11&gp=0.jpg',
+                    text: '优选水果',
                     price: 10.8,
                 }],
             }, {
-                type: '环球美食',
+                type: '优选水果',
                 list: [{
-                    img: 'https://f10.baidu.com/it/u=2975402329,3905704794&fm=72',
-                    text: '环球美食',
+                    img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2676343009,1944317430&fm=11&gp=0.jpg',
+                    text: '优选水果',
                     price: 10.8,
                 }, {
-                    img: 'https://f10.baidu.com/it/u=2975402329,3905704794&fm=72',
-                    text: '环球美食',
+                    img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2676343009,1944317430&fm=11&gp=0.jpg',
+                    text: '优选水果',
+                    price: 10.8,
+                },{
+                    img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2676343009,1944317430&fm=11&gp=0.jpg',
+                    text: '优选水果',
+                    price: 10.8,
+                }, {
+                    img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2676343009,1944317430&fm=11&gp=0.jpg',
+                    text: '优选水果',
+                    price: 10.8,
+                },{
+                    img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2676343009,1944317430&fm=11&gp=0.jpg',
+                    text: '优选水果',
+                    price: 10.8,
+                }, {
+                    img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2676343009,1944317430&fm=11&gp=0.jpg',
+                    text: '优选水果',
                     price: 10.8,
                 }],
             }, {
-                type: '户外运动',
+                type: '优选水果',
                 list: [{
-                    img: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3614035837,3019484591&fm=26&gp=0.jpg',
-                    text: '户外运动',
+                    img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2676343009,1944317430&fm=11&gp=0.jpg',
+                    text: '优选水果',
                     price: 10.8,
                 }, {
-                    img: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3614035837,3019484591&fm=26&gp=0.jpg',
-                    text: '户外运动',
+                    img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2676343009,1944317430&fm=11&gp=0.jpg',
+                    text: '优选水果',
+                    price: 10.8,
+                },{
+                    img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2676343009,1944317430&fm=11&gp=0.jpg',
+                    text: '优选水果',
+                    price: 10.8,
+                }, {
+                    img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2676343009,1944317430&fm=11&gp=0.jpg',
+                    text: '优选水果',
+                    price: 10.8,
+                },{
+                    img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2676343009,1944317430&fm=11&gp=0.jpg',
+                    text: '优选水果',
+                    price: 10.8,
+                }, {
+                    img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2676343009,1944317430&fm=11&gp=0.jpg',
+                    text: '优选水果',
                     price: 10.8,
                 }],
-            }],
+            }, {
+                type: '优选水果',
+                list: [{
+                    img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2676343009,1944317430&fm=11&gp=0.jpg',
+                    text: '优选水果',
+                    price: 10.8,
+                }, {
+                    img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2676343009,1944317430&fm=11&gp=0.jpg',
+                    text: '优选水果',
+                    price: 10.8,
+                },{
+                    img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2676343009,1944317430&fm=11&gp=0.jpg',
+                    text: '优选水果',
+                    price: 10.8,
+                }, {
+                    img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2676343009,1944317430&fm=11&gp=0.jpg',
+                    text: '优选水果',
+                    price: 10.8,
+                },{
+                    img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2676343009,1944317430&fm=11&gp=0.jpg',
+                    text: '优选水果',
+                    price: 10.8,
+                }, {
+                    img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2676343009,1944317430&fm=11&gp=0.jpg',
+                    text: '优选水果',
+                    price: 10.8,
+                }],
+            }, ],
         }
     }
 })
