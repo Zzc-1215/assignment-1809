@@ -95,12 +95,12 @@
                     </div>
                     <div class="tot">
                         <p class="yh">优惠说明<span class="iconfont wen">&#xe657;</span></p>
-                        <p class="xj"><i class="jq">小计￥</i>{{$route.params.total+3+8 || +3+8}}</p>
+                        <p class="xj"><i class="jq">小计￥</i>{{$route.params.total+3+8 || 0}}</p>
                     </div>
                 </div>
             </div> 
             <div class="cleared">
-                <p class="clear">￥{{$route.params.total+3+8 || 0+3+8}}</p>
+                <p class="clear">￥{{$route.params.total+3+8 || 0}}</p>
                 <button class="cBtn">去支付</button>
             </div>
         </div>
