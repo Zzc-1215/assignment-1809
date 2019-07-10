@@ -16,43 +16,6 @@
     <div id="app">
         <router-view></router-view>
     </div>
-    <template id="payment">
-        <div class="nr">
-            <div class="tou">
-                <i class="iconfont jt">&#xe650;</i>
-                <span>确认订单</span>
-            </div>
-            <div class="contents">
-                <div class="ord">
-                    <h1 class="dm">庆丰包子铺（窦店）</h1>
-                    <div class="zhz">
-                        <div class="imag">
-                            <img src="https://p0.meituan.net/wmproduct/65e9eec84b9c84770802550f4f52fa46693725.jpg"> 
-                        </div>
-                        <div class="rig">
-                            <span class="title">
-                                12335
-                            </span>
-                            <span class="number">
-                                ×3
-                            </span>
-                            <span class="pri">
-                                ￥30
-                            </span>
-                        </div>
-                    </div>
-                    <div class="tot">
-                        <p class="yh">优惠说明<span class="iconfont wen">&#xe657;</span></p>
-                        <p class="xj"><i class="jq">小计￥</i>70</p>
-                    </div>
-                </div>
-            </div> 
-            <div class="cleared">
-                <p class="clear">￥70</p>
-                <button class="cBtn">去支付</button>
-            </div>
-        </div>
-    </template>
     <template id="shops">
         <div class="zxmcon">
             <div class="head">
@@ -70,7 +33,6 @@
                 </ul>
                 <ul class="right" v-if="num==index" v-for="(its,index) in shop">
                     <li v-for="(it,index) in its.foods" :key="index+index">
-                        <!-- {{it}} -->
                         <div class="image">
                             <img :src="it.img">
                         </div>
@@ -91,7 +53,55 @@
                     <div class="totalnum">{{all}}</div>
                 </div>
                 <p class="money">￥{{total}}</p>
-                <router-link :to="{name:'abc'}" id="jsBtn">去结算</router-link>
+                <div class="jss">
+                    <router-link :to="{name:'abc',params:{allList,total}}" id="jsBtn">去结算</router-link>
+                </div>
+                
+            </div>
+        </div>
+    </template>
+    <template id="payment">
+        <div class="nr">
+            <div class="tou">
+                <router-link to="/" id="jsBtn"><i class="iconfont jt">&#xe650;</i></router-link>
+                <span>确认订单</span>
+            </div>
+            <div class="contents">
+                <div class="ord">
+                    <h1 class="dm">庆丰包子铺（窦店）</h1>
+                    <div class="zhz" v-for="it in $route.params.allList">
+                        <div class="imag">
+                            <img :src="it.img"> 
+                        </div>
+                        <div class="rig">
+                            <span class="title">
+                                {{it.name}}
+                            </span>
+                            <span class="number">
+                                ×{{it.num}}
+                            </span>
+                            <span class="pri">
+                                ￥{{it.price * it.num}}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="tot">
+                        <p class="ch"><span class="bz">包装</span>餐盒</p>
+                        <p class="jh">￥3</p>
+                    </div>
+                    <div class="tot">
+                        <p class="psf"><span class="fn">蜂鸟</span>配送费</p>
+                        <p class="jh">￥8</p>
+                    </div>
+                    <div class="tot">
+                        <p class="yh">优惠说明<span class="iconfont wen">&#xe657;</span></p>
+                        <p class="xj"><i class="jq">小计￥</i>{{$route.params.total+3+8 || +3+8}}</p>
+                    </div>
+                </div>
+            </div> 
+            <div class="cleared">
+                <p class="clear">￥{{$route.params.total+3+8 || 0+3+8}}</p>
+                <button class="cBtn">去支付</button>
             </div>
         </div>
     </template>
@@ -164,13 +174,13 @@
                                 {
                                     name:'早点套餐',
                                     img:'https://p0.meituan.net/wmproduct/65e9eec84b9c84770802550f4f52fa46693725.jpg',
-                                    price:'6.9',
+                                    price:'6',
                                     info:'南瓜山药粥+小点心'
                                 },
                                 {
                                     name:'健康套餐B',
                                     img:'https://p1.meituan.net/wmproduct/0f76a4a8e27d33e4f2247f547f4286e8257458.jpg',
-                                    price:'26.2',
+                                    price:'26',
                                     info:'猪肉荠菜包+爽口木耳1盘+小吊梨汤1瓶+小包点1个'
                                 }
                             ]
@@ -272,11 +282,25 @@
                 }
             },
             computed:{
+                allList(){
+                    var arr = [];
+                    this.shop.forEach(element => {
+                        if(element.foods && element.foods.length > 0){
+                            element.foods.forEach(it => {
+                                if(it.num){
+                                    arr.push(it)
+                                }
+                            })
+                        }
+                    })
+                    console.log(arr)
+                    return arr;
+                },
                 total(){
                     var total = 0;
                     this.shop.forEach(element => {
                         element.foods.forEach(it => {
-                            total += (it.num || 0) * it.price;
+                            total += (parseInt(it.num) || 0) * parseInt(it.price);
                         })
                     })
                     return total;

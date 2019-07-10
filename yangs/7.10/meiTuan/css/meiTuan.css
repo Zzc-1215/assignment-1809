@@ -182,7 +182,7 @@ input {
 .foot {
   width: 10rem;
   height: 1.33333rem;
-  background: #078b49;
+  background: rgba(0.0.0..6);
   position: absolute;
   line-height: 1.33333rem;
   font-size: 0.32rem;
