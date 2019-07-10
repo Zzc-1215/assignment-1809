@@ -125,14 +125,13 @@ input {
     .tabs .food_list .food .food_message .food_sales {
       font-size: 0.18667rem;
       color: #a8a8a8;
-      padding-bottom: 1.01333rem; }
+      padding-bottom: 0.93333rem; }
     .tabs .food_list .food .food_message .price_box {
       width: 4.4rem; }
       .tabs .food_list .food .food_message .price_box .food_price {
         color: #f85b4b;
         font-size: 0.34667rem;
-        font-weight: bold;
-        margin-top: 0.06667rem; }
+        font-weight: bold; }
       .tabs .food_list .food .food_message .price_box .counter {
         margin-top: -0.06667rem; }
         .tabs .food_list .food .food_message .price_box .counter .sub, .tabs .food_list .food .food_message .price_box .counter .add {
@@ -160,15 +159,27 @@ input {
 .foot {
   width: 10rem;
   height: 1.33333rem;
-  background: blue;
+  background: #078b49;
   position: absolute;
-  text-align: center;
   line-height: 1.33333rem;
   font-size: 0.32rem;
   font-weight: bold;
   color: #fff;
   bottom: 0; }
+  .foot span {
+    padding-left: 5.33333rem; }
+  .foot b {
+    float: left;
+    width: 0.8rem;
+    height: 0.8rem;
+    text-align: center;
+    line-height: 0.8rem;
+    margin-top: 0.26667rem;
+    margin-left: 0.66667rem;
+    border-radius: 50%;
+    background: #0c70f1; }
   .foot button {
     height: 1.33333rem;
     border: none;
-    width: 2rem; }
+    width: 2rem;
+    font-size: 0.26667rem; }

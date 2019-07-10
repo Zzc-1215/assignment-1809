@@ -35,7 +35,7 @@
 
 	<body>
 		<div id="app">
-			<!--<div>{{value | filt}}</div>-->
+			<div>{{value | filt}}</div>
 			<button @click="show=!show">切换</button>
 			<!--<transition name="btn">
 				<div v-show="show" :key="1" style="width: 100px;height: 100px;margin: 100px auto;background-color: red;"></div>
@@ -50,24 +50,29 @@
 				<div v-show="show" :key="1" style="width: 100px;height: 100px;margin: 100px auto;background-color: red;"></div>
 			</transition-group>-->
 			<test>
-				<template v-slot:aaa="bbb" >{{bbb}}</template>
+				<template v-slot:aaa="bbb">{{bbb}}</template>
 			</test>
 			<keep-alive>
-             	<aaa v-if="show"></aaa> 
-        	</keep-alive>
-        	<!--<bbb></bbb>-->
+				<aaa v-if="show"></aaa>
+			</keep-alive>
+			<template id="bbb" :data="11">
+
+			</template>
 		</div>
 		<script type="text/javascript" src="vue.js"></script>
 		<script type="text/javascript">
 			//		 1、自定义一个把‘1-9’数字转换成大写‘一到九’的全局过滤器？（10分）
-			//		Vue.filter('filt',function(val){
-			//			var arr=''
-			//			var chinelist1 = ['一', '二', '三', '四', '五', '六', '七', '八', '九']
-			//			for(var i=0; i<chinelist1.length;i++){
-			//				arr+=chinelist1[i]
-			//			}
-			//			return arr
-			//		})
+//								Vue.filter('filt',function(val){
+//									var str=val
+//			//						console.log(str)
+//									var arr=''
+//									var chinelist1 = ['一', '二', '三', '四', '五', '六', '七', '八', '九']
+//									for(var i=0; i<str.length;i++){
+//										arr+=str.splice(i,1,chinelist1[i])
+//			//							arr+=chinelist1[i]
+//									}
+//									return arr
+//								})
 			//		2、自定义一个全局指令，并打印出指令的参数描述？
 			//		Vue.directive('quanju',function(el,binding,vnode,oldVnode){
 			//          console.log(el);//指令所绑定的元素
@@ -93,60 +98,72 @@
 			//		leave-active-class
 			//		appear-active-class
 			//		7、列出组件prop的四种验证方式并描述？（10分）
-			Vue.component('bbb', {
+//			Vue.component('bbb', {
+//				template: '#bbb',
+//				props: {
+//					data: [Number],
+//					one: {
+//						type: Number,
+//						required: true,
+//						default: 'haha',
+//						validator: function(val) {
+//							return true;
+//						},
+//						default: function() {
+//							return [1, 2, 3];
+//						}
+//					}
+//					//					data: {
+//					//						type: Number,
+//					//						required: true,
+//					//						validator: function(val) {
+//					//							if(val == true) {
+//					//								return true;
+//					//							} else {
+//					//								return false;
+//					//							}
+//					//						}
+//					//					}
+//
+//				},
+//				inheritAttrs: false,
+//			})
+			//					8、描述<template v-slot:aaa=”bbb”>ccc</template>的作用？
+			Vue.component('test', {
+				template: '<h1><slot name="aaa" :user="user"></slot></h1>',
 				data() {
 					return {
-						a: 110
-					}
-				},
-				props: {
-					data: {
-						 type:Number,
-						 require:true,
-						// validator:function(val){
-						//     return true;
-						// },
-						default: function() {
-							return [1, 2, 3];
-						}, //{} or [] 必须是工厂函数返回值
-					}
-
-				},
-			})
-//					8、描述<template v-slot:aaa=”bbb”>ccc</template>的作用？
-			Vue.component('test',{
-				template:'<h1><slot name="aaa" :user="user"></slot></h1>',
-				data(){
-					return{
-						user:{
-							a:1
+						user: {
+							aa: 1
 						}
 					}
 				}
 			})
-//					10、描述Activated/deactivated两个生命周期的触发条件？（10分）
-			Vue.component('aaa',{
-            data() {
-                return {
-                    msg:'hello'
-                }
-            },
-            template:'<div style="height:100px;border:1px solid;overflow:auto;">{{msg}}</div>',
-            created() {
-                console.log('created');
-            },
-            activated(){
-                console.log('激活');
-            },
-            deactivated(){
-                console.log('停用');
-            }
-        })
+			//					10、描述Activated/deactivated两个生命周期的触发条件？（10分）
+			Vue.component('aaa', {
+				//				props:['sho']
+				data() {
+					return {
+						msg: 'hello'
+					}
+				},
+				template: '<div style="height:100px;border:1px solid;overflow:auto;">{{msg}}</div>',
+				created() {
+					console.log('created');
+				},
+				activated() {
+					console.log('激活');
+				},
+				deactivated() {
+					console.log('停用');
+				}
+			})
 			new Vue({
 				el: '#app',
 				data: {
 					value: [1, 2, 3, 4, 5, 6, 7, 8, 9],
-					show: false
+					show: false,
+					a: 1
 				}
 			})
 		</script>

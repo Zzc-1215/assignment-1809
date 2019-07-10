@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript" src="js/flexible_css.js"></script>
+		<script type="text/javascript" src="js/flexible.js"></script>
+		<link rel="stylesheet" type="text/css" href="font/demo.css" />
+		<link rel="stylesheet" type="text/css" href="font/iconfont.css" />
+		<link rel="stylesheet" type="text/css" href="css/stuffed.css" />
+	</head>
+
+	<body>
+		<div id="app">
+			<!--{{allnum}}-->
+			<bc-container v-show="isshow">
+				<!--{{cznum}}-->
+				<bc-header>
+				</bc-header>
+				<bc-main>
+					<meit :data="foods" @total="allnum=$event" @totals="allsnum=$event" @chuanzhi="cznum=$event"></meit>
+				</bc-main>
+				<bc-footer>
+					<total :key="1" v-if="!allnum==0">
+						<div class="foot clearfix">
+							<div class="footleft clearfix">
+								<div class="shopcart">
+									<span class="iconfont">&#xe611;</span>
+									<i>{{allsnum}}</i>
+								</div>
+								<div class="total">
+									<h4>￥{{allnum}}</h4>
+									<p>另需配送费8元</p>
+								</div>
+							</div>
+							<div class="footright">
+								<button @click="isshow=!isshow"><router-link  :to="{name:'aaa',params:{cznum}}">去结算</router-link></button>
+							</div>
+						</div>
+					</total>
+				</bc-footer>
+			</bc-container>
+			<router-view></router-view>
+			<!--<dingdan v-show="!isshow"></dingdan>-->
+
+		</div>
+		<!--包着每个部分的大盒子-->
+		<template id="bc-container">
+			<div class="box">
+				<slot></slot>
+			</div>
+		</template>
+		<!--头部-->
+		<template id="bc-header">
+			<div class="header clearfix">
+				<span class="iconfont">&#xe60e;</span>
+				<p>庆丰包子铺(窦店镇)</p>
+				<span class="iconfont">&#xe62b;</span>
+				<span class="iconfont">&#xe608;</span>
+			</div>
+		</template>
+		<!--内容部分-->
+		<template id="bc-main">
+			<div class="cont">
+				<ul class="shop clearfix">
+					<li><span class="active">点赞</span></li>
+					<li><span>评价</span></li>
+					<li><span>商家</span></li>
+				</ul>
+				<slot></slot>
+			</div>
+		</template>
+		<!--选项卡-->
+		<template id="meit">
+			<div class="content clearfix">
+				<div class="contleft">
+					<ul>
+						<li :class="numIndex==index?'active':''" @click="numIndex=index" v-for="(cont,index) in food">{{cont.class}}</li>
+					</ul>
+				</div>
+				<div class="contright">
+					<div v-if="numIndex==index" v-for="(item,index) in food">
+						<div class="text clearfix" v-for="(cont,i) in item.arr" :key="index+'vue'+i">
+							<div class="left">
+								<img :src="cont.img" />
+							</div>
+							<div class="right">
+								<h3 class="title">{{cont.name}}</h3>
+								<p class="info">{{cont.info}}</p>
+								<div class="counter clearfix">
+									<span class="pirce">{{cont.price}}</span> 
+									<!--cont.vals每条数据加个vals值-->
+									<bc-input-number v-model="cont.vals" :disabled="true" :step="1" :min="0"></bc-input-number>
+								</div>
+							</div>
+							<!--{{totalPrice}}
+							{{cont.val}}-->
+						</div>
+					</div>
+				</div>
+			</div>
+		</template>
+		<!--计数器-->
+		<template id="inputNumber">
+			<div class="el-input-number">
+				<span v-if="!va==0" @click="jian" role="button" class="el-input-number__decrease is-disabled">
+					<i class="el-icon-minus iconfont">&#xe619;</i>
+				</span>
+				<span @click="plus" role="button" class="el-input-number__increase">
+					<i class="el-icon-plus iconfont">&#xe60d;</i>
+				</span>
+				<div v-if="!va==0 || !va==undefined" class="el-input">
+					<input type="text" v-model="va" disabled>
+				</div>
+			</div>
+		</template>
+		<!--尾部-->
+		<template id="bc-footer">
+			<div class="footer">
+				<transition-group tag="div" name="btn">
+					<slot></slot>
+				</transition-group>
+			</div>
+		</template>
+		<!--尾部合计部分-->
+		<template id="total">
+			<div class="foots">
+				<slot></slot>
+			</div>
+		</template>
+		<!--<template id="dd">
+			<h1>{{arr}}</h1>
+		</template>-->
+		<script type="text/javascript" src="js/vue.js"></script>
+		<script type="text/javascript" src="js/vue-router.js"></script>
+		<script type="text/javascript">
+			//			包着每个部分的大盒子
+			Vue.component('bc-container', {
+				template: '#bc-container',
+				data() {
+					return {
+
+					}
+				},
+			})
+			//			头部
+			Vue.component('bc-header', {
+				template: '#bc-header',
+				data() {
+					return {
+
+					}
+				},
+			})
+			//			内容
+			Vue.component('bc-main', {
+				template: '#bc-main',
+				data() {
+					return {}
+				},
+			})
+			//			尾部
+			Vue.component('bc-footer', {
+				template: '#bc-footer',
+				data() {
+					return {}
+				},
+			})
+			//			尾部合计
+			Vue.component('total', {
+				template: '#total',
+				data() {
+					return {
+						//						show:true
+					}
+				},
+				//				watch:{
+				//					
+				//				},
+			})
+			//			选项卡部分
+			Vue.component('meit', {
+				template: '#meit',
+				props: ['data'], //接收父组件的数据
+				data() {
+					return {
+						numIndex: 0,
+						value: 0,
+						food: this.data
+					}
+				},
+				watch: {
+					totalPrice(val, oldval) { //监听总价格的变化 暴露出去
+						this.$emit('total', val)
+					},
+					totalQuantity(val, oldval) { //监听总数量的变化 暴露出去
+						this.$emit('totals', val)
+					},
+					list(val, oldval) { //
+						this.$emit('chuanzhi', val)
+					},
+				},
+				computed: {
+					totalPrice() { //所有商品总价格
+						var totalprice = 0;
+						this.food.forEach(item => {
+							item.arr.forEach(cont => {
+								totalprice += (cont.vals || 0) * cont.price;
+							})
+						})
+						return totalprice
+					},
+					totalQuantity() { //所有商品总数量
+						var totalquantity = 0;
+						this.food.forEach(item => {
+							item.arr.forEach(cont => {
+								totalquantity += cont.vals || 0;
+							})
+						})
+						return totalquantity
+					},
+					list() {
+						var arrs = [];
+						this.food.forEach(item => {
+							item.arr.forEach(cont => {
+								if(cont.vals) {
+									arrs.push(cont)
+								} else {
+									return
+								}
+							})
+						})
+						return arrs
+					}
+
+				}
+			})
+			//			计数器部分
+			Vue.component('bc-input-number', {
+				template: '#inputNumber',
+				props: ['value', 'max', 'min', 'step', 'disabled'],
+				data() {
+					return {
+						va: this.value || 0,
+					}
+				},
+				watch: {
+					va(val, oldvalue) { //监听va变化 暴露出去更改父组件的value值
+						if(val >= this.max) {
+							val = this.max
+						}
+						if(val <= this.min) {
+							val = this.min
+						}
+						this.$emit('input', val)
+					},
+				},
+				methods: {
+					plus() {
+						if(!this.disabled) return
+						if(this.va >= this.max) return
+						this.va += this.step || 1
+					},
+					jian() {
+						if(!this.disabled) return
+						if(this.va <= this.min) return
+						this.va -= this.step || 1
+					}
+				}
+			})
+			//路由
+			//			var aaa = Vue.component('dingdan',{
+			//				template: '#dd',
+			//				data(){
+			//					return{
+			//						arr:this.$route.params
+			//					}
+			//				},
+			//				created(){
+			//					console.log(this.$route)
+			//				}
+			//			})
+			var aaa = Vue.extend({
+				template: `
+		<div class="box">
+            <div class="store-tit clearfix">
+                <span class="iconfont">&#xe63b;</span>
+                <h3>确认订单</h3>
+            </div>
+            <div class="datalis-content">
+                <dl class="datalis">
+                    <dt>店铺名</dt>
+                    <dd class="clearfix" v-for="(cont,index) in arr">
+                        <div class="datalis-img">
+                            <img :src="cont.img" alt="">
+                        </div>
+                        <span class="foodes">{{cont.name}}</span>
+                        <i>x{{cont.vals}}</i>
+                        <span class="datalis-price">{{cont.price}}</span>
+                    </dd>
+                    <dd class="clearfix">
+                        <i>包装</i>
+                        餐盒
+                        <span class="datalis-price">&yen;3</span>
+                    </dd>
+                    <dd class="clearfix">
+                        <i>蜂鸟</i>
+                        配送费
+                        <span class="datalis-price">&yen;8</span>
+                    </dd>
+                </dl>
+            </div>
+            <div class="food">
+                    <div class="foot-price">
+                        <div class="foot-pri clearfix">
+                            <div class="money">
+                                <p>&yen;{{totalnum}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="foot-pay">
+                        <button>
+                        	去支付
+                        </button>
+                    </div>
+                </div>
+        </div>
+				`,
+				data() {
+					return {
+						arr: this.$route.params.cznum
+					}
+				},
+				created() {
+					console.log(this.$route.params.cznum)
+				},
+				computed:{
+					totalnum(){
+						var str=0;
+//						console.log(this.arr.length)
+//						this.arr.forEach(item => {
+//								str += item.vals * item.price;
+//						})
+//						for (var i=0; i<this.arr;i++) {
+//							str += this.arr[i].vals * this.arr[i].price;
+//						}
+						return str
+					}
+				}
+			})
+			var router = new VueRouter({
+				routes: [{
+					path: '/aaa',
+					component: aaa,
+					name: 'aaa'
+				}, ]
+			})
+			var vm = new Vue({
+				el: '#app',
+				router: router,
+				data: {
+					cznum: 0,
+					isshow: true,
+					allsnum: 0, //总数量
+					//					value: 0,
+					allnum: 0, //总价格
+					foods: [{
+							class: '水饺',
+							arr: [{
+									name: '猪肉白菜水饺',
+									img: 'img/8.png',
+									price: 16,
+									info: '月销量18份 100%好评',
+								},
+								{
+									name: '鱿鱼三鲜水饺',
+									price: 20,
+									img: 'img/9.png',
+									info: '月销量18份 100%好评',
+								},
+								{
+									name: '虾仁三鲜水饺',
+									price: 25,
+									img: 'img/10.png',
+									info: '月销量18份 100%好评',
+								},
+							]
+						},
+						{
+							class: '流食',
+							arr: [{
+									name: '鲜肉混沌',
+									price: 6,
+									img: 'img/10.png',
+									info: '月销量18份 100%好评',
+								},
+								{
+									name: '荠菜混沌',
+									price: 10,
+									img: 'img/9.png',
+									info: '月销量18份 100%好评',
+								},
+								{
+									name: '紫菜蛋花汤',
+									price: 5,
+									img: 'img/8.png',
+									info: '月销量18份 100%好评',
+								},
+							]
+						},
+						{
+							class: '凉菜',
+							arr: [{
+									name: '酱牛肉',
+									price: 33,
+									img: 'img/11.png',
+									info: '月销量18份 100%好评',
+								},
+								{
+									name: '爽口木耳',
+									price: 8,
+									img: 'img/10.png',
+									info: '月销量18份 100%好评',
+								},
+								{
+									name: '猪皮冻',
+									price: 10,
+									img: 'img/9.png',
+									info: '月销量18份 100%好评',
+								},
+							]
+						},
+						{
+							class: '包子',
+							arr: [{
+									name: '虾仁菜心包',
+									price: 9,
+									img: 'img/11.png',
+									info: '月销量18份 100%好评',
+								},
+								{
+									name: '冬笋酱肉包',
+									price: 10,
+									img: 'img/10.png',
+									info: '月销量18份 100%好评',
+								},
+								{
+									name: '素三鲜包',
+									price: 9,
+									img: 'img/9.png',
+									info: '月销量18份 100%好评',
+								},
+							]
+						},
+						{
+							class: '饮料',
+							arr: [{
+									name: '波蕊口乐',
+									price: 4.5,
+									img: 'img/11.png',
+									info: '月销量18份 100%好评',
+								},
+								{
+									name: '北冰洋',
+									price: 5,
+									img: 'img/10.png',
+									info: '月销量18份 100%好评',
+								},
+								{
+									name: '胡萝卜苹果汁',
+									price: 10,
+									img: 'img/9.png',
+									info: '月销量18份 100%好评',
+								},
+							]
+						},
+
+					]
+				}
+			})
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="js/flexible_css.js"></script>
+    <script src="js/flexible.js"></script>
+    <link rel="stylesheet" href="css/1.css">
+    <link rel="stylesheet" href="font/iconfont.css">
+</head>
+
+<body>
+    <div id="app">
+        <bc-main>
+            <bc-container>
+                <!-- 头部 -->
+                <bc-header>
+                    <div class="header">
+                        <div class="header-title clearfix">
+                            <h3>
+                                <span class="iconfont back">&#xe65b;</span>
+                                庆丰包子铺(窦店)
+                            </h3>
+                            <div class="header-icon">
+                                <span class="iconfont search">&#xe613;</span>
+                                <span class="iconfont share">&#xe623;</span>
+                            </div>
+                        </div>
+                    </div>
+                </bc-header>
+                <!-- 内容 -->
+                <bc-content :data="arr" @num="conut=$event" @btn="sum=$event">
+    
+                </bc-content>
+                <!-- 尾部 -->
+                <bc-footer>
+                    <div :key="1" class="footer clearfix" v-show="!conut==0">
+                        <div class="price">
+                            <div class="price1 clearfix">
+                                <div class="iconfont1">
+                                    <span class="iconfont">&#xe600;</span>
+                                    <i>{{sum}}</i>
+                                </div>
+                                <div class="money">
+                                    <p>￥{{conut}}</p>
+                                    <p>另需配送费8元</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pay">
+                            <button><router-link to="/zf">去结算</router-link></button>
+                        </div>
+                    </div>
+                </bc-footer>
+            </bc-container>
+        </bc-main>
+    </div>
+    <router-view></router-view>
+
+
+    <template id="container">
+        <div class="container">
+            <slot></slot>
+        </div>
+    </template>
+    <template id="main">
+        <div>
+            <slot></slot>
+        </div>
+    </template>
+    <!-- 头部 -->
+    <template id="header">
+        <div>
+            <slot></slot>
+        </div>
+    </template>
+    <!-- 内容 -->
+    <template id="content">
+        <div class="content">
+            <ul class="list clearfix">
+                <li><a href="javascript:;">点餐</a></li>
+                <li><a href="javascript:;">评价</a></li>
+                <li><a href="javascript:;">商家</a></li>
+            </ul>
+            <div class="conttext">
+                <ul>
+                    <li @click="num=index" v-for="(item,index) in foods" :class="num==index?'active':''">
+                        {{item.classify}}</li>
+                </ul>
+                <div class="content-text clearfix" v-if="num==index" v-for="(item,index) in foods">
+                    <div class="food-text clearfix" v-for="n in item.arr">
+                        <div class="img">
+                            <img :src="n.img">
+                        </div>
+                        <div class="food-contnet">
+                            <div class="introduce">
+                                <p>{{n.name}}</p>
+                                <span>{{n.info}}</span><span>{{n.eval}}</span>
+                            </div>
+                            <div class="content-price">
+                                <i>￥{{n.price}}</i>
+                                <bc-input-number v-model="n.val" :min="0"></bc-input-number>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+    <template id="cont">
+        <div class="el-input-number">
+            <span @click="jian" class="el-input-number__decrease is-disabled">
+                -<i class="el-icon-minus"></i>
+            </span>
+            <span @click="jia"  class="el-input-number__increase">
+                +<i class="el-icon-plus"></i>
+            </span>
+            <div class="el-input">
+                <input type="text" v-model="v" disabled>
+            </div>
+        </div>
+    </template>
+    <!-- 尾部 -->
+    <template id="footer">
+        <div class="footer">
+            <transition-group tag="div">
+                <slot></slot>
+            </transition-group>
+        </div>
+    </template>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+<script>
+    var zy = Vue.component('bc-container', {
+        template: '#container'
+    })
+    Vue.component('bc-main',{
+        template:'#main'
+    })
+    Vue.component('bc-header', {
+        template: '#header'
+    })
+    Vue.component('bc-content-cont', {
+        template: '#content'
+    })
+
+    Vue.component('bc-footer', {
+        template: '#footer',
+
+    })
+    // 选项卡
+    Vue.component('bc-content', {
+        template: '#content',
+        props: ['data'],
+        data() {
+            return {
+                value: 0,
+                num: 0,
+                foods: this.data
+            }
+        },
+        watch: {
+            sum(val, oldval) {
+                this.$emit('num', val)
+            },
+            goods(val, oldval) {
+                this.$emit('btn', val)
+            }
+        },
+        computed: {
+            sum() {
+                var price = 0;
+                this.foods.forEach(item => {
+                    item.arr.forEach(cont => {
+                        price += (cont.val || 0) * cont.price;
+                    })
+                })
+                return price;
+            },
+            goods() {
+                var sum = 0;
+                this.foods.forEach(item => {
+                    item.arr.forEach(cont => {
+                        sum += cont.val || 0
+                    })
+                })
+                return sum;
+            }
+        }
+    })
+    // 计步器
+    Vue.component('bc-input-number', {
+        template: '#cont',
+        props: ['value', 'max', 'min', 'step','disabled'],
+        data() {
+            return {
+                v: this.value || 0,
+            }
+        },
+        watch: {
+            v(val, oldvalue) {
+                if (val >= this.max) {
+                    val = this.max
+                }
+                if (val <= this.min) {
+                    val = this.min
+                }
+                this.$emit('input', val)
+            }
+        },
+        methods: {
+            jia() {
+                if (this.v >= this.max) {
+                    this.v = this.max
+                    return
+                }
+                this.v += this.step || 1
+            },
+            jian() {
+                if (this.v <= this.min) {
+                    this.v = this.min
+                    return
+                }
+                this.v -= this.step || 1
+            },
+        }
+    })
+    var zf = Vue.component('zf',{
+        template:'<div class="zf"><!-- 返回 --><div class="fh"><span><router-link><</router-link></span><h3>确认订单</h3></div><!-- 订单 --><div class="dd"><div class="dd-main"><div class="dd-header"><h3>庆丰包子铺（窦店）</h3></div><div class="dd-body"><div class="dd-item"><div class="dd-img"><img src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2202050081,1260015096&fm=27&gp=0.jpg" alt=""></div><div class="dd-name"><h3>炸鸡全家桶</h3></div><div class="dd-sl"><span>x3</span></div><div class="dd-jq"><span>￥60</span></div></div><div class="dd-item"><div class="dd-sl dd-sl-two"><span class="dd-span">包装</span></div><div class="dd-name"><h3>餐盒</h3></div><div class="dd-jq"><span>￥3</span></div></div><div class="dd-item"><div class="dd-sl dd-sl-three"><span class="dd-span">蜂鸟</span></div><div class="dd-name"><h3>配送费</h3></div><div class="dd-jq"><span>￥8</span></div></div></div></div></div><div class="dd-foot"><div class="dd-footLeft"><p>￥8</p></div><div class="dd-footRight"><p>去支付</p></div></div></div>',
+    })
+    
+    console.log(VueRouter)
+    var router = new VueRouter({
+        routes:[
+            {
+                path:'/zf',
+                component:zf
+            },{
+                path:'/zy',
+                component:zy,
+            }
+        ]
+    })
+    var vm = new Vue({
+        el: '#app',
+        router:router,
+        data: {
+            conut: 0,
+            sum: 0,
+            arr: [
+                {
+                    classify: '热销',
+                    arr: [
+                        {
+                            img: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2202050081,1260015096&fm=27&gp=0.jpg',
+                            name: '炸鸡',
+                            price: 20,
+                            info: '月销量500',
+                            eval: '好评率：99%'
+                        },
+                        {
+                            img: 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2497571715,1431891556&fm=27&gp=0.jpg',
+                            name: '素三鲜水饺',
+                            price: 20,
+                            info: '月销量60',
+                            eval: '好评率：70%'
+                        },
+                        {
+                            img: 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2634954541,352124651&fm=27&gp=0.jpg',
+                            name: '猪肉水饺',
+                            price: 30,
+                            info: '月销量100',
+                            eval: '好评率：60%'
+                        },
+                        {
+                            img: 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1926447759,2383249261&fm=11&gp=0.jpg',
+                            name: '鸡蛋汤',
+                            price: 30,
+                            info: '月销量60',
+                            eval: '好评率：50%'
+                        },
+                    ]
+                },
+                {
+                    classify: '流食',
+                    arr: [
+                        {
+                            img: 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=398600143,4053879256&fm=27&gp=0.jpg',
+                            name: '绿豆粥',
+                            price: 5,
+                            info: '月销量50',
+                            eval: '好评率：50%'
+                        },
+                        {
+                            img: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=305840843,1891919891&fm=27&gp=0.jpg',
+                            name: '红枣莲子粥',
+                            price: 6,
+                            info: '月销量50',
+                            eval: '好评率：50%'
+                        },
+                        {
+                            img: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3019227062,1872021934&fm=27&gp=0.jpg',
+                            name: '皮蛋瘦肉粥',
+                            price: 7,
+                            info: '月销量50',
+                            eval: '好评率：50%'
+                        },
+                    ]
+                },
+                {
+                    classify: '水饺',
+                    arr: [
+                        {
+                            img: 'https://f10.baidu.com/it/u=4282036640,831512286&fm=72',
+                            name: '猪肉大葱包子',
+                            price: 30,
+                            info: '月销量50',
+                            eval: '好评率：50%'
+                        },
+                        {
+                            img: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1562255798314&di=65d96390961564d8dbf556d1b8c8f574&imgtype=0&src=http%3A%2F%2Fimg1.voc.com.cn%2FUpLoadFile%2F2016%2F08%2F25%2F201608250717393006.jpg',
+                            name: '三鲜水饺',
+                            price: 20,
+                            info: '月销量50',
+                            eval: '好评率：50%'
+                        },
+                        {
+                            img: 'https://f10.baidu.com/it/u=4282036640,831512286&fm=72',
+                            name: '韭菜盒子',
+                            price: 15,
+                            info: '月销量50',
+                            eval: '好评率：50%'
+                        },
+                    ]
+                },
+                {
+                    classify: '凉菜',
+                    arr: [
+                        {
+                            img: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1481868521,3172249719&fm=27&gp=0.jpg',
+                            name: '青椒丝',
+                            price: 15,
+                            info: '月销量50',
+                            eval: '好评率：50%'
+                        },
+                        {
+                            img: 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=270643652,285130330&fm=27&gp=0.jpg',
+                            name: '冰糖黄瓜',
+                            price: 15,
+                            info: '月销量50',
+                            eval: '好评率：50%'
+                        },
+                        {
+                            img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3482189062,3654786555&fm=27&gp=0.jpg',
+                            name: '素肉',
+                            price: 25,
+                            info: '月销量50',
+                            eval: '好评率：50%'
+                        },
+                    ]
+                },
+                {
+                    classify: '包子',
+                    arr: [
+                        {
+                            img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3607722980,2957536157&fm=26&gp=0.jpg',
+                            name: '三鲜包子',
+                            price: 30,
+                            info: '月销量50',
+                            eval: '好评率：50%'
+                        },
+                        {
+                            img: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1562255798314&di=65d96390961564d8dbf556d1b8c8f574&imgtype=0&src=http%3A%2F%2Fimg1.voc.com.cn%2FUpLoadFile%2F2016%2F08%2F25%2F201608250717393006.jpg',
+                            name: '三鲜包子',
+                            price: 20,
+                            info: '月销量50',
+                            eval: '好评率：50%'
+                        },
+                        {
+                            img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3607722980,2957536157&fm=26&gp=0.jpg',
+                            name: '三鲜包子',
+                            price: 10,
+                            info: '月销量50',
+                            eval: '好评率：50%'
+                        },
+                    ]
+                },
+                {
+                    classify: '庆丰福粽',
+                    arr: [
+                    {
+                            img: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2878435730,3259854871&fm=27&gp=0.jpg',
+                            name: '红豆粽子',
+                            price: 6,
+                            info: '月销量50',
+                            eval: '好评率：50%'
+                        },
+                        {
+                            img: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=113208759,494844991&fm=27&gp=0.jpg',
+                            name: '豆沙粽子',
+                            price: 6,
+                            info: '月销量50',
+                            eval: '好评率：50%'
+                        },
+                        {
+                            img: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3260009669,3872177725&fm=27&gp=0.jpg',
+                            name: '肉粽',
+                            price: 10,
+                            info: '月销量50',
+                            eval: '好评率：50%'
+                        },
+                    ]
+                },
+                {
+                    classify: '冷饮',
+                    arr: [
+                    {
+                            img: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=4068085479,4112711859&fm=27&gp=0.jpg',
+                            name: '彩虹饮',
+                            price: 10,
+                            info: '月销量50',
+                            eval: '好评率：50%'
+                        },
+                        {
+                            img: 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2851374011,1876830024&fm=27&gp=0.jpg',
+                            name: '层层靓',
+                            price: 20,
+                            info: '月销量50',
+                            eval: '好评率：50%'
+                        },
+                        {
+                            img: 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2863762430,957922078&fm=27&gp=0.jpg',
+                            name: '草莓冰沙',
+                            price: 20,
+                            info: '月销量50',
+                            eval: '好评率：50%'
+                        },
+                        {
+                            img: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1588377916,234136657&fm=27&gp=0.jpg',
+                            name: '水果家族',
+                            price: 25,
+                            info: '月销量50',
+                            eval: '好评率：50%'
+                        },
+                    ]
+                },
+                {
+                    classify: '豆浆饮品',
+                    arr: [
+                    {
+                            img: 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1480845651,2744082904&fm=27&gp=0.jpg',
+                            name: '豆浆',
+                            price: 6,
+                            info: '月销量50',
+                            eval: '好评率：50%'
+                        },
+                        {
+                            img: 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1058289598,3767790234&fm=27&gp=0.jpg',
+                            name: '现磨豆浆',
+                            price: 6,
+                            info: '月销量50',
+                            eval: '好评率：50%'
+                        },
+                    ]
+                }
+            ]
+        }
+    })
+
+</script>
+
+</html>
