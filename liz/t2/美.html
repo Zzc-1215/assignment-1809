@@ -54,7 +54,6 @@
             height: 0.7rem;
             line-height: 0.7rem;
             border: 1px solid #dfdfdf;
-            /* background-color: aqua; */
             position: relative;
         }
 
@@ -675,7 +674,11 @@
                     });
                     return n.toFixed(2);
                 },
-                
+                ling(){
+                    var m=11;
+                    this.total+m;
+                    return 1;
+                }
             },
             watch: {
                 selectList(v1) {
@@ -701,13 +704,7 @@
                         n += (element.price).split('￥')[1] * element.num;
                     });
                     return n.toFixed(2);
-                },      
-                ling(){
-                    var m=11;
-                  var t=  Number(this.total)+m;
-                    return  t;
                 }
-
             },
 
 
@@ -728,7 +725,6 @@
             router,
             el: '#app',
         })
-
     </script>
 </body>
 

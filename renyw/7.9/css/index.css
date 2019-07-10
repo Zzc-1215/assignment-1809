@@ -190,6 +190,9 @@ img{vertical-align: middle;}
     font-size: 0.389rem;
     cursor: pointer;
 }
+.goPay a{
+    color: #fff;
+}
 .car{
     width: 1.11rem;
     height: 1.11rem;

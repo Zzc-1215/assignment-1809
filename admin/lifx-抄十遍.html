@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../assets/js/vue.js"></script>
+    <script src="../assets/js/vue-router.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h1>123</h1>
+
+        <children @gun="zou">
+            <template v-slot:num>
+                <a>321</a>
+            </template> abc</children>
+        <children2 :data="data"></children2>
+    </div>
+
+    <script>
+
+        Vue.component('children',{
+            template: '<a><slot name="num"></slot>link<slot></slot><sunzi @gun="zou"></sunzi></a>',
+            components:{
+                sunzi:{
+                   template:'<h1>sunzi</h1>' ,
+                   methods: {
+                    emit(){
+                        this.$emit('gun',{
+                            x:1,
+                            y:2,
+                        });
+                    }
+            },
+                }
+            },
+            methods: {
+                zou(){
+                    this.$emit('gun',{
+                        x:1,
+                        y:2,
+                    });
+                },
+                emit(){
+                    this.$emit('gun',{
+                        x:1,
+                        y:2,
+                    });
+                }
+            },
+        })
+
+        Vue.component('children2',{
+            template: '<a>link</a>',
+            props:['data'],
+            methods: {
+                emit(){
+                    this.$emit('gun',{
+                        x:1,
+                        y:2,
+                    });
+                }
+            },
+        })
+        new Vue({
+            el:'#app',
+            data:{
+                data:0,
+            },
+            methods:{
+                zou(){
+                    // console.log($event.x);
+                    this.data = 2;
+                }
+            }
+        })
+    </script>
+</body>
+</html>

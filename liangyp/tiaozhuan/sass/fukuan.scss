@@ -1,0 +1,202 @@
+@charset 'utf-8';
+*{
+	margin: 0;
+	padding: 0;
+	user-select: none;
+}
+
+#app{
+	width: 750px;
+	height: auto;
+	@at-root{
+		.container{
+			width:750px;
+			height:auto;
+			background: #f5f5f5;
+			@at-root{
+				.back{
+					width:750px;
+					height: 100px;
+					h3{
+						width:720px;
+						font-size: 38px;
+						line-height: 100px;
+						padding-left: 30px;
+						i{
+							font-size: 36px;
+							color: #258cd7;
+						}
+					}
+				}
+			}
+			@at-root{
+				.content{
+					width:730px;
+					height: auto;
+					padding: 10px 10px 0 10px;
+					background: #3db2f8;
+					// background: line-gradient(#3db2f8,#fff);
+					.qf{
+						width:680px;
+						padding: 0 25px;
+						height: auto;
+						background:#fff;
+						.header{
+							width: 680px;
+							height: 100px;
+							border-bottom: solid 2px #ccc;
+							span{
+								line-height: 100px;
+								font-size: 34px;
+							}
+						}
+						.foods{
+							width: 680px;
+							height: auto;
+							border-top: solid 1px #ccd;
+							margin-top: 4px;
+							.food{
+								width: 680px;
+								height: 180px;
+								border-bottom: solid 1px #ccc;
+								.foodImg{
+									width: 100px;
+									height: 180px;
+									float: left;
+									img{
+										vertical-align: middle;
+										width: 100px;
+										height: 100px;
+									}
+								}
+								.intro{
+									width: 560px;
+									height: 180px;
+									float: left;
+									margin-left: 20px;
+									line-height: 180px;
+									.name{
+										width: 320px;
+										height: 180px;
+										float: left;
+										font-size: 32px;
+									}
+									.num{
+										width: 120px;
+										height: 180px;
+										float: left;
+										font-size: 24px;
+									}
+									.money{
+										width: 120px;
+										height: 180px;
+										float: right;
+										font-size: 32px;
+									}
+								}
+							}
+						}
+						.lunchBox,.delivery{
+							width: 680px;
+							height: 100px;
+							border-bottom: solid 1px #ccc;
+							h3{
+								line-height: 100px;
+								font-size: 30px;
+								span{
+									width: 120px;
+									height: 100px;
+									display: inline-block;
+									float: right;
+								}
+							}
+						}
+						.totalPrices{
+							width: 680px;
+							height: 100px;
+							border-bottom: solid 1px #ccc;
+							h3{
+								line-height: 100px;
+								font-size: 30px;
+								span{
+									width: 120px;
+									height: 100px;
+									display: inline-block;
+									float: right;
+								}
+							}
+						}
+					}
+				}
+			}
+			@at-root{
+				.footer{
+					width:750px;
+					height:97px;
+					position: fixed;
+					left: 0;
+					bottom: 0;
+					.car{
+						width:580px;
+						height: 97px;
+						background: #515154;
+						float:left;
+						h4{
+							color: #fff;
+							font-size: 36px;
+							line-height: 97px;
+							padding-left: 20px;
+						}
+					}
+					.account{
+						width: 170px;
+						height: 97px;
+						background: #37cb72;
+						float: right;
+						p{
+							line-height: 97px;
+							text-align: center;
+							font-size: 34px;
+							color: #fff;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -66,9 +66,13 @@
                             <p class="ps">另需配送费{{ps}}元</p>
                         </div>
                     </template>
+
                     <template v-slot:gowhat>
-                        去结算
+                        <router-link :to="{name:'gotopay'}">
+                            去结算
+                        </router-link>
                     </template>
+
                 </yw-footer>
             </transition>
         </div>
@@ -114,7 +118,9 @@
     <!-- 头部布局组件 -->
     <template id="head">
         <header class="head">
-            <i class="iconfont fh">&#xe606;</i>
+            <router-link :to="{path:'/'}">
+                <i class="iconfont fh">&#xe606;</i>
+            </router-link>
             <span>
                 <slot></slot>
             </span>
@@ -333,7 +339,7 @@
                     ]
                 }
             },
-            methods:{
+            methods: {
                 // gopay(){
                 //     this.gopay();
                 // }
@@ -359,8 +365,8 @@
         })
         Vue.component('yw-footer', {
             template: '#foot',
-            props:[],
-            methods:{
+            props: [],
+            methods: {
                 // gopay(){
                 //     this.gopay();
                 // }
@@ -453,10 +459,12 @@
                 {
                     path: '/',
                     component: indexList,
+                    name:''
                 },
                 {
                     path: '/gotopay',
                     component: gotopay,
+                    name: 'gotopay'
                 },
             ]
         })
@@ -474,7 +482,7 @@
 
             },
             methods: {
-                gopay(){
+                gopay() {
                     this.$router.push('/gotopay')
                 }
             }
