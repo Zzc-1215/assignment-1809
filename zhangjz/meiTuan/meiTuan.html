@@ -6,16 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <style>
-        .aaa {
-            background: #000;
-        }
-    </style>
     <script src="js/flexible_css.js"></script>
     <script src="js/flexible.js"></script>
     <link rel="stylesheet" href="css/meiTuan.css">
     <link rel="stylesheet" href="font/iconfont.css">
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
 </head>
 
 <body>
@@ -67,9 +63,9 @@
                                 <p class="food_price fl">{{i.price}}</p>
                                 <div class="counter fr">
                                     <template id="inputNumber">
-                                        <span class="sub" @click='sub(i)'>-</span><span
-                                            class="amount">{{i.number || 0}}</span><span class="add"
-                                            @click="add(i)">+</span>
+                                        <span class="sub" @click="sub(i)">-</span>
+                                        <span class="amount">{{i.number || 0}}</span>
+                                        <span class="add" @click="add(i)">+</span>
                                     </template>
                                 </div>
                             </div>
@@ -78,8 +74,11 @@
                 </div>
             </div>
             <div class="foot">
-                <span>￥555</span>
+                <span>￥{{zongjia}}</span>
+                <b>{{nums}}</b>
+                <!-- <router-link :to="{name:'abc'}">aaa</router-link> -->
                 <button class="fr">去结算</button>
+                <!-- <router-view></router-view> -->
             </div>
         </div>
     </template>
@@ -101,7 +100,7 @@
                         intro: '虾仁一个,万年青菜',
                         sell: 666,
                         praise: 66,
-                        price: '￥9',
+                        price: 9,
                         num: 8,
                     },
                     {
@@ -110,7 +109,7 @@
                         intro: '正宗非洲野猪肉,买不了吃亏买不了上当',
                         sell: 222,
                         praise: 44,
-                        price: '￥8',
+                        price: 8,
                         num: 14,
                     }],
                 },
@@ -122,7 +121,7 @@
                         intro: '发霉的米',
                         sell: 444,
                         praise: 4,
-                        price: '￥4',
+                        price: 4,
                         num: 33,
                     },
                     {
@@ -131,17 +130,50 @@
                         intro: '长大的螨虫,仔细看',
                         sell: 333,
                         praise: 44,
-                        price: '￥2',
+                        price: 2,
                         num: 22,
                     }],
                 }],
             }
         },
+        computed: {
+            // 单个数量
+            sl() {
+                var str = []
+                this.arr.forEach(element => {
+                    element.food.forEach(el => {
+                        if (el.number) {
+                            str.push(el)
+                        }
+                    })
+                })
+                return str
+            },
+            // 总价格
+            zongjia() {
+                var n = 0
+                this.sl.forEach(element => {
+                    n += element.price * element.number
+                })
+                return n
+            },
+            // 总数量
+            nums() {
+                var m = 0
+                this.sl.forEach(element => {
+                    m += element.number
+                })
+                return m
+            }
+
+        },
         methods: {
+            // 颜色
             style(i) {
                 this.i = i;
                 this.active = i;
             },
+            // ++
             add(i) {
                 if (i.number) {
                     i.number++;
@@ -149,6 +181,7 @@
                     Vue.set(i, 'number', 1);
                 }
             },
+            // --
             sub(i) {
                 if (i.number) {
                     if (i.number == 0) return;
@@ -156,18 +189,38 @@
                 }
             },
         },
+
+    })
+    var abc = Vue.extend({
+        template: '<h1>{{data.user}}</h1>',
+        data() {
+            return {
+                data: this.$route.params
+            }
+        }
     })
 
 
 
 
 
+
+    const router = new VueRouter({
+        routes: [
+            // {
+            //     path: '/',
+            //     // component: selectGoods
+            // }, 
+            {
+                path: '/abc',
+                name: 'abc',
+                component: abc,
+            }
+        ]
+    })
     //暴露组件
     new Vue({
         el: "#root",
-        data: {
-
-        },
     })
 </script>
 

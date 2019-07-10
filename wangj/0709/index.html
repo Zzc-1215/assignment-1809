@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"> -->
+    <title>Document</title>
+    <link rel="stylesheet" href="css/index.css">
+    <script src="js/flexible_css.js"></script>
+    <script src="js/flexible.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue-router.js"></script> -->
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div class="bgBox">
+            <!-- 头部 -->
+            <bc-header>庆丰包子铺(窦店)</bc-header>
+            <!-- 中间内容 -->
+            <bc-main>
+                <qf-shop :sp="foods" @ttchange="allprice=$event" @numchange="allnum=$event"></qf-shop>
+            </bc-main>
+            <!-- 尾部 -->
+            <transition>
+                <bc-footer v-show="allnum">
+                    <template v-slot:allnum>
+                        {{allnum}}
+                    </template>
+                    <template v-slot:allprice>
+                        <div class="settled">
+                            <p>￥{{allprice}}</p>
+                        </div>
+                    </template>
+                </bc-footer>
+            </transition>
+        </div>
+    </div>
+    
+    <!-- 头部布局组件 -->
+    <template id="header">
+            <header class="header clearfix">
+                <i class="iconfont returns">&#xe65b;</i>
+                <span>
+                    <slot></slot>
+                </span>
+                <div class="ltcont">
+                    <a href="#"><i class="iconfont search">&#xe661;</i></a>
+                    <a href="#"><i class="iconfont share">&#xe639;</i></a>
+                </div>
+            </header>
+        </template>
+
+    <!-- 选项卡组件 -->
+    <template id="shopbox">
+        <div class="listBox clearfix">
+            <ul class="listBox_nav">
+                <li class="listBox_nav_li" :class="typeInx==$index?'active':''" @click="typeInx=$index"
+                    v-for="(food,$index) in foods">{{food.ltypes}}</li>
+            </ul>
+            <div class="productBox">
+                <div v-if="typeInx==$index" v-for="(ltypect,$index) in foods">
+                    <div class="productBox_item clearfix" v-for="(cont,i) in ltypect.food" :key="i+$index+'cont'">
+                        <div class="imgBox">
+                            <img :src='cont.img' alt="">
+                        </div>
+                        <div class="productBox_item_cont">
+                            <p class="product_name">{{cont.name}}</p>
+                            <p class="product_info">{{cont.info}}</p>
+                            <div class="product_price clearfix">
+                                <p class="price">￥{{cont.price}}</p>
+                                <bc-input-number v-model="cont.num" :min="0"></bc-input-number>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <!-- 计数器组件 -->
+    <template id="intNumber">
+        <div class="box">
+            <span v-show="v" class="prev" @click="prev">-</span>
+            <input v-show="v" type="text" class="int" v-model="v">
+            <span class="next" @click="next">+</span>
+        </div>
+    </template>
+
+    <!-- 尾部布局的组件 -->
+    <template id="footer">
+        <footer class="footer">
+            <div class="car">
+                <i class="iconfont gwc">&#xe600;</i>
+                <div class="allnum">
+                    <slot name="allnum"></slot>
+                </div>
+            </div>
+            <slot name="allprice"></slot>
+            <!-- <router-link to="/confirm" class="toPay">
+                <div>去结算</div>
+            </router-link> -->
+                <div class="toPay">去结算</div>
+        </footer>
+    </template>
+
+    <!-- <template id="confirm">
+        <div class="box">
+            <header class="header">
+                <router-link to="/" class="iconfont returns">&#xe65b;</router-link>
+                <h3 class="header_tit">确认订单</h3>
+            </header>
+            <div class="listBox">
+                <ul class="listBox_nav">
+                    <li class="listBox_nav_li" v-for="(o,i) in arr"></li>
+                </ul>
+            </div>
+        </div>
+    </template> -->
+</body>
+
+<script>
+
+    // var confirm = Vue.extend('confirm', {
+    //     template: '#confirm',
+    //     data() {
+    //         return {
+    //             arr: this.$route.params || [],
+    //         }
+    //     }
+    // })
+
+    // var router = new VueRouter({
+    //     routes: [{
+    //         path: '/index.html',
+    //         // component: index,
+    //     }, {
+    //         name: 'confirm',
+    //         path: '/confirm',
+    //         component: confirm,
+    //         params:{
+
+    //         }
+    //     },]
+    // })
+
+
+    //布局组件
+    Vue.component('bc-header', {
+        template: '#header'
+    })
+    Vue.component('bc-main', {
+        template: '<div class="contentbox"><slot></slot></div>'
+    })
+    Vue.component('bc-footer', {
+        template: '#footer'
+    })
+
+    //选项卡组件
+    var component = Vue.component('qf-shop', {
+        template: '#shopbox',
+        props: ['sp'],
+        data() {
+            return {
+                typeInx: 0,
+                value: 0,
+                foods: this.sp
+            }
+        },
+        watch: {
+            total(val, oldval) {
+                this.$emit('ttchange', val)
+            },
+            allnum(val, oldval) {
+                this.$emit('numchange', val)
+            }
+        },
+        computed: {
+            total() {
+                var total = 0;
+                this.foods.forEach(item => {
+                    item.food.forEach(cont => {
+                        // cont.num = 0;
+                        total += (cont.num || 0) * cont.price;
+                    })
+                })
+                return total;
+            },
+            allnum() {
+                var allnum = 0;
+                this.foods.forEach(item => {
+                    item.food.forEach(cont => {
+                        allnum += (cont.num || 0);
+                    })
+                })
+                return allnum;
+            }
+        }
+    })
+
+    //计数器组件
+    var component2 = Vue.component('bc-input-number', {
+        template: '#intNumber',
+        props: ['value', 'step', 'max', 'min'],
+        data() {
+            return {
+                v: this.value || 0,
+            }
+        },
+        watch: {
+            v(val, oldvalue) {
+                if (val >= this.max) {
+                    val = this.max
+                }
+                if (val <= this.min) {
+                    val = this.min
+                }
+                this.$emit('input', val)
+            },
+        },
+        methods: {
+            next() {
+                if (this.v >= this.max) {
+                    this.v = this.max;
+                    return;
+                }
+                this.v += this.step || 1;
+            },
+            prev() {
+                if (this.v <= this.min) {
+                    this.v = this.min
+                    return;
+                }
+                this.v -= this.step || 1;
+            }
+        }
+    })
+
+    //根实例
+    var vm = new Vue({
+        el: '#app',
+        // router: router,
+        data() {
+            return {
+                allnum: 0,
+                allprice: 0,
+                foods: [
+                    {
+                        ltypes: '水饺',
+                        food: [{
+                            name: '猪肉白菜水饺',
+                            price: '16',
+                            info: '月售18份，好评率100%',
+                            img: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1877410185,2760910629&fm=26&gp=0.jpg'
+                        }, {
+                            name: '鲅鱼三鲜水饺',
+                            price: '20',
+                            info: '月售18份，好评率100%',
+                            img: 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2177409641,2693109708&fm=26&gp=0.jpg'
+                        }, {
+                            name: '虾仁三鲜水饺',
+                            price: '25',
+                            info: '月售19份，好评率100%',
+                            img: 'https://f12.baidu.com/it/u=2846344889,4254991245&fm=72'
+                        }, {
+                            name: '南瓜皮菌菇三鲜猪肉水饺',
+                            price: '24',
+                            info: '月售18份，好评率100%',
+                            img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3037188577,955349426&fm=26&gp=0.jpg'
+                        },]
+                    }, {
+                        ltypes: '流食',
+                        food: [{
+                            name: '绿豆粥',
+                            price: '3',
+                            info: '月售19份，好评率100%',
+                            img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3297863117,2099093432&fm=26&gp=0.jpg'
+                        }, {
+                            name: '鲜肉馄饨',
+                            price: '20',
+                            info: '猪肉(肥瘦适中),大葱',
+                            img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3607722980,2957536157&fm=26&gp=0.jpg'
+                        }, {
+                            name: '小米粥',
+                            price: '3',
+                            info: '月售19份，好评率100%',
+                            img: 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2961899089,2359868428&fm=26&gp=0.jpg'
+                        }, {
+                            name: '紫米粥',
+                            price: '3',
+                            info: '月售19份，好评率100%',
+                            img: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1766754300,2127965162&fm=26&gp=0.jpg'
+                        },]
+                    }, {
+                        ltypes: '凉菜',
+                        food: [{
+                            name: '茶叶蛋',
+                            price: '2',
+                            info: '月售19份，好评率100%',
+                            img: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3714831195,2496805530&fm=26&gp=0.jpg'
+                        }]
+                    }, {
+                        ltypes: ' 包子',
+                        food: [{
+                            name: '素三鲜包子',
+                            price: '9',
+                            info: '月售19份，好评率100%',
+                            img: 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2850083183,3570198426&fm=26&gp=0.jpg'
+                        }, {
+                            name: '猪肉梅干菜',
+                            price: '9',
+                            info: '猪肉,梅干菜',
+                            img: 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1434478260,714915744&fm=26&gp=0.jpg'
+                        }, {
+                            name: '牛肉大葱',
+                            price: '9',
+                            info: '月售19份，好评率100%',
+                            img: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=459723164,1031081223&fm=26&gp=0.jpg'
+                        }, {
+                            name: '猪肉茴香',
+                            price: '7',
+                            info: '猪肉,茴香',
+                            img: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=461559683,1034562744&fm=26&gp=0.jpg'
+                        },]
+                    }, {
+                        ltypes: '庆丰福棕',
+                        food: [{
+                            name: '黄米豆沙粽',
+                            price: '5',
+                            info: '月售19份，好评率100%',
+                            img: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1598047703,1841800608&fm=26&gp=0.jpg'
+                        }, {
+                            name: '香菇卤肉粽',
+                            price: '5',
+                            info: '月售19份，好评率100%',
+                            img: 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=4079914492,1020146587&fm=15&gp=0.jpg'
+                        }, {
+                            name: '江米蜜枣粽',
+                            price: '5',
+                            info: '月售19份，好评率100%',
+                            img: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1303447562,2302959512&fm=26&gp=0.jpg'
+                        },]
+                    }
+                ]
+            }
+        },
+    })
+</script>
+
+</html>

@@ -7,6 +7,7 @@
 	height: 1rem;
 	line-height: 1rem;
 	border-bottom:2px solid #dfdfdf;
+	background-color: #fff;
 }
 .header span{
 	font-size:35px;
@@ -202,4 +203,141 @@
 
 .oheight{
 	height: 1rem;
+}
+/* 结账 */
+.zj{
+	width: 7.5rem;
+	height:6rem;
+	background:linear-gradient(#3fbbfb,#f5f5f5,#f5f5f5);
+	padding:20px 0;
+}
+.title{
+	width:7.5rem;
+	height:1.2rem;
+	background-color: #fff;
+	line-height: 1.2rem;
+}
+.title p{
+	margin-left: 0.49rem;
+	font-size: 0.38rem;
+	color:#0d8dee;
+	letter-spacing:4px;
+	cursor: pointer;
+}
+.title span{
+	color:#121212;
+	font-size: 0.38rem;
+}
+.headera{
+	width: 7.3rem;
+	height: 1rem;
+	line-height: 1rem;
+	border-bottom:2px solid #fff;
+	background-color: #fff;
+	margin:0 auto;
+	background-color: #fff;
+	text-align:center;
+}
+.headera span{
+	color:#454545;
+	font-size:32px;
+}
+.headera p{
+	color:#282828;
+	width:6.2rem;
+	letter-spacing:4px;/* 设置字体间距 */
+	font-size:35px;
+	margin:0 auto;
+	text-align: left;
+	border-bottom: 2px solid #ccc;
+}
+.sp_main{
+	width:7.3rem;
+	min-height: 3rem;
+	margin: 0 auto;
+	background-color: #fff;
+}
+.list_sp{
+	width:6.2rem;
+	height:100%;
+	margin:0 auto;
+	padding:10px 0;
+}
+.list_sp li{
+	list-style: none;
+	width: 100%;
+	height: 1rem;
+	line-height:1rem;
+	border-bottom:2px dashed #ccc;
+}
+.list_sp li img{
+	float: left;
+	width: 0.9rem;
+	height: 0.9rem;
+	margin-top:6px;
+}
+.list_sp li p:nth-of-type(1){
+	color:#474747;
+	font-size:35px;
+	margin-left:0.25rem;
+	float: left;
+}
+.list_sp li p:nth-of-type(2){
+	color:#474747;
+	font-size:30px;
+	margin-left:1.8rem;
+	float: left;
+}
+.list_sp li p:nth-of-type(3){
+	color:#474747;
+	font-size:30px;
+	float:right;
+}
+#list_a img{
+	width:0.51rem;
+	height: 0.3rem;
+	margin-top:0.38rem;
+	float: left;
+}
+#list_a p:nth-of-type(1){
+	font-size: 30px;
+	color:#5f5f5f;
+	margin-left: 25px;
+}
+#list_a p:nth-of-type(2){
+	font-size: 30px;
+	color:#5f5f5f;
+	margin-left: 25px;
+	float: right;
+}
+#xq p{
+	font-size: 30px;
+	color:#000;
+	float: left;
+}
+#xq img{
+	float: right;
+	width: 2.5rem;
+	height: 0.3rem;
+	margin-top:0.35rem;
+}
+#fk p:nth-of-type(1){
+	font-size: 30px;
+	color:#5f5f5f;
+	float: left;
+}
+#fk p:nth-of-type(2){
+	font-size: 25px;
+	color:#5f5f5f;
+	float: right;
+}
+#fk p:nth-of-type(2) span{
+	font-size:40px;
+	color:#000;
+}
+#fk img{
+	width: 0.2rem;
+	height: 0.2rem;
+	margin-top:0.4rem;
+	margin-left: 5px;
 }

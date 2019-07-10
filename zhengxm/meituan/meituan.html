@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="js/flexible.js"></script>
+    <script src="js/flexible_css.js"></script>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>美团</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+    <link rel="stylesheet" type="text/css" href="font/iconfont.css">
+    <link rel="stylesheet" type="text/css" href="css/mt.css">
+</head>
+<body>
+    <div id="app">
+        <router-view></router-view>
+    </div>
+    <template id="shops">
+        <div class="zxmcon">
+            <div class="head">
+                <i class="iconfont jt">&#xe650;</i>
+                <span>庆丰包子铺（窦店）</span>
+            </div>
+            <div id="content">
+                <div class="bq">
+                    <p><span class="bor">点餐</span></p>
+                    <p><span>评价</span></p>
+                    <p><span>商家</span></p>
+                </div>
+                <ul class="left">
+                    <li v-for="(item,index) in shop"  @click="send(index)" :class="{active:num==index}">{{item.menu}}</li>
+                </ul>
+                <ul class="right" v-if="num==index" v-for="(its,index) in shop">
+                    <li v-for="(it,index) in its.foods" :key="index+index">
+                        <div class="image">
+                            <img :src="it.img">
+                        </div>
+                        <div class="r">
+                            <h1>{{it.name}}</h1>
+                            <p>{{it.info}}</p>
+                            <div class="jg">
+                                <p class="price">￥{{it.price}}</p>
+                                <bc-input-number v-model="it.num" :min="0" :step=1></bc-input-number>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div id="foot">
+                <div class="car">
+                    <i class="iconfont gw">&#xe600;</i>
+                    <div class="totalnum">{{all}}</div>
+                </div>
+                <p class="money">￥{{total}}</p>
+                <div class="jss">
+                    <router-link :to="{name:'abc',params:{allList,total}}" id="jsBtn">去结算</router-link>
+                </div>
+                
+            </div>
+        </div>
+    </template>
+    <template id="payment">
+        <div class="nr">
+            <div class="tou">
+                <router-link to="/" id="jsBtn"><i class="iconfont jt">&#xe650;</i></router-link>
+                <span>确认订单</span>
+            </div>
+            <div class="contents">
+                <div class="ord">
+                    <h1 class="dm">庆丰包子铺（窦店）</h1>
+                    <div class="zhz" v-for="it in $route.params.allList">
+                        <div class="imag">
+                            <img :src="it.img"> 
+                        </div>
+                        <div class="rig">
+                            <span class="title">
+                                {{it.name}}
+                            </span>
+                            <span class="number">
+                                ×{{it.num}}
+                            </span>
+                            <span class="pri">
+                                ￥{{it.price * it.num}}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="tot">
+                        <p class="ch"><span class="bz">包装</span>餐盒</p>
+                        <p class="jh">￥3</p>
+                    </div>
+                    <div class="tot">
+                        <p class="psf"><span class="fn">蜂鸟</span>配送费</p>
+                        <p class="jh">￥8</p>
+                    </div>
+                    <div class="tot">
+                        <p class="yh">优惠说明<span class="iconfont wen">&#xe657;</span></p>
+                        <p class="xj"><i class="jq">小计￥</i>{{$route.params.total+3+8 || +3+8}}</p>
+                    </div>
+                </div>
+            </div> 
+            <div class="cleared">
+                <p class="clear">￥{{$route.params.total+3+8 || 0+3+8}}</p>
+                <button class="cBtn">去支付</button>
+            </div>
+        </div>
+    </template>
+    <template id="inputNumber">
+        <div id="ipt">
+            <div class="el-input-number">
+                <span role="button" class="el-input-number__decrease" @click="jian">
+                    -<i></i>
+                </span>
+                <span role="button" class="el-input-number__increase" @click="jia">
+                    +<i></i>
+                </span>
+                <div class="el-input">
+                    <input type="text" class="el-input__inner" :value="v">
+            </div>
+        </div>
+        </div>
+    </template>
+    <script>
+        Vue.component('bc-header', {
+            template: '#head'
+        })
+        Vue.component('bc-content',{
+            template:'<div class="content"><slot></slot></div>'
+        })
+        Vue.component('bc-footer',{
+            template:'#footer'
+        })
+        // 计数器组件
+        Vue.component('bcInputNumber',{
+            template:'#inputNumber',
+            props:['value','step','min'],
+            data(){
+                return{
+                    v:this.value || 0,
+                }
+            },
+            watch:{
+                v(val,oldvalue){
+                    if (val >= this.max) {
+                        val = this.max
+                    }
+                    if (val <= this.min) {
+                        val = this.min
+                    }
+                    this.$emit('input', val)
+                }
+            },
+            methods:{
+                jia(){
+                    this.v += this.step;
+                },
+                jian(){
+					if(this.v <= this.min) return;
+                    this.v -= this.step;
+                }
+            },
+        })
+        // 选项卡组件
+        var goods = Vue.component('goods',{
+            template:'#shops',
+            data(){
+                return{
+                    num:0,
+                    value:0,
+                    shop:[
+                        {
+                            menu:'折扣',
+                            foods:[
+                                {
+                                    name:'早点套餐',
+                                    img:'https://p0.meituan.net/wmproduct/65e9eec84b9c84770802550f4f52fa46693725.jpg',
+                                    price:'6',
+                                    info:'南瓜山药粥+小点心'
+                                },
+                                {
+                                    name:'健康套餐B',
+                                    img:'https://p1.meituan.net/wmproduct/0f76a4a8e27d33e4f2247f547f4286e8257458.jpg',
+                                    price:'26',
+                                    info:'猪肉荠菜包+爽口木耳1盘+小吊梨汤1瓶+小包点1个'
+                                }
+                            ]
+                        },
+                        {
+                            menu:'本店特色',
+                            foods:[
+                                {
+                                    name:'茶叶蛋',
+                                    img:'https://p1.meituan.net/wmproduct/f44ec147f8fdc69f63e180d6388300e4152759.jpg',
+                                    price:'2',
+                                    info:'新鲜鸡蛋制造，美味'
+                                },
+                                {
+                                    name:'黑芝麻汤圆(3只)',
+                                    img:'https://p1.meituan.net/wmproduct/f44ec147f8fdc69f63e180d6388300e4152759.jpg',
+                                    price:'5',
+                                    info:'豆汁是北京久负盛名的传统风味小吃。具有色泽灰绿，豆汁浓醇，味酸且微甜的特色'
+                                }
+                            ]
+                        },
+                        {
+                            menu:'招牌包子',
+                            foods:[
+                                {
+                                    name:'牛肉大葱',
+                                    img:'https://p0.meituan.net/wmproduct/beca720e79b37cbab5f2203b34ff53a2142993.jpg',
+                                    price:'10',
+                                    info:'豆汁是北京久负盛名的传统风味小吃。具有色泽灰绿，豆汁浓醇，味酸且微甜的特色'
+                                },
+                                {
+                                    name:'酸菜猪肉包(6个)',
+                                    img:'https://p1.meituan.net/wmproduct/31743f856a93daf47f6f35c5fe232cc8143858.jpg',
+                                    price:'8',
+                                    info:'豆汁是北京久负盛名的传统风味小吃。具有色泽灰绿，豆汁浓醇，味酸且微甜的特色'
+                                }
+                            ]
+                        },
+                        {
+                            menu:'营养粥品',
+                            foods:[
+                                {
+                                    name:'红豆薏米粥',
+                                    img:'https://p1.meituan.net/wmproduct/e0aed5b1da5f5be18a7748d47dd3254578050.jpg',
+                                    price:'5',
+                                    info:'豆汁是北京久负盛名的传统风味小吃。具有色泽灰绿，豆汁浓醇，味酸且微甜的特色'
+                                },
+                                {
+                                    name:'皮蛋瘦肉粥',
+                                    img:'https://p0.meituan.net/wmproduct/df78b91e9ad1da79276e892513d464d246020.jpg',
+                                    price:'6',
+                                    info:'豆汁是北京久负盛名的传统风味小吃。具有色泽灰绿，豆汁浓醇，味酸且微甜的特色'
+                                }
+                            ]
+                        },
+                        {
+                            menu:'爽口小菜',
+                            foods:[
+                                {
+                                    name:'西兰花',
+                                    img:'https://p1.meituan.net/xianfu/0115477bb4c65cbe49f8199af7352548412950.jpg',
+                                    price:'8',
+                                    info:'豆汁是北京久负盛名的传统风味小吃。具有色泽灰绿，豆汁浓醇，味酸且微甜的特色'
+                                },
+                                {
+                                    name:'酸辣瓜丝',
+                                    img:'https://p1.meituan.net/wmproduct/518b960c4135773abc1ca4b946ffd312162172.jpg',
+                                    price:'8',
+                                    info:'豆汁是北京久负盛名的传统风味小吃。具有色泽灰绿，豆汁浓醇，味酸且微甜的特色'
+                                }
+                            ]
+                        }, 
+                        {
+                            menu:'庆丰水饺',
+                            foods:[
+                                {
+                                    name:'白菜猪肉水饺/盘',
+                                    img:'https://p1.meituan.net/wmproduct/99c817f5c640e4680cbde0792346cfdd179666.jpg',
+                                    price:'16',
+                                    info:'豆汁是北京久负盛名的传统风味小吃。具有色泽灰绿，豆汁浓醇，味酸且微甜的特色'
+                                },
+                                {
+                                    name:'牛肉西芹饺子/盘',
+                                    img:'https://p1.meituan.net/wmproduct/99c817f5c640e4680cbde0792346cfdd179666.jpg',
+                                    price:'22',
+                                    info:'豆汁是北京久负盛名的传统风味小吃。具有色泽灰绿，豆汁浓醇，味酸且微甜的特色'
+                                }
+                            ]
+                        }
+                    ]
+                }
+            },
+            watch:{
+                total(val,oldval){
+                    this.$emit('newchange',val)
+                },
+                all(val,oldval){
+                    this.$emit('allchange',val)
+                }
+            },
+            computed:{
+                allList(){
+                    var arr = [];
+                    this.shop.forEach(element => {
+                        if(element.foods && element.foods.length > 0){
+                            element.foods.forEach(it => {
+                                if(it.num){
+                                    arr.push(it)
+                                }
+                            })
+                        }
+                    })
+                    console.log(arr)
+                    return arr;
+                },
+                total(){
+                    var total = 0;
+                    this.shop.forEach(element => {
+                        element.foods.forEach(it => {
+                            total += (parseInt(it.num) || 0) * parseInt(it.price);
+                        })
+                    })
+                    return total;
+                },
+                all(){
+                    var all = 0;
+                    this.shop.forEach(element => {
+                        element.foods.forEach(it => {
+                            all += (it.num || 0);
+                        })
+                    })
+                    return all;
+                }
+            },
+            methods:{
+                send(index) {
+                    this.num = index;
+                }
+            }
+        })
+        // 支付
+        var payment = Vue.component('dd-payment',{
+            template:'#payment'
+        })
+        var router = new VueRouter({
+            routes:[
+                {
+                    path:'/',
+                    component:goods,
+                },
+                {
+                    path:'/abc',
+                    name:'abc',
+                    component:payment
+                }
+            ]
+        })
+        var vm = new Vue({
+            el:'#app',
+            router,
+            data(){
+                return{
+                    totalnum:0,
+                    totalprice:0
+                }
+            },
+        })
+    </script>
+</body>
+</html>

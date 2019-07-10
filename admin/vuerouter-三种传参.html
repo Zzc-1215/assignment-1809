@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../assets/js/vue.js"></script>
+    <script src="https://unpkg.com/vue-router@2.0.0/dist/vue-router.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- header -->
+        <router-link :to="{path:'/link/123'}">link</router-link>
+        <router-link :to="{path:'/hello/hello'}">hello</router-link>
+        <router-link :to="{path:'/hello/nihao'}">nihao</router-link>
+        <router-link :to="{path:'/hello/x1',query:{abc:'abc'}}">x1</router-link>
+        <router-view></router-view>
+
+
+
+        <!-- 
+
+            
+
+
+            1/ 通过  router-link的to   来传送params
+                通过  $router.push()   来传送params
+                如果要传params的话，必须通过name跳转
+
+                 $router.push({name:'name',params:{}})
+
+            2/ 通过 ： 来匹配路径参数   :id   => params:{id:xxx}
+                可以多重匹配： :id/:user/...   => paras:{id:xx,user:xxx,...}
+                匹配规则必须与匹配数据一一对应，否则匹配不到对应的路由组件
+                $route 是可以通过watch来监听的,一定是匹配路由的修改才可以监听到的
+
+            3/ query :查询
+                地址栏明文传参，把参数拼接到？后面
+
+                $router.push({name:'name',query:'abc'})
+
+
+
+         -->
+    </div>
+
+    <script>
+        var link = {
+            template: '<a>link=={{name}}</a>',
+            props:['name'],
+            created() {
+                console.log(this.$route)
+            }
+        };
+
+        var header = Vue.extend({
+            template:'<h1>hello-{{name}}</h1>',
+            // props:['ids'],
+            data() {
+                return {
+                    name: 'xxx',
+                }
+            },
+            watch: {
+                '$route'(v){
+                    console.log(this.$route);
+                    // this.getId(v.params.id);
+                }
+            },
+            methods: {
+                getId(id){
+                    this.name = id;
+                }
+            },
+        });
+
+       var router =  new VueRouter({
+           routes: [{
+               path:'/hello/:id', // /hello/1
+               name:'hello',
+               component:header,
+               props:true,
+           },{
+               path:'/link/:name',
+               name:'link',
+               component: link,
+               props: true
+           }]
+       });
+
+
+       new Vue({
+           el:'#app',
+           router,
+       })
+    </script>
+</body>
+</html>

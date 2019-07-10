@@ -1,0 +1,225 @@
+@charset "utf-8";
+/* 重置样式表 */
+*{margin: 0;padding: 0;box-sizing: border-box;}
+ul,ol{list-style: none;}
+em,i{font-style: normal;}
+a{text-decoration: none; color: #000;}
+a:hover{text-decoration: underline;}
+input{border:none; outline: none; background-color: transparent;}
+/*公用*/
+.clearfix:after,.clearfix:before{content: '';display: table;}.clearfix:after{clear: both;}
+.hide{display: none;}
+.fl{float: left;}
+.fr{float: right;}
+@font-face {
+    font-family: 'iconfont';
+    src: url('iconfont.eot');
+    src: url('iconfont.eot?#iefix') format('embedded-opentype'),
+        url('iconfont.woff2') format('woff2'),
+        url('iconfont.woff') format('woff'),
+        url('iconfont.ttf') format('truetype'),
+        url('iconfont.svg#iconfont') format('svg');
+  }
+  .iconfont {
+    font-family: "iconfont" !important;
+    font-size: 16px;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  .header{
+      width: 750px;
+      height: 100px;
+      padding: 0 34px;
+    //   background: aqua;
+      border-bottom: 1px solid #e2e2e2;
+      .header_tit{
+          height: 100px;
+          line-height: 100px;
+          font-size: 32px;
+          font-weight: 600;
+          span{
+              padding-right: 37px;
+              font-size: 32px;
+              color: #2895d7;
+          }
+      }
+      .header_font{
+          height: 100px;
+          line-height: 100px;
+          span{
+              padding: 0 10px;
+              font-size: 38px;
+          }
+          .search{color: #2895d7;font-weight: 600;}
+      }
+  }
+  //支付页
+  .account-main{
+      width: 750px;
+      padding: 50px 50px 0 50px;
+      .account-list{
+        li{
+            height: 100px;
+            margin-bottom: 20px;
+            .img{
+                float: left;
+                width: 100px;
+                height: 100px;
+                margin-right: 50px;
+                border-radius: 15px;
+                overflow: hidden;
+                img{
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+            .content{
+                width: 500px;
+                height: 100px;
+                line-height: 90px;
+                text-align: center;
+                float: right;
+            }
+        }
+      }
+  }
+  //主页
+  .options{
+      width: 750px;
+      margin-bottom: 10px;
+      .option_list{
+          li{
+              float: left;
+              width: 250px;
+              text-align: center;
+              a{
+                  display: inline-block;
+                  width: 60px;
+                  padding: 22px 0;
+                  color: #7a7a7a;
+                  box-sizing: border-box;
+              }
+              .active{
+                  border-bottom: 4px solid #2895d7;
+                  font-weight: 600;
+                  color: #000;
+              }
+          }
+      }
+  }
+  .tabs{
+
+      .tabs_list{
+        width: 153px;
+        margin-right: 22px;
+        li{
+            height: auto;
+            padding: 40px 0;
+            background: #f8f8f8;
+            padding-left: 16px;
+            color: #888;
+        }
+        .aaa{
+            background: #fff;
+        }
+      }
+    .food_list{
+        width: 575px;
+        .food{
+            height: 190px;
+            margin-bottom: 41px;
+            .food_img{
+                width: 190px;
+                height: 190px;
+                background: firebrick;
+                margin-right: 20px;
+                img{width: 100%;height: 100%;}
+            }
+            .food_message{
+                .food_tit{
+                    padding-bottom: 16px;
+                    font-size: 28px;
+                }
+                .food_sales{
+                    font-size: 14px;
+                    color: #a8a8a8;
+                    padding-bottom: 70px;
+                }
+                .price_box{
+                    width: 330px;
+                    .food_price{
+                        color: #f85b4b;
+                        font-size: 26px;
+                        font-weight: bold;
+                    }
+                    .counter{
+                        margin-top: -5px;
+                        .sub,.add{
+                            display: inline-block;
+                            width: 44px;
+                            height: 44px;
+                            font-size: 30px;
+                            line-height: 38px;
+                            text-align: center;
+                            border-radius: 50%;
+                            color: #2a93ff;
+                            font-weight: 800;
+                            border: 1px solid #2a93ff;
+                        }
+                        .add{
+                            background: #2a93ff;
+                            color: #fff;
+                        } 
+                        .amount{
+                            width: 50px;
+                            height: 44px;
+                            line-height: 44px;
+                            display: inline-block;
+                            text-align: center;
+                            // background: #000;
+                            vertical-align: top;
+                        }
+                    }
+                }
+                
+            }
+        }
+    }
+}
+.foot{
+    width: 750px;
+    height: 100px;
+    background: rgb(7, 139, 73);
+    position: absolute;
+    line-height: 100px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #fff;
+    bottom: 0;
+    span{
+        padding-left: 400px;
+    }
+    b{
+        float: left;
+        width: 60px;
+        height: 60px;
+        text-align: center;
+        line-height: 60px;
+        margin-top: 20px;
+        margin-left: 50px;
+        border-radius: 50%;
+        background: rgb(12, 112, 241);
+    }
+    .button{
+        height: 100px;
+        border: none;
+        width: 150px;
+        text-align: center;
+        color: #fff;
+        font-size: 20px;
+        background: #2a93ff;
+        text-decoration: none;
+    }
+}
+
