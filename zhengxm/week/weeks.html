@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        .zl{
+            width: 200px;
+            height: 100px;
+            background-color: antiquewhite;
+        }
+        .color{
+            color: burlywood;
+        }
+        .fade-enter-active, .fade-leave-active {
+            transition: opacity 2s
+        }
+        .fade-enter, .fade-leave-to {
+            transform: translateX(10px);
+            opacity: 0
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="box">
+            {{value | fname}}
+        </div>
+        <div v-dname class="zl"></div>
+        <test>
+            <template v-slot:aaa="bbb">{{bbb}}ccc</template>
+        </test>
+        <!-- 6. -->
+        <button @click = "zs = !zs">点我</button>
+        <transition name = "fade" appear mode="out-in" :duration="2000">
+            <p v-show = "zs" v-bind:style = "styleobj">动画实例</p>
+        </transition>
+        <!-- 7.
+        <prop-st class="abc" data-a="1"></prop-st> -->
+        <txt :data="abc"></txt>
+        <button @click="show=!show">show</button>
+        <keep-alive>
+            <jh v-if="show"></jh>
+        </keep-alive>
+    </div>
+    <script>
+        // 1.自定义一个把‘1-9’数字转换成大写‘一到九’的全局过滤器？
+        Vue.filter("fname",function (val) {
+            var arr = ['零','壹','贰','叁','肆','伍','陆','柒','捌','玖'];
+            var str = "";
+            for (var i = 0; i < val.length; i++) {
+                for (var j = 0; j < arr.length; j++) {
+                    str += arr[val[i]];
+                    break;
+                }
+            }
+            return str;
+        })
+        // 2.自定义一个全局指令，并打印出指令的参数描述
+            Vue.directive('dname',function(el,binding,vnode,oldVnode){
+                console.log(el);
+                console.log(binding.name);
+                console.log(binding.arg);
+                console.log(binding.expresion);
+                console.log(binding.value);
+                console.log(binding.oldValue);
+                console.log(binding.modifiers);
+                console.log(vnode);
+                console.log(oldVnode)
+            })
+        //el: 指令所绑定的元素，可以用来直接操作 DOM 。
+        //binding: 一个对象，包含以下属性：
+        //name: 指令名，不包括 v- 前缀。
+        //value: 指令的绑定值， 例如： v-my-directive="1 + 1", value 的值是 2。
+        //oldValue: 指令绑定的前一个值，仅在 update 和 componentUpdated 钩子中可用。无论值是否改变都可用。
+        //expression: 绑定值的字符串形式。 例如 v-my-directive="1 + 1" ， expression 的值是 "1 + 1"。
+        //arg: 传给指令的参数。例如 v-my-directive:foo， arg 的值是 "foo"。
+        //modifiers: 一个包含修饰符的对象。 例如： v-my-directive.foo.bar, 修饰符对象 modifiers 的值是{ foo: true, bar: true }。
+        //vnode: Vue 编译生成的虚拟节点，查阅 VNode API 了解更多详情。
+        //oldVnode: 上一个虚拟节点，仅在 update 和 componentUpdated 钩子中可用。
+        //6、写出vue里定义在过渡、动画组件里特有10个属性？
+        // var vm = new Vue({
+        //         data: {
+        //             show:true,
+                    
+        //         },
+        //         methods : {
+        //         }爱上一朵花就陪她绽放，爱上一个人就陪伴着陪她成长
+        //     });
+        // 7.列出组件prop的四种 验证方式并描述
+        Vue.component('txt',{
+            template:'<h1>111</h1>',
+            props:{
+                data:Symbol,
+            }
+        })
+        // Vue.component('propSt',{
+		// 	inheritAttrs:false,//组止不明属性传入
+		// 	template:"<span>{{text}}</span>",
+		// 	props:{
+		// 		ar:num,
+		// 		data:[Symbol,String],//检测值类型
+		// 		date:{
+		// 		    required:true,//必须值
+		// 		},
+		// 		text:{
+		// 			type:[Number,String],//检测值类型
+		// 			required:false,//必须值
+		// 			default:'默认',//都不满足是渲染默认值
+		// 			validator: function(v){//自定义检测函数
+		// 				console.log(v)
+		// 			    if(v==='123'){
+		// 			        return true;
+		// 			    }else{
+		// 			        return false;
+		// 			    }
+		// 			}
+		// 		}
+		// 	}
+		// })
+		// function num(c){
+		//     this. c= c
+		// }
+        // 8、描述<template v-slot:aaa=”bbb”>ccc</template>的作用？
+        Vue.component('test',{
+            template:`<p class="color"><slot name="aaa" :bbb="user"></slot></p>`,
+            data(){
+                return{  
+                    user:{
+                        x:1,
+                        y:2
+                    }
+                }
+            }
+        })
+        // 10、描述Activated/deactivated两个生命周期的触发条件？
+        Vue.component('jh', {
+            template: '<div style="height:100px;border:1px solid;width:300px;">{{msg}}</div>',
+            data() {
+                return {
+                    msg: 'hello'
+                }
+            },
+            created() {
+                console.log('created')
+            },
+            activated() {
+                console.log('激活')
+            },
+            deactivated() {
+                console.log('停用')
+            }
+        })
+        var vm = new Vue({
+            el:'#app',
+            data(){
+                return {
+                    zs:true,
+                    show:true,
+                    value:[0,1,2,3,4,5,6,7,8,9],
+                    abc:Symbol(),
+			        // el:new num(0),
+                    styleobj :{
+                        fontSize:'30px',
+                        color:'red'
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>

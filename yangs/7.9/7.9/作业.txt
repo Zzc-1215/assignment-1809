@@ -1,0 +1,15 @@
+7.5 作业： <bc-container>
+                <bc-header>
+                    < 庆丰包子店
+                </bc-header>
+                <bc-main>
+                    <meit></meit>
+                </bc-main>
+                <bc-footer>
+                    <total></total>
+                </bc-footer>
+            </bc-container>
+
+1、定义类似  container>header+main+footer   插槽布局
+2、注册全局组件： 商品选项卡、总价格banner条、计数器
+3、要求样式+适配完美，功能无bug。
