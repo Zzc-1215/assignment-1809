@@ -13,8 +13,7 @@
   zoom: 1; }
 
 .container {
-  width: 750px;
-  position: relative; }
+  width: 750px; }
   .header {
     height: 100px;
     border-bottom: 2px solid #dfdfdf;
@@ -94,68 +93,54 @@
         text-align: center;
         height: 44px;
         border: none; }
-  .footer {
-    position: fixed; }
-    .f-l {
-      width: 539px;
+  .f-l {
+    width: 539px;
+    height: 97px;
+    background-color: #515152;
+    float: left; }
+    .f-l i {
+      width: 84px;
+      height: 84px;
+      display: block;
+      background-color: #2f92e3;
+      border-radius: 50%;
+      position: relative;
+      float: left;
+      text-align: center;
+      line-height: 84px;
+      font-size: 44px;
+      color: #fff;
+      border: 8px solid #464440;
+      margin-left: 24px;
+      margin-top: -20px;
+      margin-right: 28px; }
+    .f-l i:after {
+      content: '3';
+      text-align: center;
+      line-height: 27px;
+      font-size: 15px;
+      width: 27px;
+      height: 27px;
+      position: absolute;
+      right: -10px;
+      top: -6px;
+      display: block;
+      border-radius: 50%;
+      background-color: #f86c08; }
+    .f-l span {
+      display: block;
+      padding-top: 17px;
+      font-size: 28px;
+      color: #fff;
+      margin-bottom: 8px; }
+    .f-l h3 {
+      color: #868687; }
+  .f-r {
+    float: right; }
+    .f-r button {
+      width: 211px;
       height: 97px;
-      background-color: #515152;
-      float: left; }
-      .f-l i {
-        width: 84px;
-        height: 84px;
-        display: block;
-        background-color: #2f92e3;
-        border-radius: 50%;
-        position: relative;
-        float: left;
-        text-align: center;
-        line-height: 84px;
-        font-size: 44px;
-        color: #fff;
-        border: 8px solid #464440;
-        margin-left: 24px;
-        margin-top: -20px;
-        margin-right: 28px; }
-      .f-l i:after {
-        content: '3';
-        text-align: center;
-        line-height: 27px;
-        font-size: 15px;
-        width: 27px;
-        height: 27px;
-        position: absolute;
-        right: -10px;
-        top: -6px;
-        display: block;
-        border-radius: 50%;
-        background-color: #f86c08; }
-      .f-l span {
-        display: block;
-        padding-top: 17px;
-        font-size: 28px;
-        color: #fff;
-        margin-bottom: 8px; }
-      .f-l h3 {
-        color: #868687; }
-    .f-r {
-      float: right; }
-      .f-r button {
-        width: 211px;
-        height: 97px;
-        background-color: #37cb72;
-        border: 1px solid #37cb72;
-        font-size: 28px;
-        color: #faf8ff; }
-    .v-enter {
-      bottom: 12px; }
-    .v-enter-active {
-      transition: 1s; }
-    .v-enter-to {
-      bottom: 0; }
-    .v-leave {
-      bottom: 0; }
-    .v-leave-active {
-      transition: 1s; }
-    .v-leave-to {
-      bottom: 12px; }
+      background-color: #37cb72;
+      border: 1px solid #37cb72;
+      font-size: 28px;
+      color: #faf8ff; }

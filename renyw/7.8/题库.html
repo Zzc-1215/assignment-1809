@@ -103,7 +103,11 @@
             var arr = ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九']
             var str = '';
             for (var i = 0; i < val.length; i++) {
-                str += arr[Number(val.charAt(i))]
+                if(val.length){
+                    str += arr[Number(val.charAt(i))]
+                }else{
+                    return false;
+                }
             }
             return str;
         })
@@ -158,8 +162,8 @@
 
         // 8
         Vue.component('yw-area', {
-            template: '<h3><slot name="container"></slot></h3>',
-            prop: [this.msg, this.fn],
+            template: '<h3><slot name="container" :abc="msg" :fn="fn"></slot></h3>',
+            // prop: [this.msg, this.fn],
             data() {
                 return {
                     msg: '子组件',
