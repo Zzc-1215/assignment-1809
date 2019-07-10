@@ -8,17 +8,17 @@
 </head>
 <body>
     <div class="box">
-        <!-- 1、 -->
+ 
         {{'123456789' | zh}}
-        <!-- 2、 -->
+
         <div v-global>123</div>
-        <!-- 7、 -->
+
         <abc class="abc" data-a="1"></abc>
-        <!-- 8、 -->
+
         <teat>
             <template v-slot:aaa="bbb">{{bbb}}</template>
         </teat>
-        <!-- 10、 -->
+
         <keep-alive>
             <test v-if="show"></test>
         </keep-alive>
@@ -53,39 +53,6 @@
 
             }
         })
-
-        // 7、
-        function Preson(a){
-            this.a = a
-        }
-        Vue.component('abc',{
-            inheritAttrs: false,
-            template: '<p class="ddd">{{text}}</p>',
-            data() {
-                return {
-                    a:1,
-                }
-            },
-            props:{
-                data: [Symbol,Number],
-                fn: Preson,
-                date: {
-                    required: true,
-                },
-                text:{
-                    type: String,
-                    default: '123',
-                    required: false,
-                    validator: function(v){
-                        if(v === 'hahaha'){
-                            return true;
-                        }else{
-                            return false;
-                        }                       
-                    }
-                }
-            }
-        });
         // 8、
         Vue.component('teat',{
             template:`<p><slot name='aaa' :xingming="name" :user='"hello"'></slot></p>`,
