@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" type="text/css" href="css/b.css">
+	<script type="text/javascript" src="flexible/flexible_css.js"></script>
+	<script type="text/javascript" src="flexible/flexible.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/iconfont.css">
+</head>
+<body>
+	<div id="app">
+		<zcontainer>
+			<!-- 头部 -->
+			<zheader>
+				<h3><i class="iconfont"><router-link to="/">&#xe601;</router-link></i>确认订单</h3>
+			</zheader>
+			<!-- 主要内容 -->
+			<zmain>
+				<div class="main">
+					<div class="item">
+						<img src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1926447759,2383249261&fm=11&gp=0.jpg" class="img">
+						<h4>猪肉大葱</h4>
+						<p><i>x3</i><span>￥60</span></p>
+					</div>
+					<div class="jiezhang">
+						<p>小计￥<span>60</span></p>
+					</div>
+				</div>
+			</zmain>
+			<!-- 底部 -->
+			<zfooter>
+				<div class="f-l">
+					<span>￥</span>
+				</div>
+				<div class="f-r">
+					<button>去支付</button>
+				</div>
+			</zfooter>
+		</zcontainer>
+	</div>
+	<template id="zcontainer">
+		<div class="zcontainer">
+			<slot></slot>
+		</div>
+	</template>
+	<template id="zheader">
+		<div class="zheader">
+			<slot></slot>
+		</div>
+	</template>
+	<template id="zmain">
+		<div class="zmain">
+			<slot></slot>
+		</div>
+	</template>
+	<template id="zfooter">
+		<div class="zfooter">
+			<slot></slot>
+		</div>
+	</template>
+	<script type="text/javascript">
+		Vue.component('zcontainer',{
+			template:'#zcontainer',
+		})
+		Vue.component('zheader',{
+			template:'#zheader',
+		})
+		Vue.component('zmain',{
+			template:'#zmain',
+		})
+		Vue.component('zfooter',{
+			template:'#zfooter',
+		})
+		var router = new VueRouter({
+            routes: [{
+                path: '/',
+            }],
+        })
+		var vm = new Vue({
+			el:'#app',
+			router,
+		})
+	</script>
+</body>
+</html>

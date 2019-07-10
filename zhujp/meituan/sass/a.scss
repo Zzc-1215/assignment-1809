@@ -16,7 +16,7 @@ $w:750px;
 $lw:153px;
 .container{
 	width: $w;
-	position:relative;
+	// position:relative;
 	@at-root{
 		.header{
 			height:100px;
@@ -126,7 +126,7 @@ $lw:153px;
 	}
 	@at-root{
 		.footer{
-			position:fixed;
+			// position:fixed;
 			@at-root{
 				.f-l{
 					width:$w - 211px;
@@ -186,24 +186,24 @@ $lw:153px;
 						color:#faf8ff;
 					}
 				}
-				.v-enter{
-           			bottom: 12px;
-      			 }
-       			.v-enter-active{
-           			transition: 1s;
-       			}
-       			.v-enter-to{
-           			bottom: 0;
-       			}
-       			.v-leave{
-           			bottom: 0;
-       			}
-       			.v-leave-active{
-           			transition: 1s;
-       			}
-       			.v-leave-to{
-           			bottom: 12px;
-       			}
+				// .v-enter{
+    //        			bottom: 12px;
+    //   			 }
+    //    			.v-enter-active{
+    //        			transition: 1s;
+    //    			}
+    //    			.v-enter-to{
+    //        			bottom: 0;
+    //    			}
+    //    			.v-leave{
+    //        			bottom: 0;
+    //    			}
+    //    			.v-leave-active{
+    //        			transition: 1s;
+    //    			}
+    //    			.v-leave-to{
+    //        			bottom: 12px;
+    //    			}
 			}
 		}
 	}
