@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" type="text/css" href="font/iconfont.css">
+	<link rel="stylesheet" type="text/css" href="css/fukuan.css">
+	<script type="text/javascript" src="js/flexible_css.js"></script>
+	<script type="text/javascript" src="js/flexible.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+	<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+</head>
+<body>
+	<div id="app">
+		<router-view></router-view>
+		<div class="container">
+			<back></back>
+		    <mean-main>
+		 		
+		    </mean-main>
+		    <mean-foot>
+		 	
+		    </mean-foot>
+		</div>
+	</div>
+	<!-- 确认订单 -->
+	<template id="fanhui">
+		<div class="back">
+			<h3>
+				<router-link to="/"><i class="iconfont">&#xe60e;</i></router-link>
+				确认订单
+			</h3>
+		</div>
+	</template>
+	<!-- 包子铺 -->
+	<template id="shop">
+		<div class="content">
+			<div class="qf">
+				<!-- 店铺 -->
+				<mean-header>庆丰包子铺(窦店)</mean-header>
+				<!-- 食物 -->
+				<div class="foods">
+					<div class="food">
+						<div class="foodImg">
+							<img src="">
+						</div>
+						<div class="intro">
+							<div class="name"></div>
+							<div class="num">*</div>
+							<div class="money">￥</div>
+						</div>
+					</div>
+					<div class="lunchBox">
+						<h3>餐盒<span>￥</span></h3>
+					</div>
+					<div class="delivery">
+						<h3>配送费<span>￥8</span></h3>
+					</div>
+					<div class="totalPrices">
+						<h3>小计<span>￥{{totalprice}}</span></h3>
+					</div>
+				</div>
+			</div>
+		</div>
+	</template>
+	<template id="money">
+		<div class="footer">
+			<div class="car">
+				<h4>￥<slot name="money"></slot></h4>
+			</div>
+			<div class="account">
+				<p>去支付</p>
+			</div>
+		</div>
+	</template>
+	<template id="head">
+		<div class="header">
+			<span>
+				<slot></slot>
+			</span>
+		</div>
+	</template>
+</body>
+<script type="text/javascript">
+	// 返回
+	Vue.component('back',{
+		template:'#fanhui'
+	})
+	// 买的东西
+	Vue.component('meanMain',{
+		template:'#shop'
+	})
+	// 底部
+	Vue.component('meanFoot',{
+		template:'#money'
+	})
+	// 店铺
+	Vue.component('meanHeader',{
+		template:'#head'
+	})
+
+	var vm = new Vue({
+		el:'#app',
+	})
+</script>
+</html>
