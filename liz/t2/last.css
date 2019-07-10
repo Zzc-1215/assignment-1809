@@ -1,0 +1,105 @@
+.hou{
+    width: 100%;
+    background: rgb(8, 127, 163);
+}
+.hou-box{
+    width: 90%;
+    margin:  0 auto;
+    background: white;
+   
+}
+.hou-box h3{
+    width: 94%;
+    font-size: 0.4rem;
+    line-height: 0.6rem;
+    border-bottom: 1px solid #ccc;
+}
+.hou-box .jiesuan{
+    width: 94%;
+    margin:  0 auto;
+
+}
+.hou-box .jiesuan .img{
+    width: 0.9rem;
+    height: 0.9rem;
+    float: left;
+}
+.hou-box .jiesuan .text{
+    width: 80%;
+    height: 0.7rem;
+    float: left;
+}
+.hou-box .jiesuan .text h3{
+    width: 80%;
+    float: left;
+    height: 0.7rem;
+    font-size: 0.1rem;
+    line-height: 0.7rem;
+    border: none;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+
+}
+.hou-box .jiesuan .text .bt{
+    width: 10%;
+    height: 0.9rem;
+    float: left;
+}
+.hou-box .jiesuan .text .bt p{
+    width: 50%;
+    height: 0.7rem;
+    display: inline-block;
+    float: left;
+}
+.hou-box  .canhe{
+    width: 94%;
+    margin:  0 auto; 
+    border-bottom: 1px solid #ccc;
+    height: 1rem;
+}
+.hou-box .canhe span{
+    width: 10%;
+    float: left;
+    height: 0.3rem;
+    background: rgb(85, 85, 212);
+    color: white;
+    text-align: center;
+    font-size: 0.1rem;
+    line-height: 0.3rem;
+    margin-top: 0.4rem;
+
+}
+.hou-box .canhe .sss{
+    width: 10%;
+    float: left;
+    height: 0.3rem;
+    background: rgb(122, 122, 124);
+    color: white;
+    text-align: center;
+    font-size: 0.1rem;
+    line-height: 0.3rem;
+    margin-top: 0.4rem;
+
+}
+.hou-box .canhe h4{
+    width:33%;
+    height: 1rem;
+    font-size: 0.3rem;
+    line-height: 1rem;
+    float: left;
+    padding-left: 0.5rem;
+}
+
+.hou-box .canhe p{
+    display: inline-block;
+    width: 35%;
+    height: 1rem;
+    float: left;
+    font-size: 0.3rem;
+    line-height: 1rem;
+    text-align: right;
+    padding-right: 0.5rem;
+}
+
+
