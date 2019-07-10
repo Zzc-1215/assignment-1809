@@ -88,7 +88,7 @@ var indexs = Vue.extend({
             this.calculate.forEach(item => {
                 num += item.price * item.quantity;
             })
-            return num.toFixed(1);
+            return num.toFixed(2);
         }
     },
     watch: {
