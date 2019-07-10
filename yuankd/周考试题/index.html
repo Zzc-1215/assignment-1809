@@ -31,7 +31,7 @@
 <body>
     <div id="app">
         <!-- 1.过滤 -->
-        <!-- <div>{{value | abc}}</div> -->
+        <div>{{value | abc}}</div>
 
         <!-- 2.自定义指令 -->
         <!-- <div v-dname></div> -->
@@ -53,11 +53,11 @@
         </test> -->
 
         <!-- 10.activated/deactivated -->
-            <button @click="show=!show">按钮</button>
+            <!-- <button @click="show=!show">按钮</button>
         <keep-alive>
             <test v-if="show"></test>
 
-        </keep-alive>
+        </keep-alive> -->
     </div>
 </body>
 <script src="vue.js"></script>
@@ -82,16 +82,16 @@
     // Vue.directive('dname',{
     //     inserted:function(el,binding,vnode,oldVnode){
     //         el.dname()
-    //         console.log(el);
+    //         console.log(el);//指定绑定的元素 可以直接操作dom
     //         console.log(binding);
     //         console.log(vnode);
     //         console.log(oldVnode);
-    //         binding.name//指令所绑定的元素 可以直接操作dom
-    //         binding.arg//
+    //         binding.name//指令名字 绑定在冒号后面的
+    //         binding.arg//传给指令的参数
     //         binding.expresion//字符串形式的指令表达式
     //         binding.value,//新数值
     //         binding.oldValue,//旧数值
-    //         binding.modifiers//
+    //         binding.modifiers//包含修饰符 .后面的
     //     }
     //     // bind,inserted,update,componentUpdated,unbind
     // })
@@ -150,7 +150,7 @@
     // 8、描述<template v-slot:aaa=”bbb”>ccc</template>的作用？
     // Vue.component('test', {
     //     template: `<h1>
-    //                 <slot name="aaa" :abc="user" :user='"hello"'></slot>
+    //                 <slot name="aaa" :abc="user"></slot>
     //             </h1>`,
     //     data() {
     //         return {
@@ -197,9 +197,6 @@
                 show: true,
             }
         },
-        // change(){
-        //     this.show==!show
-        // }
     })
 
 
