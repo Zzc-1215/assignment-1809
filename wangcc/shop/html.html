@@ -5,72 +5,29 @@
 		<title>包子铺</title>
 		<link rel="stylesheet" href="css.css">
 		<!-- <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" /> -->
+		<style type="text/css">
+			.router-link-active {
+				text-decoration: none;
+				color: #fff;
+			}
+			.router-link-activea {
+				text-decoration: none;
+				color: #000;
+			}
+		</style>
 	</head>
 	<body>
 		<div id="box">
-			<bc-container></bc-container>
+			<!-- <bc-container></bc-container> -->
+			<router-view></router-view>
 		</div>
-		<!-- <template>
-			
-		</template> -->
-				<!-- 头部 -->
-                <!-- <bc-header>
-					<template v-slot:hed>
-						<p><span><</span> 庆丰包子铺 (窦店)</p>
-						<img src="images/7_03.jpg" alt="">
-					</template>
-                </bc-header> -->
-				<!-- 内容 -->
-                <!-- <bc-main> -->
-					<!-- 分类 -->
-					<!-- <template v-slot:left>
-						<div class="classification">
-							<ul>
-								<li v-for="(item,index) in arr">{{item.name}}</li>
-							</ul>
-						</div>
-					</template> -->
-					<!-- 口味商品 -->
-					<!-- <template v-slot:right>
-						<div class="right_food">
-							<ul>
-								<li>
-									<img src="http://img0.imgtn.bdimg.com/it/u=2094916694,2327566598&fm=26&gp=0.jpg" alt="">
-									<p>猪肉大葱</p>
-									<p><span>好评100%</span> &nbsp;&nbsp;<span>月收入￥1500</span></p>
-									<font></font>
-									<div class="number_food">数量</div>
-								</li>
-							</ul>
-						</div>
-					</template>
-                </bc-main> -->
-				<!-- 尾部 -->
-              <!--  <bc-footer>
-					<template v-slot:footer_max>
-						<div class="footer_total">
-							<div class="shopping">
-								<img src="images/logo.jpg" alt="">
-								<span>0</span>
-							</div>
-							<div class="f_num">
-								<p>￥0</p>
-								<p>另需配送费8元</p>
-							</div>
-							<div class="payment">
-								去结算
-							</div>
-						</div>
-					</template>
-                </bc-footer> -->
-		
 		<template id="peripheral">
 			<div class="neirong">
-			
 			 <bc-header>
 				<template v-slot:hed>
 					<p><span><</span> 庆丰包子铺 (窦店)</p>
 					<img src="images/7_03.jpg" alt="">
+					
 				</template>
 			</bc-header>
 			<!-- 内容 -->
@@ -90,7 +47,7 @@
 							<li v-for="(item,index) in arr[ind].food">
 								<img :src="item.img" alt="">
 								<p>{{item.title}}</p>
-								<p><span>好评100%</span> &nbsp;&nbsp;<span>月收入￥1500</span></p>
+								<p><span>好评100%</span> &nbsp;&nbsp;<span>月销售￥1000份</span></p>
 								<font>￥{{item.price}}</font>
 								<div class="number_food">
 									<button @click="jian(item)">-</button>
@@ -98,7 +55,7 @@
 									<button @click="jia(item)">+</button>
 								</div>
 							</li>
-							<li></li>
+							<li>{{maxarr}}</li>
 						</ul>
 					</div>
 				</template>
@@ -116,7 +73,7 @@
 							<p>另需配送费8元</p>
 						</div>
 						<div class="payment">
-							去结算
+							<router-link :to="{path:'settle'}" class="router-link-active">去结算</router-link>
 						</div>
 					</div>
 				</template>
@@ -146,23 +103,66 @@
 				<slot name="footer_max"></slot>
 			</div>
 		</template>
+		<!-- 结账 -->
+		<template id="settle_box">
+			<div>
+				<div class="title">
+					<router-link :to="{name:'homepage'}" class="router-link-activea"><p>< &nbsp;&nbsp;<span>确认订单</span></p></router-link>
+				</div>
+				<div class="zj">
+					<div class="headera">
+						<p>庆丰包子铺 <span>(窦店)</span></p>
+					</div>
+					<div class="sp_main">
+						<ul class="list_sp">
+							<li class="ha">
+								<img src="https://f11.baidu.com/it/u=1178551780,1459728369&fm=72" alt="">
+								<p>name</p>
+								<p>x几分</p>
+								<p>总价</p>
+							</li>
+							<li id="list_a">
+								<img src="images/images/7_03.jpg" alt="">
+								<p>餐盒</p>
+								<p>￥15</p>
+							</li>
+							<li id="list_a">
+								<img src="images/images/7_06.jpg" alt="">
+								<p>配送费</p>
+								<p>￥20</p>
+							</li>
+							<li id="xq">
+								<p>红包</p><img src="images/images/7_09.jpg" alt="">
+							</li>
+							<li id="fk">
+								<p>优惠说明</p><img src="images/images/7_13.jpg" alt="">
+								<p>小计￥<span>23</span></p>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</template>
 	</body>
 	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
 	<script>
-		Vue.component('bc-container',{
+		/* var homepage=Vue.extend({
+			template:"#peripheral",
+		}) */
+		var homepage=Vue.extend({
 			template:"#peripheral",
 			data(){
 				return {
 					ind:0,
-					// otru:true,
+					maxarr:null,
 					arr:[{
 						name:'包子',
 						food:[
 							{
 								img:'https://f11.baidu.com/it/u=1178551780,1459728369&fm=72',
 								title:'狗不理包子',
-								price:10,
-								
+								price:200,
 							},{
 								img:'http://img2.imgtn.bdimg.com/it/u=1411261894,2348508676&fm=26&gp=0.jpg',
 								title:'胡萝卜粉丝素包子',
@@ -402,10 +402,17 @@
 				//总价（用个数乘价格)
 				zongjia(){
 					var n=0;
+					var ar=[{}]
 					this.addnum.forEach(element=>{
 						n+=element.price*element.num;
+						//计算每条数据num是否为0(为0不添加，不为0添加)
+						if(element.num!=0){
+							ar.push(element)
+						}
 					});
-					return n.toFixed(0);
+					this.maxarr=ar;
+					console.log(this.maxarr)
+					return  n.toFixed(0);
 				},
 				//个数(每个的数组的num个数相加)
 				geshu(){
@@ -455,9 +462,39 @@
 		Vue.component('bc-footer',{
 			template:"#footer",
 		})
-		new Vue({
-			el:"#box",
+		//首页
+		//homepage
+		//结账
+		var settle=Vue.component('settle',{
+			template:"#settle_box",
+			created(){
+				//$route 代表所有的路由信息
+				console.log(this.$route)
+			},
+			data(){
+				return{
+					data:this.$route,
+				}
+			}
 		})
+		//路由
+		var router = new VueRouter({
+			routes:[
+				{
+					path:'/settle',
+					component:settle,
+					name:'settle',
+				},
+				{
+					path:'/',
+					component:homepage,
+					name:'homepage',
+				},
+			]
+		})
+		new Vue({
+			router:router,
+		}).$mount('#box')
 	</script>
 	<script type="text/javascript">
 		window.onload = function () {
@@ -466,6 +503,5 @@
 				document.documentElement.style.fontSize = document.documentElement.clientWidth/ 750 * 100 + 'px';
 			}
 		}
-	
 	</script>
 </html>

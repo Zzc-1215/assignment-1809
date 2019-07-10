@@ -57,8 +57,8 @@
                 </bc-footer>
             </bc-container>
         </bc-main>
+        <router-view></router-view>
     </div>
-    <router-view></router-view>
 
 
     <template id="container">
@@ -230,7 +230,7 @@
         }
     })
     var zf = Vue.component('zf',{
-        template:'<div class="zf"><!-- 返回 --><div class="fh"><span><router-link><</router-link></span><h3>确认订单</h3></div><!-- 订单 --><div class="dd"><div class="dd-main"><div class="dd-header"><h3>庆丰包子铺（窦店）</h3></div><div class="dd-body"><div class="dd-item"><div class="dd-img"><img src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2202050081,1260015096&fm=27&gp=0.jpg" alt=""></div><div class="dd-name"><h3>炸鸡全家桶</h3></div><div class="dd-sl"><span>x3</span></div><div class="dd-jq"><span>￥60</span></div></div><div class="dd-item"><div class="dd-sl dd-sl-two"><span class="dd-span">包装</span></div><div class="dd-name"><h3>餐盒</h3></div><div class="dd-jq"><span>￥3</span></div></div><div class="dd-item"><div class="dd-sl dd-sl-three"><span class="dd-span">蜂鸟</span></div><div class="dd-name"><h3>配送费</h3></div><div class="dd-jq"><span>￥8</span></div></div></div></div></div><div class="dd-foot"><div class="dd-footLeft"><p>￥8</p></div><div class="dd-footRight"><p>去支付</p></div></div></div>',
+        template:'<div class="zf"><!-- 返回 --><div class="fh"><span><router-link to="/zy"><</router-link></span><h3>确认订单</h3></div><!-- 订单 --><div class="dd"><div class="dd-main"><div class="dd-header"><h3>庆丰包子铺（窦店）</h3></div><div class="dd-body"><div class="dd-item"><div class="dd-img"><img src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2202050081,1260015096&fm=27&gp=0.jpg" alt=""></div><div class="dd-name"><h3>炸鸡全家桶</h3></div><div class="dd-sl"><span>x3</span></div><div class="dd-jq"><span>￥60</span></div></div><div class="dd-item"><div class="dd-sl dd-sl-two"><span class="dd-span">包装</span></div><div class="dd-name"><h3>餐盒</h3></div><div class="dd-jq"><span>￥3</span></div></div><div class="dd-item"><div class="dd-sl dd-sl-three"><span class="dd-span">蜂鸟</span></div><div class="dd-name"><h3>配送费</h3></div><div class="dd-jq"><span>￥8</span></div></div></div></div></div><div class="dd-foot"><div class="dd-footLeft"><p>￥8</p></div><div class="dd-footRight"><p>去支付</p></div></div></div>',
     })
     
     console.log(VueRouter)

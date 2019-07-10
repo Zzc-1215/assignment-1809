@@ -9,6 +9,7 @@
     <script src="./js/flexible.js"></script>
     <script src="./js/flexible_css.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
     <link rel="stylesheet" href="./css/1.css">
 </head>
 
@@ -23,9 +24,7 @@
             <!-- 中间 -->
             <bc-main>
                 <!-- 选项卡 -->
-                <abc :data="arr"  v-model="value" :max='10' :min='0'>
-                    <!-- 计数器 -->
-                    <!-- <bc-input-number v-model="value" :max='10' :min='0' :disabled="true"></bc-input-number> -->
+                <abc :data="arr" v-model="value">
                 </abc>
             </bc-main>
             <!-- 尾部 -->
@@ -33,7 +32,10 @@
                 <jiezhang></jiezhang>
             </bc-footer>
         </bc-container>
-
+        <router-view>
+            <dingdan>
+            </dingdan>
+        </router-view>
     </div>
     <!-- 全部 -->
     <template id="bccontainer">
@@ -93,7 +95,6 @@
                     <div class="ri">
                         <p class="caiming">{{item.name}}</p>
                         <p class="yueshou">{{item.haoping}}</p>
-                        <!-- <span></span> -->
                         <div class="jiage">
                             <p class="jiaqian">
                                 {{item.jiage}}
@@ -104,36 +105,20 @@
                                         -
                                     </span>
                                     <span>{{item.num}}</span>
-                                    <!-- <span>{{maxjiage}}</span> -->
+                                    <!-- <span>{{max}}</span> -->
                                     <span role="button" class="el-input-number__increase" @click="jia(item)">
                                         +
                                     </span>
-                                    <!-- <div class="el-input">
-                                        <input class="el-input__inner" type="text" v-model="v" readonly>
-                                    </div> -->
                                 </div>
                             </div>
                         </div>
-                        <!-- <h3>{{item.jiage}}</h3> -->
                     </div>
-                    <!-- {{item.name}} -->
                 </li>
             </ul>
         </div>
     </template>
     <!-- 计数器 -->
     <template id="abcd">
-        <!-- <div class="el-input-number">
-            <span role="button" class="el-input-number__decrease" @click="jian">
-                -
-            </span>
-            <span role="button" class="el-input-number__increase" @click="jia">
-                +
-            </span>
-            <div class="el-input">
-                <input class="el-input__inner" type="text" v-model="v" readonly>
-            </div>
-        </div> -->
     </template>
     <!-- 结账 -->
     <template id="jiezhang">
@@ -150,7 +135,45 @@
             </div>
         </div>
     </template>
+    <template id="dingdan">
+        <div class="quan">
+            <div class="zjt">
+                <</div> <div class="qfbzp">庆丰包子铺（窦店）
+            </div>
+            <div class="zzz">
+                <h2>庆丰包子铺</h2>
+                <p></p>
+                <p>餐盒</p>
+                <p>配送费</p>
+            </div>
+            <div class="jiez">
+                <div class="gouwuche">
+
+                </div>
+                <div class="zongjiaqian">
+                    ￥
+                </div>
+                <div class="jiesuan">
+                    去支付
+                </div>
+            </div>
+        </div>
+    </template>
     <script>
+        var router = new VueRouter({
+            routes: [
+                {
+                    path: '/abc',
+                    component: abc,
+                    name: 'abc',
+                    alias: ['/test1', '/test2'],
+                },
+
+            ]
+        });
+        var abc = Vue.component('dingdan', {
+            template: '#dingdan'
+        })
         // 全部
         Vue.component('bc-container', {
             template: '#bccontainer'
@@ -174,103 +197,70 @@
             template: '#dianpu'
         })
         // 选项卡
-        Vue.component('abc', {
+        var v = Vue.component('abc', {
             template: '#abc',
-            props: ['data', 'fs', 'value', 'max', 'min', 'step', ],
+            props: ['data'],
             data() {
                 return {
-                    num: '',
-                    vw:0,
+                    num: 0,
+                    vw: 0,
                     arr: this.data,
-                    fs1: this.fs,
                     v: this.value,
                 }
             },
-            component:{
-                add(){
-                    var anum=[];
+            computed: {
+                add() {
+                    var anum = [];
                     this.arr.forEach(element => {
-                        this.shiwu.forEach(el=>{
-                            if(el.num){
+                        element.shiwu.forEach(el => {
+                            if (el.num) {
                                 anum.push(el)
                             }
                         })
                     });
                     return anum;
                 },
-                max(){
-                    var n_num=0;
-                    this.add.forEach(element=>{
-                       n_num+=element.jiage*element.num;
-                   }); 
-                   return n_num.toFixed(0);
+                max() {
+                    var n_num = 0;
+                    this.add.forEach(element => {
+                        n_num += element.jiage * element.num;
+                    });
+                    return n_num.toFixed(0);
                 }
             },
             methods: {
-                dianji(index){
-                    this.vw=index
+                dianji(index) {
+                    this.vw = index
                 },
-                jia(item){
-                    if(item.num){
-						item.num++;
-					}else{
-						Vue.set(item,'num',1);
-					}
-                    // console.log(this.arr)
-                    // console.log(item)
-                    // if (!this.disabled) return
-                    // if (this.num>= this.max) return
-                    // this.v += this.step || 1;
-                },
-                jian(item){
-                    if(item.num<=0) return;
-                    item.num--
-                    // if (!this.disabled) return
-                    // if (this.v <= this.min) return
-                    // this.v -= this.step || 1;
+                jia(item) {
 
+                    if (item.num) {
+                        item.num++;
+                        // console.log(this.max)
+                        // this.$emit('cheng',max)
+                    } else {
+                        Vue.set(item, 'num', 1);
+                    }
+                },
+                jian(item) {
+                    if (item.num <= 0) return;
+                    item.num--
                 }
             },
         })
-        // 计数器
-        // Vue.component('bc-input-number', {
-        //     template: '#abcd',
-        //     props: ['value', 'max', 'min', 'step', 'disabled'],
-        //     data() {
-        //         return {
-        //             v:  this.value,
-        //             // ok:'false'
-        //         }
-        //     },
-        //     methods: {
-        //         jia(){
-        //             if (!this.disabled) return
-        //             if (this.v >= this.max) return
-        //             this.v += this.step || 1;
-        //         },
-        //         jian() {
-        //             if (!this.disabled) return
-        //             if (this.v <= this.min) return
-        //             this.v -= this.step || 1;
-
-        //         }
-        //     },
-        //     watch: {
-        //         v(val, oldvalue) {
-        //             this.$emit('input', val)
-        //         }
-        //     }
-        // })
         // 结账
-        Vue.component('jiezhang', {
+        var vmm = Vue.component('jiezhang', {
             template: '#jiezhang'
         })
+
         var vm = new Vue({
             el: '#box',
+            router: router,
             data() {
                 return {
                     value: 0,
                     fs: 0,
+                    gg: this.str,
                     arr: [{
                         fenlei: '热面',
                         shiwu: [{
@@ -330,48 +320,11 @@
                     }],
                 }
             },
-            
-            // component:{
-            //     add(){
-            //         var anum=[];
-            //         this.arr.forEach(element => {
-            //             this.shiwu.forEach(el=>{
-            //                 if(el.num){
-            //                     anum.push(el)
-            //                 }
-            //             })
-            //         });
-            //     },
-            //     maxjiage(){
-            //         var n_num='';
-            //        this.add.forEach(element=>{
-            //            n_num+=element.jiage*element.num
-            //        }) 
-            //     }
-            // },
-            // methods: {
-            //     dianji(index) {
-            //         // console.log(this.fs1)
-            //         this.num = this.arr[index]
-            //     },
-            //     jia(item) {
-            //         item.num++
-            //         // console.log(item)
-            //         // if (!this.disabled) return
-            //         // if (this.num>= this.max) return
-            //         // this.v += this.step || 1;
-            //     },
-            //     jian(item) {
-            //         if(item.num<=0) return;
-            //         item.num--
-            //         // if (!this.disabled) return
-            //         // if (this.v <= this.min) return
-            //         // this.v -= this.step || 1;
 
-            //     }
-            // },
 
         })
+        var str = vm.$children[0].$children[1].$children[0].max;
+        console.log(str)
     </script>
 </body>
 

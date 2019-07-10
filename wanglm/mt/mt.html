@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="iconfont(1).css">
+   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            user-select: none;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .clearfix::after,
+        .clearfix::before {
+            content: '';
+            display: table;
+        }
+
+        .clearfix::after {
+            clear: both;
+        }
+
+        .clearfix {
+            zoom: 1;
+        }
+
+        
+
+        .header {
+            width: 100%;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            padding: 0 10px;
+            padding-left: 22px;
+            box-sizing: border-box;
+            font-size: 15px;
+        }
+
+        .header i {
+            margin-left: 7px;
+            font-size: 20px;
+            color: #666;
+        }
+
+        .nav {
+            width: 100%;
+            height: 30px;
+            line-height: 30px;
+            border-top: 1px solid #ccc;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .nav ul {
+            width: 100%;
+            height: 100%;
+            font-size: 13px;
+        }
+
+        .nav ul li i {
+            font-size: 10px;
+            color: #666666;
+        }
+
+        .nav ul li {
+			width: 32.55%;
+			padding: 0;
+            padding: 0 11px;
+            box-sizing: border-box;
+            display: inline-block;
+			text-align: center;
+        }
+
+        
+
+        .list ul {
+            width: 92px;
+            height: auto;
+            float: left;
+			margin-top: 10px;
+        }
+
+        .list ul li {
+            width: 100%;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+          
+            font-size: 13px;
+            color: #666;
+            cursor: pointer;
+
+        }
+		 .list ul li:hover{
+			  background: red;
+			  color: white;
+		}
+        .list ol {
+            width: 250px;
+            height: auto;
+            float: left;
+        }
+
+        .list ol li {
+            width: 100%;
+            height: 65px;
+            padding-left: 3px;
+            box-sizing: border-box;
+			margin-top: 10px;
+        }
+
+        .img {
+            width: 64px;
+            height: 55px;
+            background-color: orange;
+            float: left;
+            margin: 5px 0;
+
+        }
+
+        .img img {
+            width: 64px;
+            height: 100%;
+            background-color: orange;
+            float: left;
+        }
+
+        .list ol li h4 {
+            width: 140px;
+            font-size: 16px;
+			margin-left: 10px;
+            line-height: 16px;
+            margin-bottom: 7px;
+            margin-top: 1px;
+            float: left;
+        }
+
+        .list ol li i {
+            font-size: 9px;
+            color: #f00;
+            margin-right: 51px;
+			margin-left: 10px;
+        }
+
+        .list ol li span {
+            width: 16px;
+            height: 16px;
+            line-height: 16px;
+            text-align: center;
+            border-radius: 50%;
+            border: 1px solid #ddd;
+            font-size: 12px;
+            color: #fff;
+            display: inline-block;
+            background: #2a93ff;
+			
+        }
+
+        .list ol li span:nth-of-type(2) {
+            width: 5px;
+            height: 0;
+            border: none;
+            color: black;
+        }
+
+        footer {
+            width: 100%;
+            height: 40px;
+            line-height: 40px;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            background-color: #ccc;
+            font-size: 14px;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+
+        footer a {
+            position: absolute;
+            right: 0;
+            border: none;
+            background-color: yellowgreen;
+            display: inline-block;
+            width: 60px;
+            height: 100%;
+            outline: none;
+            text-align: center;
+            text-decoration: none;
+            color: #fff;
+        }
+
+        footer button {
+            position: absolute;
+            right: 0;
+            border: none;
+            background-color: yellowgreen;
+            display: inline-block;
+            width: 60px;
+            height: 100%;
+            outline: none;
+            color: #fff;
+        }
+        /*  */
+        .fanhui{
+            width: 100%;
+            height: 50px;
+            line-height: 50px;
+            padding: 0 20px;
+            box-sizing: border-box;
+            font-size: 40px;
+        }
+        .foot{
+            width: 100%;
+            min-height: 100px;
+            padding: 30px;
+            box-sizing: border-box;
+        }
+        .foot ul{
+            width: 100%;
+            height: 30px;
+            line-height: 30px;
+        }
+        .foot ul li{
+            height: 50px;
+            border-bottom: 1px solid #ccc;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .foot ul li .img{
+            width: 30px;
+            height: 30px;
+            display: inline-block;
+            margin-right: 20px;
+            background-color: blue;
+        }
+        .foot ul li .img img{
+            width: 100%;
+            height: 100%;
+        }
+        .foot ul li span:nth-of-type(1){
+            margin-right: 20px;
+        }
+        .foot ul li span:nth-of-type(2){
+            margin-right: 20px;
+        }
+        .foot ul li span:nth-of-type(3){
+            font-weight: bold;
+        }
+		#con{
+			width: 50px;
+			height: 30px;
+			text-align: center;
+			line-height: 30px;
+			background: yellowgreen;
+			float: right;
+			margin-top: 5px;
+		}
+    </style>
+</head>
+
+<body>
+    <div id="app">
+            <router-view></router-view>
+    </div>
+    <template id="selectGoods">
+        <div>
+            <div class="header">配送至：现代管理大学<i class="iconfont icon-xiala"></i><i class="iconfont icon-icon-test"
+                    style="float: right;"></i></div>
+            <div class="nav">
+                <ul>
+                    <li style="border-right: 1px solid #ccc">点餐</li>
+                    <li style="border-right: 1px solid #ccc">评价</li>
+                    <li style="border-right: 1px solid #ccc">商家</li>
+                    
+                </ul>
+            </div>
+            <div class="list">
+                <ul>
+                    <li v-for="item,index in goodsList" @click="classify(index)" :class="{'active':i==index}">{{item.category}}
+                    </li>
+                </ul>
+                <ol>
+                    <li class="clearfix" v-for="item,index in goodsList[i].goods">
+                        <div class="img"><img :src="item.img" alt=""></div>
+                        <h4>{{item.title}}</h4>
+                        <i>{{item.price}}</i>
+                        <span @click="delCart(item)">-</span>
+                        <span>{{item.num || 0}}</span>
+                        <span @click="addCart(item)">+</span>
+                    </li>
+                </ol>
+            </div>
+            <footer>
+                一共{{total}}
+               <!-- <router-link :to="{name:'shoppingCart',params:{selectList}}">去结算</router-link> -->
+			   <div id="con">去结算</div>
+            </footer>
+        </div>
+    </template>
+   <!-- <template id="shoppingCart">
+        <div>
+            <div class="fanhui"><router-link to="selectGoods"><</router-link></div>
+            <div class="foot">
+                <ul>
+                    <li v-for="item in arr1">
+                        <div class="img"><img :src="item.img" alt=""></div>
+                        <span>{{item.title}}</span>
+                        <span>x{{item.num}}</span>
+                        <span>￥{{(item.num*item.price).toFixed(2)}}</span>
+                    </li>
+                </ul>
+            </div>
+            <footer>
+                一共{{total}}
+                <button>去支付</button>
+            </footer>
+        </div>
+    </template> -->
+    <script>
+        var shoppingCart={
+            template:'#shoppingCart',
+            data(){
+                return {
+                    arr1:this.$route.params.selectList || [],
+                }
+            },
+            computed: {
+                total(){
+                    var n=0;
+                    this.arr1.forEach(element=>{
+                        n+=element.price*element.num;
+                    });
+                    return n.toFixed(2);
+                }
+            },
+        }
+        var selectGoods = {
+            template: '#selectGoods',
+            data(){
+                return {
+                    goodsList:[
+                        {
+                            category:'庆丰水饺',
+                            goods:[
+                                {
+                                    img:"https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3424629847,2238551792&fm=27&gp=0.jpg",
+                                    title:'猪肉大葱水饺',
+                                    price:10.8,
+                                },{
+                                    img:"https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3424629847,2238551792&fm=27&gp=0.jpg",
+                                    title:'猪肉大葱水饺',
+                                    price:10.8,
+                                },{
+                                    img:"https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3424629847,2238551792&fm=27&gp=0.jpg",
+                                    title:'猪肉大葱水饺',
+                                    price:10.8,
+                                },{
+                                    img:"https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3424629847,2238551792&fm=27&gp=0.jpg",
+                                    title:'猪肉大葱水饺',
+                                    price:10.8,
+                                },
+                            ]
+                        },{
+                            category:'流食', 
+                            goods:[
+                                {
+                                    img:'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=341332627,3414956880&fm=27&gp=0.jpg',
+                                    title:'庆丰流食',
+                                    price:66,
+                                },{
+                                    img:'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=341332627,3414956880&fm=27&gp=0.jpg',
+                                    title:'庆丰流食',
+                                    price:66,
+                                },{
+                                    img:'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=341332627,3414956880&fm=27&gp=0.jpg',
+                                    title:'庆丰流食',
+                                    price:66,
+                                },{
+                                    img:'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=341332627,3414956880&fm=27&gp=0.jpg',
+                                    title:'庆丰流食',
+                                    price:66,
+                                },
+                            ]
+                        },
+						{
+						    category:'庆丰包子', 
+						    goods:[
+						        {
+						            img:'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1241148650,2771095134&fm=27&gp=0.jpg',
+						            title:'韭菜鸡蛋包子',
+						            price:66,
+						        },{
+						            img:'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1241148650,2771095134&fm=27&gp=0.jpg',
+						            title:'韭菜鸡蛋包子',
+						            price:66,
+						        },{
+						            img:'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1241148650,2771095134&fm=27&gp=0.jpg',
+						            title:'韭菜鸡蛋包子',
+						            price:66,
+						        },
+								{
+								    img:'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1241148650,2771095134&fm=27&gp=0.jpg',
+								    title:'韭菜鸡蛋包子',
+								    price:66,
+								},
+						    ]
+						},{
+                            category:'凉菜',
+                            goods:[
+                                {
+                                    img:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1758786112,3837879453&fm=27&gp=0.jpg',
+                                    title:'凉菜',
+                                    price:100,
+                                },{
+                                    img:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1758786112,3837879453&fm=27&gp=0.jpg',
+                                    title:'凉菜',
+                                    price:100,
+                                },
+								{
+								    img:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1758786112,3837879453&fm=27&gp=0.jpg',
+								    title:'凉菜',
+								    price:100,
+								},{
+                                    img:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1758786112,3837879453&fm=27&gp=0.jpg',
+                                    title:'凉菜',
+                                    price:100,
+                                },
+                            ]
+                        }
+                    ],
+                    quantitys: 0,
+                    i: 0,
+                }
+            },
+            methods: {
+                classify(index) {
+                    this.i = index;
+                },
+                addCart(item) {
+                    if(item.num){
+                        item.num++;
+                    }else{
+                        Vue.set(item,'num',1);
+                    }
+                },
+                delCart(item) {
+                    if(item.num){
+                        if(item.num==0) return;
+                        item.num--;
+                    }
+                },
+            },
+            computed:{
+                selectList(){
+                    var arr=[];
+                    this.goodsList.forEach(element => {
+                        if(element.goods && element.goods.length>0)
+                        element.goods.forEach(el=>{
+                            if(el.num){
+                                arr.push(el);
+                            }
+                        })
+                    });
+                    return arr;
+                },
+                total(){
+                    var n=0;
+                    this.selectList.forEach(element=>{
+                        n+=element.price*element.num;
+                    });
+                    return n.toFixed(2);
+                }
+            },
+        }
+        const router=new VueRouter({
+            routes:[
+                {
+                    path:'/',
+                    redirect:'/selectGoods',
+                },
+                {
+                    path:'/selectGoods',
+                    component:selectGoods,
+                },{
+                    path:'/shoppingCart',
+                    name:'shoppingCart',
+                    component:shoppingCart,
+                }
+            ]
+        })
+        var vm = new Vue({
+            router,
+            el: '#app',
+        })
+        // vm.classify(0)
+    </script>
+</body>
+
+</html>

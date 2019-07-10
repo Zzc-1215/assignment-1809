@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="UTF-8">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script type="text/javascript">
+        window.onload = function () {
+            document.documentElement.style.fontSize = document.documentElement.clientWidth / 640 * 100 + 'px';
+            window.onresize = function () {
+                document.documentElement.style.fontSize = document.documentElement.clientWidth / 640 * 100 + 'px';
+            }
+        }
+    </script>
+    <title></title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            font-size: 0.18rem;
+            text-decoration: none;
+            user-select: none;
+            cursor: pointer;
+        }
+
+        .clearfix::after,
+        .clearfix::before {
+            content: '';
+            display: table;
+        }
+
+        .clearfix::after {
+            clear: both;
+        }
+
+        .clearfix {
+            zoom: 1;
+        }
+
+        .box {
+            width: 100%;
+            height: auto;
+            margin: 0 auto;
+        }
+
+        .header {
+            width: 100%;
+            height: 0.7rem;
+            line-height: 0.7rem;
+            text-align: center;
+            background-color: green;
+            position: relative;
+        }
+
+        .header h1 {
+            font-size: 0.18rem;
+            color: white;
+        }
+
+        .iconfont {
+            font-size: 0.18rem;
+        }
+
+        .icon-icon-test {
+            position: absolute;
+            right: 0.3rem;
+        }
+
+        .nav {
+            width: 100%;
+            height: 0.7rem;
+            line-height: 0.7rem;
+            text-align: center;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .list {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .list li {
+            width: 25%;
+            float: left;
+        }
+
+        .hot {
+            border-right: 1px #ccc solid;
+        }
+
+        .active {
+            background-size: 0.05rem 0.25rem;
+            background: #ccc;
+        }
+
+        .content {
+            width: 100%;
+            height: auto;
+        }
+
+        .product {
+            width: 25%;
+            border: 1px #ccc solid;
+            text-align: center;
+            float: left;
+            box-sizing: border-box;
+        }
+
+        .product li {
+            width: 100%;
+            height: 0.7rem;
+            line-height: 0.7rem;
+            box-sizing: border-box;
+            border-bottom: 1px #ccc solid;
+        }
+
+        .information {
+            width: 75%;
+            height: auto;
+            float: left;
+        }
+
+        .item-box,.jiesuan {
+            width: 100%;
+            height: 1.4rem;
+            padding: 0.1rem;
+            border-bottom: 1px #ccc solid;
+
+            box-sizing: border-box;
+        }
+
+        .img {
+            width: 1.2rem;
+            height: 1.2rem;
+            float: left;
+        }
+
+        .img img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .text {
+            width: 70%;
+            margin-left: 0.1rem;
+            float: left;
+            position: relative;
+        }
+
+        .text .bt {
+            margin-top: 0.3rem;
+
+        }
+
+        .price {
+            color: orange;
+        }
+
+        .text .bt p {
+            float: right;
+        }
+
+        .jian,
+        .jia {
+            width: 0.15rem;
+            height: 0.15rem;
+            text-align: center;
+            line-height: 0.15rem;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 50%;
+            margin: 0 0.1rem;
+        }
+
+        .footer {
+            width: 100%;
+            height: 0.8rem;
+            background: green;
+            position: fixed;
+            bottom: 0;
+            line-height: 0.8rem;
+            padding-left: 0.2rem;
+            font-size: 0.24rem;
+            box-sizing: border-box;
+            color: #fff;
+        }
+
+        .footer a {
+            text-align: center;
+            float: right;
+            color: #fff;
+            width: 1rem;
+            height: 0.8rem;
+            background-color: orange
+        }
+    </style>
+</head>
+
+<body>
+    <div id='app'>
+        <!-- 组件渲染 -->
+        <keep-alive>
+            <router-view ref='reference'></router-view>
+        </keep-alive>
+    </div>
+    <template id='selectGoods'>
+        <div>
+            <div class="box">
+                <!-- 头部 -->
+                <header class='header'>
+                    <h1>派送至：北京现代管理学校<i class='iconfont icon-xiala'></i><i class='iconfont icon-icon-test'></i></h1>
+                </header>
+                <!-- 下方内容 -->
+                <div class="content clearfix">
+                    <!-- 左侧菜单 -->
+                    <ul class='product'>
+                        <li @click='xianshi(index)' v-for='item,index in arr' :class="{'active':i==index}">
+                            {{item.type}}
+                        </li>
+                    </ul>
+                    <!-- 右侧具体信息 -->
+                    <div class='information'>
+                        <div class="nav">
+                            <ul class='list'>
+                                <li>综合排序</li>
+                                <li>按价格<i class='iconfont icon-shangxiajiantou'></i></li>
+                                <li>排序</li>
+                            </ul>
+                        </div>
+                        <!-- 右侧商品列表 -->
+                        <div class='item-box clearfix' v-for='item,index in arr[i].code'>
+                            <div class="img">
+                                <img :src="item.img" alt="">
+                            </div>
+                            <div class="text">
+                                <h3>{{item.text}}</h3>
+                                <div class='bt'>
+                                    <span class='price'>{{item.price}}</span>
+                                    <p>
+                                        <span class='jian' @click='del(item)'>-</span>
+                                        {{item.num || 0}}
+                                        <span class='jia' @click='add(item)'>+</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <footer class='footer'>
+                    总价:{{total}}元
+                    <!-- 实现页面的跳转  to 默认是a标签-->
+                    <router-link :to="{name:'shoppingCart',params:{selectList}}">去结算</router-link>
+                </footer>
+            </div>
+        </div>
+    </template>
+    <template id='shoppingCart'>
+        <div>
+            <div class='jiesuan' v-for='item in goodlist'>
+                <div class="img">
+                    <img :src="item.img" alt="">
+                </div>
+                <div class="text">
+                    <h3>{{item.text}}</h3>
+                    <div class='bt'>
+                        <span class='price'>{{item.price}}</span>
+                        <p>
+                            {{item.num || 0}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <footer class='footer'>
+                总价:{{total}}元
+                <a>去支付</a>
+            </footer>
+        </div>
+    </template>
+    <script> 
+         
+        var selectGoods = {
+            template: '#selectGoods',
+            data() {
+                return {
+                    currentCategory: 0,
+                    arr: [{
+                        type: '热销商品',
+                        code: [{
+                            img: 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1313270453,3807247283&fm=26&gp=0.jpg',
+                            text: '新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                            price: '￥10.8',
+
+                        },
+                        {
+                            img: 'http://img02.tooopen.com/images/20150414/tooopen_sy_118451441751.jpg',
+                            text: '新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                            price: '￥10.8',
+
+                        },
+                        {
+                            img: 'http://img4.imgtn.bdimg.com/it/u=2851445260,1524768388&fm=26&gp=0.jpg',
+                            text: '新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                            price: '￥10.8',
+
+                        },
+                        {
+                            img: 'http://img2.imgtn.bdimg.com/it/u=4259438085,1196209161&fm=26&gp=0.jpg',
+                            text: '新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                            price: '￥10.8',
+
+                        },
+                        {
+                            img: 'http://img1.imgtn.bdimg.com/it/u=989743373,1247199668&fm=26&gp=0.jpg',
+                            text: '新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                            price: '￥10.8',
+
+                        },
+                        {
+                            img: 'http://img2.imgtn.bdimg.com/it/u=3941718376,2643720830&fm=26&gp=0.jpg',
+                            text: '新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                            price: '￥10.8',
+
+                        },
+                        {
+                            img: 'http://img1.imgtn.bdimg.com/it/u=1898610548,51609395&fm=26&gp=0.jpg',
+                            text: '新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                            price: '￥10.8',
+
+                        }
+                            , {
+                            img: 'http://img0.imgtn.bdimg.com/it/u=2611172137,4195398711&fm=26&gp=0.jpg',
+                            text: '新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                            price: '￥10.8',
+
+                        }]
+                    },
+                    {
+                        type: '优选水果',
+                        code: [{
+                            img: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=270613959,1981868654&fm=27&gp=0.jpg',
+                            text: '新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                            price: '￥10.8',
+
+                        },
+                        {
+                            img: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3746385074,1140602455&fm=27&gp=0.jpg',
+                            text: '新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                            price: '￥10.8',
+
+                        },
+                        {
+                            img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2929614044,2614709093&fm=27&gp=0.jpg',
+                            text: '新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                            price: '￥10.8',
+
+                        },
+                        {
+                            img: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1159558640,543848856&fm=26&gp=0.jpg',
+                            text: '新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                            price: '￥10.8',
+
+                        },
+
+                        {
+                            img: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1130404426,1788912373&fm=26&gp=0.jpg',
+                            text: '新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                            price: '￥10.8',
+
+                        },
+                        {
+                            img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2929614044,2614709093&fm=27&gp=0.jpg',
+                            text: '新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                            price: '￥10.8',
+
+                        },
+                        {
+                            img: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2446440385,2674115126&fm=26&gp=0.jpg',
+                            text: '新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                            price: '￥10.8',
+
+                        },
+                        {
+                            img: 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2361039587,1911492176&fm=26&gp=0.jpg',
+                            text: '新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                            price: '￥10.8',
+
+                        },
+                        {
+                            img: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=591731724,2807699705&fm=26&gp=0.jpg',
+                            text: '新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                            price: '￥10.8',
+
+                        }],
+                    },
+                    {
+                        type: '卤味熟食',
+                        code: [{
+                            img: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=891543169,1646849409&fm=27&gp=0.jpg',
+                            text: '新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                            price: '￥10.8',
+
+                        },
+                        {
+                            img: 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1925523793,1792055423&fm=27&gp=0.jpg',
+                            text: '新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                            price: '￥10.8',
+
+                        },
+                        {
+                            img: 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2746186180,730858575&fm=27&gp=0.jpg',
+                            text: '新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                            price: '￥10.8',
+
+                        },
+                        {
+                            img: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1141338740,1367994576&fm=27&gp=0.jpg',
+                            text: '新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                            price: '￥10.8',
+
+                        }]
+                    },
+                    {
+                        type: '牛奶面包',
+                        code: [{
+                            img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=792914383,750654932&fm=27&gp=0.jpg',
+                            text: '新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                            price: '￥10.8',
+
+                        },
+                        {
+                            img: 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1908930410,3356823207&fm=27&gp=0.jpg',
+                            text: '新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                            price: '￥10.8',
+
+                        }]
+                    },
+                    {
+                        type: '热饮',
+                        code: [{
+                            img: 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2951920470,3970239851&fm=27&gp=0.jpg',
+                            text: '新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                            price: '￥10.8',
+
+                        },
+                        {
+                            img: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2522866663,1798252010&fm=27&gp=0.jpg',
+                            text: '新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                            price: '￥10.8',
+
+                        }]
+                    },
+                    {
+                        type: '休闲零食',
+                        code: [{
+                            img: 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1427332273,3339980770&fm=27&gp=0.jpg',
+                            text: '新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                            price: '￥10.8',
+
+                        },
+                        {
+                            img: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3132824135,2844314173&fm=27&gp=0.jpg',
+                            text: '新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                            price: '￥10.8',
+
+                        }]
+                    },
+                    {
+                        type: '啤酒饮料',
+                        code: [{
+                            img: 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1427332273,3339980770&fm=27&gp=0.jpg',
+                            text: '新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                            price: '￥10.8',
+
+                        },
+                        {
+                            img: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3132824135,2844314173&fm=27&gp=0.jpg',
+                            text: '新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                            price: '￥10.8',
+
+                        }]
+                    },
+                    {
+                        type: '数码家电',
+                        code: [{
+                            img: 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1427332273,3339980770&fm=27&gp=0.jpg',
+                            text: '新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                            price: '￥10.8',
+
+                        },
+                        {
+                            img: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3132824135,2844314173&fm=27&gp=0.jpg',
+                            text: '新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                            price: '￥10.8',
+
+                        }]
+                    },
+                    {
+                        type: '户外运动',
+                        code: [{
+                            img: 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1427332273,3339980770&fm=27&gp=0.jpg',
+                            text: '新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                            price: '￥10.8',
+
+                        },
+                        {
+                            img: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3132824135,2844314173&fm=27&gp=0.jpg',
+                            text: '新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                            price: '￥10.8',
+
+                        }]
+                    },
+                    {
+                        type: '方便速食',
+                        code: [{
+                            img: 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1427332273,3339980770&fm=27&gp=0.jpg',
+                            text: '新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                            price: '￥10.8',
+
+                        },
+                        {
+                            img: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3132824135,2844314173&fm=27&gp=0.jpg',
+                            text: '新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                            price: '￥10.8',
+
+                        }]
+                    },
+                    ],
+                    // list: [],
+                    i: 0,
+                }
+
+
+            },
+            methods: {
+                xianshi(index) {
+                    // this.list = this.arr[index].code;
+                    this.i = index;//存下标
+                },
+                del(item) {
+                    if (item.num) {
+                        if (item.num == 0) return;
+                        item.num--;
+                    }
+                },
+                add(item) {
+                    console.log(item)
+                    if (item.num) {
+                        item.num++;
+                    } else {
+                        Vue.set(item, 'num', 1);
+                    }
+                }
+            },
+            computed: {
+                selectList() {
+                    var array = [];
+                    this.arr.forEach(element => {
+                        if (element.code && element.code.length > 0) {
+                            element.code.forEach(el => {
+                                if (el.num) {
+                                    array.push(el);
+                                }
+                            });
+                        }
+                    });
+                    return array;
+                },
+                total() {//计算商品总价
+                    var n = 0;
+                    this.selectList.forEach(element => {
+                        console.log((element.price).split('￥')[1]);
+                        n += (element.price).split('￥')[1] * element.num;
+                    });
+                    return n.toFixed(2);
+                }
+            },
+            watch: {
+                selectList(v1) {
+                    console.log(v1);
+                }
+            }
+        }
+        // 第二个组件
+        var shoppingCart = {
+            // template: '<div>{{$route.params}}</div>',
+            template:'#shoppingCart',
+            data() {
+                return {
+                    goodlist: this.$route.params.selectList||[]                  
+                }
+            },
+            //计算属性
+            computed: {
+                total() {//计算商品总价
+                    var n = 0;
+                    console.log(this.goodlist)
+                    this.goodlist.forEach(element => {
+                        console.log((element.price).split('￥')[1]);
+                        n += (element.price).split('￥')[1] * element.num;
+                    });
+                    return n.toFixed(2);
+                }
+            },
+           
+            
+        }
+        const router = new VueRouter({
+            routes: [
+                {
+                    path: '/',
+                    component: selectGoods
+                }, {
+                    path: '/shoppingCart',
+                    name: 'shoppingCart',
+                    component: shoppingCart
+                }
+            ]
+        })
+        var vm = new Vue({
+            router,
+            el: '#app',
+        })
+
+    </script>
+</body>
+
+</html>

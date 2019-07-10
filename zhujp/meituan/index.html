@@ -8,34 +8,37 @@
 	<script type="text/javascript" src="flexible/flexible_css.js"></script>
 	<script type="text/javascript" src="flexible/flexible.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
 	<link rel="stylesheet" type="text/css" href="css/iconfont.css">
 </head>
 <body>
 	<div id="app">
-		<bc-container>
-			<!-- 头部 -->
-			<bc-header>
-				<h3><i class="iconfont">&#xe601;</i>庆丰包子铺(窦店)</h3>
-			</bc-header>
-			<!-- 内容 -->
-			<bc-content>
-				<abc @total="total=$event" @num="num=$event">
-				</abc>
-			</bc-content>
-			<!-- 底部 -->
-			<transition>
-				<bc-footer v-show="total">
-				<div class="f-l">
-					<i class="iconfont">&#xe600;</i>
-					<span>￥{{total}}</span>
-					<h3>另需配送费8元</h3>
-				</div>
-				<div class="f-r">
-					<button>去结算</button>
-				</div>
-			</bc-footer>
-			</transition>
-		</bc-container>
+        <router-view>
+    		<bc-container>
+    			<!-- 头部 -->
+    			<bc-header>
+    				<h3><i class="iconfont">&#xe601;</i>庆丰包子铺(窦店)</h3>
+    			</bc-header>
+    			<!-- 内容 -->
+    			<bc-content>
+    				<abc @total="total=$event" @num="num=$event">
+    				</abc>
+    			</bc-content>
+    			<!-- 底部 -->
+    			<transition>
+    				<bc-footer>
+    				<div class="f-l">
+    					<i class="iconfont">&#xe600;</i>
+    					<span>￥{{total}}</span>
+    					<h3>另需配送费8元</h3>
+    				</div>
+    				<div class="f-r">
+    					<button><router-link :to="{name:dingdan}">去结算</router-link></button>
+    				</div>
+    			</bc-footer>
+    			</transition>
+    		</bc-container>
+        </router-view>
 	</div>
 	<template id="container">
 		<div class="container">
@@ -54,13 +57,12 @@
 	</template>
 	<template id="list">
 		<div class="content clearfix">
-			
 			<ul class="left">
 				<li v-for="(item,index) in foods" @click="dian(index)" :class="{active:currenyIndex == index}">{{item.ltypes}}</li>
 			</ul>
 			<ul class="right">
-				<li v-for="(foods,index) in foods" v-if="currenyIndex == index">
-					<div v-for="(i,index) in foods.food" class="clearfix item">
+				<li v-for="(foods,index) in foods" v-if="currenyIndex == index" :key="index">
+					<div v-for="(i,idx) in foods.food" class="clearfix item">
 						<div class="img">
 							<img :src="i.img">
 						</div>
@@ -126,7 +128,7 @@
                                 name: '鲅鱼三鲜水饺',
                                 price: 20,
                                 info: '猪肉(肥瘦适中),大葱',
-                                img: 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1926447759,2383249261&fm=11&gp=0.jpg'
+                                img: 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1926447759,2383249261&fm=11&gp=0.jpg' 
                             }, {
                                 name: '虾仁三鲜水饺',
                                 price: 25,
@@ -329,6 +331,12 @@
                 
             }
         })
+        var router = new VueRouter({
+            routes: [{
+                path: '/diandan',
+                name:'diandan',
+            }],
+        })
 		var vm = new Vue({
 			el:'#app',
 			data(){
@@ -336,7 +344,8 @@
 					total:0,
 					value:0,
 				}
-			}
+			},
+            router,
 		})
 	</script>
 </body>
