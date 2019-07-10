@@ -112,4 +112,52 @@ Activated/deactivated   组件激活、停用
     定义组件名，kebab-case或者PascalCase，但是使用时只有 kebab-case 是有效的
 10、prop命名：kebab-case或者PascalCase 使用：kebab-case（同组件名规则）
 
+1、Prop验证
+	type：String、Number、Boolean、Function、Object、Array、Date、Symbol、自定义的构造函数
+	required：true/false
+	default: 默认值，数组/对象的默认值应当由一个工厂函数返回
+	validator：自定义验证函数
+2、动态绑定特性值
+	1、引用类型时，子组件中更改相应的属性会导致父组件相应属性的更改
+	2、基本类型时，子组件中更改这个属性会报错，加上.sync修饰符
+但是：一般来说，是不建议在子组件中对父组件中传递来的属性进行操作的
+	1、基本类型值，在子组件中创建一个新的data或computed，并以传递进来的值进行初始化，之后就可以操作这个新的属性了
+	2、引用类型值，最好是对引用类型进行复制。复杂的情况，肯定应该是深复制
+
+3、非prop类型的属性/覆盖非prop类型的属性，class、style除外。禁用特性inheritAttrs: false
+--组件插槽--
+1、定义：<slot name="插槽名" v-bind:插槽属性="子组件数据">后备内容（默认）</slot> 
+2、插入内容：<template v-slot:插槽名="插槽属性值">插入内容</template>
+
+1、路由功能
+	嵌套的路由、视图表
+	模块化、基于组件的路由配置
+	路由参数、查询、通配符
+	基于vue.js过渡系统的视图过渡效果
+	细粒度的导航控制
+	带自动激活的css class的连接
+	Html5模式和hash模式，ie9中自动降级
+	自定义滚动条行为
+2、起步使用
+	var router = new VueRouter({构建选项}) //创建路由实例
+3、构建选项:定义路由routes
+	New Vue({router:router}) //通过router注入路由
+	This.$router访问路由，this.$route访问当前路由
+	<router-link>匹配成功会对应class属性值. router-link-active
+4、动态路由匹配
+	动态路由：路径以冒号开头，this.$route.params
+	捕获所有路由，使用通配符（*）匹配的部分用pathMatch获取，通常用于客户端 404 错误
+5、嵌套路由
+	Children配置
+	配置空的子路由 path：’’
+6、命名路由（name）
+7、重定向（redirect）、别名（alias）
+8、编程式导航
+	声明式：<router-link :to=“”>
+	router.push(location,oncomplate?,onAbort?);
+	This.$router.push
+		参数1：字符串 ‘/home’
+		参数2：对象 {path:’home’}
+		参数3：命名的路由｛name：‘user’，params：｛传参｝｝
+		参数4：带查询参数｛…,query{plan:’private’}｝?plan=private
 
