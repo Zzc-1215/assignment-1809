@@ -125,14 +125,13 @@ input {
     .tabs .food_list .food .food_message .food_sales {
       font-size: 14px;
       color: #a8a8a8;
-      padding-bottom: 76px; }
+      padding-bottom: 70px; }
     .tabs .food_list .food .food_message .price_box {
       width: 330px; }
       .tabs .food_list .food .food_message .price_box .food_price {
         color: #f85b4b;
         font-size: 26px;
-        font-weight: bold;
-        margin-top: 5px; }
+        font-weight: bold; }
       .tabs .food_list .food .food_message .price_box .counter {
         margin-top: -5px; }
         .tabs .food_list .food .food_message .price_box .counter .sub, .tabs .food_list .food .food_message .price_box .counter .add {
@@ -160,15 +159,27 @@ input {
 .foot {
   width: 750px;
   height: 100px;
-  background: blue;
+  background: #078b49;
   position: absolute;
-  text-align: center;
   line-height: 100px;
   font-size: 24px;
   font-weight: bold;
   color: #fff;
   bottom: 0; }
+  .foot span {
+    padding-left: 400px; }
+  .foot b {
+    float: left;
+    width: 60px;
+    height: 60px;
+    text-align: center;
+    line-height: 60px;
+    margin-top: 20px;
+    margin-left: 50px;
+    border-radius: 50%;
+    background: #0c70f1; }
   .foot button {
     height: 100px;
     border: none;
-    width: 150px; }
+    width: 150px;
+    font-size: 20px; }
