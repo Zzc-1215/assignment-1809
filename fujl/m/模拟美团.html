@@ -383,35 +383,35 @@
                     <h3>{{item.text}}</h3>
                     <div class='bt'>
                         <p>
-                           
+
                             x{{item.num || 0}}
-                            
+
                         </p>
                         <p>
-                                ￥{{total}}
+                            ￥{{item.num || 0}}
                         </p>
                     </div>
                 </div>
-                
+
             </div>
             <div class="canhe">
                 <span class="sss">包装</span>
-                    <h4>餐盒</h4>
-                    <p>￥3</p>
-                </div>
+                <h4>餐盒</h4>
+                <p>￥3</p>
+            </div>
             <div class="canhe">
                 <span>蜂鸟</span>
-                    <h4>配送费</h4>
-                    <p>￥8</p>
-                </div>
-                <div class="canhe">
-                        <h4>红包</h4>
-                        
-                    </div>
-                <div class="you">
-                    <p>优惠说明</p>
-                    <i> {{ling}}</i>
-                </div>
+                <h4>配送费</h4>
+                <p>￥8</p>
+            </div>
+            <div class="canhe">
+                <h4>红包</h4>
+
+            </div>
+            <div class="you">
+                <p>优惠说明</p>
+                <i> {{ling}}</i>
+            </div>
             <footer class="footer">
                 总价:{{total}}元
 
@@ -675,7 +675,7 @@
                     });
                     return n.toFixed(2);
                 },
-                
+
             },
             watch: {
                 selectList(v1) {
@@ -701,12 +701,14 @@
                         n += (element.price).split('￥')[1] * element.num;
                     });
                     return n.toFixed(2);
-                },      
-                ling(){
-                    var m=11;
-                  var t=  Number(this.total)+m;
-                    return  t;
+                },
+                ling() {
+                    var m = 11;
+                    var t = Number(this.total) + m;
+                    return t;
                 }
+
+
 
             },
 
