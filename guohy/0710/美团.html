@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<link rel="stylesheet" href="美团.css">
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+</head>
+
+<body>
+	<div id="app">
+		<router-view></router-view>
+	</div>
+	<!-- 商品选择 -->
+	<template id="selectGoods">
+		<div>
+			<header>
+				<div class="header"><span><</span>庆丰包子铺(窦店)</div>
+				<div class="nav">
+					<ul>
+						<li style="position: relative;">
+							<a href="#" class="border">点餐</a>
+							<span >{{nums}}</span>
+						</li>
+						<li><a href="#">顾客评价</a></li>
+						<li><a href="#">商家</a></li>
+					</ul>
+				</div>
+			</header>
+			<main>
+				<ul>
+					<li v-for="item,index in foodsList" @click="classify(index)" :class="{'active':i==index}">{{item.category}}
+					</li>
+				</ul>
+				<ol>
+					<li class="clearfix" v-for="item,index in foodsList[i].foods">
+						<div class="img"><img :src="item.img" alt=""></div>
+						<h4>{{item.title}}</h4>
+						<h6>{{item.introduction}}</h6>
+						<div class="bottom">
+							<i>￥{{item.price}}</i>
+							<span @click="delCart(item)">-</span>
+							<span>{{item.num || 0}}</span>
+							<span @click="addCart(item)">+</span>
+						</div>
+					</li>
+				</ol>
+			</main>
+
+			<footer class="clearfix">
+				<div class="footer_img fl">
+					<img src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2135601227,3779403835&fm=26&gp=0.jpg" alt="">
+					<span>{{nums}}</span>
+				</div>
+				<div class="footer_center fl">
+					￥{{total}}
+					<p>配送费￥100</p>
+				</div>
+				<router-link class="fr" :to="{name:'shoppingCart',params:{selectList}}" style="line-height: 3rem">去结算</router-link>
+			</footer>
+		</div>
+	</template>
+	<!-- 支付 -->
+	<template id="shoppingCart">
+		<div>
+			<div class="fanhui"><router-link to="selectGoods"><</router-link></div>
+			<div class="foot">
+				<ul>
+					<li v-for="item in arr1">
+						<div class="img"><img :src="item.img" alt=""></div>
+						<span>{{item.title}}</span>
+						<span>x{{item.num}}</span>
+						<span>￥{{(item.num*item.price).toFixed(2)}}</span>
+					</li>
+				</ul>
+			</div>
+			<footer style="line-height: 3rem">
+				合计{{total}}元
+				<button>去支付</button>
+			</footer>
+		</div>
+	</template>
+	<script>
+		var shoppingCart={
+			template:'#shoppingCart',
+			data(){
+				// 跳转到此页面后用一个空数组接受接收到的数据
+				return {
+					arr1:this.$route.params.selectList || [],
+				}
+			},
+			computed: {
+				total(){
+					var n=0;
+					// 循环数据 重新计算出所需总价
+					this.arr1.forEach(element=>{
+						n+=element.price*element.num;
+					});
+					return n.toFixed(2);
+				}
+			},
+		}
+		var selectGoods={
+			template: '#selectGoods',
+			data(){
+				return {
+					foodsList:[
+					{
+						category:'热销',
+						foods:[
+						{
+							img:'http://img2.imgtn.bdimg.com/it/u=2739649437,183959597&fm=26&gp=0.jpg',
+							introduction:'月售18份 好评率100%',
+							title:'猪肉大葱',
+							price:10.8,
+						},{
+							img:'http://img2.imgtn.bdimg.com/it/u=2739649437,183959597&fm=26&gp=0.jpg',
+							introduction:'月售18份 好评率100%',
+							title:'素三鲜',
+							price:10.8,
+						},{
+							img:'http://img2.imgtn.bdimg.com/it/u=2739649437,183959597&fm=26&gp=0.jpg',
+							introduction:'月售18份 好评率100%',
+							title:'茶鸡蛋',
+							price:10.8,
+						},{
+							img: 'http://img2.imgtn.bdimg.com/it/u=2739649437,183959597&fm=26&gp=0.jpg',
+							introduction:'月售18份 好评率100%',
+							title: '棒渣粥',
+							price: 2,
+						}]
+					},{
+						category:'水饺', 
+						foods:[
+						{
+							img:'http://img3.imgtn.bdimg.com/it/u=3269436901,2466451758&fm=26&gp=0.jpg',
+							introduction:'月售18份 好评率100%',
+							title:'猪肉白菜水饺',
+							price:66,
+						},{
+							img:'http://img3.imgtn.bdimg.com/it/u=3269436901,2466451758&fm=26&gp=0.jpg',
+							introduction:'月售18份 好评率100%',
+							title:'鱿鱼三鲜水饺',
+							price:66,
+						},{
+							img:'http://img3.imgtn.bdimg.com/it/u=3269436901,2466451758&fm=26&gp=0.jpg',
+							introduction:'月售18份 好评率100%',
+							title:'牛肉芹菜水饺',
+							price:66,
+						},{
+							img: 'http://img3.imgtn.bdimg.com/it/u=3269436901,2466451758&fm=26&gp=0.jpg',
+							introduction:'月售18份 好评率100%',
+							title: '虾仁三鲜水饺',
+							price: 22
+						}]
+					},{
+						category:'包子',
+						foods:[
+						{
+							img:'http://img5.imgtn.bdimg.com/it/u=3244915043,2433641974&fm=26&gp=0.jpg',
+							introduction:'月售18份 好评率100%',
+							title:'鲜虾菜心',
+							price:100,
+						},{
+							img:'http://img5.imgtn.bdimg.com/it/u=3244915043,2433641974&fm=26&gp=0.jpg',
+							introduction:'月售18份 好评率100%',
+							title:'猪肉大葱',
+							price:100,
+						},{
+							img:'http://img5.imgtn.bdimg.com/it/u=3244915043,2433641974&fm=26&gp=0.jpg',
+							introduction:'月售18份 好评率100%',
+							title:'素三鲜',
+							price:100,
+						},
+						]
+					},
+					{
+						category: '凉菜',
+						foods: [{
+							img: 'http://img0.imgtn.bdimg.com/it/u=343833200,2029305292&fm=26&gp=0.jpg',
+							introduction:'月售18份 好评率100%',
+							title: '茶鸡蛋',
+							price: 2
+						}, {
+							img: 'http://img0.imgtn.bdimg.com/it/u=343833200,2029305292&fm=26&gp=0.jpg',
+							introduction:'月售18份 好评率100%',
+							title: '奥尔良鸡翅',
+							price: 23,
+						}, {
+							img: 'http://img0.imgtn.bdimg.com/it/u=343833200,2029305292&fm=26&gp=0.jpg',
+							introduction:'月售18份 好评率100%',
+							title: '果仁菠菜',
+							price: 8,
+						},{
+							img: 'http://img0.imgtn.bdimg.com/it/u=343833200,2029305292&fm=26&gp=0.jpg',
+							introduction:'月售18份 好评率100%',
+							title: '五香鸡爪',
+							price: 22,
+						} ],
+					
+				}
+					],
+					i: 0,
+				}
+			},
+			methods: {
+				// 选项卡
+				classify(index) {
+					this.i = index;
+				},
+				// 购买数加加
+				addCart(item) {
+					if(item.num){
+						item.num++;
+					}else{
+						Vue.set(item,'num',1);
+					}
+				},
+				// 购买数减减
+				delCart(item) {
+					if(item.num){
+						if(item.num==0) return;
+						item.num--;
+					}
+				},
+			},
+			computed:{
+				// 循环数据
+				selectList(){
+					// 声明一个空数组
+					var arr=[];
+					// 循环数据下的分类 
+					this.foodsList.forEach(element => {
+							element.foods.forEach(el=>{
+								// 判断是否购买此商品 若购买 。把商品数据添加到数组里
+								if(el.num){
+									arr.push(el);
+								}
+							})
+					});
+					console.log(arr)
+					return arr;
+				},
+				total(){
+					var n=0;
+					this.selectList.forEach(element=>{
+						n+=element.price*element.num;
+					});
+					return n.toFixed(2);
+				},
+				nums(){
+					var m=0;
+					this.selectList.forEach(element=>{
+						m+=element.num;
+					});
+					return m;
+				}
+			},
+		}
+		const router=new VueRouter({
+            routes:[
+                {
+                    path:'/',
+                    redirect:'/selectGoods',
+                },
+                {
+                    path:'/selectGoods',
+                    component:selectGoods,
+                },{
+                    path:'/shoppingCart',
+                    name:'shoppingCart',
+                    component:shoppingCart,
+                }
+            ]
+        })
+		var vm = new Vue({
+			router,
+			el: '#app',
+		})
+    </script>
+</body>
+
+</html>
