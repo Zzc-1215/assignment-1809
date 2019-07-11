@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>包子铺</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<script>
+			window.onload = function() {
+				document.documentElement.style.fontSize = document.documentElement.clientWidth / 750 * 100 + 'px';
+				window.onresize = function() {
+					document.documentElement.style.fontSize = document.documentElement.clientWidth / 750 * 100 + 'px';
+				};
+			};
+		</script>
+		<link rel="stylesheet" href="font/iconfont.css">
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			
+			.header {
+				width: 7.5rem;
+				height: 1rem;
+				border-bottom: 0.01rem solid #ccc;
+			}
+			
+			.title {
+				font-size: 0.34rem;
+				line-height: 1rem;
+			}
+			
+			.fanhui {
+				margin-left: 0.34rem;
+				margin-right: 0.2rem;
+				font-size: 0.34rem;
+				color: #0f8be6;
+			}
+			
+			.sousuo {
+				font-size: 0.4rem;
+				color: #0f8be6;
+				margin-top: 0.28rem;
+				margin-left: 1.7rem;
+			}
+			
+			.zhuangfa {
+				font-size: 0.48rem;
+				color: #767676;
+				margin-top: 0.26rem;
+				margin-left: 0.48rem;
+			}
+			
+			.main {
+				width: 100%;
+				min-height: 12rem;
+				overflow: hidden;
+			}
+			
+			.left {
+				width: 1.53rem;
+				background: #f8f8f8;
+				float: left;
+			}
+			
+			.right {
+				width: 4.4rem;
+				margin-left: 0.22rem;
+				float: left;
+			}
+			
+			.li {
+				height: 0.83rem;
+				font-size: 0.24rem;
+				text-align: center;
+				line-height: 0.83rem;
+				color: #888;
+			}
+			
+			.lis {
+				width: 5.7rem;
+				height: 1.9rem;
+				list-style: none;
+				margin-top: 0.4rem;
+				position: relative;
+			}
+			
+			img {
+				width: 1.9rem;
+				height: 1.9rem;
+				float: left;
+				margin-right: 0.2rem;
+				border-radius: 0.06rem;
+			}
+			
+			.biaoti {
+				color: #656565;
+				font-size: 0.28rem;
+				line-height: 0.28rem;
+				margin-bottom: 0.16rem;
+				width: 3.6rem;
+				overflow: hidden;
+			}
+			
+			.info {
+				font-size: 0.18rem;
+				line-height: 0.18rem;
+				display: block;
+				color: #a8a8a8;
+			}
+			
+			.price {
+				font-size: 0.22rem;
+				display: inline;
+				color: #f85b4b;
+				position: absolute;
+				bottom: 0.16rem;
+				left: 2.1rem;
+			}
+			
+			.active {
+				background: #fff;
+			}
+			
+			.footer {
+				width: 100%;
+				height: 0.98rem;
+				background: #515152;
+				position: fixed;
+				left: 0;
+				bottom: 0;
+				z-index: 10;
+			}
+			
+			#btn {
+				width: 2.11rem;
+				height: 0.97rem;
+				background: #37cb72;
+				color: #fff;
+				font-size: 0.28rem;
+				line-height: 0.97rem;
+				border-style: none;
+				outline: none;
+				position: absolute;
+				top: 0;
+				right: 0;
+			}
+			
+			.money {
+				padding: 0.18rem 0 0 1.6rem;
+				font-size: 0.28rem;
+				color: #fff;
+			}
+			
+			.xiaofei {
+				margin: 0.1rem 0 0 1.6rem;
+				font-size: 0.18rem;
+				color: #7f7f7f;
+			}
+			
+			.imgs {
+				width: 0.84rem;
+				height: 0.84rem;
+				font-size: 0.84rem;
+				line-height: 0.84rem;
+				border-radius: 50%;
+				background: #fff;
+				color: #2d92e9;
+				margin: 0.06rem 0.3rem 0 0.3rem;
+				position: absolute;
+				top: -0.2rem;
+				border: 6px solid #45403d;
+			}
+			
+			.el-input-number {
+				position: absolute;
+				right: 0.1rem;
+				bottom: 0.2rem;
+				display: inline-block;
+				width: 2rem;
+				height: 0.5rem;
+				line-height: 0.5rem;
+			}
+			
+			.jian {
+				left: 1px;
+				border-radius: 4px 0 0 4px;
+			}
+			
+			.jia {
+				right: 1px;
+				border-radius: 0 4px 4px 0;
+			}
+			
+			.el-input-number .el-input {
+				display: block;
+			}
+			
+			.el-input {
+				position: relative;
+				font-size: 0.2rem;
+				width: 100%;
+			}
+			
+			.el-input-number .input {
+				-webkit-appearance: none;
+				padding-left: 50px;
+				padding-right: 50px;
+				text-align: center;
+			}
+			
+			.input {
+				-webkit-appearance: none;
+				background-color: #fff;
+				background-image: none;
+				border-radius: 0.05rem;
+				border-style: none;
+				box-sizing: border-box;
+				color: #606266;
+				display: inline-block;
+				font-size: inherit;
+				height: 0.5rem;
+				line-height: 0.5rem;
+				outline: none;
+				padding: 0 0.01rem;
+				transition: border-color .2s cubic-bezier(.645, .045, .355, 1);
+				width: 100%;
+				text-align: center;
+			}
+			
+			.jian,
+			.jia {
+				position: absolute;
+				z-index: 1;
+				top: 0.01rem;
+				width: 0.5rem;
+				height: 0.5rem;
+				line-height: 0.5rem;
+				border-radius: 50%;
+				text-align: center;
+				background: #f5f7fa;
+				color: #606266;
+				cursor: pointer;
+				font-size: 0.4rem;
+			}
+			
+			.nums {
+				position: absolute;
+				top: -0.2rem;
+				left: 0.86rem;
+				font-size: 0.3rem;
+				color: #fff;
+				background: #f34e1f;
+				padding: 0.02rem 0.16rem;
+				border-radius: 50%;
+			}
+			
+			.v-enter {
+				bottom: -1.2rem;
+			}
+			
+			.v-enter-active {
+				transition: 1s;
+			}
+			
+			.v-enter-to {
+				bottom: 0;
+			}
+			
+			.v-leave {
+				bottom: 0;
+			}
+			
+			.v-leave-active {
+				transition: 1s;
+			}
+			
+			.v-leave-to {
+				bottom: -1.2rem;
+			}
+			
+			.toubu {
+				width: 100%;
+				height: 1.42rem;
+				font-size: 0.46rem;
+				line-height: 1.42rem;
+			}
+			
+			.neirong {
+				height: auto;
+				background: linear-gradient(#3fbcfc, #f5f5f5, #f5f5f5, #f5f5f5)
+			}
+			
+			.content {
+				width: 96%;
+				height: 10rem;
+				background: #fff;
+				margin: 0 auto;
+			}
+			
+			.nr-title {
+				width: 6.6rem;
+				height: 1.32rem;
+				margin: 0 auto;
+				line-height: 1.32rem;
+				font-size: 0.42rem;
+				color: #353535;
+				border-bottom: 0.02rem solid #ececec;
+			}
+			
+			.nr-title span {
+				color: #646464;
+			}
+			
+			.uls,
+			.contents {
+				width: 6.6rem;
+				margin: 0 auto;
+			}
+			
+			.uls li {
+				height: 1.46rem;
+				font-size: 0.36rem;
+				line-height: 1.46rem;
+				color: #484848;
+				list-style: none;
+				border-bottom: 1px #ccc dotted;
+			}
+			
+			.uls li img {
+				width: 1.2rem;
+				height: 1.2rem;
+				border-radius: 0.05rem;
+				margin: 0.13rem 0.2rem 0 0;
+			}
+			
+			.uls li i {
+				font-style: normal;
+				margin-left: 1rem;
+			}
+			
+			.uls li span {
+				float: right;
+			}
+			
+			.contents div {
+				height: 1.46rem;
+				font-size: 0.36rem;
+				line-height: 1.46rem;
+				color: #484848;
+				list-style: none;
+				border-bottom: 1px #ccc dotted;
+			}
+			
+			.contents div span {
+				float: right;
+			}
+			
+			.dibu {
+				width: 7.5rem;
+				height: 1.2rem;
+				background: #3d3d3d;
+				position: fixed;
+				bottom: 0;
+				left: 0;
+			}
+			
+			.dibu span {
+				color: #fff;
+				font-size: 0.3rem;
+				line-height: 1.2rem;
+			}
+			
+			.zhifu {
+				width: 3rem;
+				line-height: 1.2rem;
+				float: right;
+				background: #01df66;
+				color: #fff;
+				border-style: none;
+				font-size: 0.4rem;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="app">
+			<router-view></router-view>
+			<!-- <container>
+            <template v-slot:header>
+                <p class="title">
+                    <i class="iconfont fanhui">&#xe650;</i>
+                    庆丰包子铺(窦店) 
+                    <i class="iconfont sousuo">&#xe604;</i>
+                    <i class="iconfont zhuangfa">&#xe605;</i>
+                </p>
+            </template>
+            <template>
+                <bc-con @total="total=$event" @num="num=$event"></bc-con>
+            </template>
+            <template v-slot:footer>
+                <div class='foot'>
+                    <div slot:num>
+                        <i class="iconfont imgs">&#xe603;</i>
+                        <p class="nums">{{num}}</p>
+                    </div>
+                    <p class="money" slot='total'>￥<span>{{total}}</span></p>
+                    <p class="xiaofei">另需配送费8元</p>
+                    <router-link to="/zhifu"><button id="btn">去结算</button></router-link>
+                </div>
+            </template>
+        </container> -->
+
+		</div>
+
+		<template id="container">
+			<div class="container">
+				<template id="header">
+					<div class="header">
+						<p class="title">
+							<i class="iconfont fanhui">&#xe650;</i> 庆丰包子铺(窦店)
+							<i class="iconfont sousuo">&#xe604;</i>
+							<i class="iconfont zhuangfa">&#xe605;</i>
+						</p>
+					</div>
+				</template>
+				<template id="main">
+					<div class="main">
+						<!-- <bc-con @total="total=$event" @num="num=$event"></bc-con> -->
+						<div>
+							<ul class="left">
+								<li class="li" @click='click(index)' :class="{active:i==index}" v-for="(item,index) in foods">
+									{{foods[index].food}}</li>
+							</ul>
+							<div class="right">
+								<ul id="ul">
+									<li v-for='(item,index) in foods[i].meishi' class="lis" :key="i+index">
+										<img :src="item.img" alt="">
+										<p class="biaoti">{{item.name}}</p>
+										<p class="info">{{item.info}}</p>
+										<p class="price">￥{{item.price}}元</p>
+										<bc-input-number v-model="item.num" :disabled="false" :min="0"></bc-input-number>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</template>
+				<transition>
+					<template id="footer">
+						<div class="footer" v-show='num'>
+							<div slot:num>
+								<i class="iconfont imgs">&#xe603;</i>
+								<p class="nums">{{num || 0}}</p>
+							</div>
+							<p class="money" slot='total'>￥<span>{{total || 0}}</span></p>
+							<p class="xiaofei">另需配送费8元</p>
+							<router-link :to="{name:'zhifu',params:{listData,total}}"><button id="btn">去结算</button></router-link>
+						</div>
+					</template>
+				</transition>
+			</div>
+		</template>
+		<!-- 中间内容部分 -->
+		<!-- <template id="con">
+        <div>
+            <ul class="left">
+                <li class="li" @click='click(index)' :class="{active:i==index}" v-for="(item,index) in foods">
+                    {{foods[index].food}}</li>
+            </ul>
+            <div class="right">
+                <ul id="ul">
+                    <li v-for='(item,index) in foods[i].meishi' class="lis" :key="i+index">
+                        <img :src="item.img" alt="">
+                        <p class="biaoti">{{item.name}}</p>
+                        <p class="info">{{item.info}}</p>
+                        <p class="price">￥{{item.price}}元</p>
+                        <bc-input-number v-model="item.num" :disabled="false" :min="0"></bc-input-number>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </template> -->
+		<template id="nr">
+			<div class="nr">
+				<toubu class="toubu">
+					<router-link to="/" style="text-decoration: none"><i class="iconfont fanhui">&#xe650;</i></router-link>
+					确认订单
+				</toubu>
+				<neirong class="neirong">
+					<div class="content">
+						<p class="nr-title">庆丰包子铺<span>（窦店）</span> </p>
+						<div class="contents">
+							<ul class="uls" v-for="item in $route.params.listData">
+								<li>
+									<img :src="item.img"> {{item.name}}
+									<i>*{{item.num}}</i>
+									<span>￥{{item.num*item.price}}</span>
+								</li>
+							</ul>
+							<div>餐盒<span>￥6</span></div>
+							<div>配送费<span>￥8</span></div>
+							<div>红包<span>￥2</span></div>
+						</div>
+					</div>
+				</neirong>
+				<transition>
+					<dibu class="dibu" v-show='$route.params.total'>
+						<span>￥{{this.$route.params.total+6+8-2 || 0}}</span>
+						<button class="zhifu">去支付</button>
+					</dibu>
+				</transition>
+
+			</div>
+		</template>
+
+		<template id="toubu">
+			<div class="toubu">
+				<slot></slot>
+			</div>
+		</template>
+		<template id="neirong">
+			<div class="neirong">
+				<slot></slot>
+			</div>
+		</template>
+		<template id="dibu">
+			<div class="dibu">
+				<slot></slot>
+			</div>
+		</template>
+
+		<!-- 计时器 -->
+		<template id="input">
+			<div class="el-input-number">
+				<span role="button" v-show="v>0" @click="jian" class="jian" id="jian">-</span>
+				<span role="button" @click="jia" class="jia" id="jia">+</span>
+				<div class="el-input">
+					<input type="text" disabled class="input" :value="v">
+				</div>
+			</div>
+		</template>
+
+		<script>
+			// var index = Vue.component('bc-container',{
+			//     template:'#container',
+			// })
+			var componet = Vue.component('bc-header', {
+				template: '#header',
+			})
+			var componet = Vue.component('bc-main', {
+				template: '#main',
+			})
+			var componet = Vue.component('bc-footer', {
+				template: '#footer',
+			})
+			//新内容
+			var zhifu = Vue.extend({
+				template: '#nr'
+			});
+			var componet = Vue.component('toubu', {
+				template: '#toubu',
+			})
+			var componet = Vue.component('neirong', {
+				template: '#neirong',
+			})
+			var componet = Vue.component('dibu', {
+				template: '#dibu',
+			})
+
+			// 计数器
+			Vue.component('bc-input-number', {
+				template: '#input',
+				props: ['value', 'min', 'step', 'disabled'],
+				data() {
+					return {
+						v: this.value || 0,
+						isshow: false,
+					}
+				},
+				watch: {
+					v(value, oldvalue) {
+						if(value != 0) {
+							this.isshow = true;
+						} else {
+							this.isshow = false;
+						}
+						this.$emit('input', value);
+					},
+
+				},
+				methods: {
+					jia() {
+						if(this.disabled) return;
+						this.v++;
+					},
+					jian() {
+						if(this.disabled) return;
+						if(this.v <= this.min) return;
+						this.v--;
+					},
+
+				}
+			})
+
+			// 选项卡组件
+			var index = Vue.component('bc-container', {
+				template: '#container',
+				data() {
+					return {
+						v: this.value,
+						i: 0,
+						value: 0,
+						foods: [{
+							food: '水饺',
+							meishi: [{
+									name: '白菜饺子',
+									img: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1563322565&di=00a12deb77c4e72df6473a132b2c12ee&imgtype=jpg&er=1&src=http%3A%2F%2Fimg.mp.sohu.com%2Fq_mini%2Cc_zoom%2Cw_640%2Fupload%2F20170713%2Fd4f9eac5e7994e54afde3a1430b538de_th.jpg',
+									info: '月售18份 好评率100%',
+									price: '16',
+								},
+								{
+									name: '三鲜水饺',
+									img: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1563322565&di=00a12deb77c4e72df6473a132b2c12ee&imgtype=jpg&er=1&src=http%3A%2F%2Fimg.mp.sohu.com%2Fq_mini%2Cc_zoom%2Cw_640%2Fupload%2F20170713%2Fd4f9eac5e7994e54afde3a1430b538de_th.jpg',
+									info: '月售18份 好评率100%',
+									price: '20',
+								},
+								{
+									name: '虾仁水饺',
+									img: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1563322565&di=00a12deb77c4e72df6473a132b2c12ee&imgtype=jpg&er=1&src=http%3A%2F%2Fimg.mp.sohu.com%2Fq_mini%2Cc_zoom%2Cw_640%2Fupload%2F20170713%2Fd4f9eac5e7994e54afde3a1430b538de_th.jpg',
+									info: '月售19份 好评率100%',
+									price: '25',
+								},
+								{
+									name: '三鲜猪肉',
+									img: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1563322565&di=00a12deb77c4e72df6473a132b2c12ee&imgtype=jpg&er=1&src=http%3A%2F%2Fimg.mp.sohu.com%2Fq_mini%2Cc_zoom%2Cw_640%2Fupload%2F20170713%2Fd4f9eac5e7994e54afde3a1430b538de_th.jpg',
+									info: '月售4份 好评率100%',
+									price: '24',
+								},
+								{
+									name: '绿豆粥',
+									img: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1563322565&di=00a12deb77c4e72df6473a132b2c12ee&imgtype=jpg&er=1&src=http%3A%2F%2Fimg.mp.sohu.com%2Fq_mini%2Cc_zoom%2Cw_640%2Fupload%2F20170713%2Fd4f9eac5e7994e54afde3a1430b538de_th.jpg',
+									info: '月售19份 好评率100%',
+									price: '3',
+								},
+								{
+									name: '鲜肉馄饨',
+									img: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1563322565&di=00a12deb77c4e72df6473a132b2c12ee&imgtype=jpg&er=1&src=http%3A%2F%2Fimg.mp.sohu.com%2Fq_mini%2Cc_zoom%2Cw_640%2Fupload%2F20170713%2Fd4f9eac5e7994e54afde3a1430b538de_th.jpg',
+									info: '月售4份 好评率100%',
+									price: '24',
+								},
+							],
+						}, {
+							food: '流食',
+							meishi: [{
+									name: '流食',
+									img: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1563322565&di=00a12deb77c4e72df6473a132b2c12ee&imgtype=jpg&er=1&src=http%3A%2F%2Fimg.mp.sohu.com%2Fq_mini%2Cc_zoom%2Cw_640%2Fupload%2F20170713%2Fd4f9eac5e7994e54afde3a1430b538de_th.jpg',
+									info: '月售4份 好评率100%',
+									price: '25',
+								},
+								{
+									name: '粥',
+									img: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1563322565&di=00a12deb77c4e72df6473a132b2c12ee&imgtype=jpg&er=1&src=http%3A%2F%2Fimg.mp.sohu.com%2Fq_mini%2Cc_zoom%2Cw_640%2Fupload%2F20170713%2Fd4f9eac5e7994e54afde3a1430b538de_th.jpg',
+									info: '简介',
+									price: '10',
+								},
+								{
+									name: '小米粥',
+									img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=216001766,135511315&fm=27&gp=0.jpg',
+									info: '简介',
+									price: '10',
+								},
+								{
+									name: '粥',
+									img: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=146716322,2913294134&fm=27&gp=0.jpg',
+									info: '简介',
+									price: '10',
+								},
+							],
+						}, {
+							food: '凉菜',
+							meishi: [{
+									name: '豆腐',
+									img: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=957838531,210855292&fm=26&gp=0.jpg',
+									info: '月售19份 好评率100%',
+									price: '14',
+								},
+								{
+									name: '皮蛋',
+									img: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=957838531,210855292&fm=26&gp=0.jpg',
+									info: '月售190份 好评率100%',
+									price: '18',
+								},
+								{
+									name: '红油百叶',
+									img: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=957838531,210855292&fm=26&gp=0.jpg',
+									info: '月售10份 好评率100%',
+									price: '30',
+								},
+								{
+									name: '夫妻肺片',
+									img: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=957838531,210855292&fm=26&gp=0.jpg',
+									info: '月售90份 好评率100%',
+									price: '14',
+								},
+							],
+						}, {
+							food: '包子',
+							meishi: [{
+									name: '猪肉大葱包子',
+									img: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1563322565&di=00a12deb77c4e72df6473a132b2c12ee&imgtype=jpg&er=1&src=http%3A%2F%2Fimg.mp.sohu.com%2Fq_mini%2Cc_zoom%2Cw_640%2Fupload%2F20170713%2Fd4f9eac5e7994e54afde3a1430b538de_th.jpg',
+									info: '月售90份 好评率100%',
+									price: '20',
+								},
+								{
+									name: '韭菜鸡蛋包子',
+									img: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1563322565&di=00a12deb77c4e72df6473a132b2c12ee&imgtype=jpg&er=1&src=http%3A%2F%2Fimg.mp.sohu.com%2Fq_mini%2Cc_zoom%2Cw_640%2Fupload%2F20170713%2Fd4f9eac5e7994e54afde3a1430b538de_th.jpg',
+									info: '月售30份 好评率100%',
+									price: '15',
+								},
+								{
+									name: '韭菜鸡蛋包子',
+									img: 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2094916694,2327566598&fm=27&gp=0.jpg',
+									info: '月售30份 好评率100%',
+									price: '15',
+								},
+								{
+									name: '鸡蛋包子',
+									img: 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2776260043,3233574466&fm=27&gp=0.jpg',
+									info: '月售30份 好评率100%',
+									price: '15',
+								},
+								{
+									name: '韭菜包子',
+									img: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=4014752796,2639250726&fm=27&gp=0.jpg',
+									info: '月售30份 好评率100%',
+									price: '15',
+								},
+							],
+						}, {
+							food: '庆丰福粽',
+							meishi: [{
+									name: '肉粽子',
+									img: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3032129891,3777653743&fm=27&gp=0.jpg',
+									info: '月售20份 好评率100%',
+									price: '10',
+								},
+								{
+									name: '咸粽子',
+									img: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=113208759,494844991&fm=27&gp=0.jpg',
+									info: '月售30份 好评率100%',
+									price: '7',
+								},
+								{
+									name: '甜粽子',
+									img: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=113208759,494844991&fm=27&gp=0.jpg',
+									info: '月售40份 好评率100%',
+									price: '7',
+								},
+								{
+									name: '粽子',
+									img: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2813046704,3071241019&fm=27&gp=0.jpg',
+									info: '月售60份 好评率100%',
+									price: '5',
+								},
+							],
+						}, {
+							food: '庆丰特色饮食',
+							meishi: [{
+									name: '面条',
+									img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1571368620,1430783511&fm=27&gp=0.jpg',
+									info: '月售30份 好评率100%',
+									price: '15',
+								},
+								{
+									name: '新品95',
+									img: 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1316276433,2743067049&fm=27&gp=0.jpg',
+									info: '月售6份 好评率100%',
+									price: '40',
+								},
+								{
+									name: '炸肉',
+									img: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1797247435,1559901856&fm=27&gp=0.jpg',
+									info: '月售10份 好评率100%',
+									price: '25',
+								},
+								{
+									name: '大杂碗',
+									img: 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1241047131,4285806200&fm=27&gp=0.jpg',
+									info: '月售20份 好评率100%',
+									price: '20',
+								},
+								{
+									name: '肉',
+									img: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=782150095,2393170450&fm=27&gp=0.jpg',
+									info: '月售30份 好评率100%',
+									price: '5',
+								},
+								{
+									name: '新品',
+									img: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=169948917,1679189798&fm=27&gp=0.jpg',
+									info: '月售30份 好评率100%',
+									price: '5',
+								},
+							],
+						}, {
+							food: '豆浆饮品',
+							meishi: [{
+									name: '豆浆',
+									img: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1563322565&di=00a12deb77c4e72df6473a132b2c12ee&imgtype=jpg&er=1&src=http%3A%2F%2Fimg.mp.sohu.com%2Fq_mini%2Cc_zoom%2Cw_640%2Fupload%2F20170713%2Fd4f9eac5e7994e54afde3a1430b538de_th.jpg',
+									info: '月售30份 好评率100%',
+									price: '5',
+								},
+								{
+									name: '鸡蛋汤',
+									img: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1563322565&di=00a12deb77c4e72df6473a132b2c12ee&imgtype=jpg&er=1&src=http%3A%2F%2Fimg.mp.sohu.com%2Fq_mini%2Cc_zoom%2Cw_640%2Fupload%2F20170713%2Fd4f9eac5e7994e54afde3a1430b538de_th.jpg',
+									info: '月售30份 好评率100%',
+									price: '4',
+								},
+								{
+									name: '小米粥',
+									img: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1563322565&di=00a12deb77c4e72df6473a132b2c12ee&imgtype=jpg&er=1&src=http%3A%2F%2Fimg.mp.sohu.com%2Fq_mini%2Cc_zoom%2Cw_640%2Fupload%2F20170713%2Fd4f9eac5e7994e54afde3a1430b538de_th.jpg',
+									info: '月售50份 好评率100%',
+									price: '8',
+								},
+								{
+									name: '绿豆汤',
+									img: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1563322565&di=00a12deb77c4e72df6473a132b2c12ee&imgtype=jpg&er=1&src=http%3A%2F%2Fimg.mp.sohu.com%2Fq_mini%2Cc_zoom%2Cw_640%2Fupload%2F20170713%2Fd4f9eac5e7994e54afde3a1430b538de_th.jpg',
+									info: '月售60份 好评率100%',
+									price: '6',
+								},
+							],
+						}, ],
+					}
+				},
+
+				computed: {
+					listData() {
+						var arr = [];
+						this.foods.forEach(element => {
+							element.meishi.forEach(el => {
+								if(el.num) {
+									arr.push(el);
+								}
+							})
+						})
+						// console.log(arr);
+						return arr;
+					},
+
+					//价格
+					total() {
+						var jiage = 0;
+						this.foods.forEach(element => {
+							element.meishi.forEach(element => {
+								jiage += element.price * (element.num || 0);
+							});
+						});
+						return jiage;
+					},
+					//商品总数量
+					num() {
+						var num = 0;
+						this.foods.forEach(element => {
+							element.meishi.forEach(element => {
+								num += (element.num || 0);
+							})
+						})
+						return num;
+					}
+				},
+				watch: {
+					total(value, oldvalue) {
+						this.$emit('total', value);
+					},
+					num(value, oldvalue) {
+						this.$emit('num', value);
+					}
+				},
+				methods: {
+					click(index) {
+						this.i = index;
+					},
+				},
+			})
+
+			var router = new VueRouter({
+				routes: [{
+						path: '/',
+						component: index,
+						name: 'index',
+					},
+					{
+						path: '/zhifu',
+						component: zhifu,
+						name: 'zhifu',
+					}
+				]
+			});
+
+			//根实例
+			var vm = new Vue({
+				el: '#app',
+				router: router,
+				data() {
+					return {
+						total: 0,
+						num: 0,
+					}
+				},
+			})
+		</script>
+	</body>
+
+</html>

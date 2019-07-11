@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script type="text/javascript">
+        window.onload = function () {
+            document.documentElement.style.fontSize = document.documentElement.clientWidth / 640 * 100 + 'px';
+            window.onresize = function () {
+                document.documentElement.style.fontSize = document.documentElement.clientWidth / 640 * 100 + 'px';
+            }
+        }
+    </script>
+    <title>模拟美团</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            font-size: 0.18rem;
+            text-decoration: none;
+            user-select: none;
+            cursor: pointer;
+        }
+
+        .clearfix::after,
+        .clearfix::before {
+            content: '';
+            display: table;
+        }
+
+        .clearfix::after {
+            clear: both;
+        }
+
+        .clearfix {
+            zoom: 1;
+        }
+
+        .box {
+            width: 100%;
+            height: auto;
+            margin: 0 auto;
+        }
+
+        .header {
+            width: 100%;
+            height: 0.7rem;
+            line-height: 0.7rem;
+            padding-left: 20px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .nav {
+            width: 100%;
+            height: 0.7rem;
+            line-height: 0.7rem;
+            text-align: center;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .list {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .list li {
+            width: 25%;
+            float: left;
+        }
+
+        .hot {
+            border-right: 1px #ccc solid;
+        }
+
+        .active {
+            background-size: 0.05rem 0.25rem;
+            background: #ccc;
+        }
+
+        .content {
+            width: 100%;
+            height: auto;
+        }
+
+        .product {
+            width: 25%;
+            border: 1px #ccc solid;
+            text-align: center;
+            float: left;
+            box-sizing: border-box;
+        }
+
+        .product li {
+            width: 100%;
+            height: 0.7rem;
+            line-height: 0.7rem;
+            box-sizing: border-box;
+            border-bottom: 1px #ccc solid;
+        }
+
+        .information {
+            width: 75%;
+            height: auto;
+            float: left;
+        }
+
+        .item-box,
+        .jiesuan {
+            width: 100%;
+            height: 1.4rem;
+            padding: 0.1rem;
+            border-bottom: 1px #ccc solid;
+
+            box-sizing: border-box;
+        }
+
+        .img {
+            width: 1.2rem;
+            height: 1.2rem;
+            float: left;
+        }
+
+        .img img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .text {
+            width: 70%;
+            margin-left: 0.1rem;
+            float: left;
+            position: relative;
+        }
+
+        .text .bt {
+            margin-top: 0.3rem;
+
+        }
+
+        .price {
+            color: orange;
+        }
+
+        .text .bt p {
+            float: right;
+        }
+
+        .jian,
+        .jia {
+            width: 0.15rem;
+            height: 0.15rem;
+            text-align: center;
+            line-height: 0.15rem;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 50%;
+            margin: 0 0.1rem;
+        }
+
+        .footer {
+            width: 100%;
+            height: 0.8rem;
+            background: #ccc;
+            position: fixed;
+            bottom: 0;
+            line-height: 0.8rem;
+            padding-left: 0.2rem;
+            font-size: 0.24rem;
+            color: #fff;
+            box-sizing: border-box;
+        }
+
+        .footer a {
+            text-align: center;
+            float: right;
+            width: 1rem;
+            height: 0.8rem;
+            background-color:green;
+            color: black;
+        }
+    </style>
+</head>
+
+<body>
+    <div id='app'>
+        <!-- 组件渲染 -->
+        <keep-alive>
+            <router-view ref='reference'></router-view>
+        </keep-alive>
+    </div>
+    <template id='selectGoods'>
+        <div>
+            <div class="box">
+                <!-- 头部 -->
+                <header class='header'>
+                    <h1>
+                        < 庆丰包子铺</h1> </header> <!-- 下方内容 -->
+                            <div class="content clearfix">
+                                <div class="nav">
+                                    <ul class='list'>
+                                        <li>综合排序</li>
+                                        <li>按价格<i class='iconfont icon-shangxiajiantou'></i></li>
+                                        <li>排序</li>
+                                    </ul>
+                                </div>
+                                <!-- 左侧菜单 -->
+                                <ul class='product'>
+                                    <li @click='foods(index)' v-for='item,index in arr' :class="{'active':i==index}">
+                                        {{item.type}}
+                                    </li>
+                                </ul>
+                                <!-- 右侧具体信息 -->
+                                <div class='information'>
+
+                                    <!-- 右侧商品列表 -->
+                                    <div class='item-box clearfix' v-for='item,index in arr[i].code'>
+                                        <div class="img">
+                                            <img :src="item.img" alt="">
+                                        </div>
+                                        <div class="text">
+                                            <h3>{{item.text}}</h3>
+                                            <div class='bt'>
+                                                <span class='price'>{{item.price}}</span>
+                                                <p>
+                                                    <span class='jian' @click='del(item)'>-</span>
+                                                    {{item.number || 0}}
+                                                    <span class='jia' @click='add(item)'>+</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <footer class='footer'>
+                                总价:{{total}}元
+                                <!-- 实现页面的跳转  to 默认是a标签-->
+                                <router-link :to="{name:'shopping',params:{select}}">去结算</router-link>
+                            </footer>
+            </div>
+        </div>
+    </template>
+    <template id='shopping'>
+        <div>
+            <div class='jiesuan' v-for='item in goodlist'>
+                <div class="img">
+                    <img :src="item.img" alt="">
+                </div>
+                <div class="text">
+                    <h3>{{item.text}}</h3>
+                    <div class='bt'>
+                        <span class='price'>{{item.price}}</span>
+                        <p>
+                            {{item.number || 0}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <footer class='footer'>
+                总价:{{total}}元
+                <a>去支付</a>
+            </footer>
+        </div>
+    </template>
+    <script>
+
+        var selectGoods = {
+            template: '#selectGoods',
+            data() {
+                return {
+                    arr: [{
+                        type: '热销商品',
+                        code: [{
+                            img: 'http://p0.meituan.net/wmproduct/50137a2b668f606f2efc2fff577a64c827438.jpg@130w_130h_1e_1c',
+                            text: '猪肉大葱水饺',
+                            price: '￥15',
+
+                        }, {
+                            img: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=4292844575,1757041827&fm=26&gp=0.jpg',
+                            text: '鲜肉混沌',
+                            price: '￥15',
+
+                        },
+                       ]
+                    },
+                    {
+                        type: '流食',
+                        code: [
+                        {
+                            img: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=4292844575,1757041827&fm=26&gp=0.jpg',
+                            text: '棒渣粥',
+                            price: '￥2',
+
+                        },
+                        {
+                            img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2376505469,1171838866&fm=26&gp=0.jpg',
+                            text: '荠菜馄饨',
+                            price: '￥10',
+
+                        },
+
+                        {
+                            img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2376505469,1171838866&fm=26&gp=0.jpg',
+                            text: '鲜虾馄饨',
+                            price: '￥12',
+
+                        },],
+                    }, {
+                        type: '水饺',
+                        code: [
+                            {
+                                img: 'http://p0.meituan.net/wmproduct/50137a2b668f606f2efc2fff577a64c827438.jpg@130w_130h_1e_1c',
+                                text: '猪肉大葱水饺',
+                                price: '￥15',
+
+                            },
+                            {
+                                img: 'http://p0.meituan.net/wmproduct/50137a2b668f606f2efc2fff577a64c827438.jpg@130w_130h_1e_1c',
+                                text: '猪肉芹菜水饺',
+                                price: '￥15',
+
+                            },
+                        ],
+                    }, ],
+                    // list: [],
+                    i: 0,
+                }
+
+
+            },
+            methods: {
+                // 选中的每一项食物
+                foods(index) {
+                    //存一下索引
+                    this.i = index;
+                },
+                del(item) {
+                    if (item.number) {
+                        if (item.number == 0) return;
+                        item.number--;
+                    }
+                },
+                add(item) {
+                    if (item.number) {
+                        item.number++;
+                    } else {
+                        Vue.set(item, 'number', 1);
+                    }
+                }
+            },
+            computed: {
+                select() {
+                    var array = [];
+                    this.arr.forEach(element => {
+                        if (element.code && element.code.length > 0) {
+                            element.code.forEach(el => {
+                                if (el.number) {
+                                    array.push(el);
+                                }
+                            });
+                        }
+                    });
+                    return array;
+                },
+                total() {
+
+                    var total = 0;//商品总价
+
+                    this.select.forEach(element => {
+                        total += (element.price).split('￥')[1] * element.number;
+                    });
+                    return total.toFixed(2);
+                }
+            },
+            watch: {
+                select(v1) {
+                }
+            }
+        }
+
+
+        // 去支付订单详情
+
+        var shopping = {
+            template: '#shopping',
+            data() {
+                return {
+                    goodlist: this.$route.params.select || []
+                }
+            },
+            //计算属性
+            computed: {
+                total() {
+                    //计算商品总价
+                    var n = 0;
+                    console.log(this.goodlist)
+                    this.goodlist.forEach(element => {
+                        console.log((element.price).split('￥')[1]);
+                        n += (element.price).split('￥')[1] * element.number;
+                    });
+                    return n.toFixed(2);
+                }
+            },
+
+
+        }
+        const router = new VueRouter({
+            routes: [
+                {
+                    path: '/',
+                    component: selectGoods
+                }, {
+                    path: '/shopping',
+                    name: 'shopping',
+                    component: shopping
+                }
+            ]
+        })
+        var vm = new Vue({
+            router,
+            el: '#app',
+        })
+
+    </script>
+</body>
+
+</html>

@@ -218,6 +218,8 @@ i {
   height: 1.29333rem;
   background-color: #37cb72;
   color: #ffffff;
+  text-align: center;
+  line-height: 1.29333rem;
   float: right;
   border: none; }
 
@@ -244,3 +246,120 @@ i {
   line-height: 0.4rem;
   background-color: #ea6957;
   color: #fff; }
+.back {
+width: 10rem;
+height: 1.33333rem; }
+.back h3 {
+width: 9.6rem;
+font-size: 0.50667rem;
+line-height: 1.33333rem;
+padding-left: 0.4rem; }
+.back h3 i {
+font-size: 0.48rem;
+color: #258cd7; }
+.content {
+width: 9.73333rem;
+height: auto;
+padding: 0.13333rem 0.13333rem 0 0.13333rem;
+background: linear-gradient(to bottom,#3db2f8,#fff); }
+.content .qf {
+width: 9.06667rem;
+padding: 0 0.33333rem;
+height: auto;
+background: #fff; }
+.content .qf .header {
+width: 9.06667rem;
+height: 1.33333rem;
+border-bottom: solid 0.02667rem #ccc; }
+.content .qf .header span {
+line-height: 1.33333rem;
+font-size: 0.45333rem; }
+.content .qf .foods {
+width: 9.06667rem;
+height: auto;
+border-top: solid 1px #ccd;
+margin-top: 0.05333rem; }
+.content .qf .foods .food {
+width: 9.06667rem;
+height: 2.4rem;
+border-bottom: solid 1px #ccc; }
+.content .qf .foods .food .foodImg {
+width: 1.33333rem;
+height: 2.4rem;
+float: left; }
+.content .qf .foods .food .foodImg img {
+vertical-align: middle;
+width: 1.33333rem;
+height: 1.33333rem; }
+.content .qf .foods .food .intro {
+width: 7.46667rem;
+height: 2.4rem;
+float: left;
+margin-left: 0.26667rem;
+line-height: 2.4rem; }
+.content .qf .foods .food .intro .name {
+width: 4.26667rem;
+height: 2.4rem;
+float: left;
+font-size: 0.42667rem; }
+.content .qf .foods .food .intro .num {
+width: 1.6rem;
+height: 2.4rem;
+float: left;
+font-size: 0.32rem; }
+.content .qf .foods .food .intro .money {
+width: 1.6rem;
+height: 2.4rem;
+float: right;
+font-size: 0.42667rem; }
+.content .qf .lunchBox, .content .qf .delivery {
+width: 9.06667rem;
+height: 1.33333rem;
+border-bottom: solid 1px #ccc; }
+.content .qf .lunchBox h3, .content .qf .delivery h3 {
+line-height: 1.33333rem;
+font-size: 0.4rem; }
+.content .qf .lunchBox h3 span, .content .qf .delivery h3 span {
+width: 1.6rem;
+height: 1.33333rem;
+display: inline-block;
+float: right; }
+.content .qf .totalPrices {
+width: 9.06667rem;
+height: 1.33333rem;
+border-bottom: solid 1px #ccc; }
+.content .qf .totalPrices h3 {
+line-height: 1.33333rem;
+font-size: 0.4rem; }
+.content .qf .totalPrices h3 span {
+width: 1.6rem;
+height: 1.33333rem;
+display: inline-block;
+float: right; }
+.footer {
+width: 10rem;
+height: 1.29333rem;
+position: fixed;
+left: 0;
+bottom: 0; }
+.footer .car {
+width: 7.73333rem;
+height: 1.29333rem;
+background: #515154;
+float: left; }
+.footer .car h4 {
+color: #fff;
+font-size: 0.48rem;
+line-height: 1.29333rem;
+padding-left: 0.26667rem; }
+.footer .account {
+width: 2.26667rem;
+height: 1.29333rem;
+background: #37cb72;
+float: right; }
+.footer .account p {
+line-height: 1.29333rem;
+text-align: center;
+font-size: 0.45333rem;
+color: #fff; }
+

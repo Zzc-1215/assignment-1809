@@ -17,7 +17,7 @@
 			.box{
 				width: 600px;
 				height: 500px;
-				border: 1px solid #CCCCCC;
+				border: 1px solid #000;
 				box-sizing: border-box;
 				margin: auto;
 				position: relative;
@@ -25,7 +25,7 @@
 			.head{
 				width: 100%;
 				height: 50px;
-				border: 1px solid #CCCCCC;
+				border: 1px solid #000;
 				position: relative;
 			}
 			.dizhi{
@@ -40,12 +40,12 @@
 			}
 			.icon1{
 				font-size: 18px;
-				color: #CCCCCC;
+				color: #000;
 				cursor: pointer;
 			}
 			.icon2{
 				font-size: 24px;
-				color: #CCCCCC;
+				color: #000;
 				position: absolute;
 				right: 20px;
 				top: 2px;
@@ -53,14 +53,14 @@
 			}
 			.content{
 				width: 100%;
-				border: 1px solid #CCCCCC;
+				border: 1px solid #000;
 			}
 			.c-left{
 				width: 30%;
 				float: left;
 			}
 			.c-left ul li{
-				border: 1px solid #CCCCCC;
+				border: 1px solid #000;
 				height: 40px;
 				line-height: 35px;
 				text-align: center;
@@ -78,7 +78,7 @@
 				float: left;
 			}
 			.c-right ul li{
-				border: 1px solid #CCCCCC;
+				border: 1px solid #000;
 				height: 80px;
 			}
 			.liSpan span{
@@ -276,8 +276,8 @@
 				<router-link to="/"><</router-link>
 				<div class="s_wupin" v-for="i in $route.params.arrList">
 					<li class="s_li" >
-						<div class="s_img">
-							<img :src="i.img" alt="" />
+						<div class="s_img">	
+							<img :src="i.img"> 
 						</div>
 						<p class="s_p">{{i.name}}</p>
 						<span class="s_span">￥{{(i.jiage*i.num)}}</span>
@@ -390,7 +390,8 @@
 						this.arrList.forEach(element=>{
 							n+=element.jiage * element.num
 						});
-						return n.toFixed(2);
+						return n;
+						
 					}
 				},
 				watch:{
@@ -433,7 +434,8 @@
 						name:'gocar',
 						component:shopping
 					}
-				]
+				],
+				
 			})
 			var vm=new Vue({
 				el:'#app',

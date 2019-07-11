@@ -1,4 +1,4 @@
-var index = Vue.extend({
+var indexs = Vue.extend({
     template: `
     <div class="bgBox">
         <header class="header clearfix">
@@ -14,11 +14,11 @@ var index = Vue.extend({
         <div class="contentbox">
             <div class="listBox clearfix">
                 <ul class="listBox_nav">
-                    <li class="listBox_nav_li" :class="typeInx==$index?'active':''" @click="classify(index)"
+                    <li class="listBox_nav_li" :class="typeInx==$index?'active':''" @click="classify($index)"
                         v-for="(item,$index) in foods">{{item.ltypes}}</li>
                 </ul>
                 <div class="productBox">
-                    <div class="productBox_item clearfix" v-for="(cont,i) in foods[i].food">
+                    <div class="productBox_item clearfix" v-for="(cont,i) in foods[typeInx].food">
                         <div class="imgBox">
                             <img :src='cont.img' alt="">
                         </div>
@@ -28,7 +28,7 @@ var index = Vue.extend({
                             <div class="product_price clearfix">
                                 <p class="price">￥{{cont.price}}</p>
                                 <div class="box">
-                                    <span v-show="v" class="prev" @click="prev(cont)">-</span>
+                                    <span class="prev" @click="prev(cont)">-</span>
                                     <span>{{cont.quantity || 0}}</span>
                                     <span class="next" @click="next(cont)">+</span>
                                 </div>
@@ -42,16 +42,18 @@ var index = Vue.extend({
             <div class="car">
                 <i class="iconfont gwc">&#xe600;</i>
             </div>
-                {{totalPrices}}
-            <router-link to="{name:'count',params:{calculate}}" class="toPay">
-                <div>去结算</div>
+            <div class="settled">
+                &yen;{{totalPrices}}
+            </div>
+            <router-link :to="{name:'confirm',params:{calculate}}" class="toPay">
+                    去结算
             </router-link>
         </footer>
     </div>
     `,
     methods: {
-        classify(index) {
-            this.typeInx = index;
+        classify($index) {
+            this.typeInx = $index;
         },
         next(cont) {
             if (cont.quantity) {
