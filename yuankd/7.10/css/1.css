@@ -64,6 +64,9 @@
     padding-bottom: 0.04rem;
     color: #000;
 }
+.cont-text{
+    min-height: 9.33333rem;
+}
 .cont-text ul{
     width: 2.04rem;
     float: left;
@@ -189,12 +192,12 @@
     left: 0;
     bottom: 0;
 }
-/* .foot{
-    position: fixed;
+.foot{
+    /* position: fixed;
     bottom: 0;
-    left: 0;
+    left: 0; */
     z-index: 1
-} */
+}
 .foot-price{
     width: 7.18667rem;
     height: 1.29333rem;
@@ -272,52 +275,92 @@
 
 
 /* 去支付 */
-.datalis{
-    width: 700px;
+.store-tit span{
+    font-size: 0.48rem;
+    color: #3392d4;
+    float: left;
+    line-height: 1.97333rem;
+    margin-left: 0.66667rem;
+}
+.store-tit h3{
+    font-size: 0.50667rem;
+    line-height: 1.97333rem;
+    float: left;
+    margin-left: 0.69333rem;
+}
+.datalis-content{
+    width: 9.33333rem;
     margin: auto;
-    padding: 0 50px;
+    padding: 0 0.4rem;
     box-sizing: border-box;
+    /* border: solid 6px #148be5; */
 }
 .datalis dt{
-    font-size: 36px;
-    line-height: 107px;
+    font-size: 0.48rem;
+    line-height: 1.42667rem;
 }
-.datalis dd i{
-    font-style: normal;
+.datalis-text{
+    width: 7.53333rem;
+}
+.datalis-text .float{
+    float: right;
 }
 .datalis-img{
-    width: 50px;
-    height: 50px;
+    width: 0.66667rem;
+    height: 0.66667rem;
     float: left;
+    margin-top: 0.26667rem;
+    margin-right: 0.26667rem;
 }
 .datalis-img img{
-    width: 50px;
-    height: 50px;
+    width: 0.66667rem;
+    height: 0.66667rem;
 }
-.datalis dd{
-    line-height: 100px;
+.datalis-content dd{
+    line-height: 1.33333rem;
     border-bottom: dashed 1px #CCC;
-    padding-left: 30px;
     box-sizing: border-box;
-    font-size: 20px;
+    font-size: 0.26667rem;
 }
-.datalis dd:nth-child(3) i{
-    font-size: 18px;
-    line-height: 30px;
+.datalis-content .pack,.datalis-content .delivs{
+    font-size: 0.26667rem;
+    line-height: 1.06667rem;
+    border-bottom: dashed 1px #ccc;
+}
+.datalis-content .pack i{
+    font-size: 0.24rem;
+    line-height: 0.4rem;
     background: #eff3f6;
     border: solid 1px #dbdfe2;
-    padding: 3px;
+    padding: 0.04rem;
     color: #99a5bb;
-    margin-right: 20px;
+    margin-right: 0.26667rem;
+    font-style: normal;
 }
-.datalis dd:nth-child(4) i{
-    font-size: 18px;
-    line-height: 30px;
-    background: #5dacf9;
-    padding: 3px;
-    color: #FFF;
-    margin-right: 20px;
-}
-.datalis-price{
+.datalis-content .deliv span ,.datalis-content .pack span{
     float: right;
+    margin-right: 0.26667rem;
+}
+.datalis-content .deliv {
+    font-size: 0.26667rem;
+    line-height: 1.06667rem;
+    border-bottom: dashed 1px #ccc;
+}
+.datalis-content .deliv i{
+    font-size: 0.24rem;
+    line-height: 0.4rem;
+    background: #5dacf9;
+    padding: 0.04rem;
+    color: #FFF;
+    margin-right: 0.26667rem;
+    font-style: normal;
+}
+/* .datalis-price{
+    float: right;
+    font-size: 18px;
+    margin-right: 10px;
+} */
+.datalis-text{
+    float: left;
+
 }

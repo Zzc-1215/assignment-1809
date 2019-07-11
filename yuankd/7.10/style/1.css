@@ -11,23 +11,23 @@
     clear: both;
 }
 #app{
-    width: 10rem;
+    width: 750px;
     /* padding-bottom:130px;  */
 }
 .head-tit{
     border-bottom: solid 1px #dfdfdf;
 }
 .head-tit h3{
-    font-size: 0.42667rem;
-    height: 1.33333rem;
-    line-height: 1.33333rem;
+    font-size: 32px;
+    height: 100px;
+    line-height: 100px;
     float: left
 }
 
 .head-tit .back{
-    font-size: 0.45333rem;
-    margin-left: 0.45333rem;
-    margin-right: 0.46667rem;
+    font-size: 34px;
+    margin-left: 34px;
+    margin-right: 35px;
     color: #148be5;
 }
 
@@ -35,9 +35,9 @@
     float: right;
 }
 .head-tit  .head-icon span{
-    font-size: 0.53333rem;
-    line-height: 1.33333rem;
-    margin-right: 0.46667rem;
+    font-size: 40px;
+    line-height: 100px;
+    margin-right: 35px;
 }
 .head-tit  .head-icon .search{
     color: #148be5;
@@ -47,11 +47,11 @@
 }
 
 .head-list li{
-    font-size: 0.4rem;
+    font-size: 30px;
     float: left;
     width: 33.3%;
     text-align: center;
-    line-height: 1.06667rem;
+    line-height: 80px;
 
 }
 .head-list li a{
@@ -60,18 +60,21 @@
 }
 .head-list li a:hover{
     font-weight: 600;
-    border-bottom: solid 0.04rem #268cd9;
-    padding-bottom: 0.04rem;
+    border-bottom: solid 3px #268cd9;
+    padding-bottom: 3px;
     color: #000;
 }
+.cont-text{
+    min-height: 700px;
+}
 .cont-text ul{
-    width: 2.04rem;
+    width: 153px;
     float: left;
 }
 .cont-text ul li{
     background: #f8f8f8;
-    font-size: 0.26667rem;
-    line-height: 1.10667rem;
+    font-size: 20px;
+    line-height: 83px;
     text-align: center;
     color: #888888;
 }
@@ -80,68 +83,68 @@
 }
 
 .content-text{
-    width: 7.56rem;
-    margin-left: 2.33333rem;
+    width: 567px;
+    margin-left: 175px;
 }
 .content-text .food-text {
-    height: 2.54667rem;
-    margin-bottom: 0.4rem;
+    height: 191px;
+    margin-bottom: 30px;
 }
 .content-text .food-img{
-    width: 2.54667rem;
-    height: 2.54667rem;
+    width: 191px;
+    height: 191px;
     float: left;
 }
 .content-text .food-img img{
-    width: 2.54667rem;
-    height: 2.54667rem;
+    width: 191px;
+    height: 191px;
 }
 
 .content-introduce p{
-    font-size: 0.4rem;
-    line-height: 0.6rem;
+    font-size: 30px;
+    line-height: 45px;
 }
 .food-contnet{
-    margin-left: 2.8rem;
+    margin-left: 210px;
 }
 .content-introduce span{
-    font-size: 0.24rem;
+    font-size: 18px;
     color: #a8a8a8;
-    line-height: 0.4rem;
-    margin-right: 0.26667rem;
+    line-height: 30px;
+    margin-right: 20px;
 }
 .content-price{
-    margin-top: 0.93333rem;
+    margin-top: 70px;
 }
 .content-price i{
     font-style: normal;
-    font-size: 0.29333rem;
+    font-size: 22px;
     color: #f85b4b;
 }
 
 .el-input-number {
     position: relative;
     display: inline-block;
-    width: 1.33333rem;
-    line-height: 0.50667rem;
+    width: 100px;
+    line-height: 38px;
     float: right;
-    margin-right: 0.4rem;
+    margin-right: 30px;
 }
 
 .el-input-number span {
     position: absolute;
     z-index: 1;
-    top: 0.04rem;
-    width: 0.4rem;
-    height: 0.38667rem;
-    line-height: 0.38667rem;
+    top: 3px;
+    width: 30px;
+    height: 29px;
+    line-height: 29px;
     text-align: center;
     background: #f5f7fa;
     color: #FFF;
     cursor: pointer;
-    font-size: 0.17333rem;
+    font-size: 13px;
     border-radius: 50%;
-    font-size: 0.26667rem;
+    font-size: 20px;
 }
 .el-input-number span:nth-child(1){
     border: solid 1px #43a5f5;
@@ -156,19 +159,19 @@
     -webkit-appearance: none;
     background-color: #fff;
     background-image: none;
-    border-radius: 0.05333rem;
+    border-radius: 4px;
     border: none;
     box-sizing: border-box;
     color: #606266;
     display: inline-block;
     font-size: inherit;
-    height: 0.4rem;
+    height: 30px;
     line-height: 1;
     outline: none;
-    padding: 0 0.26667rem 0 0.46667rem;
+    padding: 0 20px 0 35px;
     transition: border-color .2s cubic-bezier(.645, .045, .355, 1);
     width: 100%;
-    border-radius: 0.26667rem;
+    border-radius: 20px;
 }
 
 .el-input-number__increase {
@@ -179,7 +182,7 @@
 .v-enter, .v-leave-to{
     position: fixed;
     left: 0;
-    bottom: -1.73333rem;
+    bottom: -130px;
 }
 .v-enter-active, .v-leave-active{
     transition: all 0.5s;
@@ -189,15 +192,15 @@
     left: 0;
     bottom: 0;
 }
-/* .foot{
-    position: fixed;
+.foot{
+    /* position: fixed;
     bottom: 0;
-    left: 0;
+    left: 0; */
     z-index: 1
-} */
+}
 .foot-price{
-    width: 7.18667rem;
-    height: 1.29333rem;
+    width: 539px;
+    height: 97px;
     background: #515152;
     float: left;
 }
@@ -206,102 +209,125 @@
 }
 .foot-icon {
     float: left;
-    border: solid 0.06667rem #424350;
-    margin-top: -0.4rem;
+    border: solid 5px #424350;
+    margin-top: -30px;
     border-radius: 50%;
-    margin-left: 0.46667rem;
+    margin-left: 35px;
     position: relative;;
 }
 .foot-icon i{
-    width: 0.4rem;
-    height: 0.33333rem;
-    border-radius: 0.17333rem;
+    width: 30px;
+    height: 25px;
+    border-radius: 13px;
     background: #ff6009;
     display: inline-block;
-    font-size: 0.21333rem;
+    font-size: 16px;
     color: #FFF;
-    line-height: 0.33333rem;
+    line-height: 25px;
     text-align: center;
     font-style: normal;
     position: absolute;
-    right: -0.06667rem;
-    top: -0.04rem;
+    right: -5px;
+    top: -3px;
 }
 .foot-icon span{
-    width: 1.13333rem;
-    height: 1.13333rem;
+    width: 85px;
+    height: 85px;
     display: inline-block;
     text-align: center;
     border-radius: 50%;
-    line-height: 1.13333rem;
-    font-size: 0.57333rem;
+    line-height: 85px;
+    font-size: 43px;
     color: #FFF;
     background: #2a93ec;
     position: relative;
 }
 
 .foot-pay{
-    width: 2.8rem;
+    width: 210px;
     float: left;
 }
 .foot-pay button{
-    width: 2.8rem;
-    height: 1.29333rem;
+    width: 210px;
+    height: 97px;
     border: none;
     outline: none;
     background: #37cb72;
-    font-size: 0.37333rem;
+    font-size: 28px;
     color: #FFF;
 }
 .money{
     float: left;
-    margin-left: 0.26667rem;
+    margin-left: 20px;
 }
 .foot-pri .money p:nth-child(1){
-    font-size: 0.37333rem;
+    font-size: 28px;
     color: #FFF;
-    line-height: 0.42667rem;
-    margin-top: 0.12rem;
+    line-height: 32px;
+    margin-top: 9px;
 }
 .foot-pri .money p:nth-child(2){
     color: #888888;
-    line-height: 0.4rem;
-    font-size: 0.24rem;
+    line-height: 30px;
+    font-size: 18px;
 }
 
 
 
 /* 去支付 */
-.datalis{
+.store-tit span{
+    font-size: 36px;
+    color: #3392d4;
+    float: left;
+    line-height: 148px;
+    margin-left: 50px;
+}
+.store-tit h3{
+    font-size: 38px;
+    line-height: 148px;
+    float: left;
+    margin-left: 52px;
+}
+.datalis-content{
     width: 700px;
     margin: auto;
-    padding: 0 50px;
+    padding: 0 30px;
     box-sizing: border-box;
+    /* border: solid 6px #148be5; */
 }
 .datalis dt{
     font-size: 36px;
     line-height: 107px;
 }
-.datalis dd i{
-    font-style: normal;
+.datalis-text{
+    width: 565px;
+}
+.datalis-text .float{
+    float: right;
 }
 .datalis-img{
     width: 50px;
     height: 50px;
     float: left;
+    margin-top: 20px;
+    margin-right: 20px;
 }
 .datalis-img img{
     width: 50px;
     height: 50px;
 }
-.datalis dd{
+.datalis-content dd{
     line-height: 100px;
     border-bottom: dashed 1px #CCC;
-    padding-left: 30px;
     box-sizing: border-box;
     font-size: 20px;
 }
-.datalis dd:nth-child(3) i{
+.datalis-content .pack,.datalis-content .delivs{
+    font-size: 20px;
+    line-height: 80px;
+    border-bottom: dashed 1px #ccc;
+}
+.datalis-content .pack i{
     font-size: 18px;
     line-height: 30px;
     background: #eff3f6;
@@ -309,15 +335,32 @@
     padding: 3px;
     color: #99a5bb;
     margin-right: 20px;
+    font-style: normal;
 }
-.datalis dd:nth-child(4) i{
+.datalis-content .deliv span ,.datalis-content .pack span{
+    float: right;
+    margin-right: 20px;
+}
+.datalis-content .deliv {
+    font-size: 20px;
+    line-height: 80px;
+    border-bottom: dashed 1px #ccc;
+}
+.datalis-content .deliv i{
     font-size: 18px;
     line-height: 30px;
     background: #5dacf9;
     padding: 3px;
     color: #FFF;
     margin-right: 20px;
+    font-style: normal;
 }
-.datalis-price{
+/* .datalis-price{
     float: right;
+    font-size: 18px;
+    margin-right: 10px;
+} */
+.datalis-text{
+    float: left;
+
 }

@@ -39,7 +39,7 @@
                     </div>
                     <div class="foot-pay">
                         <button @click="show=!show">
-                            <router-link :to="{name:'payment',parmas:{arrt}}"
+                            <router-link :to="{name:'payment',params:{arrt,allconut}}"
                                 style="text-decoration: none; color: #FFF;">去结算</router-link>
                             </router-link>
                         </button>
@@ -242,15 +242,19 @@
                 <h3>确认订单</h3>
             </div>
             <div class="datalis-content">
-                <dl class="datalis">
+                <dl class="datalis clearfix">
                     <dt>庆丰包子铺（窦店）</dt>
-                    <dd class="clearfix" v-for="(item,index) in data">
+                    <dd class="datalis-con" v-for="item in data">
                         <div class="datalis-img">
                             <img :src="item.img">
                         </div>
-                        <span class="foodes">{{data.name}}</span>
-                        <i>x3</i>
-                        <span class="datalis-price">价格</span>
+                        <div class="datalis-text clearfix">
+                            <span class="foodes">{{item.name}}</span>
+                            <div class="float">
+                                <i style="margin-right:60px;font-style:normal;">x{{item.val}}</i>
+                                <span class="datalis-price" style="float:right;margin-right:20px;">&yen;{{item.price}}</span>
+                            </div>
+                        </div>
                     </dd>
                 </dl>
                 <div class="pack clearfix">
@@ -263,39 +267,43 @@
                     配送费
                     <span class="datalis-price">&yen;8</span>
                 </div>
+                <div class="delivs clearfix">
+                    <span class="datalis-price" style="float:right;margin-right:30px;font-size:22px;">小计:<i style="font-style:normal"> &yen;{{arr+3+8}}</i></span>
+                </div>
             </div>
-            <div class="food">
-                    <div class="foot-price">
-                        <div class="foot-pri clearfix">
-                            <div class="money">
-                                <p>&yen;</p>
-                            </div>
+            <div class="food" style="position:fiexd;bottom:0px;left:0;">
+                <div class="foot-price">
+                    <div class="foot-pri clearfix">
+                        <div class="money">
+                            <p style="line-height:80px;">&yen;{{arr+3+8}}</p>
                         </div>
                     </div>
-                    <div class="foot-pay">
-                        <button>
-                            <router-link to="/Payment" style="text-decoration: none; color: #FFF;">去支付</router-link>
-                            </router-link>
-                        </button>
-                    </div>
                 </div>
+                <div class="foot-pay">
+                    <button>
+                        <router-link to="/Payment" style="text-decoration: none; color: #FFF;">去支付</router-link>
+                        </router-link>
+                    </button>
+                </div>
+            </div>
         </div>
         
         `,
         data() {
             return {
-                data: this.$route.params.arrt
+                data: this.$route.params.arrt,//接收暴露出来的数据
+                arr:this.$route.params.allconut//计算总价
             }
-        }
+        },
+        created(){
+            console.log(this.$route)
+        },
     })
 
 
 
     Vue.component('bc-footer', {
         template: '#footer',
-        methods: {
-
-        }
     })
     // var component = Vue.component('bc-content-cont', {
     //     template: '#contentNav',
@@ -317,12 +325,12 @@
 
     var vm = new Vue({
         el: '#app',
-        router: router,
+        router,
         data: {
             allconut: 0,
             sum: 0,
             show: true,
-            arrt: 0,
+            arrt: '',
             infor: [
                 {
                     classify: '热销',
