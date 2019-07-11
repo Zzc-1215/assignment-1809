@@ -231,13 +231,18 @@ i {
   position: absolute;
   top: -0.13333rem; }
 
-#jsBtn {
+.jss {
   width: 2.81333rem;
   height: 1.29333rem;
   background-color: #37cb72;
-  color: #ffffff;
+  line-height: 1.29333rem;
+  text-align: center;
   float: right;
   border: none; }
+
+#jsBtn {
+  color: #ffffff;
+  font-size: 0.26667rem; }
 
 .money {
   color: #fff;
@@ -321,6 +326,8 @@ i {
   margin-right: 0.26667rem; }
 
 .tot {
+  height: 2rem;
+  border-bottom: 1px solid #ccc;
   line-height: 2rem; }
 
 .yh {
@@ -365,4 +372,33 @@ i {
   line-height: 1.73333rem;
   text-align: center;
   border: none;
+  float: right; }
+
+.bz {
+  padding: 0.02667rem;
+  background-color: #c5c5c5;
+  color: #414141;
+  border: 1px solid #2e2e2e;
+  margin-right: 0.13333rem; }
+
+.ch {
+  font-size: 0.26667rem;
+  color: #2e2e2e;
+  float: left; }
+
+.jh {
+  float: right; }
+
+.fn {
+  padding: 0.02667rem;
+  background-color: #2a93ff;
+  color: #fff;
+  margin-right: 0.13333rem; }
+
+.psf {
+  font-size: 0.26667rem;
+  color: #2e2e2e;
+  float: left; }
+
+.jh {
   float: right; }

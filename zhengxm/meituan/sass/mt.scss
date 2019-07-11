@@ -232,13 +232,18 @@ i{
     position: absolute;
     top: -10px;
 }
-#jsBtn{
+.jss{
     width: 211px;
     height: 97px;
     background-color: #37cb72;
-    color: #ffffff;
+    line-height: 97px;
+    text-align: center;
     float: right;
     border:none;
+}
+#jsBtn{
+    color: #ffffff;
+    font-size: 20px;
 }
 .money{
     color: #fff;
@@ -290,7 +295,7 @@ i{
     height: 150px;
     border-bottom: 1px dashed #ccc;
 }
-.dm{
+.dm{ 
     height: 140px;
     line-height: 140px;
     font-size: 40px;
@@ -322,6 +327,8 @@ i{
     margin-right: 20px;
 }
 .tot{
+    height: 150px;
+    border-bottom: 1px solid #ccc;
     line-height: 150px;
 }
 .yh{
@@ -366,5 +373,34 @@ i{
     line-height: 130px;
     text-align: center;
     border: none;
+    float: right;
+}
+.bz{
+    padding: 2px;
+    background-color: #c5c5c5;
+    color: #414141;
+    border: 1px solid #2e2e2e;
+    margin-right: 10px;
+}
+.ch{
+    font-size: 20px;
+    color: #2e2e2e;
+    float: left;
+}
+.jh{
+    float: right;
+}
+.fn{
+    padding: 2px;
+    background-color: #2a93ff;
+    color: #fff;
+    margin-right: 10px;
+}
+.psf{
+    font-size: 20px;
+    color: #2e2e2e;
+    float: left;
+}
+.jh{
     float: right;
 }

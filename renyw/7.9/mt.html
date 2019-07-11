@@ -68,11 +68,11 @@
                     </template>
 
                     <template v-slot:gowhat>
-                        <router-link :to="{name:'gotopay'}">
+                        <router-link :to="{name:'gotopay',params:{data:foods}}">
                             去结算
                         </router-link>
-                    </template>
 
+                    </template>
                 </yw-footer>
             </transition>
         </div>
@@ -154,45 +154,40 @@
             <yw-main>
                 <div class="ddxxboxbg">
                     <div class="ddxxbox">
-                        <div class="Pay_babylist">
-                            <div class="Pay_item">
-                                <img src="" alt="">
-                                <p class="Pay_item_name">鲅鱼三鲜水饺</p>
-                                <p class="Pay_item_nu fl">x3</p>
-                                <p class="Pay_item_price fr">￥60</p>
+                        <div v-if="data!=[]">
+                            <div class="Pay_babylist">
+                                <div class="Pay_item" v-for="item in selectfoods">
+                                    <img :src="item.img" alt="">
+                                    <p class="Pay_item_name">{{item.name}}</p>
+                                    <p class="Pay_item_nu fl">x{{item.num}}</p>
+                                    <p class="Pay_item_price fr">￥{{item.num*item.price}}</p>
+                                </div>
                             </div>
-                            <div class="Pay_item">
-                                <img src="" alt="">
-                                <p class="Pay_item_name">鲅鱼三鲜水饺</p>
-                                <p class="Pay_item_nu fl">x3</p>
-                                <p class="Pay_item_price fr">￥60</p>
+                            <div class="Pay_infolist">
+                                <div class="fl Pay_ltspan"><span class="bz">包装</span></div>
+                                <p class="ch fl">餐盒</p>
+                                <p class="chprice fr">￥2</p>
+                            </div>
+                            <div class="Pay_infolist">
+                                <div class="fl Pay_ltspan"><span class="bz fn">蜂鸟</span></div>
+                                <p class="fl ch">配送费</p>
+                                <p class="chprice fr">￥4</p>
+                            </div>
+                            <div class="Pay_infolist">
+                                <div class="yh fl">优惠说明?</div>
+                                <p class="chprice fr">小计 ￥<span style="font-size:0.5rem;font-weight: bold;">{{allprice+4+2}}</span></p>
                             </div>
                         </div>
-                        <div class="Pay_infolist">
-                            <div class="fl Pay_ltspan"><span class="bz">包装</span></div>
-                            <p class="ch fl">餐盒</p>
-                            <p class="chprice fr">￥4</p>
-                        </div>
-                        <div class="Pay_infolist">
-                            <div class="fl Pay_ltspan"><span class="bz fn">蜂鸟</span></div>
-                            <p class="fl ch">配送费</p>
-                            <p class="chprice fr">￥8</p>
-                        </div>
-                        <div class="Pay_infolist">
-                            <div class="yh fl">优惠说明?</div>
-                            <p class="chprice fr">小计 ￥<span style="font-size:0.5rem;font-weight: bold;">71</span></p>
+                        <div v-if="data==[]" style="text-align: center;line-height: 1.2rem;font-size: 0.5rem;">
+                            <router-link :to="{path:'/'}" style="display:block;color:#000;">请选择商品</router-link>
                         </div>
                     </div>
                 </div>
             </yw-main>
             <yw-footer>
                 <template v-slot:allnum>
-                    {{allnum}}
                 </template>
                 <template v-slot:allprice>
-                    <div class="goprice">
-                        <p class="money">￥{{allprice}}</p>
-                    </div>
                 </template>
                 <template v-slot:gowhat>
                     去支付
@@ -343,6 +338,11 @@
                 // gopay(){
                 //     this.gopay();
                 // }
+            },
+            watch: {
+                foods(val) {
+                    this.$emit('data', val)
+                }
             }
         })
         //结算页面组件
@@ -351,8 +351,30 @@
             data() {
                 return {
                     allnum: 0,
-                    allprice: 255
-                    // data: this.$route.params
+                    data: this.$route.params.data || [],
+                }
+            },
+            created() {
+                // console.log(this.data);
+            },
+            computed: {
+                selectfoods() {
+                    var arr = [];
+                    this.data.forEach(element => {
+                        element.food.forEach(el => {
+                            if (el.num > 0) {
+                                arr.push(el)
+                            }
+                        })
+                    })
+                    return arr;
+                },
+                allprice() {
+                    var str = 0;
+                    this.selectfoods.forEach(el => {
+                        str += el.num * el.price
+                    })
+                    return str;
                 }
             }
         })
@@ -361,11 +383,23 @@
             template: '#head'
         })
         Vue.component('yw-main', {
-            template: '<div class="contentbox"><slot></slot></div>'
+            template: '<div class="contentbox"><slot></slot></div>',
+            props: [],
+            created() {
+
+            }
         })
         Vue.component('yw-footer', {
             template: '#foot',
             props: [],
+            data() {
+                return {
+
+                }
+            },
+            created() {
+
+            },
             methods: {
                 // gopay(){
                 //     this.gopay();
@@ -459,7 +493,7 @@
                 {
                     path: '/',
                     component: indexList,
-                    name:''
+                    name: ''
                 },
                 {
                     path: '/gotopay',
@@ -477,14 +511,14 @@
                     ps: 0, //配送费'
                     allnum: 0, //商品总数量
                     allprice: 0, //所有商品勾选的总价格
-
+                    ms: []
                 }
-
+            },
+            created() {
+                // console.log(this.ms)
             },
             methods: {
-                gopay() {
-                    this.$router.push('/gotopay')
-                }
+
             }
         })
     </script>

@@ -200,7 +200,6 @@
         .el-input {
             position: relative;
             font-size: 0.2rem;
-            /* display: inline-block; */
             width: 100%;
         }
 
@@ -282,7 +281,7 @@
 			line-height: 1.42rem;
        }
        .neirong{
-            height: 10rem;
+            height: auto;
             background:linear-gradient(#3fbcfc,#f5f5f5,#f5f5f5,#f5f5f5)
        }
         .content{
@@ -303,7 +302,7 @@
         .nr-title span{
             color: #646464;
         }
-        .uls{
+        .uls,.contents{
             width: 6.6rem;
             margin: 0 auto;
         }
@@ -315,86 +314,75 @@
             list-style: none;
             border-bottom: 1px #ccc dotted;
         }
+        .uls li img{
+            width: 1.2rem;
+            height: 1.2rem;
+            border-radius: 0.05rem;
+            margin: 0.13rem 0.2rem 0 0;
+        }
         .uls li i{
             font-style:normal;
-            margin-left: 1.5rem;
+            margin-left: 1rem;
         }
         .uls li span{
             float: right;
 
         }
+
+        .contents div{
+            height: 1.46rem;
+            font-size: 0.36rem;
+            line-height: 1.46rem;
+            color: #484848;
+            list-style: none;
+            border-bottom: 1px #ccc dotted;
+        }
+        .contents div span{
+            float: right;
+
+        }
+        .dibu{
+            width:7.5rem;
+            height: 1.2rem;
+            background: #3d3d3d;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+        }
+        .dibu span{
+            color: #fff;
+            font-size: 0.3rem;
+            line-height: 1.2rem;
+        }
+        .zhifu{
+            width: 3rem;
+            line-height: 1.2rem;
+            float: right;
+            background:#01df66;
+            color: #fff;
+            border-style: none;
+            font-size: 0.4rem;
+        }
+
     </style>
 </head>
 
 <body>
     <div id="app">
         <router-view></router-view>
-        <!-- <nr>
-            <toubu class="toubu">
-                <i class="iconfont fanhui">&#xe650;</i>确认订单
-            </toubu>
-            <neirong class="neirong"  @total="total=$event" @num="num=$event">
-                <div class="content">
-                    <p class="nr-title">庆丰包子铺<span>（窦店）</span> </p>
-                    <ul class="uls">
-                        <div slot:total>
-                            <li>鲍鱼三鲜水饺<i>*{{num}}</i><span>￥{{total}}</span></li>
-                        </div>
-                        
-                        <li>餐盒<span>￥6</span></li>
-                        <li>配送费<span>￥8</span></li>
-                        <li>红包<span>￥8</span></li>
-                        <li><span>小计￥<em style="font-size: 0.6rem;font-style:normal;">{{total+6+8-8}}</em></span></li>
-                    </ul>
-                </div>
-            </neirong>
-        </nr> -->
-        <!-- <bc-container> -->
-            <!-- 头部 -->
-            <!-- <bc-header>
+        <!-- <container>
+            <template v-slot:header>
                 <p class="title">
                     <i class="iconfont fanhui">&#xe650;</i>
                     庆丰包子铺(窦店) 
                     <i class="iconfont sousuo">&#xe604;</i>
                     <i class="iconfont zhuangfa">&#xe605;</i>
                 </p>
-             </bc-header> -->
-             <!-- 内容 -->
-            <!-- <bc-main>
+            </template>
+            <template>
                 <bc-con @total="total=$event" @num="num=$event"></bc-con>
-            </bc-main> -->
-            <!-- 底部 ---->
-            <!-- <transition>
-                <bc-footer v-show="num!=0">
-                    <div class='foot'>
-                        <div slot:num>
-                            <i class="iconfont imgs">&#xe603;</i>
-                            <p class="nums">{{num}}</p>
-                        </div>
-                        <p class="money" slot='total'>￥<span>{{total}}</span></p>
-                        <p class="xiaofei">另需配送费8元</p>
-                        <router-link to="/abc"><button id="btn">去结算</button></router-link>
-                    </div>
-                </bc-footer>
-            </transition> -->
-        <!-- </bc-container>  -->
-        
-    </div>
-    <template id="container">
-        <div class="container">
-            <!-- <slot></slot> -->
-            <bc-header class="header">
-                <p class="title">
-                    <i class="iconfont fanhui">&#xe650;</i>
-                    庆丰包子铺(窦店) 
-                    <i class="iconfont sousuo">&#xe604;</i>
-                    <i class="iconfont zhuangfa">&#xe605;</i>
-                </p>
-            </bc-header>
-            <bc-main>
-                <bc-con @total="total=$event" @num="num=$event"></bc-con>
-            </bc-main>
-            <bc-footer class="footer" v-show="num!=0">
+            </template>
+            <template v-slot:footer>
                 <div class='foot'>
                     <div slot:num>
                         <i class="iconfont imgs">&#xe603;</i>
@@ -402,35 +390,64 @@
                     </div>
                     <p class="money" slot='total'>￥<span>{{total}}</span></p>
                     <p class="xiaofei">另需配送费8元</p>
-                    <router-link to="/abc"><button id="btn">去结算</button></router-link>
+                    <router-link to="/zhifu"><button id="btn">去结算</button></router-link>
                 </div>
-            </bc-footer>
-        </div>
-    </template>
-    <!-- 头部 -->
-    <template id="header">
-        <div class="header">
-            <slot></slot>
-        </div>
-    </template>
-    <!-- 内容 -->
-    <template id="main">
-        <div class="main">
-            <slot></slot>
-        </div>
-    </template>
-    <!-- 底部 -->
-    <template id="footer">
-        <div class="footer">
-            <slot></slot>
-            <div class="num">
-                <slot name='num'></slot>
-            </div>
-        </div>
-    </template>
+            </template>
+        </container> -->
+      
+    </div>
 
+    <template id="container">
+        <div class="container">
+            <template id="header">
+                <div class="header">
+                    <p class="title">
+                        <i class="iconfont fanhui">&#xe650;</i>
+                        庆丰包子铺(窦店) 
+                        <i class="iconfont sousuo">&#xe604;</i>
+                        <i class="iconfont zhuangfa">&#xe605;</i>
+                    </p>
+                </div>
+            </template>
+            <template id="main">
+                <div class="main">
+                    <!-- <bc-con @total="total=$event" @num="num=$event"></bc-con> -->
+                    <div>
+                    <ul class="left">
+                        <li class="li" @click='click(index)' :class="{active:i==index}" v-for="(item,index) in foods">
+                            {{foods[index].food}}</li>
+                    </ul>
+                    <div class="right">
+                        <ul id="ul">
+                            <li v-for='(item,index) in foods[i].meishi' class="lis" :key="i+index">
+                                <img :src="item.img" alt="">
+                                <p class="biaoti">{{item.name}}</p>
+                                <p class="info">{{item.info}}</p>
+                                <p class="price">￥{{item.price}}元</p>
+                                <bc-input-number v-model="item.num" :disabled="false" :min="0"></bc-input-number>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                </div>
+            </template>
+            <transition>
+            <template id="footer">
+                <div class="footer" v-show='num'>
+                    <div slot:num>
+                        <i class="iconfont imgs">&#xe603;</i>
+                        <p class="nums">{{num || 0}}</p>
+                    </div>
+                    <p class="money" slot='total'>￥<span>{{total || 0}}</span></p>
+                    <p class="xiaofei">另需配送费8元</p>
+                    <router-link :to="{name:'zhifu',params:{listData,total}}"><button id="btn">去结算</button></router-link>
+                </div>
+            </template>
+        </transition>
+        </div>
+    </template>
     <!-- 中间内容部分 -->
-    <template id="con">
+    <!-- <template id="con">
         <div>
             <ul class="left">
                 <li class="li" @click='click(index)' :class="{active:i==index}" v-for="(item,index) in foods">
@@ -448,29 +465,38 @@
                 </ul>
             </div>
         </div>
-    </template>
-
-    
+    </template> -->
     <template id="nr">
         <div class="nr">
-            <slot></slot>
             <toubu class="toubu">
-                <router-link to="/hello"><i class="iconfont fanhui">&#xe650;</i></router-link>
+                <router-link to="/" style="text-decoration: none"><i class="iconfont fanhui">&#xe650;</i></router-link>
                 确认订单
             </toubu>
-            <neirong class="neirong"  @total="total=$event" @num="num=$event">
+            <neirong class="neirong">
                 <div class="content">
                     <p class="nr-title">庆丰包子铺<span>（窦店）</span> </p>
-                    <ul class="uls">
-                        <div  @total="total=$event" @num="num=$event">
-                            <li>鲍鱼三鲜水饺<i>*{{num}}</i><span>￥{{total}}</span></li>
-                        </div>
-                        <li>餐盒<span>￥6</span></li>
-                        <li>配送费<span>￥8</span></li>
-                        <li>红包<span>￥8</span></li>
-                    </ul>
+                    <div class="contents">
+                        <ul class="uls" v-for="item in $route.params.listData">
+                            <li>
+                                <img :src="item.img">
+                                {{item.name}}
+                                <i>*{{item.num}}</i>
+                                <span>￥{{item.num*item.price}}</span>
+                            </li>
+                        </ul>
+                        <div>餐盒<span>￥6</span></div>
+                        <div>配送费<span>￥8</span></div>
+                        <div>红包<span>￥2</span></div>
+                    </div>
                 </div>
             </neirong>
+            <transition>
+                <dibu class="dibu" v-show='$route.params.total'>
+                    <span>￥{{this.$route.params.total+6+8-2 || 0}}</span>
+                    <button class="zhifu">去支付</button>
+                </dibu>
+            </transition>
+            
         </div>
     </template>
 
@@ -484,6 +510,11 @@
             <slot></slot>
         </div>
     </template>
+    <template id="dibu">
+            <div class="dibu">
+                <slot></slot>
+            </div>
+        </template>
 
     <!-- 计时器 -->
     <template id="input">
@@ -498,12 +529,8 @@
 
     <script>
         
-        var hello = Vue.extend({
-            template: '#container',
-            
-        })
-        // var componet = Vue.component('bc-container', {
-        //     template: '#container',
+        // var index = Vue.component('bc-container',{
+        //     template:'#container',
         // })
         var componet = Vue.component('bc-header', {
             template: '#header',
@@ -513,31 +540,19 @@
         })
         var componet = Vue.component('bc-footer', {
             template: '#footer',
-            data(){
-                return{
-                    props:['total','num'],
-                }
-            }
         })
-
         //新内容
-        var abc = Vue.extend({
+        var zhifu = Vue.extend({
             template:'#nr'
         });
-        var componet = Vue.component('nr', {
-            template: '#nr',
-        })
         var componet = Vue.component('toubu', {
             template: '#toubu',
-            
         })
         var componet = Vue.component('neirong', {
             template: '#neirong',
-            data(){
-                return{
-                    props:['total','num']
-                }
-            }
+        })
+        var componet = Vue.component('dibu', {
+            template: '#dibu',
         })
 
         
@@ -576,15 +591,14 @@
             }
         })
         
-        // 内容部分
-        Vue.component('bc-con',{
-            template:'#con',
+        // 选项卡组件
+        var index = Vue.component('bc-container',{
+            template:'#container',
             data() {
                 return {
                     v: this.value,
                     i: 0,
                     value:0,
-                    arr:[{}],
                     foods: [{
                         food: '水饺',
                         meishi: [
@@ -815,27 +829,29 @@
                     ],
                 }
             },
-            watch:{
-                total(value,oldvalue){
-                    this.$emit('total',value);
-                },
-                num(value,oldvalue){
-                    this.$emit('num',value);
-                }
-            },
+            
             computed:{
+                listData(){
+                    var arr = [];
+                    this.foods.forEach(element => {
+                        element.meishi.forEach(el=>{
+                            if(el.num){
+                                arr.push(el);
+                            }
+                        })
+                    })
+                    // console.log(arr);
+                    return arr;
+                },
+
                 //价格
                 total(){
                     var jiage = 0;
                     this.foods.forEach(element => {
                         element.meishi.forEach(element => {
                             jiage += element.price * (element.num || 0);
-                            if(element.num!=0){
-                                this.arr.push(element)
-                            }
                         });
                     });
-                    console.log(this.arr)
                     return jiage;
                 },
                 //商品总数量
@@ -849,6 +865,14 @@
                     return num;
                 }
             },
+            watch:{
+                total(value,oldvalue){
+                    this.$emit('total',value);
+                },
+                num(value,oldvalue){
+                    this.$emit('num',value);
+                }
+            },
             methods: {
                 click(index) {
                     this.i = index;
@@ -859,21 +883,21 @@
         var router = new VueRouter({
             routes:[
                 {
-                    path: '/hello',
-                    component: hello,
-                    name: 'hello',
+                    path: '/',
+                    component: index,
+                    name: 'index',
                 },
                 {
-                    path: '/abc',
-                    component: abc,
-                    name: 'abc',
+                    path: '/zhifu',
+                    component: zhifu,
+                    name: 'zhifu',
                 }
             ]
         });
 
         //根实例
         var vm = new Vue({
-            // el: '#app',
+            el:'#app',
             router:router,
             data(){
                 return{
@@ -881,7 +905,7 @@
                     num:0,
                 }
             },
-        }).$mount('#app');
+        })
     </script>
 </body>
 
