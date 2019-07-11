@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="js/flexible_css.js"></script>
+    <script src="js/flexible.js"></script>
+    <link rel="stylesheet" href="css/meiTuan.css">
+    <link rel="stylesheet" href="font/iconfont.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+    <script src="js/demo.js"></script>
+    <script src="js/zhifu.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <router-view></router-view>
+    </div>
+</body>
+<script>
+    const router = new VueRouter({
+        routes: [{
+            path: '/',
+            component: shop,
+            name: 'shop'
+        }, {
+            path: '/zhifu',
+            name: 'zhifu',
+            component: zhifu,
+        }]
+    })
+    //暴露组件
+    new Vue({
+        router,
+    }).$mount('#root')
+</script>
+
+</html>
