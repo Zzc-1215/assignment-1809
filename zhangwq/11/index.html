@@ -476,7 +476,7 @@
                 <div class="content">
                     <p class="nr-title">庆丰包子铺<span>（窦店）</span> </p>
                     <div class="contents">
-                        <ul class="uls" v-for="item in $route.params.listData">
+                        <ul class="uls" v-for="item in listData">
                             <li>
                                 <img :src="item.img">
                                 {{item.name}}
@@ -492,7 +492,7 @@
             </neirong>
             <transition>
                 <dibu class="dibu" v-show='$route.params.total'>
-                    <span>￥{{this.$route.params.total+6+8-2 || 0}}</span>
+                    <span>￥{{$route.params.total+6+8-2 || 0}}</span>
                     <button class="zhifu">去支付</button>
                 </dibu>
             </transition>
@@ -528,10 +528,6 @@
     </template>
 
     <script>
-        
-        // var index = Vue.component('bc-container',{
-        //     template:'#container',
-        // })
         var componet = Vue.component('bc-header', {
             template: '#header',
         })
@@ -543,7 +539,28 @@
         })
         //新内容
         var zhifu = Vue.extend({
-            template:'#nr'
+            template:'#nr',
+            created(){
+                console.log(this.$route.params.listData);
+            },
+            data(){
+                return{
+                    data:this.$route.params.listData,
+                }
+            },
+            computed:{
+                listData(){
+                    var arr = [];
+                    this.data.forEach(element => {
+                        // element.meishi.forEach(el=>{
+                            if(element.num){
+                                arr.push(element);
+                            }
+                        // })
+                    })
+                    return arr;
+                },
+            }
         });
         var componet = Vue.component('toubu', {
             template: '#toubu',
@@ -829,7 +846,14 @@
                     ],
                 }
             },
-            
+            watch:{
+                total(value,oldvalue){
+                    this.$emit('total',value);
+                },
+                num(value,oldvalue){
+                    this.$emit('num',value);
+                }
+            },
             computed:{
                 listData(){
                     var arr = [];
@@ -840,7 +864,6 @@
                             }
                         })
                     })
-                    // console.log(arr);
                     return arr;
                 },
 
@@ -865,19 +888,12 @@
                     return num;
                 }
             },
-            watch:{
-                total(value,oldvalue){
-                    this.$emit('total',value);
-                },
-                num(value,oldvalue){
-                    this.$emit('num',value);
-                }
-            },
             methods: {
                 click(index) {
                     this.i = index;
-                },
+                }
             },
+            
         })
 
         var router = new VueRouter({
@@ -903,6 +919,7 @@
                 return{
                     total:0,
                     num:0,
+                    listData:'',
                 }
             },
         })
