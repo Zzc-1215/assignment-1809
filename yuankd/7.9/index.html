@@ -39,7 +39,8 @@
                     </div>
                     <div class="foot-pay">
                         <button @click="show=!show">
-                            <router-link :to="{name:'payment',parmas:{arrt}}" style="text-decoration: none; color: #FFF;">去结算</router-link>
+                            <router-link :to="{name:'payment',parmas:{arrt}}"
+                                style="text-decoration: none; color: #FFF;">去结算</router-link>
                             </router-link>
                         </button>
                     </div>
@@ -155,8 +156,8 @@
             sgoods(val, oldval) {
                 this.$emit('numbtns', val)
             },
-            rototain(val,oldval){
-                this.$emit('byvalue',val)
+            rototain(val, oldval) {
+                this.$emit('byvalue', val)
             }
         },
         computed: {
@@ -178,7 +179,7 @@
                 })
                 return sum;
             },
-            rototain(){
+            rototain() {
                 var arrt = [];
                 this.foods.forEach(item => {
                     item.arr.forEach(cont => {
@@ -251,17 +252,17 @@
                         <i>x3</i>
                         <span class="datalis-price">价格</span>
                     </dd>
-                    <dd class="clearfix">
-                        <i>包装</i>
-                        餐盒
-                        <span class="datalis-price">&yen;3</span>
-                    </dd>
-                    <dd class="clearfix">
-                        <i>蜂鸟</i>
-                        配送费
-                        <span class="datalis-price">&yen;8</span>
-                    </dd>
                 </dl>
+                <div class="pack clearfix">
+                    <i>包装</i>
+                    餐盒
+                    <span class="datalis-price">&yen;3</span>
+                </div>
+                <div class="deliv clearfix">
+                    <i>蜂鸟</i>
+                    配送费
+                    <span class="datalis-price">&yen;8</span>
+                </div>
             </div>
             <div class="food">
                     <div class="foot-price">
@@ -281,9 +282,9 @@
         </div>
         
         `,
-        data(){
-            return{
-                data:this.$route.params.arrt
+        data() {
+            return {
+                data: this.$route.params.arrt
             }
         }
     })
@@ -307,7 +308,7 @@
             {
                 path: '/payment',//路径 支持字符串格式
                 component: Payment,
-                name:'payment'
+                name: 'payment'
             },
         ]
     })
@@ -320,8 +321,8 @@
         data: {
             allconut: 0,
             sum: 0,
-            show:true,
-            arrt:0,
+            show: true,
+            arrt: 0,
             infor: [
                 {
                     classify: '热销',
