@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="js/flexible.js"></script>
+    <script src="js/flexible_css.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+    <link rel="stylesheet" type="text/css" href="font/iconfont.css">
+    <link rel="stylesheet" type="text/css" href="css/mt.css">
+</head>
+<body>
+    <div id="app">
+        <dd-payment></dd-payment>
+    </div>
+    <template id="payment">
+        <div class="nr">
+            <div class="tou">
+                <i class="iconfont jt">&#xe650;</i>
+                <span>确认订单</span>
+            </div>
+            <div class="contents">
+                <div class="ord">
+                    <h1 class="dm">庆丰包子铺（窦店）</h1>
+                    <div class="zhz">
+                        <div class="imag"></div>
+                        <div class="rig">
+                            <span class="title">
+                                12335
+                            </span>
+                            <span class="number">
+                                ×3
+                            </span>
+                            <span class="pri">
+                                ￥30
+                            </span>
+                        </div>
+                    </div>
+                    <div class="tot">
+                        <p class="yh">优惠说明<span class="iconfont wen">&#xe657;</span></p>
+                        <p class="xj"><i class="jq">小计￥</i>70</p>
+                    </div>
+                </div>
+            </div> 
+            <div class="cleared">
+                <p class="clear">￥70</p>
+                <button class="cBtn">去支付</button>
+            </div>
+        </div>
+    </template>
+    <script>
+        Vue.component('dd-payment',{
+            template:'#payment'
+        })
+        var vm = new Vue({
+            el:'#app',
+        })
+    </script>
+</body>
+</html>

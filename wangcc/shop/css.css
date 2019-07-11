@@ -282,16 +282,17 @@
 	margin-left:0.25rem;
 	float: left;
 }
-.list_sp li p:nth-of-type(2){
+.ae{
 	color:#474747;
 	font-size:30px;
-	margin-left:1.8rem;
-	float: left;
+	margin-right:1.8rem;
+	float: right;
 }
 .list_sp li p:nth-of-type(3){
 	color:#474747;
 	font-size:30px;
-	float:right;
+	position: absolute;
+	right: 0;
 }
 #list_a img{
 	width:0.51rem;

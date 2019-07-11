@@ -272,64 +272,51 @@
 
 
 /* 去支付 */
-.store-tit span{
-    font-size: 0.48rem;
-    color: #3392d4;
-    float: left;
-    line-height: 1.97333rem;
-    margin-left: 0.66667rem;
-}
-.store-tit h3{
-    font-size: 0.50667rem;
-    line-height: 1.97333rem;
-    float: left;
-    margin-left: 0.69333rem;
-}
 .datalis{
-    width: 9.33333rem;
+    width: 700px;
     margin: auto;
-    padding: 0 0.66667rem;
+    padding: 0 50px;
     box-sizing: border-box;
 }
 .datalis dt{
-    font-size: 0.48rem;
-    line-height: 1.42667rem;
+    font-size: 36px;
+    line-height: 107px;
 }
 .datalis dd i{
     font-style: normal;
 }
 .datalis-img{
-    width: 0.66667rem;
-    height: 0.66667rem;
+    width: 50px;
+    height: 50px;
     float: left;
 }
 .datalis-img img{
-    width: 0.66667rem;
-    height: 0.66667rem;
+    width: 50px;
+    height: 50px;
 }
 .datalis dd{
-    line-height: 1.33333rem;
+    line-height: 100px;
     border-bottom: dashed 1px #CCC;
-    padding-left: 0.4rem;
+    padding-left: 30px;
     box-sizing: border-box;
-    font-size: 0.26667rem;
+    font-size: 20px;
 }
 .datalis dd:nth-child(3) i{
-    font-size: 0.24rem;
-    line-height: 0.4rem;
+    font-size: 18px;
+    line-height: 30px;
     background: #eff3f6;
     border: solid 1px #dbdfe2;
-    padding: 0.04rem;
+    padding: 3px;
     color: #99a5bb;
-    margin-right: 0.26667rem;
+    margin-right: 20px;
 }
 .datalis dd:nth-child(4) i{
-    font-size: 0.24rem;
-    line-height: 0.4rem;
+    font-size: 18px;
+    line-height: 30px;
     background: #5dacf9;
-    padding: 0.04rem;
+    padding: 3px;
     color: #FFF;
-    margin-right: 0.26667rem;
+    margin-right: 20px;
 }
 .datalis-price{
     float: right;

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <script>
+        window.onload = function () {
+            document.documentElement.style.fontSize = document.documentElement.clientWidth / 1080 * 100 + 'px';
+            window.onresize = function () {
+                document.documentElement.style.fontSize = document.documentElement.clientWidth / 1080 * 100 + 'px';
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="iconfont.css">
+    <link rel="stylesheet" href="icon/iconfont.css">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="app">
+        <router-view></router-view>
+    </div>
+    <template id="account">
+        <div class="container">
+            <div class="account-head">
+                <span>
+                    <router-link to="/">
+                        <</router-link> </span> <span>确认订单
+                </span>
+            </div>
+            <div class="head">
+                <p>庆丰包子铺（窦店）</p>
+            </div>
+            <div class="account-big">
+                <div class="account-main">
+                    <ul class="account-list">
+                        <li v-for="item,i in arr">
+                            <div class="img">
+                                <img :src="item.img">
+                            </div>
+                            <div class="content">
+                                <p>{{item.text}}</p>
+                                <span>x{{item.quantity}}</span>
+                                <span>￥{{(item.quantity*item.price).toFixed(1)}}</span>
+                            </div>
+                        </li>
+                        <div class="dd-item">
+                            <div class="dd-sl dd-sl-two">
+                                <span class="dd-span">包装</span>
+                            </div>
+                            <div class="dd-name">
+                                <h3>餐盒</h3>
+                            </div>
+                            <div class="dd-jq"><span>￥3</span></div>
+                        </div>
+                        <div class="dd-item">
+                            <div class="dd-sl dd-sl-three">
+                                <span class="dd-span">蜂鸟</span>
+                            </div>
+                            <div class="dd-name">
+                                <h3>配送费</h3>
+                            </div>
+                            <div class="dd-jq">
+                                <span>￥8</span>
+                            </div>
+                        </div>
+
+                    </ul>
+                </div>
+            </div>
+            <div class="account-footer">
+                <div>￥<span>{{totalPrices}}</span></div>
+                <a>去支付</a>
+            </div>
+        </div>
+    </template>
+    <script src="commodity.js"></script>
+    <script>
+        var account = Vue.extend({
+            template: '#account',
+            data() {
+                return {
+                    arr: this.$route.params.calculate || [],
+                }
+            },
+            computed: {
+                totalPrices() {
+                    var num = 0;
+                    this.arr.forEach(item => {
+                        num += item.price * item.quantity;
+                    })
+                    return num.toFixed(1);
+                }
+            },
+        })
+        const router = new VueRouter({
+            routes: [{
+                path: '/',
+                component: commodity,
+            }, {
+                name: 'account',
+                path: '/account',
+                component: account,
+            }]
+        })
+        var vm = new Vue({
+            el: '#app',
+            router,
+        })
+    </script>
+</body>
+
+</html>
