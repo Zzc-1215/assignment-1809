@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+    <script src='js/flexible.js'></script>
+    <script src='js/flexible_css.js'></script>
+    <script src='layout.js'></script>
+    <script src='count.js'></script>
+    <script src='goodsList.js'></script>
+    <script src='footer.js'></script>
+    <script src='dingdan.js'></script>
+    <script src='footer2.js'></script>
+</head>
+
+<body>
+    <div id='app'>
+        <layout>
+            <template v-slot:header>
+                    庆丰包子铺(窦店)
+            </template>
+
+            <!-- <goods-list :sp='data' @numchange='num=$event' @ttchange='total=$event'></goods-list>>
+            <dingdan></dingdan> -->
+            <router-view  @datachange='data=$event' @ttchange="total=$event" @numchange="num=$event"></router-view>
+
+            <template v-slot:footer>
+                <router-view name='footer'  :data='data' :total='total'>
+
+                </router-view>
+                <!-- <total :data='data'>
+                    {{num}}
+                    <template v-slot:allnum>
+                        {{num}}
+                    </template>
+                    <template v-slot:allprice>
+                        <div class="goprice">
+                            <p class="money">￥{{total}}</p>
+                            <p class="ps">另需配送费8元</p>
+                        </div>
+                    </template>
+                </total> -->
+            </template>
+        </layout>
+    </div>
+    <script>
+        var router=new VueRouter({
+            routes:[
+                {
+                    path:'/',
+                    // component:goodsList,
+                    components:{
+                        default:goodsList,
+                        footer:total,
+                    },
+                    name:'goodsList'
+                },
+                {
+                    path:'/dingdan',
+                    // component:dingdan,
+                    components:{
+                        default:dingdan,
+                        footer:zhifu,
+                    },
+                    name:'dingdan'
+                }
+            ]
+        })
+
+
+
+      var vm = new Vue({
+            router,
+            el: '#app',
+            data() {
+                return {
+                    num: 0,
+                    total: '0',
+                    data:[],
+                }
+            },
+        })
+
+        vm.$watch('data',function(v){
+            console.log(v);
+        })
+    </script>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+

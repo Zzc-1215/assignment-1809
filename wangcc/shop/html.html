@@ -55,7 +55,9 @@
 									<button @click="jia(item)">+</button>
 								</div>
 							</li>
-							<li>{{maxarr}}</li>
+							<li style="font-size: 20px;">
+								{{maxarr}}
+							</li>
 						</ul>
 					</div>
 				</template>
@@ -72,8 +74,10 @@
 							<p>￥{{zongjia}}</p>
 							<p>另需配送费8元</p>
 						</div>
+						
 						<div class="payment">
-							<router-link :to="{path:'settle'}" class="router-link-active">去结算</router-link>
+							
+							<router-link :to="{name:'settle',params:{maxarr,zongjia}}" class="router-link-active">去结算</router-link>
 						</div>
 					</div>
 				</template>
@@ -115,11 +119,11 @@
 					</div>
 					<div class="sp_main">
 						<ul class="list_sp">
-							<li class="ha">
-								<img src="https://f11.baidu.com/it/u=1178551780,1459728369&fm=72" alt="">
-								<p>name</p>
-								<p>x几分</p>
-								<p>总价</p>
+							<li class="ha" v-for="item in d" style="position: relative;">
+								<img :src="item.img" alt="">
+								<p>{{item.title}}</p>
+								<p class="ae">x{{item.num}}</p>
+								<p @click="c">￥{{item.num*item.price}}</p>
 							</li>
 							<li id="list_a">
 								<img src="images/images/7_03.jpg" alt="">
@@ -136,7 +140,7 @@
 							</li>
 							<li id="fk">
 								<p>优惠说明</p><img src="images/images/7_13.jpg" alt="">
-								<p>小计￥<span>23</span></p>
+								<p>小计￥<span>{{maxzj}}</span></p>
 							</li>
 						</ul>
 					</div>
@@ -410,7 +414,7 @@
 							ar.push(element)
 						}
 					});
-					this.maxarr=ar;
+					this.maxarr=ar
 					console.log(this.maxarr)
 					return  n.toFixed(0);
 				},
@@ -467,13 +471,34 @@
 		//结账
 		var settle=Vue.component('settle',{
 			template:"#settle_box",
-			created(){
+			 created(){
 				//$route 代表所有的路由信息
-				console.log(this.$route)
-			},
+				console.log(this.$route.params.maxarr)
+				console.log(this.$route.params.zongjia)
+			}, 
 			data(){
 				return{
-					data:this.$route,
+					data:this.$route.params.maxarr,
+					maxzj:this.$route.params.zongjia,
+					hs:10,
+					ss:10,
+				}
+			},
+			computed:{
+				d(){
+					var da=[];
+					this.data.forEach(element=>{
+						if(element.num){
+							da.push(element)
+						}
+					})
+					return da
+				}
+			},
+			methods:{
+				c(){
+					console.log(this.data)
+					console.log(this.d)
 				}
 			}
 		})
