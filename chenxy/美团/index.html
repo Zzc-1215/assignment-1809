@@ -7,9 +7,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
     <script>
-        window.onload = function() {
+        window.onload = function () {
             document.documentElement.style.fontSize = document.documentElement.clientWidth / 1080 * 100 + 'px';
-            window.onresize = function() {
+            window.onresize = function () {
                 document.documentElement.style.fontSize = document.documentElement.clientWidth / 1080 * 100 + 'px';
             }
         }
@@ -29,43 +29,50 @@
     <template id="account">
         <div class="container">
             <div class="account-head">
-                <span><router-link to="/"><</router-link></span>
-                <span>确认订单</span>
+                <span>
+                    <router-link to="/">
+                        <</router-link> </span> <span>确认订单
+                </span>
             </div>
-            <div class="account-main">
-                <ul class="account-list">
-                    <li v-for="item,i in arr">
-                        <div class="img">
-                            <img :src="item.img">
+            <div class="head">
+                <p>庆丰包子铺（窦店）</p>
+            </div>
+            <div class="account-big">
+                <div class="account-main">
+                    <ul class="account-list">
+                        <li v-for="item,i in arr">
+                            <div class="img">
+                                <img :src="item.img">
+                            </div>
+                            <div class="content">
+                                <p>{{item.text}}</p>
+                                <span>x{{item.quantity}}</span>
+                                <span>￥{{(item.quantity*item.price).toFixed(1)}}</span>
+                            </div>
+                        </li>
+                        <div class="dd-item">
+                            <div class="dd-sl dd-sl-two">
+                                <span class="dd-span">包装</span>
+                            </div>
+                            <div class="dd-name">
+                                <h3>餐盒</h3>
+                            </div>
+                            <div class="dd-jq"><span>￥3</span></div>
                         </div>
-                        <div class="content">
-                            <p>{{item.text}}</p>
-                            <span>x{{item.quantity}}</span>
-                            <span>￥{{(item.quantity*item.price).toFixed(1)}}</span>
+                        <div class="dd-item">
+                            <div class="dd-sl dd-sl-three">
+                                <span class="dd-span">蜂鸟</span>
+                            </div>
+                            <div class="dd-name">
+                                <h3>配送费</h3>
+                            </div>
+                            <div class="dd-jq">
+                                <span>￥8</span>
+                            </div>
                         </div>
-                    </li>
-                    <div class="dd-item">
-                        <div class="dd-sl dd-sl-two">
-                            <span class="dd-span">包装</span>
-                        </div>
-                        <div class="dd-name">
-                            <h3>餐盒</h3>
-                        </div>
-                        <div class="dd-jq"><span>￥3</span></div>
-                    </div>
-                    <div class="dd-item">
-                        <div class="dd-sl dd-sl-three">
-                            <span class="dd-span">蜂鸟</span>
-                        </div>
-                        <div class="dd-name">
-                            <h3>配送费</h3>
-                        </div>
-                        <div class="dd-jq">
-                            <span>￥8</span>
-                        </div>
-                    </div>
 
-                </ul>
+                    </ul>
+                </div>
             </div>
             <div class="account-footer">
                 <div>￥<span>{{totalPrices}}</span></div>
