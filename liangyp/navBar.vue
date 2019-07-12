@@ -1,5 +1,5 @@
 <template>
-    <div class="swiper-container" id="newBar">
+    <div class="swiper-container" id="navBar">
         <ul class="nav-bar swiper-wrapper">
             <li class="swiper-slide" @click="activeIndex=index" :class="{active:index==activeIndex}" v-for="(item,index) in list" :key="index">
                 {{item}}
@@ -14,7 +14,7 @@ export default {
     data() {
         return {
             activeIndex: 0,
-            list: this.data || ['推荐'],
+            list: this.data || ['推荐','科技','游戏','美女','新闻','社会'],
             mySwiper: null,
         }
     },
@@ -27,7 +27,7 @@ export default {
         this.mySwiper = new Swiper ('.swiper-container', {
             // autoplay: true,
             freeMode: true,
-            slidesPerView : 4,
+            slidesPerView : 6,
         })
     }
 }
@@ -38,10 +38,12 @@ export default {
     }
     #navBar ul{
         padding: 0;
+        list-style: none;
     }
     #navBar ul>li{
         padding: 0;
         list-style: none;
+        text-align: center;
         float: left;
         line-height: 50px;
         cursor: pointer;
