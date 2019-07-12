@@ -1,4 +1,4 @@
-<<template>
+<template>
   <div>
     <div style="position:fixed;top:0;left:0;background-color:#fff;width:100%;">
       <nav-bar :data="menu"></nav-bar>
@@ -35,45 +35,47 @@ export default {
         "推荐",
         "热门",
         "科技",
-        "娱乐"
+        "娱乐",
+        "热门",
+        "科技",
       ],
       newsList: [
         {
           title: "新闻",
-          imgs: ["", "", ""],
+          imgs: ["1.jpg", "2.jpg", "3.jpg"],
           author: "作者",
-          time: "4天前"
+          time: "2天前"
         },
         {
           title: "新闻",
-          imgs: ["", "", ""],
+          imgs: ["1.jpg", "2.jpg", "3.jpg"],
           author: "作者",
-          time: "4天前"
+          time: "2天前"
         },
         {
           title: "新闻",
-          imgs: ["", "", ""],
+          imgs: ["1.jpg", "2.jpg", "3.jpg"],
           author: "作者",
-          time: "4天前"
+          time: "2天前"
+        },
+       {
+          title: "新闻",
+          imgs: ["1.jpg", "2.jpg", "3.jpg"],
+          author: "作者",
+          time: "2天前"
+        },
+       {
+          title: "新闻",
+          imgs: ["1.jpg", "2.jpg", "3.jpg"],
+          author: "作者",
+          time: "2天前"
         },
         {
           title: "新闻",
-          imgs: ["", "", ""],
+          imgs: ["1.jpg", "2.jpg", "3.jpg"],
           author: "作者",
-          time: "4天前"
+          time: "2天前"
         },
-        {
-          title: "新闻",
-          imgs: ["", "", ""],
-          author: "作者",
-          time: "4天前"
-        },
-        {
-          title: "新闻",
-          imgs: ["", "", ""],
-          author: "作者",
-          time: "4天前"
-        }
       ]
     };
   },
