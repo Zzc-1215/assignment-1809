@@ -19,7 +19,7 @@
     <template id="shops">
         <div class="zxmcon">
             <div class="head">
-                <i class="iconfont jt">&#xe650;</i>
+                <i class="iconfont jt">&#xe60e;</i>
                 <span>庆丰包子铺（窦店）</span>
             </div>
             <div id="content">
@@ -51,15 +51,15 @@
                 <div class="car">
                     <i class="iconfont gw">&#xe600;</i>
                     <div class="totalnum">{{all}}</div>
+                    <p class="money">￥{{total.toFixed(1)}}</p>
                 </div>
-                <p class="money">￥{{total}}</p>
                 <div class="jss">
-                    <router-link :to="{name:'abc',params:{allList,total}}" id="jsBtn">去结算</router-link>
+                    <router-link :to="{name:'fukuan',params:{allList,total}}" id="jsBtn">去结算</router-link>
                 </div>
-                
             </div>
         </div>
     </template>
+    <!-- 加减组件 -->
     <template id="inputNumber">
         <div id="ipt">
             <div class="el-input-number">
@@ -75,61 +75,14 @@
             </div>
         </div>
     </template>
-    <!-- <template id="shops">
-        <div id="content">
-            <div class="bq">
-                <p><span class="bor">点餐</span></p>
-                <p><span>评价</span></p>
-                <p><span>商家</span></p>
-            </div>
-            <ul class="left">
-                <li v-for="(item,index) in shop"  @click="send(index)" :class="{active:num==index}">{{item.menu}}</li>
-            </ul>
-            <ul class="right" v-if="num==index" v-for="(its,index) in shop">
-                <li v-for="(it,index) in its.foods" :key="index+index">
-                    {{it}}
-                    <div class="image">
-                        <img :src="it.img">
-                    </div>
-                    <div class="r">
-                        <h1>{{it.name}}</h1>
-                        <p>{{it.info}}</p>
-                        <div class="jg">
-                            <p class="price">￥{{it.price}}</p>
-                            <bc-input-number v-model="it.num" :min="0" :step=1></bc-input-number>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </template> -->
-    <!-- <template id="head">
-        <div class="head">
-            <i class="iconfont jt">&#xe650;</i>
-            <span>
-                <slot></slot>
-            </span>
-        </div>
-    </template> -->
-    <!-- <template id="footer">
-        <div id="foot">
-            <div class="car">
-                <i class="iconfont gw">&#xe600;</i>
-                <div class="totalnum">
-                    <slot name="totalnum">{{all}}</slot>
-                </div>
-            </div>
-            <slot name="total">￥{{total}}</slot>
-            <router-link :to="{name:'abc',params:{allList,total}}" id="jsBtn">去结算</router-link>
-        </div>
-    </template> -->
+    <!-- 跳转页面 -->
     <!-- 支付 -->
     <template id="fukuan">
         <div class="container">
             <!-- 订单 -->
             <div class="back">
-                <h3>                        1   
-                    <router-link to="/" id="jsBtn"><i class="iconfont">&#xe60e;</i></router-link>
+                <h3>
+                    <router-link to="/"><i class="iconfont jiantou">&#xe60e;</i></router-link>
                     确认订单
                 </h3>
             </div>
@@ -151,7 +104,7 @@
                             <div class="intro">
                                 <div class="name">{{it.name}}</div>
                                 <div class="num">*{{it.num}}</div>
-                                <div class="money">￥{{it.price * it.num}}</div>
+                                <div class="qian">￥{{(it.price * it.num).toFixed(1)}}</div>
                             </div>
                         </div>
                         <div class="lunchBox">
@@ -161,7 +114,7 @@
                             <h3>配送费<span>￥8</span></h3>
                         </div>
                         <div class="totalPrices">
-                            <h3>小计<span>￥{{totalprice}}</span></h3>
+                            <h3>小计<span>￥{{($route.params.total+3+8).toFixed(1) || +3+8}}</span></h3>
                         </div>
                     </div>
                 </div>
@@ -169,7 +122,7 @@
             <!-- 支付 -->
             <div class="footer">
                 <div class="car">
-                    <h4>￥<slot name="money2"></slot></h4>
+                    <h4>￥<slot name="money2">{{($route.params.total+3+8).toFixed(1) || +3+8}}</slot></h4>
                 </div>
                 <div class="account">
                     <p>去支付</p>
@@ -178,15 +131,15 @@
         </div>
     </template>
     <script>
-        Vue.component('bc-header',{
-            template: '#head'
-        })
-        Vue.component('bc-content',{
-            template:'<div class="content"><slot></slot></div>'
-        })
-        Vue.component('bc-footer',{
-            template:'#footer'
-        })
+        // Vue.component('bc-header',{
+        //     template: '#head'
+        // })
+        // Vue.component('bc-content',{
+        //     template:'<div class="content"><slot></slot></div>'
+        // })
+        // Vue.component('bc-footer',{
+        //     template:'#footer'
+        // })
         // 计数器组件
         Vue.component('bcInputNumber',{
             template:'#inputNumber',
@@ -446,7 +399,7 @@
     
 
         // 支付
-        var payment = Vue.component('dd-payment',{
+        var fukuan = Vue.component('dd-payment',{
             template:'#fukuan'
         })
         var router = new VueRouter({
@@ -455,8 +408,8 @@
                     path: '/',
                     component: goods,
                 },{
-                    path: '/tiaozhuan',
-                    name:'tiaozhuan',
+                    path: '/fukuan',
+                    name:'fukuan',
                     component: fukuan,
                 },
             ]
