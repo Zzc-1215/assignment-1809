@@ -1,11 +1,11 @@
 <template>
 	<div>
-		<div style='position:fixed;top:0;left: 0;background-color: #fff;'>
+		<div style='position:fixed;top:0;left: 0;background-color: #fff;width: 100%;' >
 			<nav-bar :data='menu' @indexChange='i=$event' ></nav-bar>
 		</div>
 		
 			<ul class="news-list">
-				<li v-for='(item,index) in newsList' :key='index'>
+				<li v-for='(item,index) in newsList[i]' :key='index'>
 					<p>{{item.title}}</p>
 					<div class="img">
 						<img :src="item.imgs[0]" alt="">
@@ -24,45 +24,111 @@
 		data(){
 			return{
 				i:0,
-				menu:['推荐','热门','科技','娱乐','航空','政治','法政'],
+				menu:['推荐','热门','科技','娱乐'],
 				newsList:[
+					[
+						{
+							title:'推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐',
+							imgs:['1.jpg','2.jpg','3.jpg'],
+							author:'推荐',
+							time:'一天前',
+						},
+						{
+							title:'推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐',
+							imgs:['1.jpg','2.jpg','3.jpg'],
+							author:'推荐',
+							time:'一天前',
+						},
+						{
+							title:'推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐',
+							imgs:['1.jpg','2.jpg','3.jpg'],
+							author:'推荐',
+							time:'一天前',
+						},
+						{
+							title:'推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐',
+							imgs:['','',''],
+							author:'推荐',
+							time:'一天前',
+						},
+					],[
 					{
-						title:'第五道阿达淡看看看哪款的那款的',
+						title:'热门热门热门热门热门热门热门热门热门热门热门热门',
 						imgs:['1.jpg','2.jpg','3.jpg'],
-						author:'老王',
+						author:'热门',
 						time:'一天前',
 					},
 					{
-						title:'第五道阿达淡看看看哪款的那款的',
+						title:'热门热门热门热门热门热门热门热门热门热门热门热门',
 						imgs:['1.jpg','2.jpg','3.jpg'],
-						author:'老王',
+						author:'热门',
 						time:'一天前',
 					},
 					{
-						title:'第五道阿达淡看看看哪款的那款的',
+						title:'热门热门热门热门热门热门热门热门热门热门热门热门',
 						imgs:['1.jpg','2.jpg','3.jpg'],
-						author:'老王',
+						author:'热门',
 						time:'一天前',
 					},
 					{
-						title:'第五道阿达淡看看看哪款的那款的',
+						title:'热门热门热门热门热门热门热门热门热门热门热门热门',
 						imgs:['','',''],
-						author:'老王',
+						author:'热门',
+						time:'一天前',
+					},
+				],[
+					{
+						title:'科技科技科技科技科技科技科技科技科技科技科技科技',
+						imgs:['1.jpg','2.jpg','3.jpg'],
+						author:'科技',
 						time:'一天前',
 					},
 					{
-						title:'第五道阿达淡看看看哪款的那款的',
-						imgs:['','',''],
-						author:'老王',
+						title:'科技科技科技科技科技科技科技科技科技科技科技科技',
+						imgs:['1.jpg','2.jpg','3.jpg'],
+						author:'科技',
 						time:'一天前',
 					},
 					{
-						title:'第五道阿达淡看看看哪款的那款的',
-						imgs:['','',''],
-						author:'老王',
+						title:'科技科技科技科技科技科技科技科技科技科技科技科技',
+						imgs:['1.jpg','2.jpg','3.jpg'],
+						author:'科技',
 						time:'一天前',
-					}
-				]
+					},
+					{
+						title:'科技科技科技科技科技科技科技科技科技科技科技科技',
+						imgs:['','',''],
+						author:'科技',
+						time:'一天前',
+					},
+				],[
+					{
+						title:'娱乐娱乐娱乐娱乐娱乐娱乐娱乐娱乐娱乐娱乐娱乐娱乐',
+						imgs:['1.jpg','2.jpg','3.jpg'],
+						author:'娱乐',
+						time:'一天前',
+					},
+					{
+						title:'娱乐娱乐娱乐娱乐娱乐娱乐娱乐娱乐娱乐娱乐娱乐娱乐',
+						imgs:['1.jpg','2.jpg','3.jpg'],
+						author:'娱乐',
+						time:'一天前',
+					},
+					{
+						title:'娱乐娱乐娱乐娱乐娱乐娱乐娱乐娱乐娱乐娱乐娱乐娱乐',
+						imgs:['1.jpg','2.jpg','3.jpg'],
+						author:'娱乐',
+						time:'一天前',
+					},
+					{
+						title:'娱乐娱乐娱乐娱乐娱乐娱乐娱乐娱乐娱乐娱乐娱乐娱乐',
+						imgs:['','',''],
+						author:'娱乐',
+						time:'一天前',
+					},
+				],
+				],
+				
 			}
 		},
 		components:{
@@ -83,6 +149,7 @@
 		border-bottom: solid 20px #ddd;
 	}
 	ul.news-list li p{
+		padding-left: 20px;
 		line-height: 1.14em;
 	}
 	ul.news-list li img{

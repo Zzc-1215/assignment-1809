@@ -41,12 +41,14 @@
 
 <style>
 	#navBar{
+		width: 100%;
 		border-bottom:1px solid #ccc;
 	}
 	#navBar ul{
 		padding: 0;
 	}
 	#navBar ul>li{
+		text-align: center;
 		list-style:none;
 		line-height: 50px;
 		cursor:pointer;
