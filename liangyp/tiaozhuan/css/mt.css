@@ -1,9 +1,11 @@
 * {
   padding: 0;
-  margin: 0; }
+  margin: 0;
+  user-select: none; }
 
 #container {
-  width: 10rem; }
+  width: 10rem;
+  position: relative; }
 
 .head {
   width: 10rem;
@@ -120,7 +122,8 @@
   position: relative;
   display: inline-block;
   width: 2.4rem;
-  line-height: 0.85333rem; }
+  line-height: 0.85333rem;
+  z-index: 0; }
 
 .el-input-number__decrease {
   left: 1px;
@@ -192,12 +195,14 @@ i {
   width: 10rem;
   height: 1.29333rem;
   background-color: #515152;
+  margin-top: 0.2rem;
   position: fixed;
   bottom: 0;
   left: 0; }
 
 .car {
   width: 7.18667rem;
+  height: 1.29333rem;
   float: left; }
 
 .gw {
@@ -221,7 +226,8 @@ i {
   text-align: center;
   line-height: 1.29333rem;
   float: right;
-  border: none; }
+  border: none;
+  font-size: 0.36rem; }
 
 .jiesuan {
   position: absolute;
@@ -229,7 +235,9 @@ i {
 
 .money {
   color: #fff;
-  font-size: 0.4rem; }
+  font-size: 0.4rem;
+  line-height: 1.29333rem;
+  padding-left: 1.7rem; }
 
 .jiesuan span {
   font-size: 0.18667rem;
@@ -254,7 +262,7 @@ width: 9.6rem;
 font-size: 0.50667rem;
 line-height: 1.33333rem;
 padding-left: 0.4rem; }
-.back h3 i {
+.jiantou{
 font-size: 0.48rem;
 color: #258cd7; }
 .content {
@@ -286,9 +294,10 @@ border-bottom: solid 1px #ccc; }
 .content .qf .foods .food .foodImg {
 width: 1.33333rem;
 height: 2.4rem;
-float: left; }
+float: left;
+vertical-align: middle; }
 .content .qf .foods .food .foodImg img {
-vertical-align: middle;
+margin-top: 0.44rem;
 width: 1.33333rem;
 height: 1.33333rem; }
 .content .qf .foods .food .intro {
@@ -307,7 +316,7 @@ width: 1.6rem;
 height: 2.4rem;
 float: left;
 font-size: 0.32rem; }
-.content .qf .foods .food .intro .money {
+.content .qf .foods .food .intro .qian {
 width: 1.6rem;
 height: 2.4rem;
 float: right;
