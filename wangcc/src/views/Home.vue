@@ -1,164 +1,182 @@
 <template>
-  <div id="main">
-			<div style='position:fixed;top:0;left: 0;background-color: #fff;'>
-				<headlines :data="datam" @change="inxb=$event"></headlines>
-			</div>
-			<div id="main_xw">
-				<ul>
-						<li v-for="(item,index) in mian[inxb]">
-								<h3>{{item.title}}</h3>
-								<img :src="item.img[0]" alt="">
-								<img :src="item.img[1]" alt="">
-								<img :src="item.img[2]" alt="">
-								<p>{{item.name}} &nbsp;&nbsp;&nbsp;{{item.tiem}}</p>
-						</li>
-				</ul>
-			</div>
+	<div id="main">
+		<div class="head" style='position:fixed;top:0;left: 0;background-color: #fff;'>
+			<headlines :data="menu" @change="shuj"></headlines>
+		</div>
+		<div id="wrapper" class="main_xw">
+			<ul style="position: relative;">
+				<div style="width: 100%;height:1rem;font-size:0.2rem;text-align: center;">
+					<p>{{ts}}</p>
+					{{xl}}
+				</div>
+				<li v-for="(item,index) in mian">
+					<h3><a :href="item.vurl">{{item.title}}</a></h3>
+					<img v-lazy="item.multi_imgs[0]">
+					<img v-lazy="item.multi_imgs[1]">
+					<img v-lazy="item.multi_imgs[2]">
+					<p>{{item.source}}&nbsp;&nbsp;&nbsp;{{item.publish_time}}</p>
+				</li>
+				<div style="width: 100%;height: 230px;font-size:40px;text-align: center;position:absolute;left: 0;bottom:-230px;">
+					<p>{{s}}</p>
+					{{shang}}
+				</div>
+			</ul>
+		</div>
   </div>
 </template>
 
 <script>
-				//headlines就是组件在dom上写入它就渲染上了../components/tt.vue里的数据
+	import Iscroll from 'iscroll/build/iscroll-probe.js'
+	
+	// console.log(Iscroll)
+	//headlines就是组件在dom上写入它就渲染上了../components/tt.vue里的数据
 	import headlines from '../components/tt.vue'
 	export default {
 		components: {
 			headlines
 			},
+			//ext:['astro','cul','edu','house','sports','tech','games','finance','fashion','ent','auto']
 			data(){
 				return{
-						inxb:0,
-						datam:['推荐','推荐','推荐','推荐','推荐','推荐','推荐'],
-						mian:[
-							[
-								{
-									title:'哼，一个能打的都没有!',
-									img:['http://img1.imgtn.bdimg.com/it/u=3782056315,3236875270&fm=26&gp=0.jpg','http://img3.imgtn.bdimg.com/it/u=3428194538,2845169735&fm=26&gp=0.jpg','http://img4.imgtn.bdimg.com/it/u=3388223424,474756388&fm=26&gp=0.jpg'],
-									name:'武器大师',
-									tiem:'三分钟前',
-								},
-								{
-									title:'我曾触摸过星辰,曾见证过数千个太阳的光芒,而如今我被这优雅蒙蔽了双眼,所以我的目标怎可能不黑暗',
-									img:['http://img0.imgtn.bdimg.com/it/u=1578528214,2776410774&fm=26&gp=0.jpg','http://img5.imgtn.bdimg.com/it/u=3500872682,3686548333&fm=26&gp=0.jpg','http://img2.imgtn.bdimg.com/it/u=1416915206,404416626&fm=26&gp=0.jpg'],
-									name:'剑魔',
-									tiem:'三分钟前',
-								},
-								{
-									title:'我曾触摸过星辰,曾见证过数千个太阳的光芒,而如今我被这优雅蒙蔽了双眼,所以我的目标怎可能不黑暗',
-									img:['http://img0.imgtn.bdimg.com/it/u=1578528214,2776410774&fm=26&gp=0.jpg','http://img5.imgtn.bdimg.com/it/u=3500872682,3686548333&fm=26&gp=0.jpg','http://img2.imgtn.bdimg.com/it/u=1416915206,404416626&fm=26&gp=0.jpg'],
-									name:'剑魔',
-									tiem:'三分钟前',
-								},
-								{
-									title:'我曾触摸过星辰,曾见证过数千个太阳的光芒,而如今我被这优雅蒙蔽了双眼,所以我的目标怎可能不黑暗',
-									img:['http://img0.imgtn.bdimg.com/it/u=1578528214,2776410774&fm=26&gp=0.jpg','http://img5.imgtn.bdimg.com/it/u=3500872682,3686548333&fm=26&gp=0.jpg','http://img2.imgtn.bdimg.com/it/u=1416915206,404416626&fm=26&gp=0.jpg'],
-									name:'剑魔',
-									tiem:'三分钟前',
-								},
-								{
-									title:'刀光剑影，铁石心肠，只有你知道在隐雾下的我，还是那么脆弱，容易感伤。',
-									img:['http://img4.imgtn.bdimg.com/it/u=2795311328,4146151290&fm=26&gp=0.jpg','http://img0.imgtn.bdimg.com/it/u=574605580,942325922&fm=26&gp=0.jpg','http://img3.imgtn.bdimg.com/it/u=4008832201,2720386626&fm=26&gp=0.jpg'],
-									name:'刀锋之影',
-									tiem:'三分钟前',
-								},
-							],
-							[
-								{
-									title:'我曾触摸过星辰,曾见证过数千个太阳的光芒,而如今我被这优雅蒙蔽了双眼,所以我的目标怎可能不黑暗',
-									img:['http://img0.imgtn.bdimg.com/it/u=1578528214,2776410774&fm=26&gp=0.jpg','http://img5.imgtn.bdimg.com/it/u=3500872682,3686548333&fm=26&gp=0.jpg','http://img2.imgtn.bdimg.com/it/u=1416915206,404416626&fm=26&gp=0.jpg'],
-									name:'剑魔',
-									tiem:'三分钟前',
-								},
-								{
-									title:'哼，一个能打的都没有!',
-									img:['http://img1.imgtn.bdimg.com/it/u=3782056315,3236875270&fm=26&gp=0.jpg','http://img3.imgtn.bdimg.com/it/u=3428194538,2845169735&fm=26&gp=0.jpg','http://img4.imgtn.bdimg.com/it/u=3388223424,474756388&fm=26&gp=0.jpg'],
-									name:'武器大师',
-									tiem:'三分钟前',
-								},
-								{
-									title:'我曾触摸过星辰,曾见证过数千个太阳的光芒,而如今我被这优雅蒙蔽了双眼,所以我的目标怎可能不黑暗',
-									img:['http://img0.imgtn.bdimg.com/it/u=1578528214,2776410774&fm=26&gp=0.jpg','http://img5.imgtn.bdimg.com/it/u=3500872682,3686548333&fm=26&gp=0.jpg','http://img2.imgtn.bdimg.com/it/u=1416915206,404416626&fm=26&gp=0.jpg'],
-									name:'剑魔',
-									tiem:'三分钟前',
-								},
-								{
-									title:'我曾触摸过星辰,曾见证过数千个太阳的光芒,而如今我被这优雅蒙蔽了双眼,所以我的目标怎可能不黑暗',
-									img:['http://img0.imgtn.bdimg.com/it/u=1578528214,2776410774&fm=26&gp=0.jpg','http://img5.imgtn.bdimg.com/it/u=3500872682,3686548333&fm=26&gp=0.jpg','http://img2.imgtn.bdimg.com/it/u=1416915206,404416626&fm=26&gp=0.jpg'],
-									name:'剑魔',
-									tiem:'三分钟前',
-								},
-								{
-									title:'刀光剑影，铁石心肠，只有你知道在隐雾下的我，还是那么脆弱，容易感伤。',
-									img:['http://img4.imgtn.bdimg.com/it/u=2795311328,4146151290&fm=26&gp=0.jpg','http://img0.imgtn.bdimg.com/it/u=574605580,942325922&fm=26&gp=0.jpg','http://img3.imgtn.bdimg.com/it/u=4008832201,2720386626&fm=26&gp=0.jpg'],
-									name:'刀锋之影',
-									tiem:'三分钟前',
-								},
-							],
-							[
-								{
-									title:'我曾触摸过星辰,曾见证过数千个太阳的光芒,而如今我被这优雅蒙蔽了双眼,所以我的目标怎可能不黑暗',
-									img:['http://img0.imgtn.bdimg.com/it/u=1578528214,2776410774&fm=26&gp=0.jpg','http://img5.imgtn.bdimg.com/it/u=3500872682,3686548333&fm=26&gp=0.jpg','http://img2.imgtn.bdimg.com/it/u=1416915206,404416626&fm=26&gp=0.jpg'],
-									name:'剑魔',
-									tiem:'三分钟前',
-								},
-								{
-									title:'我曾触摸过星辰,曾见证过数千个太阳的光芒,而如今我被这优雅蒙蔽了双眼,所以我的目标怎可能不黑暗',
-									img:['http://img0.imgtn.bdimg.com/it/u=1578528214,2776410774&fm=26&gp=0.jpg','http://img5.imgtn.bdimg.com/it/u=3500872682,3686548333&fm=26&gp=0.jpg','http://img2.imgtn.bdimg.com/it/u=1416915206,404416626&fm=26&gp=0.jpg'],
-									name:'剑魔',
-									tiem:'三分钟前',
-								},
-								{
-									title:'我曾触摸过星辰,曾见证过数千个太阳的光芒,而如今我被这优雅蒙蔽了双眼,所以我的目标怎可能不黑暗',
-									img:['http://img0.imgtn.bdimg.com/it/u=1578528214,2776410774&fm=26&gp=0.jpg','http://img5.imgtn.bdimg.com/it/u=3500872682,3686548333&fm=26&gp=0.jpg','http://img2.imgtn.bdimg.com/it/u=1416915206,404416626&fm=26&gp=0.jpg'],
-									name:'剑魔',
-									tiem:'三分钟前',
-								},
-								{
-									title:'哼，一个能打的都没有!',
-									img:['http://img1.imgtn.bdimg.com/it/u=3782056315,3236875270&fm=26&gp=0.jpg','http://img3.imgtn.bdimg.com/it/u=3428194538,2845169735&fm=26&gp=0.jpg','http://img4.imgtn.bdimg.com/it/u=3388223424,474756388&fm=26&gp=0.jpg'],
-									name:'武器大师',
-									tiem:'三分钟前',
-								},
-								{
-									title:'我曾触摸过星辰,曾见证过数千个太阳的光芒,而如今我被这优雅蒙蔽了双眼,所以我的目标怎可能不黑暗',
-									img:['http://img0.imgtn.bdimg.com/it/u=1578528214,2776410774&fm=26&gp=0.jpg','http://img5.imgtn.bdimg.com/it/u=3500872682,3686548333&fm=26&gp=0.jpg','http://img2.imgtn.bdimg.com/it/u=1416915206,404416626&fm=26&gp=0.jpg'],
-									name:'剑魔',
-									tiem:'三分钟前',
-								},
-								{
-									title:'刀光剑影，铁石心肠，只有你知道在隐雾下的我，还是那么脆弱，容易感伤。',
-									img:['http://img4.imgtn.bdimg.com/it/u=2795311328,4146151290&fm=26&gp=0.jpg','http://img0.imgtn.bdimg.com/it/u=574605580,942325922&fm=26&gp=0.jpg','http://img3.imgtn.bdimg.com/it/u=4008832201,2720386626&fm=26&gp=0.jpg'],
-									name:'刀锋之影',
-									tiem:'三分钟前',
-								},
-							],
-						]
+					xl:'下啦刷新',
+					shang:'上啦刷新',
+					inxb:'astro',
+					ts:'∨',
+					s:'∧',
+					num:0,
+					menu:[
+					    {categroy:'astro',title:'星座'},
+					    {categroy:'cul',title:'历史'},
+					    {categroy:'edu',title:'教育'},
+					    {categroy:'house',title:'房产'},
+					    {categroy:'sports',title:'体育'},
+					    {categroy:'tech',title:'科技'},
+					    {categroy:'games',title:'游戏'},
+					    {categroy:'finance',title:'财经'},
+					    {categroy:'fashion',title:'女性'},
+					    {categroy:'ent',title:'时尚'},
+						{categroy:'auto',title:'汽车'}
+					],
+					mr:'astro',
+					mian:[],
+					myScroll:null,
+					true:false,
+					atr:false,
+					xla:false,
 				}
 		},
+		created() {
+		  this.shuj();
+		},
+		methods:{
+			shuj(event){
+				this.inxb=event?this.inxb=event:this.inxb='astro';
+				this.axios.get('/irs/rcd?cid=56&ext='+this.inxb+'&token=c786875b8e04da17b24ea5e332745e0f&num=20&expIds=20190106A13PFT%7C20190108A04MLS&page='+this.num+'').then((data)=>{
+					//成功的回调函数
+					if(this.num==0){
+						this.mian=data.data.data
+					}else{
+						this.mian=this.mian.concat(data.data.data)//向后添加数据
+					}
+					// console.log(data.data.data)
+					this.$nextTick(function(){
+						if(this.myScroll){//防止刷新一次请求多次数据
+							this.myScroll.refresh();
+						}else{
+							this.cs();
+						}
+					})
+					
+				}).catch((res)=>{
+					//失败的回调函数
+					console.log(res);
+				})
+			},
+			cs(){
+				var e=this;
+				this.myScroll =new Iscroll('#wrapper',{
+					 scrollbars:true,
+					 mouseWheel:true,
+					 probeType:2,
+				});
+				this.myScroll.on('scroll',function(){//滚动距离
+					console.log(this.y)
+					if(this.y>220){
+						e.xl='松开刷新';
+						e.ts='∧';
+						e.true=true;
+						// console.log('松开刷新')
+					}else if(this.y<this.maxScrollY){
+						e.shang='松开刷新';
+						e.s='∨';
+						e.atr=true;
+					}else{
+						e.xl='下拉刷新';
+						e.ts='∨';
+						e.true=false;
+						e.atr=false;
+					}
+				})
+				this.myScroll.on('scrollEnd',function(){
+					if(e.true){
+						e.shuj(e.inxb);
+					}else if(e.atr){
+						e.num++;
+						e.shuj(e.inxb)
+					}
+				})
+			}
+		}
 	}
 </script>
+	
 <style>
-	#main_xw{
-		width:100%;
-		padding:0px 15px;
+	.head{
+		width:7.5rem;
+		z-index:90;
+		position: absolute;
+		top:0;
+		left:0;
 	}
-	#main_xw ul{
-		width:100%;
+	.kd{
+		display:none;
+	}
+	#main{
+		width: 7.5rem;
+		height: 100%;
+	}
+	.main_xw{
+		width:7.5rem;
+		height:100%;
+		overflow:hidden;
+	}
+	.main_xw ul{
+		width:7.3rem;
 		padding:0;
-		margin-top:80px;
+		margin:0 auto;
 	}
-	#main_xw ul>li{
+	.main_xw ul>li{
+		width:100%;
+		min-height:2.5rem;
+		margin-bottom: 0.3rem;
 		list-style:none;
 	}
-	#main_xw ul>li h3{
-		font-size: 20px;
+	.main_xw ul>li h3{
+		font-size:0.25rem;
 	}
-	#main_xw ul>li img{
-		width: 220px;
-		height: 150px;
-		margin-right:10px;
+	.main_xw ul>li h3 a{
+		text-decoration: none;
+		color: #000;
 	}
-	#main_xw ul>li p{
-		font-size: 15px;
+	.main_xw ul>li img{
+		width:2.20rem;
+		height:1.5rem;
+		margin-right:0.23rem;
+		margin-top:0.2rem;
+	}
+	.main_xw ul>li p{
+		font-size:0.15rem;
+		font-size: 0.2rem;
 		color: #ccc;
 	}
 </style>
