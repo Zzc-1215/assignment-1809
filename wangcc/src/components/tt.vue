@@ -1,7 +1,7 @@
 <template>
-	<div class="maxw swiper-container">
+	<div class="swiper-container" id="maxw">
 		<ul class="nav swiper-wrapper">
-			<li class="swiper-slide" @click="dian(index)" :class="{active:ina==index}" v-for="(item,index) in datalist" :key="index">{{item}}</li>
+			<li class="swiper-slide" @click="ina=item.categroy" :class="{active:item.categroy==ina}" v-for="(item,index) in datalist" :key="index">{{item.title}}</li>
 		</ul>
 	</div>
 </template>
@@ -13,7 +13,7 @@
 		props:['data'],
 		data(){
 			return{
-				ina:0,
+				ina:'astro',
 				datalist:this.data,
 			}
 		},
@@ -24,40 +24,36 @@
 		},
 		mounted(){
 			var mySwiper = new Swiper ('.swiper-container', {
-				slidesPerView :5, //显示几个
-				slidesPerGroup :1,//一次走一个
-				freeMode : true,//设置为true则变为free模式，slide会根据惯性滑动可能不止一格且不会贴合。
+				slidesPerView:5, //显示几个
+				slidesPerGroup:1,//一次走一个
+				freeMode:true,//设置为true则变为free模式，slide会根据惯性滑动可能不止一格且不会贴合。
 			  })        
 		},
-		methods:{
-			dian(index){
-				this.ina=index
-				// console.log(this.ina)
-			}
-		}
 	}
 </script>
 
-<style scoped>
-	.maxw{
-		width:700px;
+<style>
+	#maxw{
+		width:7.5rem;
 		border-bottom: 1px solid #ccc;
 		background: #fff;
 	}
 	.nav{
-		width:100%;
+		height:1rem;
+		padding:0;
 	}
-	.nav li{
+	.nav>li{
 		list-style:none;
-		width:100px;
-		height:60px;
-		text-align: center;
-		line-height:60px;
-		font-size: 20px;
-		font-family: "楷体";
+		height:100%;
+		/* float: left; */
+		line-height:1rem;
+		font-size:0.2rem;
+		font-family:"楷体";
+		text-align:center;
+		cursor:pointer;
 	}
 	.nav li.active{
-		font-size:25px;
+		font-size:0.25rem;
 		color:red;
 	}
 </style>
