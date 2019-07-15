@@ -14,7 +14,8 @@
           {{refresh}}
         </li>
         <li v-for="(item,index) in newsList"
-            :key="index">
+            :key="index"
+            @click="jump(item)">
           <p>{{item.title}}</p>
           <div>
             <!-- 懒加载：其实没有给src绑数据，当滚动到屏幕当前滚动区域的话，就把当前的item.multi_imgs[0]给src属性，就是动态的改变了src -->
@@ -35,6 +36,8 @@ import IScroll from 'iscroll/build/iscroll-probe.js';
 
 
 import navBar from './navBar.vue'
+
+// import detail from './detail.vue'
 
 export default {
   data () {
@@ -68,9 +71,13 @@ export default {
     this.getNewsList();
   },
   components: {
-    navBar
+    navBar,
   },
   methods: {
+    jump (item) {
+      location.href = "http://localhost:8080/#/detail";
+      console.log(item.title)
+    },
     getNewsList (event) {
       this.currentType = event || 'astro';
 
@@ -132,7 +139,7 @@ export default {
 
       });
       this.myScroll.on('scrollEnd', function () {
-        console.log(1)
+        // console.log(1)
         if (vm.isrefresh) {
           vm.currentPage = 0;
           vm.getNewsList(vm.currentType);

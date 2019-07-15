@@ -9,12 +9,14 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import VueLazyload from 'vue-lazyload'
 
-import libFlexible from 'lib-flexible/flexible.js'
+import 'lib-flexible/flexible.js'
+
+import Vuex from 'vuex'
+Vue.use(Vuex);
 
 
 Vue.use(VueRouter);
 Vue.use(VueLazyload);
-Vue.use(libFlexible);
 
 var router = new VueRouter({
   routes: [
