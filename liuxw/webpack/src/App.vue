@@ -16,7 +16,7 @@ export default {
 *{margin: 0;
 box-sizing: border-box;
 list-style: none;
- /* touch-action: pan-y; */
+ touch-action: pan-y;
 padding: 0;}
 html,body,#app{
   overflow:hidden;

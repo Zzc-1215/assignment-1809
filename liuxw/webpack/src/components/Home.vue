@@ -6,7 +6,7 @@
         <div id="wrapper" style="width:100%;height:100%;position:absolute;">
             <ul class="news-list">
                 <li style="text-align:center;line-height:50px;padding:0px;">{{refash}}</li>
-                <li v-for="(item,index) in newlist" :key="index">
+                <li @click="goto(item.url,item.title)" v-for="(item,index) in newlist" :key="index">
                     <p>{{item.title}}</p>
                     <div>
                         <img v-lazy="item.multi_imgs[0]" alt />
@@ -24,6 +24,7 @@
 <script>
 import navBar from "./navBar.vue";
 import IScroll from "iscroll/build/iscroll-probe.js";
+import "../main.js";
 export default {
     data() {
         return {
@@ -47,7 +48,8 @@ export default {
                 { categroy: 'ent', title: "养生" },
                 { categroy: 'auto', title: "汽车" }
             ],
-            newlist: []
+            newlist: [],
+        // item22:this,
         };
     },
     created() {
@@ -57,6 +59,10 @@ export default {
         navBar
     },
     methods: {
+        goto(item,item1){
+           this.$store.state.itemurl={url:item,title:item1};
+            location.href="http://localhost:8080/#/detail";
+        },
         getNewsList(event) {
             this.currentType = event ? this.currentType = event : this.currentType;
             this.axios.get("/irs/rcd?cid=56&ext=" + this.currentType + "&token=c786875b8e04da17b24ea5e332745e0f&num=5&expIds=20190106A13PFT%7C20190108A04MLS&page="+this.currentpage).then((res) => {
