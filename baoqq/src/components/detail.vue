@@ -1,14 +1,13 @@
 <template>
   <div id="myapp">
 
-    <header @click="back">
+    <!-- <header @click="back">
       <div class="fl leftArr">&lt; </div>
       <div class="fl lTitle">
-        <!-- {{data.title}} -->
+        {{data.title}} 
       </div>
-    </header>
-    <!-- <iframe src="https://www.baidu.com/"></iframe> -->
-    <iframe></iframe>
+    </header> -->
+    <iframe :src="$store.state.num"></iframe>
   </div>
 </template>
 

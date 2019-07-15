@@ -25,10 +25,17 @@ var router = new VueRouter({
       component: home
     }, {
       path: '/detail',
+      name: '/detail',
       component: detail
     }
   ]
 });
+
+var store = new Vuex.Store({
+  state: {
+    num: '',
+  }
+})
 
 
 
@@ -41,4 +48,5 @@ Vue.config.productionTip = false
 new Vue({
   router,
   render: h => h(App),
+  store,
 }).$mount('#app')
