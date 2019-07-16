@@ -14,6 +14,11 @@ Vue.use(VueAxios, axios)
 Vue.use(VueRouter)
 Vue.use(VueLazyload)
 
+var  store =  new Vuex.Store({
+  state:{
+     count:null, 
+  },
+})
 
 var router = new VueRouter({
   routes:[
@@ -31,6 +36,7 @@ var router = new VueRouter({
 Vue.config.productionTip = false
 
 new Vue({
+  store,
   render: h => h(App),
  router,
 }).$mount('#app')
