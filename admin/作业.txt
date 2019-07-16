@@ -13,3 +13,6 @@
 1、定义类似  container>header+main+footer   插槽布局
 2、注册全局组件： 商品选项卡、总价格banner条、计数器
 3、要求样式+适配完美，功能无bug。
+
+
+7.16作业：用两套第三方ui组件快速制作 登录注册页面（vue-puzzle-vcode、elementui）
