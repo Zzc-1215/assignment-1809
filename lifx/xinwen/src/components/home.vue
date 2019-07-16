@@ -6,7 +6,7 @@
     <div id="wrapper" style="height:100%;width:100%;position:relative;">
       <ul class="news_list">
         <li style="text-align:center;line-height:50px">{{refash}}</li>
-        <li v-for="(item,index) in newslist" :key="index">
+        <li v-for="(item,index) in newslist" :key="index" @click="jump(item.title,item.surl)">
           <p>{{item.title,}}</p>
           <div>
             <img v-lazy="item.multi_imgs[0]" alt />
@@ -57,12 +57,19 @@ export default {
     navBar
   },
   methods: {
+    jump(item,item1){
+      // console.log(item,item1);
+      this.$store.commit('add',item);
+      this.$store.commit('ad',item1)
+      location.href='http://localhost:8080/#/detail'
+    },
     getNewsList(event) {
       this.currentType = event || "astro";
       this.currentType = event ? this.currentType = event : 'astro';
       // this.currentType = event ? (this.currentType = event) : "astro";
       this.axios
         .get(this.url+"?ext="+this.currentType+this.params+this.currentPage).then((res) => {
+          // console.log(res.data.data)
           if(this.currentPage == 0){
             this.newslist = res.data.data;
           }else{
