@@ -2,7 +2,7 @@
     <div style="height:100%;">
       <!-- {{$store.state.count}} -->
         <div style="position:fixed;top:0; left:0;right:0;background:#fff; height:50px;z-index:1;">
-             <nav-bar :data="menu" @indexChange="switchNav(event)"></nav-bar>
+             <nav-bar :data="menu" @indexChange="getNewsList"></nav-bar>
         </div>
         <div id="wrapper" style="height:100%;width:100%;position:relative;">
             <ul class="news-list">

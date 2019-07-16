@@ -24,6 +24,7 @@ var router = new VueRouter({
   routes:[
     {
       path: '/',
+      name:' ',
       component: home
     },{
       path: '/detail',
