@@ -62,7 +62,7 @@ export default {
 #navBar ul > li {
   list-style: none;
   text-align: center;
-  line-height: 1.5rem;
+  line-height: 1rem;
   font-size: 0.4rem;
   cursor: pointer;
 }
