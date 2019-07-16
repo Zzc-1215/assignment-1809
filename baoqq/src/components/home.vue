@@ -14,14 +14,17 @@
           {{refresh}}
         </li>
         <li v-for="(item,index) in newsList"
-            :key="index">
-          <p>{{item.title}}</p>
-          <div>
-            <!-- 懒加载：其实没有给src绑数据，当滚动到屏幕当前滚动区域的话，就把当前的item.multi_imgs[0]给src属性，就是动态的改变了src -->
-            <img v-lazy="item.multi_imgs[0]">
-            <img v-lazy="item.multi_imgs[1]">
-            <img v-lazy="item.multi_imgs[2]">
-          </div>
+            :key="index"
+            @click="$store.state.num=item.url">
+          <router-link :to="{name:'/detail'}">
+            <p>{{item.title}}</p>
+            <div>
+              <!-- 懒加载：其实没有给src绑数据，当滚动到屏幕当前滚动区域的话，就把当前的item.multi_imgs[0]给src属性，就是动态的改变了src -->
+              <img v-lazy="item.multi_imgs[0]">
+              <img v-lazy="item.multi_imgs[1]">
+              <img v-lazy="item.multi_imgs[2]">
+            </div>
+          </router-link>
           <p class="text_muted">{{item.author_name}}&nbsp;&nbsp;{{item.date}}</p>
         </li>
       </ul>
@@ -35,6 +38,8 @@ import IScroll from 'iscroll/build/iscroll-probe.js';
 
 
 import navBar from './navBar.vue'
+
+// import detail from './detail.vue'
 
 export default {
   data () {
@@ -68,9 +73,13 @@ export default {
     this.getNewsList();
   },
   components: {
-    navBar
+    navBar,
   },
   methods: {
+    // jump (item) {
+    //   location.href = "http://localhost:8080/#/detail";
+    //   console.log(item.title)
+    // },
     getNewsList (event) {
       this.currentType = event || 'astro';
 
@@ -132,7 +141,7 @@ export default {
 
       });
       this.myScroll.on('scrollEnd', function () {
-        console.log(1)
+        // console.log(1)
         if (vm.isrefresh) {
           vm.currentPage = 0;
           vm.getNewsList(vm.currentType);

@@ -10,7 +10,7 @@
 					{{xl}}
 				</div>
 				<li v-for="(item,index) in mian">
-					<h3><a :href="item.vurl">{{item.title}}</a></h3>
+					<h3>{{item.title}}</h3>
 					<img v-lazy="item.multi_imgs[0]">
 					<img v-lazy="item.multi_imgs[1]">
 					<img v-lazy="item.multi_imgs[2]">
@@ -22,12 +22,16 @@
 				</div>
 			</ul>
 		</div>
+		<!-- <template id="xq">
+			<div>
+				Hellow 清晨的粥
+			</div>
+		</template> -->
   </div>
 </template>
 
 <script>
 	import Iscroll from 'iscroll/build/iscroll-probe.js'
-	
 	// console.log(Iscroll)
 	//headlines就是组件在dom上写入它就渲染上了../components/tt.vue里的数据
 	import headlines from '../components/tt.vue'
@@ -68,10 +72,20 @@
 		created() {
 		  this.shuj();
 		},
+		watch:{
+			inxb(val,oldval){
+				var parge=null;
+				if(val!=oldval){
+					this.num=0
+					parge=this.num
+				}
+				return parge;
+			}
+		},
 		methods:{
 			shuj(event){
 				this.inxb=event?this.inxb=event:this.inxb='astro';
-				this.axios.get('/irs/rcd?cid=56&ext='+this.inxb+'&token=c786875b8e04da17b24ea5e332745e0f&num=20&expIds=20190106A13PFT%7C20190108A04MLS&page='+this.num+'').then((data)=>{
+				this.axios.get('/irs/rcd?cid=56&ext='+this.inxb+'&token=c786875b8e04da17b24ea5e332745e0f&num=20&expIds=20190106A13PFT%7C20190108A04MLS&page='+this.inxb+'').then((data)=>{
 					//成功的回调函数
 					if(this.num==0){
 						this.mian=data.data.data
@@ -126,8 +140,9 @@
 					}
 				})
 			}
-		}
+		},
 	}
+	
 </script>
 	
 <style>
