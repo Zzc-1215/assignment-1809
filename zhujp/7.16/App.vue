@@ -19,7 +19,7 @@ export default {
 *{
   padding:0;
   margin:0;
-  box-sizing:border-box;
+  box-size:border-box;
   text-decoration:none;
 }
 body,html,#app{
