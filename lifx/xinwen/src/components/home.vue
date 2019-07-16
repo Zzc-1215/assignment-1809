@@ -6,15 +6,17 @@
     <div id="wrapper" style="height:100%;width:100%;position:relative;">
       <ul class="news_list">
         <li style="text-align:center;line-height:50px">{{refash}}</li>
-        <li v-for="(item,index) in newslist" :key="index" @click="jump(item.title,item.surl)">
-          <p>{{item.title,}}</p>
-          <div>
-            <img v-lazy="item.multi_imgs[0]" alt />
-            <img v-lazy="item.multi_imgs[1]" alt />
-            <img v-lazy="item.multi_imgs[2]" alt />
-          </div>
-          <p class="text_m">{{item.author_name}}&nbsp;&nbsp;&nbsp;&nbsp;{{item.date}}</p>
-        </li>
+        <router-link :to="{name:'/detail'}">
+          <li v-for="(item,index) in newslist" :key="index" @click="jump(item.title,item.surl)">
+            <p>{{item.title,}}</p>
+            <div>
+              <img v-lazy="item.multi_imgs[0]" alt />
+              <img v-lazy="item.multi_imgs[1]" alt />
+              <img v-lazy="item.multi_imgs[2]" alt />
+            </div>
+            <p class="text_m">{{item.author_name}}&nbsp;&nbsp;&nbsp;&nbsp;{{item.date}}</p>
+          </li>
+        </router-link>
       </ul>
     </div>
   </div>
@@ -33,8 +35,9 @@ export default {
       myScroll: null,
       currentType: "astro",
       currentPage: 0,
-      url:'/irs/rcd',
-      params:'&cid=56&ext=games&token=c786875b8e04da17b24ea5e332745e0f&num=20&expIds=20190106A13PFT%7C20190108A04MLS&page=0',
+      url: "/irs/rcd",
+      params:
+        "&cid=56&ext=games&token=c786875b8e04da17b24ea5e332745e0f&num=20&expIds=20190106A13PFT%7C20190108A04MLS&page=0",
       menu: [
         { categroy: "astro", title: "头条" },
         { categroy: "cul", title: "社会" },
@@ -57,25 +60,28 @@ export default {
     navBar
   },
   methods: {
-    jump(item,item1){
+    jump(item, item1) {
       // console.log(item,item1);
-      this.$store.commit('add',item);
-      this.$store.commit('ad',item1)
-      location.href='http://localhost:8080/#/detail'
+      this.$store.commit("add", item);
+      this.$store.commit("ad", item1);
+      // location.href = "http://localhost:8080/#/detail";
     },
     getNewsList(event) {
       this.currentType = event || "astro";
-      this.currentType = event ? this.currentType = event : 'astro';
+      this.currentType = event ? (this.currentType = event) : "astro";
       // this.currentType = event ? (this.currentType = event) : "astro";
       this.axios
-        .get(this.url+"?ext="+this.currentType+this.params+this.currentPage).then((res) => {
+        .get(
+          this.url + "?ext=" + this.currentType + this.params + this.currentPage
+        )
+        .then(res => {
           // console.log(res.data.data)
-          if(this.currentPage == 0){
+          if (this.currentPage == 0) {
             this.newslist = res.data.data;
-          }else{
-            this.newslist = this.newslist.concat(res.data.data)
+          } else {
+            this.newslist = this.newslist.concat(res.data.data);
           }
-          
+
           this.$nextTick(function() {
             if (this.myScroll) {
               this.myScroll.refresh();
@@ -122,12 +128,10 @@ export default {
 <style scoped>
 ul.news_list {
   /* margin-top: 50px; */
- 
 }
 ul.news_list li {
   padding: 5px 20px;
   border-bottom: 10px solid #f4f4f4;
-  
 }
 ul.news_list li p {
   line-height: 1.4em;
