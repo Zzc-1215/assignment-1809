@@ -10,7 +10,7 @@
     <div id="wrapper" style="height:100%;width:100%;position:relative;">
       <ul class="news-list">
           <li style="text-align:center;line-height:30px;">{{refash}}</li>
-        <li v-for="(item,index) in newsList" :key="index">
+        <li v-for="(item,index) in newsList" :key="index" @click="xq(item)">
           <p>{{item.title}}</p>
           <div class="listImgs">
             <img v-lazy="item.multi_imgs[1]" />
@@ -63,9 +63,11 @@ export default {
     navBar
   },
   methods: {
+    xq(item){
+      console.log(item);
+      location.href='http://localhost:8080/#/xq'
+    },
     getNewsList(event) {
-        // this.currentType = event || 'astro';
-        // this.axios.get(this.url+'?ext='+this.currentType+this.params).then
       this.currentType = event ? (this.currentType = event) : this.currentType;
       // console.log(event)
       this.axios
@@ -142,7 +144,6 @@ export default {
   margin-bottom: 10px;
 }
 .news-list {
-  /* margin-top: 50px; */
   background: #f4f4f4;
 }
 .news-list li {
