@@ -1,34 +1,41 @@
 import Vue from 'vue'
 import App from './App.vue'
 import 'swiper/dist/css/swiper.min.css'
-import home from './components/home.vue'
-import detail from './components/detail.vue'
-import VueRouter from 'vue-router'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import VueLazyload from 'vue-lazyload'
-import 'lib-flexible'
- 
+import VueRouter from 'vue-router'
+import detail from './components/detail.vue'
+import home from './components/home.vue'
+import Vuex from 'vuex'
+
+
+Vue.use(VueAxios, axios)
+Vue.use(VueRouter)
 Vue.use(VueLazyload)
 
-Vue.use(VueRouter)
+Vue.use(Vuex)
+
 var router = new VueRouter({
   routes:[
     {
-      path:'/',
-      component:home
+      path: '/',
+      component: home
     },{
-      path:'/detail',
-      component:detail
+      path: '/detail',
+      name:'detail',
+      component: detail
+    },{
+      path:'/xiangqing',
+      name:'xiangqing',
+      component:xiangqing
     }
   ]
 })
 
-Vue.use(VueAxios,axios)
-
 Vue.config.productionTip = false
 
 new Vue({
-  router,
-  render: h => h(App)
+  render: h => h(App),
+ router,
 }).$mount('#app')
