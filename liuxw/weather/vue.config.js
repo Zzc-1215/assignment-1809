@@ -1,8 +1,8 @@
 module.exports={
     devServer:{
         proxy:{
-            '/simpleWeather':{
-                target:"http://apis.juhe.cn",
+            '/api':{
+                target:"https://www.tianqiapi.com/",
                 ws:true,
                 changeOrigin:true
             }
