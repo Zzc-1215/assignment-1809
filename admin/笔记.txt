@@ -160,4 +160,22 @@ Activated/deactivated   组件激活、停用
 		参数2：对象 {path:’home’}
 		参数3：命名的路由｛name：‘user’，params：｛传参｝｝
 		参数4：带查询参数｛…,query{plan:’private’}｝?plan=private
+--路由导航守卫--
+全局类守卫：
+	beforeEach    beforeResolve?   afterEach（钩子）
+路由独享的守卫：
+	beforeEnter?
+组件内的守卫
+	beforeRouteEnter    beforeRouteUpdate?   beforeRouteLeave
+守卫参数：
+	to：即将要进入的目标 路由对象	
+	from: 当前导航正要离开的路由
+	next():一定要调用该方法来 resolve 这个钩子。执行效果依赖 next 方法的调用参数
+		false、error
+		同router-link的to、push的参数
 
+---
+mode: histroy : 路由地址变为路径模式，
+需要注意后台路径所有地址都指向index.html,
+404等页面需要前台来配置
+可以配置 ｛path：*，component： 404｝  **注意路由定义顺序**
