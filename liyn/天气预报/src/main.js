@@ -9,10 +9,9 @@ import vueswiper from 'vue-awesome-swiper'
 import 'swiper/dist/css/swiper.css'
 Vue.use(vueaxios,axios)
 Vue.use(vueswiper)
-Vue.prototype.$axios = axios
 Vue.config.productionTip = false
-
 /* eslint-disable no-new */
+Vue.prototype.$axios = axios
 new Vue({
   el: '#app',
   router,

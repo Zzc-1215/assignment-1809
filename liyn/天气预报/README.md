@@ -1,4 +1,4 @@
-# todaynews
+# weather
 
 > A Vue.js project
 
