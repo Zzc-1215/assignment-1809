@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="title">
-      <span class="el-icon-arrow-left"></span>墨迹天气
+      <span @click="back" class="el-icon-arrow-left"></span>墨迹天气
     </div>
     <div class="sea">
       <input type="text" @input="upcity" v-model="val" class="intxt" />
@@ -38,34 +38,37 @@ export default {
       likelist: [],
       hislist: [],
       val: "",
-      isdata:null
+      isdata: null
     };
   },
   beforeRouteLeave(to, from, next) {
-    if(this.val){
-        next();
+    if (this.val) {
+      next();
     }
   },
   methods: {
+    back() {
+      alert("已经是首页了!");
+    },
     send(val) {
-        if(this.val){
-            this.axios.get("https://www.tianqiapi.com/api/?version=v1&city=" + val)
-        .then(data => {
-            this.isdata=data.data;
-            this.$router.push({name:"today",params:{isdt:this.isdata}})
-        });
-        }else{
-            alert("请输入城市");
-            return;
-        }
-      
+      if (this.val) {
+        this.axios
+          .get("https://www.tianqiapi.com/api/?version=v1&city=" + val)
+          .then(data => {
+            this.isdata = data.data;
+            this.$router.push({ name: "today", params: { isdt: this.isdata } });
+          });
+      } else {
+        alert("请输入城市");
+        return;
+      }
     },
     delall() {
       localStorage.weaarr = "[]";
       this.hislist = [];
     },
     ssinput(v) {
-        this.list=[];
+      this.list = [];
       this.val = v;
     },
     getwea(item) {
@@ -126,6 +129,7 @@ export default {
 </script>
 
 <style scope>
+html,body{-moz-user-select: none; -khtml-user-select: none; user-select: none;}
 * {
   margin: 0;
   padding: 0;
@@ -141,7 +145,7 @@ export default {
 }
 .cai {
   width: 100%;
-  padding: 0px 0.398rem /* 43/108 */;
+  padding: 0rem 0.398rem /* 43/108 */;
   box-sizing: border-box;
   height: auto;
   position: relative;
@@ -172,16 +176,16 @@ export default {
   text-align: center;
   float: left;
   line-height: 0.787rem /* 85/108 */;
-  border-radius: 3px;
+  border-radius: 0.028rem;
   background: #4394e6;
   color: #fff;
-  margin: 0px 0.185rem 0.278rem 0px;
+  margin: 0rem 0.185rem 0.278rem 0rem;
 }
 
 .sea {
   border-bottom: 0.037rem /* 4/108 */ solid #f7f7f7;
   width: 100%;
-  padding: 0px 0.398rem /* 43/108 */;
+  padding: 0rem 0.398rem /* 43/108 */;
   box-sizing: border-box;
   margin-bottom: 0.463rem /* 50/108 */;
   position: relative;
@@ -206,18 +210,21 @@ export default {
 }
 
 .intxt {
-  width: 7.963rem /* 860/108 */;
+  width: 80% /* 860/108 */;
   height: 0.778rem;
   line-height: 0.778rem;
-  border-radius: 3px;
+  border-radius: 0.028rem;
   margin-bottom: 0.185rem /* 20/108 */;
   background: #f2f2f2;
+  float: left;
 }
 
 .inbtn {
-  width: 1.204rem /* 130/108 */;
+  width: 19% /* 130/108 */;
   height: 0.778rem;
-  background: #fff;
+  border: 2px solid #f2f2f2;
+  background: rgb(177, 246, 255);
+  font-size: 0.463rem;
 }
 
 .title {

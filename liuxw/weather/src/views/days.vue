@@ -1,26 +1,26 @@
 <template>
   <div class="box">
-    <div class="header">
-      <span class="el-icon-arrow-left"></span>
-      <p>房山区</p>
+    <div class="title">
+      <span @click="back" class="el-icon-arrow-left"></span>
+      {{list.city}}
     </div>
-    <div class="swiper-container days">
+    <div class="swiper-container days" id="thumbs">
       <div class="swiper-wrapper">
-        <div class="swiper-slide" v-for="(item,index) in list" :key="index">
+        <div class="swiper-slide" v-for="(item,index) in list.data" :key="index">
           <p>{{item.week}}</p>
-          <p>{{item.date}}</p>
+          <p>{{item.date.substring(5)}}</p>
         </div>
       </div>
     </div>
     <div class="swiper-container" id="container">
-      <!-- <div class="swiper-wrapper">
-        <div class="swiper-slide" v-for="(item,index) in list" :key="item+index">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide" v-for="(item,index) in list.data" :key="item+index">
           <div class="deta">
             <p>{{item.tem1}}/{{item.tem2}}</p>
             <p>{{item.wea}}</p>
           </div>
         </div>
-      </div> -->
+      </div>
     </div>
     <div class="wenxintishi">
       <div>
@@ -35,66 +35,72 @@
   </div>
 </template>
 <script>
-import "../main.js";
-export default {
+var updat = null;
+var vm = {
   name: "days",
   data() {
     return {
-      list: null
+      list: this.$route.params.torrow,
+      num: 0
     };
   },
+  beforeRouteEnter(to, from, next) {
+    next(vm => {
+      if (vm.list == undefined) {
+        vm.$router.push({ path: "/" });
+      }
+    });
+  },
   mounted() {
-    if (this.$route.params.torrow) {
-      this.list = this.$route.params.torrow;
-      console.log(this.list);
-    }
-    // if(this.list){
-        var mySwiper = new Swiper(".days", {
+    this.initswiper();
+  },
+  methods: {
+    back() {
+      this.$router.push({ name: "today", params: { isdata: this.list } });
+    },
+    initswiper() {
+      var myswi2 = new Swiper("#container", {
         direction: "horizontal",
-        slidesPerView: 3
+        thumbs: {
+          swiper: {
+            el: "#thumbs",
+            slidesPerView: 5
+          }
+        }
       });
-      var mySwiperto = new Swiper("#container", {
-        direction: "horizontal" // 垂直切换选项
-      });
-    // }
+    }
   }
 };
+export default vm;
 </script>
 <style scope>
+html,body{-moz-user-select: none; -khtml-user-select: none; user-select: none;}
 * {
   margin: 0;
   padding: 0;
 }
 .box {
+  margin: 0 auto;
   width: 10rem;
   min-height: 9.259rem;
 }
-.header {
+.title {
   width: 100%;
-  height: 0.741rem;
-  padding: 0rem 0.185rem;
-  box-sizing: border-box;
-  line-height: 0.741rem;
-  font-size: 0.463rem;
   text-align: left;
-  margin-bottom: 0.556rem;
-  color: #0f0f0f;
+  font-size: 0.463rem /* 50/108 */;
+  height: 0.926rem /* 100/108 */;
+  padding-left: 0.343rem /* 37/108 */;
+  margin: 0.556rem auto;
+  height: 0.556rem /* 60/108 */;
 }
-.header > span {
-  width: 0.63rem;
-  height: 0.741rem;
-  line-height: 0.741rem;
-  display: inline-block;
-  text-align: center;
-}
-.header > p {
+
+.title span {
+  width: 0.926rem /* 100/108 */;
   display: inline-block;
 }
 .days {
   height: 1.37rem;
   margin-bottom: 0.194rem;
-  padding: 0rem 0.185rem;
-  box-sizing: border-box;
 }
 .days > .swiper-slide p:nth-child(1) {
   font-size: 0.407rem;
@@ -105,7 +111,7 @@ export default {
   font-size: 0.278rem;
   color: #cdcdcd;
 }
-.days .swiper-slide-active {
+.days .swiper-slide-thumb-active {
   color: #73b0df;
 }
 #container {
@@ -113,7 +119,7 @@ export default {
   height: 3.704rem;
 }
 #container .swiper-slide {
-  /* padding-top: 1.241rem; */
+  height: 4.63rem;
   background: #7591b6;
 }
 #container .deta {
