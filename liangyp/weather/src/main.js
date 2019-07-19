@@ -8,6 +8,19 @@ Vue.use(VueRouter)
 Vue.use(VueAxios,axios)
 Vue.config.productionTip = false
 
+var router = new VueRouter({
+  routes:[
+    {
+      path: '/',
+      component: home
+    },{
+      path: '/xiangqing',
+      name:'xiangqing',
+      component: xiangqing
+    }
+  ]
+})
+
 new Vue({
   // router,
   render: h => h(App),

@@ -1,13 +1,14 @@
 <template>
     <div class="header">
-      <i class="iconfont fanhui">&#xe60e;</i>
-      <span>墨迹天气</span>
-      <div class="help">
-        <i class="iconfont">&#xe607;</i>
-        |
-        <i class="iconfont">&#xe608;</i>
-      </div>
+        <i class="iconfont fanhui">&#xe60e;</i>
+        <span>墨迹天气</span>
+        <div class="help">
+            <i class="iconfont">&#xe607;</i>
+            |
+            <i class="iconfont">&#xe608;</i>
+        </div>
     </div>
+     
 </template>
 
 <script>
@@ -17,6 +18,15 @@ export default {
 </script>
 
 <style>
+    *{
+        margin: 0;
+        padding: 0;
+        user-select: none;
+    }
+    .container{
+        width: 100%;
+        height: auto;
+    }
     .header{
         width: 100%;
         height: 0.70rem;
@@ -54,4 +64,5 @@ export default {
         font-size: 0.48rem;
         color: #000; 
     }
+    
 </style>

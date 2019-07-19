@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <home></home>
+    <router-view></router-view>
     <div class="search-input">
       <i class="iconfont icon-fangdajing">&#xe622;</i>
       <input type="text" placeholder="请输入城市名,快速查询天气信息" v-model="searchval" @input="searchajax">
@@ -8,17 +9,23 @@
     </div>
     <ul class="search-list" v-if="searchval">
       <li style="text-align:center" v-if="searchArr.length==0">未找到城市</li>
-      <li v-else v-for="item in searchArr" :key="item" @click="particular(item)">{{item.district}}</li>
+      <li v-else v-for="(item,index) in searchArr" :key="index" @click="gotoHome(item)">{{item.district}}&nbsp;&nbsp;&nbsp;{{item.province}}</li>
     </ul>
     <div class="hot-list">
       <h3>猜你想找</h3>
-      <div class="loading" v-if="!showCard">加载中...</div>
-      <ul class="hot-list-box" v-if="showCard">
-        <li class="active">定位</li>
+      <div class="loading" v-if="citylist.length<=0">加载中...</div>
+      <ul class="hot-list-box" v-else>
+        <!-- <li class="active">定位</li> -->
+        <template v-for="(item,index) in citylist">
+          <li @click="gotoHome(item)" v-if="item.province == item.district" :key="index">
+            {{item.district}}
+          </li>
+        </template>
+        
       </ul>
-      <h3>历史记录<span><i class="iconfont">&#xe69c;</i>清空</span></h3>
+      <h3>历史记录<span @click="clearHistory"><i class="iconfont">&#xe69c;</i>清空</span></h3>
       <ul class="hot-list-box">
-        <li>北京</li>
+        <li v-for="(item,index) in historyList" :key="index">{{item.district}}</li>
       </ul>
     </div>
   </div>
@@ -38,18 +45,53 @@ export default {
       cityid:0,
       searchArr:[],
       showCard:false,
+      citylist:[],
+      searchList:[],
+      historyList:[]
     }
   },
   created(){
       this.cityajax();
+      this.getHistory();
+  },
+  watch:{
+    searchval(){
+      this.searchajax();
+    }
   },
   methods: {
+    clearHistory(){
+      localStorage.removeItem('historyCity');
+      this.historyList = [];
+    },
+    getHistory(){
+      if(localStorage.historyCity){
+        this.historyCity = JSON.parse(localStorage.historyCity);
+      }
+    },
+    setHistroy(item){
+      var arr = [];
+      var str = '';
+      if(localStorage.historyCity){
+        arr = JSON.parse(localStorage.historyCity);
+        arr.push(item);
+        str = JSON.stringify(arr);
+      }else{
+        arr.push(item);
+        str = JSON.stringify(arr)
+      }
+      localStorage.historyCity = str;
+    },
+    gotoHome(item){
+      this.setHistroy(item);
+      console.log(item);
+    },
     cityajax(){
-      var getUrl="/simpleWeather/cityList?type='+this.searchval+'&key=e7f3e5f20cf6c3660cb94ca7fac4a4b4"
+      var getUrl="/weather/citys?dtype=&key=3e8a4be6431f59d421bf97a0b1c6717e"
       this.axios.get(getUrl).then((res) => {
         console.log(res.data.result)
         this.citylist = res.data.result;
-        this.showHistory();
+        // this.showHistory();
         this.showCard=true;
       })
     },
@@ -58,6 +100,8 @@ export default {
       this.citylist.forEach(item=>{
         if(item.province.indexOf(this.searchval)>-1||item.district.indexOf(this.searchval)>-1){
           this.searchArr.push(item)
+          this.showCard=true;
+          // console.log(this.searchArr)
         }
       })
     }
@@ -134,7 +178,6 @@ export default {
   padding: 0.3rem;
   box-sizing: border-box;
   overflow: auto;
-  padding-bottom: 2rem;
 }
 .hot-list h3{
   line-height: 0.46rem;
