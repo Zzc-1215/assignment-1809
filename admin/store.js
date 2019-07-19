@@ -23,7 +23,7 @@ var  store =  new Vuex.Store({
     // 访问： this.$store.state....
     // state 不可以直接修改
     state:{
-       count:1, 
+       count:1,
     },
     // 2、mutation   相当于全局methods。是修改state的
     // 方法的第一个参数是state，而不是methods里的this来修改data
@@ -57,8 +57,8 @@ var  store =  new Vuex.Store({
             setTimeout(() => {
                 context.commit('add',n)
             }, 1000);
-            
         }
     }
 });
 export default store;
+
