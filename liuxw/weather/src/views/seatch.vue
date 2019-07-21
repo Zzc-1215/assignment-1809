@@ -85,9 +85,9 @@ export default {
       for (
         var i = 0;
         i < s.length;
-        i++ //遍历每一个文本字符
+        i++ 
       )
-        ret = ret && s.charCodeAt(i) >= 10000; //判断文本字符的unicode值
+        ret = ret && s.charCodeAt(i) >= 10000; 
       return ret;
     },
     upcity() {
@@ -145,37 +145,37 @@ html,body{-moz-user-select: none; -khtml-user-select: none; user-select: none;}
 }
 .cai {
   width: 100%;
-  padding: 0rem 0.398rem /* 43/108 */;
+  padding: 0rem 0.398rem;
   box-sizing: border-box;
   height: auto;
   position: relative;
-  margin-bottom: 1.852rem /* 200/108 */;
+  margin-bottom: 1.852rem;
 }
 
 .tiptitle {
-  height: 0.796rem /* 86/108 */;
-  font-size: 0.407rem /* 44/108 */;
-  line-height: 0.796rem /* 86/108 */;
+  height: 0.796rem;
+  font-size: 0.407rem;
+  line-height: 0.796rem;
   text-align: left;
-  margin-bottom: 0.185rem /* 20/108 */;
+  margin-bottom: 0.185rem;
 }
 
 .del {
-  height: 0.796rem /* 86/108 */;
+  height: 0.796rem;
   position: absolute;
   display: block;
   right: 0.398rem;
   top: 0;
-  font-size: 0.37rem /* 40/108 */;
+  font-size: 0.37rem;
 }
 
 .list li {
-  height: 0.787rem /* 85/108 */;
-  width: 2.626rem /* 316/108 */;
-  font-size: 0.333rem /* 36/108 */;
+  height: 0.787rem;
+  width: 2.626rem;
+  font-size: 0.333rem;
   text-align: center;
   float: left;
-  line-height: 0.787rem /* 85/108 */;
+  line-height: 0.787rem;
   border-radius: 0.028rem;
   background: #4394e6;
   color: #fff;
@@ -183,11 +183,11 @@ html,body{-moz-user-select: none; -khtml-user-select: none; user-select: none;}
 }
 
 .sea {
-  border-bottom: 0.037rem /* 4/108 */ solid #f7f7f7;
+  border-bottom: 0.037rem solid #f7f7f7;
   width: 100%;
-  padding: 0rem 0.398rem /* 43/108 */;
+  padding: 0rem 0.398rem;
   box-sizing: border-box;
-  margin-bottom: 0.463rem /* 50/108 */;
+  margin-bottom: 0.463rem;
   position: relative;
 }
 
@@ -196,31 +196,30 @@ html,body{-moz-user-select: none; -khtml-user-select: none; user-select: none;}
   position: absolute;
   width: 80%;
   height: auto;
-  /* background: red; */
-  top: 0.8rem /* 100/108 */;
+  top: 0.8rem;
   margin: 0 auto;
 }
 
 .mh ul li {
   width: 100%;
   background: #fff;
-  font-size: 0.37rem /* 40/108 */;
+  font-size: 0.37rem;
   text-align: left;
-  height: 0.926rem /* 100/108 */;
+  height: 0.926rem;
 }
 
 .intxt {
-  width: 80% /* 860/108 */;
+  width: 80%;
   height: 0.778rem;
   line-height: 0.778rem;
   border-radius: 0.028rem;
-  margin-bottom: 0.185rem /* 20/108 */;
+  margin-bottom: 0.185rem;
   background: #f2f2f2;
   float: left;
 }
 
 .inbtn {
-  width: 19% /* 130/108 */;
+  width: 19%;
   height: 0.778rem;
   border: 2px solid #f2f2f2;
   background: rgb(177, 246, 255);
@@ -230,15 +229,15 @@ html,body{-moz-user-select: none; -khtml-user-select: none; user-select: none;}
 .title {
   width: 100%;
   text-align: left;
-  font-size: 0.463rem /* 50/108 */;
-  height: 0.926rem /* 100/108 */;
-  padding-left: 0.343rem /* 37/108 */;
+  font-size: 0.463rem;
+  height: 0.926rem;
+  padding-left: 0.343rem;
   margin: 0.556rem auto;
-  height: 0.556rem /* 60/108 */;
+  height: 0.556rem;
 }
 
 .title span {
-  width: 0.926rem /* 100/108 */;
+  width: 0.926rem;
   display: inline-block;
 }
 </style>

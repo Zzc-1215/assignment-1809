@@ -87,15 +87,15 @@ html,body{-moz-user-select: none; -khtml-user-select: none; user-select: none;}
 .title {
   width: 100%;
   text-align: left;
-  font-size: 0.463rem /* 50/108 */;
-  height: 0.926rem /* 100/108 */;
-  padding-left: 0.343rem /* 37/108 */;
+  font-size: 0.463rem;
+  height: 0.926rem;
+  padding-left: 0.343rem;
   margin: 0.556rem auto;
-  height: 0.556rem /* 60/108 */;
+  height: 0.556rem;
 }
 
 .title span {
-  width: 0.926rem /* 100/108 */;
+  width: 0.926rem;
   display: inline-block;
 }
 .days {
