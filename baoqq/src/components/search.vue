@@ -1,13 +1,12 @@
 <template>
   <div class="container">
     <div class="content">
-      <span class="back fl">
-        &lt;
-        <router-link to="/"
-                     style="color:#fff;">
-          返回
-        </router-link>
-      </span>
+      <router-link to="/" style="color:#fff;">
+        <span class="back fl">
+          &lt;
+            房山区 现代管理大学
+        </span>
+      </router-link>
       <div class="fr head_r">
         <span>&bull;&bull;&bull;</span>
         <router-link to="/"
@@ -87,9 +86,9 @@ export default {
     },
     getHistory(){
       if(localStorage.historyCity){
+        // console.log(localStorage.historyCity)
         this.historyList = JSON.parse(localStorage.historyCity);
       }
-      
     },
     saveHistory(item){
       var arr=[];
@@ -102,12 +101,14 @@ export default {
         arr.push(item);
         str = JSON.stringify(arr);
       }
-     
       localStorage.historyCity = str;
+
     },
     gotoHome(item){
       this.saveHistory(item);
-      console.log(item);
+      // console.log(item);
+      // this.$route.push('/weatherDetail');
+      this.$router.push({name:'head',params:{address:item}});
     },
     getCityList () {
       // get("/simpleWeather/cityList?key=3aea42bf8b82624c939c42a0f1c57e98")
@@ -119,7 +120,7 @@ export default {
       })
     },
     searchCity () {
-      // searchKey 北
+      // searchKey 北  （京）
       this.searchList = [];
       this.cityList.forEach(element => {
         

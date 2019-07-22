@@ -1,6 +1,7 @@
 <template>
   <div class="container">
-    <div class="head">
+    {{$route.params.address}}
+    <!-- <div class="head">
       <div class="fl head_l">
         <span>&lt;</span>
         <span @click="gotoHead">返回</span>
@@ -37,23 +38,17 @@
       </div>
     </div>
     <div class="con clearfix">
-        <!-- 质量 -->
         <div class="quality fl clearfix">质量</div>
-        <!-- 风力 -->
         <div class="fengli fl clearfix">风力</div>
-        <!-- 日出日落 -->
         <div class="sunComeOut fl clearfix">日出日落</div>
-        <!-- 限行尾号 -->
         <div class="weihao fl clearfix">1和6</div>
-    </div>
+    </div> -->
   </div>
 </template>
 
 
 <script>
 
-import Swiper from 'swiper';
-import 'swiper/dist/css/swiper.min.css';
 
 
 export default {
@@ -67,14 +62,14 @@ export default {
       this.$router.push('/')
     },
     gotoWeatherDetail () {
-      this.$router.push('/weatherDetail');
+      // this.$router.push('/weatherDetail');
     }
   },
   mounted () {
-    var mySwiper = new Swiper('.swiper-container', {
-      autoplay: true,
-      loop: true
-    })
+    // var mySwiper = new Swiper('.swiper-container', {
+    //   autoplay: true,
+    //   loop: true
+    // })
   }
 }
 </script>

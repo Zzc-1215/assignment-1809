@@ -10,20 +10,23 @@
         <span class="circle">&omicron;</span>
       </div>
     </div>
-    <div class="content">
-      <div class="address"
-           @click="gotoSearch">房山区 现代管理大学</div>
+    <div class="loading" v-if="datas.length<=0">加载中。。。</div>
+    <div class="content" v-else>
+      <div class="address" v-if="welcome==this.$route.params.address" @click="gotoSearch">房山区 现代管理大学</div>
+      <div class="address" v-else @click="gotoSearch">
+        {{welcome.province+' '+ welcome.city+' ' +welcome.district}}
+      </div>
       <div class="broadcast">“35度计划”福利继续，快来参加</div>
       <div class="degBox">
         <!-- 温度 -->
-        <div class="deg">28&deg;</div>
+        <div class="deg">{{datas.realtime.temperature}}&deg;</div>
         <!-- 多云 -->
         <div class="weather">
-          <div class="duoyun fl clearfix">多云</div>
-          <div class="yellow fr clearfix">82良</div>
+          <div class="duoyun fl clearfix">{{datas.realtime.info}}</div>
+          <div class="yellow fr clearfix">{{datas.realtime.power}}</div>
         </div>
         <!-- 风向 -->
-        <div class="feng">风向1级 湿度66% 气压1003hpa</div>
+        <div class="feng">风向{{datas.realtime.direct}}  湿度{{datas.realtime.aqi}}%</div>
         <!-- 降雨 -->
         <div class="jiangyu clearfix">
           <div class="jiangyu_l fl clearfix">
@@ -31,15 +34,27 @@
             <span class="fr">></span>
           </div>
           <div class="jiangyu_r fr clearfix">
-            1905号台风“丹娜丝”来袭，关注动态
+            1905号台风“丹娜丝”来袭
             <span class="fr">></span>
           </div>
         </div>
       </div>
       <!-- 天气情况 -->
       <div class="tianqi clearfix">
-        <div class="tianqi_l fl clearfix" @click="gotoWeatherDetail">今天</div>
-        <div class="tianqi_r fr clearfix">明天</div>
+        <div class="tianqi_l fl clearfix" @click="gotoWeatherDetail(datas)">
+          今天
+          <p style="float:right;margin-right:0.3rem;">
+            {{datas.future[0].temperature}}&deg;
+          </p>
+        <div>{{datas.future[0].weather}}</div>
+        </div>
+        <div class="tianqi_r fr clearfix"  @click="gotoWeatherDetail(datas)">
+          明天
+          <p style="float:right;margin-right:0.3rem;">
+            {{datas.future[1].temperature}}&deg;
+          </p>
+        <div>{{datas.future[1].weather}}</div>
+        </div>
       </div>
     </div>
 
@@ -52,16 +67,32 @@
 export default {
   data () {
     return {
+      datas:[],
+      welcome:this.$route.params.address,
+      wel:this.$route.params.address.city,
 
     }
   },
+  created () {
+    console.log(this.welcome);
+    this.shuj()
+    console.log(this.datas)
+  },
   methods: {
+    shuj() {
+      this.axios.get("./detail.json").then(res => {
+        console.log(res.data.result);
+        var data = res.data.result;
+        this.datas = data;
+        console.log(data);
+      });
+    },
     gotoSearch () {
       this.$router.push('/search')
     },
-    gotoWeatherDetail(){
-      this.$router.push('/weatherDetail');
-    }
+    gotoWeatherDetail(item){
+      this.$router.push({name:'futureWeather',params:{add:item}})
+    },
   }
 }
 </script>
